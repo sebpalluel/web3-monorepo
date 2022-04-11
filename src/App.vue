@@ -1,23 +1,23 @@
 <template>
-  <v-app>
-    <v-main>
-      <HelloWorld />
-    </v-main>
-  </v-app>
+    <v-app>
+        <v-main>
+            <HelloWorld />
+        </v-main>
+    </v-app>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import HelloWorld from './components/HelloWorld.vue'
 
 export default {
-  name: "App",
+    name: 'App',
 
-  components: {
-    HelloWorld,
-  },
+    components: {
+        HelloWorld
+    },
 
-  data: () => ({
-    //
-  }),
-};
+    data: () => ({
+        //
+    })
+}
 </script>
