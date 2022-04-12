@@ -11,7 +11,7 @@
   "dependencies": {
     "@apollo/client": "^3.5.10",
     "@mdi/font": "5.9.55",
-    "@vue/apollo-option": "*",
+    "@vue/apollo-composable": "*",
     "graphql": "^16.3.0",
     "graphql-tag": "^2.12.6",
     "roboto-fontface": "*",
