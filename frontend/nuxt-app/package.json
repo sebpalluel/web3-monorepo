@@ -1,0 +1,47 @@
+{
+    "private": true,
+    "scripts": {
+        "build": "nuxt build",
+        "dev": "nuxt dev",
+        "generate": "nuxt generate",
+        "preview": "nuxt preview"
+    },
+    "devDependencies": {
+        "@nuxtjs/eslint-module": "^3.1.0",
+        "@nuxtjs/stylelint-module": "^4.1.0",
+        "@typescript-eslint/eslint-plugin": "^5.21.0",
+        "@typescript-eslint/parser": "^5.21.0",
+        "@vue/eslint-config-standard": "^6.1.0",
+        "eslint": "^7.32.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-nuxt": "^3.2.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "eslint-plugin-vue": "^7.20.0",
+        "husky": "^7.0.4",
+        "lint-staged": "^12.3.1",
+        "nuxt": "3.0.0-rc.1",
+        "stylelint": "^14.8.0",
+        "stylelint-config-standard": "^24.0.0"
+    },
+    "dependencies": {
+        "@apollo/client": "^3.5.10",
+        "@mdi/font": "5.9.55",
+        "@vue/apollo-composable": "*",
+        "graphql": "^16.3.0",
+        "graphql-tag": "^2.12.6",
+        "roboto-fontface": "*",
+        "sass": "^1.50.0",
+        "vuetify": "^3.0.0-beta.1",
+        "webfontloader": "^1.0.0"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "*.{js}": "eslint --fix",
+        "*.{css,scss,vue}": "stylelint --fix",
+        "*": "prettier -w -u"
+    }
+}
