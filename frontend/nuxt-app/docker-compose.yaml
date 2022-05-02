@@ -1,0 +1,10 @@
+version: '3.9'
+
+services:
+  nuxt3:
+    build:
+      context: .
+      dockerfile: nuxt3.dockerfile
+    ports:
+       - 3000:3000
+       - 24678:24678

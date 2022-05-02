@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { gql } from '@apollo/client/core'
+import gql from 'graphql-tag'
 import { useQuery } from '@vue/apollo-composable'
 
 const CHARACTERS_QUERY = gql`
