@@ -1,0 +1,4 @@
+graphene>=2.1.7
+graphene-django>=2.15.0
+django>=4.0.0
+django-graphql-jwt>=0.3.4

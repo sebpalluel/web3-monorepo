@@ -7,8 +7,60 @@ services:
       dockerfile: frontend.dockerfile.local
     restart: always
     ports:
-       - 3000:3000
-       - 24678:24678
+      - 3000:3000
+      - 24678:24678
     volumes:
       - ./frontend:/frontend
       - /frontend/node_modules
+  
+  django:
+    build: ./backend/django
+    container_name: backend-django
+    # restart: always
+    stdin_open: true
+    tty: true
+    depends_on:
+      - 'postgres'
+    volumes:
+      - ./backend/django:/backend
+    environment:
+      PYTHONUNBUFFERED: 1
+      DJANGO_SECRET: 'Q3d5ymmEjNBw37XQdL4xeRVvDCxgvqFrisALR4bng-0' # *** CHANGE THIS ***
+    ports:
+      - "8000:8000"
+  postgres:
+    image: postgres:12
+    container_name: backend-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_DB: 'postgres'
+      POSTGRES_PASSWORD: 'password'
+  hasura:
+    image: hasura/graphql-engine:latest.cli-migrations-v2
+    container_name: backend-hasura
+    volumes:
+      - ./backend/hasura/migrations:/hasura-migrations
+      - ./backend/hasura/metadata:/hasura-metadata
+    ports:
+      - "8080:8080"
+    depends_on:
+      - 'postgres'
+      - 'django'
+    # restart: always
+    environment:
+      ## postgres database to store Hasura metadata
+      HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://postgres:password@postgres:5432/postgres
+      ## this env var can be used to add the above postgres database to Hasura as a data source. this can be removed/updated based on your needs
+      PG_DATABASE_URL: postgres://postgres:password@postgres:5432/postgres
+      ## enable the console served by server
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
+      ## enable debugging mode. It is recommended to disable this in production
+      HASURA_GRAPHQL_DEV_MODE: "true"
+      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+      ## uncomment next line to set an admin secret
+      # HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
+      HASURA_GRAPHQL_UNAUTHORIZED_ROLE: 'public'
+      HASURA_GRAPHQL_DATABASE_URL: 'postgres://postgres:password@postgres:5432/postgres'
+      HASURA_GRAPHQL_ADMIN_SECRET: 'password'
+      HASURA_GRAPHQL_JWT_SECRET: '{ "type": "HS256", "key": "Q3d5ymmEjNBw37XQdL4xeRVvDCxgvqFrisALR4bng-0" }' # *** CHANGE THIS ***
