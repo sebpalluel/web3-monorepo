@@ -1,0 +1,14 @@
+version: '3.9'
+
+services:
+  frontend:
+    build:
+      context: frontend
+      dockerfile: frontend.dockerfile.local
+    restart: always
+    ports:
+       - 3000:3000
+       - 24678:24678
+    volumes:
+      - ./frontend:/frontend
+      - /frontend/node_modules

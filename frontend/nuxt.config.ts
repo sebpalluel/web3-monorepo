@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     },
     vite: {
         define: {
-            'process.env.DEBUG': 'false'
+            'process.env.DEBUG': false
         }
     }
 })

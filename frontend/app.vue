@@ -1,20 +1,16 @@
 <template>
     <div>
         <NuxtWelcome />
-        <v-app>
-            <v-main>
-                <p v-if="error">Something went wrong...</p>
-                <p v-else-if="loading">Loading...</p>
-                <p
-                    v-for="character in result.characters.results"
-                    v-else
-                    :key="character.id"
-                >
-                    {{ character.name }}
-                </p>
-                <div></div>
-            </v-main>
-        </v-app>
+        <p v-if="error">Something went wrong...</p>
+        <p v-else-if="loading">Loading...</p>
+        <p
+            v-for="character in result.characters.results"
+            v-else
+            :key="character.id"
+        >
+            {{ character.name }}
+        </p>
+        <div></div>
     </div>
 </template>
 
