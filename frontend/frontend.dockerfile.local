@@ -7,7 +7,7 @@ WORKDIR /frontend
 COPY package*.json ./
 
 # install project dependencies
-RUN npm install
+RUN npm install && npm run build
 
 # copy project files and folders to the current working directory (i.e. 'app' folder)
 COPY . .

@@ -3,3 +3,7 @@ Dockerfile
 .git/
 .gitignore
 .dockerignore
+.nuxt
+.nitro
+.cache
+.output
