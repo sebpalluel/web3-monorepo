@@ -1,14 +1,19 @@
 import { HasuraModule } from '@golevelup/nestjs-hasura';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserService } from './user/user.service';
+import { DidModule } from './did/did.module';
 const path = require('path');
 
 @Module({
   imports: [
-    GraphQLModule.forRoot({ autoSchemaFile: true }),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: true,
+    }),
     HasuraModule.forRoot(HasuraModule, {
       webhookConfig: {
         /**
@@ -32,6 +37,7 @@ const path = require('path');
         },
       },
     }),
+    DidModule,
   ],
   controllers: [AppController],
   providers: [AppService, UserService],
