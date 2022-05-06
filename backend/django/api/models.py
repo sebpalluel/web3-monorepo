@@ -1,18 +1,22 @@
 from django.db import models
-from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from uuid import uuid4
 
-# Create your models here.
-active_roles=(
+def generateUUID():
+    return str(uuid4())
+
+ROLES=(
     ("user", "user"),
-    ("manager", "manager")
+    ("editor", "editor")
 )
 
 class profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    role = models.CharField(max_length=120, choices=active_roles, default="user")
+    role = models.CharField(max_length=120, choices=ROLES, default="user")
+    registration_sent = models.BooleanField(default=False)
+    uuid = models.UUIDField(default=generateUUID, unique=True)
     
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

@@ -1,21 +1,33 @@
 version: '3.9'
 
 services:
-  frontend:
-    build:
-      context: frontend
-      dockerfile: frontend.dockerfile.local
+
+  svelte:
+    image: node:lts
+    container_name: client-svelte
     restart: always
+    command: bash -c "npm install && HOST=0.0.0.0 npm run dev"
     ports:
-      - 3000:3000
-      - 24678:24678
+      - "127.0.0.1:35729:35729" # Live Reload
+      - "127.0.0.1:8088:8088"
+    working_dir: /home/node/apps/app
     volumes:
-      - ./frontend:/frontend
-      - /frontend/node_modules
+      - ./clients/svelte:/home/node/apps/app
+  # frontend:
+  #   build:
+  #     context: frontend
+  #     dockerfile: frontend.dockerfile.local
+  #   restart: always
+  #   ports:
+  #     - 3000:3000
+  #     - 24678:24678
+  #   volumes:
+  #     - ./frontend:/frontend
+  #     - /frontend/node_modules
   
   django:
     build: ./backend/django
-    container_name: backend-django
+    container_name: django
     # restart: always
     stdin_open: true
     tty: true
@@ -38,10 +50,10 @@ services:
       POSTGRES_PASSWORD: 'password'
 
   hasura:
-    image: hasura/graphql-engine:latest.cli-migrations-v2
+    image: hasura/graphql-engine:v2.6.1.cli-migrations-v3
     volumes:
-      - ./hasura/migrations:/hasura-migrations
-      - ./hasura/metadata:/hasura-metadata
+      - ./backend/hasura/migrations:/hasura-migrations
+      - ./backend/hasura/metadata:/hasura-metadata
     container_name: hasura
     restart: always
     depends_on:
@@ -56,7 +68,6 @@ services:
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
       ## uncomment next line to set an admin secret
       HASURA_GRAPHQL_ADMIN_SECRET: password
-      REMOTE_SCHEMA_ENDPOINT: http://host.docker.internal:8000/graphql
     ports:
       - "127.0.0.1:8080:8080"
     extra_hosts:
