@@ -48,10 +48,13 @@ services:
       POSTGRES_USER: 'postgres'
       POSTGRES_DB: 'postgres'
       POSTGRES_PASSWORD: 'password'
+    volumes:
+      - db_data:/var/lib/postgresql/data
 
   hasura:
     image: hasura/graphql-engine:v2.6.1.cli-migrations-v3
     volumes:
+      - ./backend/hasura:/hasura
       - ./backend/hasura/migrations:/hasura-migrations
       - ./backend/hasura/metadata:/hasura-metadata
     container_name: hasura
@@ -60,15 +63,21 @@ services:
       - 'postgres'
       - 'django'
     environment:
-      HASURA_GRAPHQL_ENABLE_CONSOLE: 'true'
-      HASURA_GRAPHQL_DEV_MODE: 'true'
-      HASURA_GRAPHQL_UNAUTHORIZED_ROLE: 'public'
-      HASURA_GRAPHQL_DATABASE_URL: 'postgres://postgres:password@postgres:5432/postgres'
+      # enable the console served by server
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "false" # this "console" does not save migrations, we need the "hasura-cli console" for that.
+      # enable debugging mode. It is recommended to disable this in production
+      HASURA_GRAPHQL_DEV_MODE: "true"
+      HASURA_GRAPHQL_METADATA_DATABASE_URL: 'postgres://postgres:password@postgres:5432/postgres'
+      PG_DATABASE_URL: 'postgres://postgres:password@postgres:5432/postgres'
       HASURA_GRAPHQL_JWT_SECRET: '{ "type": "HS256", "key": "Q3d5ymmEjNBw37XQdL4xeRVvDCxgvqFrisALR4bng-0" }' # *** CHANGE THIS ***
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
       ## uncomment next line to set an admin secret
       HASURA_GRAPHQL_ADMIN_SECRET: password
     ports:
-      - "127.0.0.1:8080:8080"
+      - "8080:8080"
+      - "9695:9695"
+      - "9693:9693"
     extra_hosts:
       - "host.docker.internal:host-gateway"
+volumes:
+  db_data:
