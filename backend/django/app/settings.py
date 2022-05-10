@@ -90,18 +90,18 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    },
     # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'postgres',
-    #     'USER': 'postgres',
-    #     'PASSWORD': 'password',
-    #     'HOST': 'blog-postgres',
-    #     'PORT': '5432',
-    # }
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # },
+ 'default': {
+     'ENGINE': 'django.db.backends.postgresql',
+     'NAME': 'postgres',
+     'USER': 'postgres',
+     'PASSWORD': 'password',
+     'HOST': 'postgres',
+     'PORT': '5432',
+ }
 }
 
 
@@ -165,3 +165,5 @@ SIMPLE_JWT = {
 CSRF_COOKIE_SECURE = False
 CSRF_TRUSTED_ORIGINS = ['http://localhost']
 CORS_ORIGIN_WHITELIST = ['http://localhost:8080', 'http://localhost:3000']
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
