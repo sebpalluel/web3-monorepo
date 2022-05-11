@@ -18,3 +18,8 @@ Run all the container
 ```zsh
 docker-compose up
 ```
+
+## Clean the project
+```zsh
+npm run clean
+```
