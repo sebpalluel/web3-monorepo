@@ -5,7 +5,7 @@ services:
   svelte:
     image: node:lts
     container_name: client-svelte
-    restart: always
+    restart: unless-stopped
     command: bash -c "npm install && HOST=0.0.0.0 npm run dev"
     ports:
       - "127.0.0.1:35729:35729" # Live Reload
@@ -17,7 +17,7 @@ services:
   #   build:
   #     context: frontend/client
   #     dockerfile: frontend.dockerfile.local
-  #   restart: always
+  #   restart: unless-stopped
   #   ports:
   #     - 3000:3000
   #     - 24678:24678
@@ -28,7 +28,7 @@ services:
   django:
     build: ./backend/django
     container_name: django
-    # restart: always
+    restart: unless-stopped
     stdin_open: true
     tty: true
     depends_on:
@@ -43,7 +43,7 @@ services:
   postgres:
     image: postgres:12
     container_name: postgres
-    restart: always
+    restart: unless-stopped
     environment:
       POSTGRES_USER: 'postgres'
       POSTGRES_DB: 'postgres'
@@ -58,7 +58,7 @@ services:
       - ./backend/hasura/migrations:/hasura-migrations
       - ./backend/hasura/metadata:/hasura-metadata
     container_name: hasura
-    restart: always
+    restart: unless-stopped
     depends_on:
       - 'postgres'
       - 'django'

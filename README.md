@@ -1,25 +1,23 @@
 # Governance
 
-## How to install ?
-### Locally
-1. Install all Js workspaces (you need at least npm>=7)
+## How to run the project ?
+Run all the docker container and deploy the proxy console for hasura
 ```zsh
-npm i
-```
-### With Docker
-Build all the containers
-```zsh
-docker-compose build
+make
+make hasura-console
 ```
 
-## How to run the project ?
-### With Docker
-Run all the container
-```zsh
-docker-compose up
-```
+
+## Project structure
+- [**Hasura console**](http://localhost:9695/console)
+The console is used as a backoffice to handle the graphQL server and to innerlink all the microservices.
+- [**Vue client**](http://localhost:3000/)
+This is the main web app client used to access the whole array of services.
+- [**Django admin**](http://localhost:8000/admin/)
+The admin backoffice is used to manage the different accounts
+
 
 ## Clean the project
 ```zsh
-npm run clean
+make clean
 ```
