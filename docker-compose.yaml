@@ -15,14 +15,14 @@ services:
       - ./clients/svelte:/home/node/apps/app
   # frontend:
   #   build:
-  #     context: frontend
+  #     context: frontend/client
   #     dockerfile: frontend.dockerfile.local
   #   restart: always
   #   ports:
   #     - 3000:3000
   #     - 24678:24678
   #   volumes:
-  #     - ./frontend:/frontend
+  #     - ./frontend/client:/frontend
   #     - /frontend/node_modules
   
   django:
