@@ -43,20 +43,9 @@ compose() {
     docker-compose $@
 }
 
-# install all submodules with lerna
+# install all submodules
 install() {
-    for dir in backend frontend; do
-        {
-            mkdir -p $dir/node_modules/.yarn_cache
-            yarn install --cwd $dir --cache-folder $dir/node_modules/.yarn_cache | sed "s/^/[$dir] /"
-            if [ "${PIPESTATUS[0]}" = "0" ]; then
-                printf "\e[32mSUCCESS $dir\e[0m\n"
-            else
-                printf "\e[31mFAILED $dir\e[0m\n"
-                exit 1
-            fi
-        } &
-    done
+    yarn install && `cd backend`
     wait $(jobs -p)
 }
 

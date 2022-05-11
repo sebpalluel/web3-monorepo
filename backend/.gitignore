@@ -1,9 +1,0 @@
-__pycache__
-*.pyc
-tz*.json
-log
-django.mo
-eqs_wpo/static/eqs_wpo/dist/
-main/settings/media/*
-eqs/templates/auto-*/*
-.python-version
