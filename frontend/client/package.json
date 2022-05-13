@@ -42,7 +42,7 @@
         }
     },
     "lint-staged": {
-        "*.{js}": "eslint --fix",
+        "*.{js, ts}": "eslint --fix",
         "*.{css,scss,vue}": "stylelint --fix",
         "*": "prettier -w -u"
     }
