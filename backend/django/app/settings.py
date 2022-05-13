@@ -33,8 +33,9 @@ SECRET_KEY = os.environ['DJANGO_SECRET']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = ['localhost', 'host.docker.internal']
+# Change depending of env for staging/formation/prod
+ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['localhost', 'host.docker.internal']
 
 
 # Application definition
