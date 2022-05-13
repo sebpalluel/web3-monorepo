@@ -25,5 +25,8 @@ update:
 	@git submodule update
 	@git submodule foreach 'git checkout main && git pull || :'
 
-clean:
+prune:
+	@docker-compose rm -f
+
+clean:	prune
 	@npm run clean
