@@ -5,7 +5,7 @@ WORKDIR /frontend
 RUN chown -R node:node /frontend
 
 # copy both 'package.json' and 'package-lock.json' (if available)
-COPY --chown=node:node package*.json .
+COPY --chown=node:node package*.json ./
 
 # install project dependencies
 RUN npm install && npm run build

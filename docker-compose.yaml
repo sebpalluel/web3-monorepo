@@ -24,7 +24,6 @@ services:
       - 24678:24678
     volumes:
       - ./frontend/client:/frontend
-      - /frontend/node_modules
   
   django:
     build: 
