@@ -2,32 +2,35 @@ version: '3.9'
 
 services:
 
-  svelte:
-    image: node:lts
-    container_name: client-svelte
-    restart: unless-stopped
-    command: bash -c "npm install && HOST=0.0.0.0 npm run dev"
-    ports:
-      - "127.0.0.1:35729:35729" # Live Reload
-      - "127.0.0.1:8088:8088"
-    working_dir: /home/node/apps/app
-    volumes:
-      - ./clients/svelte:/home/node/apps/app
-  # frontend:
-  #   build:
-  #     context: frontend/client
-  #     dockerfile: frontend.dockerfile.local
+  # svelte:
+  #   image: node:lts
+  #   container_name: client-svelte
   #   restart: unless-stopped
+  #   command: bash -c "npm install && HOST=0.0.0.0 npm run dev"
   #   ports:
-  #     - 3000:3000
-  #     - 24678:24678
+  #     - "127.0.0.1:35729:35729" # Live Reload
+  #     - "127.0.0.1:8088:8088"
+  #   working_dir: /home/node/apps/app
   #   volumes:
-  #     - ./frontend/client:/frontend
-  #     - /frontend/node_modules
+  #     - ./clients/svelte:/home/node/apps/app
+  frontend:
+    build:
+      context: frontend/client
+      dockerfile: frontend-client.dockerfile.local
+    container_name: frontend-client
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+      - 24678:24678
+    volumes:
+      - ./frontend/client:/frontend
+      - /frontend/node_modules
   
   django:
-    build: ./backend/django
-    container_name: django
+    build: 
+      context: backend/django
+      dockerfile: backend-django.dockerfile.local
+    container_name: backend-django
     restart: unless-stopped
     stdin_open: true
     tty: true
@@ -57,11 +60,10 @@ services:
       - ./backend/hasura:/hasura
       - ./backend/hasura/migrations:/hasura-migrations
       - ./backend/hasura/metadata:/hasura-metadata
-    container_name: hasura
+    container_name: backend-hasura
     restart: unless-stopped
     depends_on:
       - 'postgres'
-      - 'django'
     environment:
       # enable the console served by server
       HASURA_GRAPHQL_ENABLE_CONSOLE: "false" # this "console" does not save migrations, we need the "hasura-cli console" for that.
