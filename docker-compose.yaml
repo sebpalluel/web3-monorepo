@@ -13,7 +13,7 @@ services:
   #   working_dir: /home/node/apps/app
   #   volumes:
   #     - ./clients/svelte:/home/node/apps/app
-  frontend:
+  frontend-client:
     build:
       context: frontend/client
       dockerfile: frontend-client.dockerfile.local
@@ -25,7 +25,7 @@ services:
     volumes:
       - ./frontend/client:/frontend
   
-  django:
+  backend-django:
     build: 
       context: backend/django
       dockerfile: backend-django.dockerfile.local
@@ -53,7 +53,7 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
 
-  hasura:
+  bacckend-hasura:
     image: hasura/graphql-engine:v2.6.1.cli-migrations-v3
     volumes:
       - ./backend/hasura:/hasura

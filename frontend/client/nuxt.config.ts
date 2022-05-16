@@ -5,7 +5,8 @@ export default defineNuxtConfig({
     buildModules: [
         '@nuxtjs/stylelint-module',
         '@nuxtjs/eslint-module',
-        '@vueuse/nuxt'
+        '@vueuse/nuxt',
+        '@pinia/nuxt'
     ],
     css: ['vuetify/styles'],
     build: {
