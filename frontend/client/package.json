@@ -1,8 +1,10 @@
 {
     "private": true,
+    "name": "client",
+    "version": "0.1.0",
     "scripts": {
         "build": "nuxt build",
-        "dev": "nuxt dev",
+        "dev": "node_modules/.bin/nuxt dev",
         "generate": "nuxt generate",
         "preview": "nuxt preview"
     },
@@ -29,7 +31,6 @@
     "dependencies": {
         "@apollo/client": "^3.5.10",
         "@mdi/font": "5.9.55",
-        "@nuxtjs/composition-api": "^0.32.0",
         "@pinia/nuxt": "^0.1.9",
         "@vue/apollo-composable": "^4.0.0-alpha.16",
         "axios": "^0.27.2",
