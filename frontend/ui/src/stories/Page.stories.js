@@ -1,25 +1,29 @@
-import MyPage from './Page';
-import * as HeaderStories from './Header.stories';
+import { within, userEvent } from '@storybook/testing-library';
+import MyPage from './Page.vue';
 
 export default {
   title: 'Example/Page',
   component: MyPage,
+  parameters: {
+    // More on Story layout: https://storybook.js.org/docs/vue/configure/story-layout
+    layout: 'fullscreen',
+  },
 };
 
-const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
+const Template = () => ({
+  // Components used in your story `template` are defined in the `components` object
   components: { MyPage },
-  template:
-    '<my-page :user="user" @onLogin="onLogin" @onLogout="onLogout" @onCreateAccount="onCreateAccount" />',
+
+  // Here we define the `template`
+  template: '<my-page />',
 });
 
-export const LoggedIn = Template.bind({});
-LoggedIn.args = {
-  // More on composing args: https://storybook.js.org/docs/vue/writing-stories/args#args-composition
-  ...HeaderStories.LoggedIn.args,
-};
-
 export const LoggedOut = Template.bind({});
-LoggedOut.args = {
-  ...HeaderStories.LoggedOut.args,
+
+// More on interaction testing: https://storybook.js.org/docs/vue/writing-tests/interaction-testing
+export const LoggedIn = Template.bind({});
+LoggedIn.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  const loginButton = await canvas.getByRole('button', { name: /Log in/i });
+  await userEvent.click(loginButton);
 };
