@@ -59,8 +59,6 @@ services:
     image: hasura/graphql-engine:v2.6.1.cli-migrations-v3
     volumes:
       - ./backend/hasura:/hasura
-      - ./backend/hasura/migrations:/hasura-migrations
-      - ./backend/hasura/metadata:/hasura-metadata
     container_name: governance_backend_hasura
     restart: unless-stopped
     depends_on:
@@ -70,8 +68,9 @@ services:
       HASURA_GRAPHQL_ENABLE_CONSOLE: "false" # this "console" does not save migrations, we need the "hasura-cli console" for that.
       # enable debugging mode. It is recommended to disable this in production
       HASURA_GRAPHQL_DEV_MODE: "true"
-      HASURA_GRAPHQL_METADATA_DATABASE_URL: 'postgres://postgres:password@postgres:5432/postgres'
-      PG_DATABASE_URL: 'postgres://postgres:password@postgres:5432/postgres'
+      HASURA_GRAPHQL_DATABASE_URL: 'postgres://postgres:password@postgres:5432/postgres'
+      HASURA_GRAPHQL_METADATA_DIR: /hasura/metadata
+      HASURA_GRAPHQL_MIGRATIONS_DIR: /hasura/migrations
       HASURA_GRAPHQL_JWT_SECRET: '{ "type": "HS256", "key": "Q3d5ymmEjNBw37XQdL4xeRVvDCxgvqFrisALR4bng-0" }' # *** CHANGE THIS ***
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
       ## uncomment next line to set an admin secret
