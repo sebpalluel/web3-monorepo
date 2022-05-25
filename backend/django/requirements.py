@@ -13,6 +13,7 @@ uuid>=1.30
 
 # dx
 django-environ
+ipdb
 
 # tests
 pytest
