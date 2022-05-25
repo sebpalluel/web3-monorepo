@@ -6,7 +6,6 @@ from api.models import Profile
 User = get_user_model()
 
 
-
 # Define an inline admin descriptor for Employee model
 # which acts a bit like a singleton
 class profileInline(admin.StackedInline):

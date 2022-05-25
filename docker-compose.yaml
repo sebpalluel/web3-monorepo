@@ -44,6 +44,7 @@ services:
       DJANGO_SUPERUSER_PASSWORD: 'Montreuil#'
       DJANGO_SUPERUSER_USERNAME: 'admin'
       DJANGO_SUPERUSER_EMAIL: 'admin@governance.io'
+      DEBUG: True
     ports:
       - "8000:8000"
   postgres:
