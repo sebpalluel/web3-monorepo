@@ -17,6 +17,10 @@ install:
 build:
 	@docker-compose build
 
+# django create superuser username / password and email are set in environment variables
+populate-backend:
+	@docker-compose exec backend-django ./manage.py createsuperuser --noinput
+
 run:	build
 	@docker-compose up
 
