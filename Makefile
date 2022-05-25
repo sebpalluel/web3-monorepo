@@ -35,11 +35,14 @@ prune:
 clean:	prune
 	@npm run clean
 
-db-reset:
+db-clean:
 	@docker-compose down
 	@docker volume rm governance_db_data
-	run
+	@docker-compose up
 
 db-migrate:
 	@docker-compose exec backend-django python manage.py migrate
+
+db-dump:
+	@docker-compose exec backend-django python manage.py dumpdata --indent=4 api.User > dump.json
 
