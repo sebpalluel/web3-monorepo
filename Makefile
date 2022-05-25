@@ -40,3 +40,6 @@ db-reset:
 	@docker volume rm governance_db_data
 	run
 
+db-migrate:
+	@docker-compose exec backend-django python manage.py migrate
+

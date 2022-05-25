@@ -18,12 +18,12 @@ import os
 # https://github.com/graphql-python/graphene-django/issues/1284#issuecomment-1019998091
 import django
 from django.utils.encoding import force_str
+
 django.utils.encoding.force_text = force_str
 ####
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -95,16 +95,15 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # },
- 'default': {
-     'ENGINE': 'django.db.backends.postgresql',
-     'NAME': 'postgres',
-     'USER': 'postgres',
-     'PASSWORD': 'password',
-     'HOST': 'postgres',
-     'PORT': '5432',
- }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'password',
+        'HOST': 'postgres',
+        'PORT': '5432',
+    }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -124,7 +123,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -137,7 +135,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
@@ -168,3 +165,5 @@ CSRF_TRUSTED_ORIGINS = ['http://localhost']
 CORS_ORIGIN_WHITELIST = ['http://localhost:8080', 'http://localhost:3000']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = "api.User"
