@@ -10,6 +10,11 @@ gunicorn>=20.1.0
 django-cors-headers>=3.11.0
 requests>=2.27.1
 uuid>=1.30
+
+# dx
+django-environ
+
+# tests
 pytest
 pytest-django
-django-environ
+dj-inmemorystorage
