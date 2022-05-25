@@ -56,7 +56,7 @@ services:
       - "5432:5432"
 
   backend-hasura:
-    image: hasura/graphql-engine:v2.6.1.cli-migrations-v3
+    image: hasura/graphql-engine:latest
     volumes:
       - ./backend/hasura:/hasura
     container_name: governance_backend_hasura
