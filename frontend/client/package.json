@@ -4,7 +4,7 @@
     "version": "0.1.0",
     "scripts": {
         "build": "nuxt build",
-        "dev": "node_modules/.bin/nuxt dev",
+        "dev": "nuxt dev",
         "generate": "nuxt generate",
         "preview": "nuxt preview"
     },

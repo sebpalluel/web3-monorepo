@@ -21,7 +21,7 @@ services:
     ports:
       - 3000:3000
       - 24678:24678
-    command: /bin/sh -c "npm run dev"
+    command: /bin/sh -c "yarn dev"
     volumes:
       - ./frontend/client:/frontend
       - client_node_modules:/frontend/node_modules

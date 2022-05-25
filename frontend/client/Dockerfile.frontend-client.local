@@ -1,16 +1,14 @@
 FROM node:lts-alpine
 
-# make the 'frontend' folder the current working directory
+# make the 'frontend' folder the current working directory, in root to avoid access right issues
 WORKDIR /frontend
 
-# To handle 'not get uid/gid'
-RUN npm config set unsafe-perm true
-
-# copy both 'package.json' and 'package-lock.json' (if available)
-COPY package*.json ./
+# # To handle 'not get uid/gid'
+# RUN npm config set unsafe-perm true
 
 # install project dependencies
-RUN npm install
+COPY package.json ./
+RUN yarn
 
 # # copy project files and folders to the current working directory (i.e. 'frontend' folder)
 # COPY --chown=node:node . .

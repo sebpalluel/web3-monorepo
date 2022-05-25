@@ -1,6 +1,6 @@
 {
   "name": "governance",
-  "private": false,
+  "private": true,
   "version": "independant",
   "workspaces": [
     "backend/*",
