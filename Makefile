@@ -17,6 +17,10 @@ install:
 build:
 	@docker-compose build
 
+# django create superuser username / password and email are set in environment variables
+populate-backend:
+	@docker-compose exec backend-django ./manage.py createsuperuser --noinput
+
 run:	build
 	@docker-compose up
 
@@ -30,3 +34,15 @@ prune:
 
 clean:	prune
 	@npm run clean
+
+db-clean:
+	@docker-compose down
+	@docker volume rm governance_db_data
+	@docker-compose up
+
+db-migrate:
+	@docker-compose exec backend-django python manage.py migrate
+
+db-dump:
+	@docker-compose exec backend-django python manage.py dumpdata --indent=4 api.User api.Profile > backend/django/dump.json
+

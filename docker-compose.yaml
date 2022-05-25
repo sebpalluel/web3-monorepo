@@ -28,7 +28,7 @@ services:
       - client_dotnuxt:/frontend/.nuxt
   
   backend-django:
-    build: 
+    build:
       context: backend/django
       dockerfile: Dockerfile.backend-django.local
     restart: unless-stopped
@@ -41,6 +41,11 @@ services:
     environment:
       PYTHONUNBUFFERED: 1
       DJANGO_SECRET: 'Q3d5ymmEjNBw37XQdL4xeRVvDCxgvqFrisALR4bng-0' # *** CHANGE THIS ***
+      DJANGO_SUPERUSER_PASSWORD: 'Montreuil#'
+      DJANGO_SUPERUSER_USERNAME: 'admin'
+      DJANGO_SUPERUSER_EMAIL: 'admin@governance.io'
+      DEBUG: True
+      PYTHONBREAKPOINT: ipdb.set_trace
     ports:
       - "8000:8000"
   postgres:
