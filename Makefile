@@ -44,5 +44,5 @@ db-migrate:
 	@docker-compose exec backend-django python manage.py migrate
 
 db-dump:
-	@docker-compose exec backend-django python manage.py dumpdata --indent=4 api.User api.Profile > dump.json
+	@docker-compose exec backend-django python manage.py dumpdata --indent=4 api.User api.Profile > backend/django/dump.json
 

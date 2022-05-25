@@ -13,7 +13,7 @@ DEFAULT_FILE_STORAGE = "inmemorystorage.InMemoryStorage"
 @pytest.fixture(scope='session')
 def django_db_setup(django_db_setup, django_db_blocker):
     with django_db_blocker.unblock():
-        call_command('loaddata', 'data.json')
+        call_command('loaddata', 'dump.json')
 
 
 class TestService:
