@@ -20,8 +20,9 @@ class TestService:
     def __init__(self):
         self.cache = dict()
 
-    def client(self, email):
-        user = User.objects.get(email=email)
+    def client(self, username):
+        print(f"client for {username}")
+        user = User.objects.get(username=username)
 
         c = APIClient()
         c.force_authenticate(user)
