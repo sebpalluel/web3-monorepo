@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: hasura-console install run
+.PHONY: hasura-console install run clean db-clean db-migrate db-dump prune update populate-backend
 
 all: run
 
