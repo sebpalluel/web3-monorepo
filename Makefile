@@ -34,3 +34,9 @@ prune:
 
 clean:	prune
 	@npm run clean
+
+db-reset:
+	@docker-compose down
+	@docker volume rm governance_db_data
+	run
+
