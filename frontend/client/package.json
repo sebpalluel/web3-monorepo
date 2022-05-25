@@ -1,8 +1,10 @@
 {
     "private": true,
+    "name": "client",
+    "version": "0.1.0",
     "scripts": {
         "build": "nuxt build",
-        "dev": "nuxt dev",
+        "dev": "node_modules/.bin/nuxt dev",
         "generate": "nuxt generate",
         "preview": "nuxt preview"
     },
@@ -12,6 +14,9 @@
         "@typescript-eslint/eslint-plugin": "^5.21.0",
         "@typescript-eslint/parser": "^5.21.0",
         "@vue/eslint-config-standard": "^6.1.0",
+        "@vueuse/core": "^8.4.2",
+        "@vueuse/integrations": "^8.5.0",
+        "@vueuse/nuxt": "^8.4.2",
         "eslint": "^7.32.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-nuxt": "^3.2.0",
@@ -26,9 +31,12 @@
     "dependencies": {
         "@apollo/client": "^3.5.10",
         "@mdi/font": "5.9.55",
+        "@pinia/nuxt": "^0.1.9",
         "@vue/apollo-composable": "^4.0.0-alpha.16",
+        "axios": "^0.27.2",
         "graphql": "^16.3.0",
         "graphql-tag": "^2.12.6",
+        "pinia": "^2.0.14",
         "roboto-fontface": "*",
         "sass": "^1.50.0",
         "vuetify": "^3.0.0-beta.1",
@@ -40,7 +48,7 @@
         }
     },
     "lint-staged": {
-        "*.{js}": "eslint --fix",
+        "*.{js, ts}": "eslint --fix",
         "*.{css,scss,vue}": "stylelint --fix",
         "*": "prettier -w -u"
     }

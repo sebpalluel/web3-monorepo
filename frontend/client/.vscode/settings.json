@@ -1,6 +1,6 @@
 {
-  "eslint.validate": ["vue", "javascript"],
-  "eslint.packageManager": "yarn",
+  "eslint.validate": ["vue", "javascript", "typescript"],
+  "eslint.packageManager": "npm",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true,
     "source.fixAll.stylelint": true

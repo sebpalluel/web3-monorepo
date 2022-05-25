@@ -2,7 +2,10 @@
   "name": "governance",
   "private": false,
   "version": "independant",
-  "workspaces": ["backend/*", "frontend/*"],
+  "workspaces": [
+    "backend/*",
+    "frontend/*"
+  ],
   "scripts": {
     "clean": "npx rimraf ./**/**/node_modules ./**/**/yarn.lock ./**/**/package-lock.json"
   }

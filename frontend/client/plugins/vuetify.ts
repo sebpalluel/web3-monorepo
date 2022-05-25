@@ -12,9 +12,9 @@ export default defineNuxtPlugin(({ vueApp }) => {
             defaultSet: 'md',
             aliases,
             sets: {
-                md,
-            },
-        },
+                md
+            }
+        }
 
         // theme: themeConfig,
     })

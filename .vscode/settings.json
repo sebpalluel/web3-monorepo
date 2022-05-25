@@ -1,0 +1,4 @@
+{
+	"makefile.extensionOutputFolder": "./.vscode",
+	"typescript.format.enable": false
+}
