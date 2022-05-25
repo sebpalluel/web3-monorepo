@@ -21,3 +21,6 @@ The admin backoffice is used to manage the different accounts
 ```zsh
 make clean
 ```
+
+## Doc
+- [**Notion**](https://www.notion.so/governance-assembly)
