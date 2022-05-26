@@ -3,12 +3,15 @@
     "name": "client",
     "version": "0.1.0",
     "scripts": {
-        "build": "nuxt build",
         "dev": "nuxt dev",
+        "build": "nuxt build",
         "generate": "nuxt generate",
-        "preview": "nuxt preview"
+        "start": "nuxt start"
     },
     "devDependencies": {
+        "@nuxt/types": "latest",
+        "@nuxt/typescript-build": "latest",
+        "@nuxtjs/eslint-config-typescript": "^10.0.0",
         "@nuxtjs/eslint-module": "^3.1.0",
         "@nuxtjs/stylelint-module": "^4.1.0",
         "@typescript-eslint/eslint-plugin": "^5.21.0",
@@ -31,6 +34,7 @@
     "dependencies": {
         "@apollo/client": "^3.5.10",
         "@mdi/font": "5.9.55",
+        "@nuxt/typescript-runtime": "^2.1.0",
         "@nuxtjs/axios": "^5.13.6",
         "@pinia/nuxt": "^0.1.9",
         "@vue/apollo-composable": "^4.0.0-alpha.16",

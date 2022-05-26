@@ -33,6 +33,10 @@ const CHARACTERS_QUERY = gql`
 export default {
     setup() {
         const { result, loading, error } = useQuery(CHARACTERS_QUERY)
+        // onMounted(() => {
+        //     // const res = await this.$axios.$get()
+        //     // console.log({res})
+        // })
         return {
             result,
             loading,

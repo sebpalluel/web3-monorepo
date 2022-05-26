@@ -12,16 +12,17 @@ export default defineNuxtConfig({
         // https://go.nuxtjs.dev/axios
         ['@nuxtjs/axios', { proxyHeaders: false }]
     ],
+    plugins: ['~/plugins/axios'],
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
     axios: {
         // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-        baseURL: '/'
+        baseURL: 'http://localhost:8000/api/'
     },
-    publicRuntimeConfig: {
-        axios: {
-            baseURL: 'http://localhost:8000/api/'
-        }
-    },
+    // publicRuntimeConfig: {
+    //     axios: {
+    //         baseURL: 'http://localhost:8000/api/'
+    //     }
+    // },
     // https://nuxtjs.org/docs/features/loading/
     loading: {
         color: 'blue',
