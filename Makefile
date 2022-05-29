@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: hasura-console install run clean db-clean db-migrate db-dump prune update populate-backend
+.PHONY: hasura-console install run clean db-clean db-migrate db-dump prune update populate-backend django-bash
 
 all: run
 
@@ -36,6 +36,9 @@ prune:
 
 clean:	prune
 	@npm run clean
+
+django-bash:
+	@docker-compose exec backend-django bash
 
 db-clean:
 	@docker-compose down
