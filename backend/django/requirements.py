@@ -19,3 +19,4 @@ ipdb
 pytest
 pytest-django
 dj-inmemorystorage
+pytest-cov
