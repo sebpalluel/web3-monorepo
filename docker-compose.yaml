@@ -44,7 +44,6 @@ services:
       DJANGO_SUPERUSER_PASSWORD: 'Montreuil#'
       DJANGO_SUPERUSER_USERNAME: 'admin'
       DJANGO_SUPERUSER_EMAIL: 'admin@governance.io'
-      DEBUG: True
       PYTHONBREAKPOINT: ipdb.set_trace
     ports:
       - "8000:8000"
