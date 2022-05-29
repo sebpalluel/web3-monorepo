@@ -126,6 +126,7 @@ def reset_password_email(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def is_hotdog(request):
+    print("in is_hotdog")
     req_body = json.loads(request.body)
     food = req_body['input']['food']
     if food == 'hotdog':
