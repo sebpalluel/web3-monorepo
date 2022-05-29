@@ -29,7 +29,7 @@
 			const variable = {};
 			const query = `
 				mutation updateProfileEmail($username: String!, $lastLogin: timestamptz!) {
-					update_auth_user(where: {username: {_eq: $username}}, _set: {last_login: $lastLogin}) {
+					update_api_user(where: {username: {_eq: $username}}, _set: {last_login: $lastLogin}) {
 						returning {
 							username
 						}

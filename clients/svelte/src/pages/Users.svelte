@@ -39,7 +39,7 @@
         const variable = {};
         const query = `
             mutation updateUserStatus($userID: Int!, $statusType: Boolean!) {
-                    update_auth_user(where: {id: {_eq: $userID}}, _set: {is_active: $statusType}) {
+                    update_api_user(where: {id: {_eq: $userID}}, _set: {is_active: $statusType}) {
                         returning {
                             username
                         }
@@ -67,7 +67,7 @@
         const variable = {};
         const query = `
             query allUsers($searchQuery: String) {
-                auth_user(where: {_or: [{username: {_ilike: $searchQuery}}, {email: {_ilike: $searchQuery}}]}) {
+                api_user(where: {_or: [{username: {_ilike: $searchQuery}}, {email: {_ilike: $searchQuery}}]}) {
                     id
                     username
                     email
@@ -88,7 +88,7 @@
         });
         const userList = await gqlResponseHandler(request);
         if (userList.success === true){
-            users = userList.response.auth_user;
+            users = userList.response.api_user;
             usersReady = 1;
         } else {
             errorMessage = userList.response;

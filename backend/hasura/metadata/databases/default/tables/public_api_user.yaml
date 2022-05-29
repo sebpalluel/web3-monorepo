@@ -1,6 +1,6 @@
 table:
   schema: public
-  name: auth_user
+  name: api_user
 event_triggers:
   - name: new_registration_email
     definition:
