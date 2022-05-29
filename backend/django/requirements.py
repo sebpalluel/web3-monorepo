@@ -20,3 +20,4 @@ pytest
 pytest-django
 dj-inmemorystorage
 pytest-cov
+freezegun
