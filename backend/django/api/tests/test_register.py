@@ -9,7 +9,7 @@ from api.models import User
 @pytest.mark.django_db
 class TestUser:
     def test_register_by_external(cls, c):
-        assert c.external.post(endpoint).status_code == 401
+        assert c.external.post(endpoint).status_code == 400
 
     def test_register_by_already_registered(cls, c):
         assert c.admin.post(endpoint).status_code == 400
