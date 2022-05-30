@@ -18,4 +18,4 @@ jobs:
     
     - name: Run Tests
       run: |
-        docker-compose exec -T backend-django pytest api/tests/test_register.py
+        docker-compose exec -T backend-django pytest --cov=api/ api/tests/test_register.py

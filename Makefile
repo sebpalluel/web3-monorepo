@@ -1,15 +1,17 @@
 SHELL := /bin/bash
 
-.PHONY: hasura-console install run clean db-clean db-migrate db-dump prune update populate-backend
+.PHONY: hasura-console install run clean db-clean db-migrate db-dump prune update populate-backend django-bash
 
 all: run
 
+# todo : check if hasura-cli exists, if not install it
+# todo: make dockerfile than inherits from latest hasura and installs socat
 hasura-console:
-	@docker-compose exec backend-hasura bash -c "apt-get install -y socat; cd /hasura; \
+	@docker-compose exec backend-hasura bash -c "apt-get update -y && apt-get install -y socat; cd /hasura; \
 		socat TCP-LISTEN:8080,fork TCP:backend-hasura:8080 & \
 		socat TCP-LISTEN:9695,fork,reuseaddr,bind=backend-hasura TCP:127.0.0.1:9695 & \
 		socat TCP-LISTEN:9693,fork,reuseaddr,bind=backend-hasura TCP:127.0.0.1:9693 & \
-		hasura-cli console --log-level DEBUG --address "127.0.0.1" --no-browser || exit 1 "
+		hasura console --log-level DEBUG --address "127.0.0.1" --no-browser || exit 1 "
 
 install:
 	@npm i
@@ -34,6 +36,9 @@ prune:
 
 clean:	prune
 	@npm run clean
+
+django-bash:
+	@docker-compose exec backend-django bash
 
 db-clean:
 	@docker-compose down

@@ -32,7 +32,7 @@ def new_registration_email(request):
         # # Email Creds
         # email_smtp_from = 'YourFrom:Email'
         # email_smtp_from_name = 'YourName'
-        # email_smtp_auth_user = 'AuthUsername'
+        # email_smtp_api_user = 'AuthUsername'
         # email_smtp_auth_pass = 'AuthPassword'
         # email_smtp_auth_host = 'AuthHost'
         # email_smtp_auth_port = 587
@@ -53,7 +53,7 @@ def new_registration_email(request):
         # server.ehlo()
         # server.starttls()
         # server.ehlo()
-        # server.login(email_smtp_auth_user, email_smtp_auth_pass)
+        # server.login(email_smtp_api_user, email_smtp_auth_pass)
         # server.sendmail(email_smtp_from, email, msg.as_string())
         # server.close()
 
@@ -87,7 +87,7 @@ def reset_password_email(request):
         # # Email Creds
         # email_smtp_from = 'YourFrom:Email'
         # email_smtp_from_name = 'YourName'
-        # email_smtp_auth_user = 'AuthUsername'
+        # email_smtp_api_user = 'AuthUsername'
         # email_smtp_auth_pass = 'AuthPassword'
         # email_smtp_auth_host = 'AuthHost'
         # email_smtp_auth_port = 587
@@ -108,7 +108,7 @@ def reset_password_email(request):
         # server.ehlo()
         # server.starttls()
         # server.ehlo()
-        # server.login(email_smtp_auth_user, email_smtp_auth_pass)
+        # server.login(email_smtp_api_user, email_smtp_auth_pass)
         # server.sendmail(email_smtp_from, email, msg.as_string())
         # server.close()
 

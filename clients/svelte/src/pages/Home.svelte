@@ -31,7 +31,7 @@
                 message
                 created_by
                 created_at
-                auth_user {
+                api_user {
                     username
                 }
             }
@@ -193,12 +193,12 @@
                         </div>
 
                         {#each $messageSubscribe.data.demo_realtime as message}
-                            {#if message.auth_user[0].username === username}
+                            {#if message.api_user[0].username === username}
                                 <div class="row mb-sm">
                                     <div class="col-2"></div>
                                     <div class="col-10">
                                         <div class="card pad my-message">
-                                            <p><strong>{message.auth_user[0].username}</strong> <span class="pull-right" style="opacity:0.7">{moment(message.created_at).format('lll')}</span></p>
+                                            <p><strong>{message.api_user[0].username}</strong> <span class="pull-right" style="opacity:0.7">{moment(message.created_at).format('lll')}</span></p>
                                             <p>{message.message}</p>
                                         </div>
                                     </div>
@@ -207,7 +207,7 @@
                                 <div class="row mb-sm">
                                     <div class="col-10">
                                         <div class="card pad other-message">
-                                            <p><strong>{message.auth_user[0].username}</strong> <span class="pull-right" style="opacity:0.7">{moment(message.created_at).format('lll')}</span></p>
+                                            <p><strong>{message.api_user[0].username}</strong> <span class="pull-right" style="opacity:0.7">{moment(message.created_at).format('lll')}</span></p>
                                             <p>{message.message}</p>
                                         </div>
                                     </div>

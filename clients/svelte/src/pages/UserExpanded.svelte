@@ -25,7 +25,7 @@
         const variable = {};
         const query = `
             query getUser($username : String!) {
-                auth_user(where: {username: {_eq: $username}}) {
+                api_user(where: {username: {_eq: $username}}) {
                     email
                     is_active
                     api_profile {
@@ -43,9 +43,9 @@
         });
         const userProfile = await gqlResponseHandler(request);
         if (userProfile.success === true){
-            is_active = userProfile.response.auth_user[0].is_active;
-            email = userProfile.response.auth_user[0].email;
-            role = userProfile.response.auth_user[0].api_profile.role;
+            is_active = userProfile.response.api_user[0].is_active;
+            email = userProfile.response.api_user[0].email;
+            role = userProfile.response.api_user[0].api_profile.role;
         } else {
             errorMessage = userProfile.response;
         }  
@@ -55,7 +55,7 @@
         const variable = {};
         const query = `
             mutation updateUserStatus($username: String!, $statusType: Boolean!) {
-                    update_auth_user(where: {username: {_eq: $username}}, _set: {is_active: $statusType}) {
+                    update_api_user(where: {username: {_eq: $username}}, _set: {is_active: $statusType}) {
                         returning {
                             username
                         }
@@ -83,10 +83,10 @@
         const variable = {};
         const query = `
             mutation updateUser($username: String!, $email: String!, $role: String!) {
-                update_auth_user(where: {username: {_eq: $username}}, _set: {email: $email}){
+                update_api_user(where: {username: {_eq: $username}}, _set: {email: $email}){
                     affected_rows
                 }
-                update_api_profile(where: {auth_user: {username: {_eq: $username}}}, _set: {role: $role}) {
+                update_api_profile(where: {api_user: {username: {_eq: $username}}}, _set: {role: $role}) {
                     affected_rows
                 }
             }

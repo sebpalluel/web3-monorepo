@@ -14,8 +14,11 @@ uuid>=1.30
 # dx
 django-environ
 ipdb
+colorama
 
 # tests
 pytest
 pytest-django
 dj-inmemorystorage
+pytest-cov
+freezegun

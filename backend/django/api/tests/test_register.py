@@ -7,7 +7,7 @@ from api.models import User
 
 
 @pytest.mark.django_db
-class TestUser:
+class TestRegister:
     def test_register_by_external(cls, c):
         assert c.external.post(endpoint).status_code == 400
 
@@ -27,12 +27,12 @@ class TestUser:
         assert 'email' in data
 
     def test_register_ok(cls, c):
-        username = 'foo'
+        # POST : accepts username, email, and password. Returns new user info and a first set of returned tokens.
         email = 'foo@governance.io'
         res = client.Client().post(
             endpoint,
             dict(
-                username=username,
+                username='foo',
                 email=email,
                 password='Montreuil#',
             ),
