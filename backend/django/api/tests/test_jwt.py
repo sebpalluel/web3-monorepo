@@ -3,6 +3,7 @@ import json
 import datetime
 from freezegun import freeze_time
 from rest_framework_simplejwt.state import token_backend
+from django.conf import settings
 
 from django.test import client
 from api.models import User
@@ -61,11 +62,12 @@ class TestJWT:
 
         # 2. Validate token by hitting endpoint
 
+        print("validate token by hitting endpoint")
         assert_jwt(access_token, ok=True)
 
-        # 3. Refresh token 10 seconds later
+        # 3. Refresh token 2 minutes later
 
-        frozen_time.tick(delta=datetime.timedelta(seconds=10))
+        frozen_time.tick(delta=datetime.timedelta(minutes=2))
         res = client.Client().post(
             '/api/token/refresh/',  # POST : accepts refresh token. Provides new access token.
             dict(
@@ -81,8 +83,16 @@ class TestJWT:
         old_access_token = access_token
         access_token = res.data['access']
 
-        # old access token is still valid ('exp' claim still ok)
+        print("checking if old access token is still valid, 'exp' claim still being ok")
         assert_jwt(old_access_token, ok=True)
+        assert_jwt(access_token, ok=True)
+
+        # todo: use settings.SIMPLE_JWT
+        frozen_time.tick(
+            delta=settings.SIMPLE_JWT['ACCESS_TOKEN_LIFETIME'] - datetime.timedelta(minutes=1)
+        )
+        print("a few minutes later, old_access_token is expired, new one still is valid")
+        assert_jwt(old_access_token, ok=False)
         assert_jwt(access_token, ok=True)
 
         # in far future, both tokens are expired
@@ -90,8 +100,6 @@ class TestJWT:
             assert_jwt(old_access_token, ok=False)
             assert_jwt(access_token, ok=False)
 
-        decoded_old = token_backend.decode(old_access_token)
-        decoded_new = token_backend.decode(access_token)
-
-
-        assert decoded_new['exp'] - decoded_old['exp'] >= 10
+        # decoded_old = token_backend.decode(old_access_token)
+        # decoded_new = token_backend.decode(access_token)
+        # assert decoded_new['exp'] - decoded_old['exp'] >= 10
