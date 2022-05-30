@@ -3,7 +3,7 @@
         <v-text-field v-model="formData.email" v-bind="{ label: 'email' }" />
         <v-text-field
             v-model="formData.password"
-            v-bind="{ label: 'password' }"
+            v-bind="{ label: 'password', errorMessages: passwordErrors }"
         />
     </div>
 </template>
@@ -13,10 +13,24 @@
 //     const res = await $axios.$get('log')
 //     console.log({ res })
 // })
-const formData = {
-    email: String,
-    password: String
+
+interface FormData {
+    email: string
+    password: string
 }
+
+let formData: FormData = reactive({
+    email: '',
+    password: ''
+})
+
+let passwordErrors = computed(() => {
+    const errors: string[] = []
+    if (formData.password.length < 8) {
+        errors.push('password must be at least 8 characters')
+    }
+    return errors
+});
 </script>
 
 <style lang="scss" scoped></style>
