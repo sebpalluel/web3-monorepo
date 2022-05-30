@@ -9,6 +9,7 @@ dist/
 docs/_build/
 docs/locale/
 node_modules/
+coverage
 *package-lock.json
 tests/coverage_html/
 tests/.coverage

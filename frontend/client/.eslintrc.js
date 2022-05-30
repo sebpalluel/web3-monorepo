@@ -16,7 +16,7 @@ module.exports = {
         'plugin:prettier/recommended',
         '@nuxtjs/eslint-config-typescript'
     ],
-    plugins: ['@typescript-eslint'],
+    plugins: ['@typescript-eslint', 'prettier'],
     rules: {
         'prettier/prettier': ['error'],
         'vue/script-setup-no-uses-vars': 'off'

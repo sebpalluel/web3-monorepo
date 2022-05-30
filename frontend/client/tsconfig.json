@@ -6,7 +6,9 @@
       // ...
       "@pinia/nuxt",
       "@nuxt/types",
-      "@nuxtjs/axios"
+      "@nuxtjs/axios",
+      "vitest/importMeta",
+      "vitest/globals"
     ]
   }
 }

@@ -35,7 +35,13 @@ export default defineNuxtConfig({
     },
     vite: {
         define: {
-            'process.env.DEBUG': false
+            'process.env.DEBUG': false,
+            'import.meta.vitest': true, // set to false when in prod
         }
+    },
+    // for SSR in prod
+    bridge: {
+        nitro: process.env.NODE_ENV !== 'production',
+        autoImports: true
     }
 })

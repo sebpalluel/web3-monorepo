@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: hasura-console install run clean db-clean db-migrate db-dump prune update populate-backend django-bash
+.PHONY: hasura-console install run clean db-clean db-migrate db-dump prune update populate-backend django-bash test-frontend-client
 
 all: run
 
@@ -51,3 +51,6 @@ db-migrate:
 db-dump:
 	@docker-compose exec backend-django python manage.py dumpdata --indent=4 api.User api.Profile > backend/django/dump.json
 
+# frontend
+test-frontend-client:
+	@docker-compose exec frontend-client yarn test

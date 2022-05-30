@@ -6,14 +6,19 @@
         "dev": "nuxt dev",
         "build": "nuxt build",
         "generate": "nuxt generate",
-        "start": "nuxt start"
+        "start": "nuxt start",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "coverage": "vitest run --coverage"
     },
     "devDependencies": {
+        "@nuxt/test-utils-edge": "^3.0.0-rc.3-27550969.a4a3cff",
         "@nuxt/types": "latest",
         "@nuxt/typescript-build": "latest",
         "@nuxtjs/eslint-config-typescript": "^10.0.0",
         "@nuxtjs/eslint-module": "^3.1.0",
         "@nuxtjs/stylelint-module": "^4.1.0",
+        "@testing-library/vue": "^5.8.3",
         "@typescript-eslint/eslint-plugin": "^5.21.0",
         "@typescript-eslint/parser": "^5.21.0",
         "@vue/eslint-config-standard": "^6.1.0",
@@ -26,10 +31,12 @@
         "eslint-plugin-prettier": "^4.0.0",
         "eslint-plugin-vue": "^7.20.0",
         "husky": "^7.0.4",
+        "jsdom": "^19.0.0",
         "lint-staged": "^12.3.1",
         "nuxt": "3.0.0-rc.3",
         "stylelint": "^14.8.0",
-        "stylelint-config-standard": "^24.0.0"
+        "stylelint-config-standard": "^24.0.0",
+        "vitest": "^0.13.0"
     },
     "dependencies": {
         "@apollo/client": "^3.5.10",
