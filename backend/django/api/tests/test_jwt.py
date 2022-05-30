@@ -34,7 +34,21 @@ def assert_jwt(access_token, ok=True):
         res_json = json.loads(res.content)
         assert 'hotdog' in res_json
     else:
+        assert res.status_code == 401
         assert 'Token is invalid or expired' == res.data['messages'][0]['message']
+
+    res = client.Client().post(
+        '/api/token/verify/',
+        dict(
+            token=access_token,
+        ),
+        'application/json'
+    )
+    if ok:
+        assert res.status_code == 200
+    else:
+        assert res.status_code == 401
+        assert 'Token is invalid or expired' == res.data['detail']
 
 
 @pytest.mark.django_db
