@@ -4,7 +4,11 @@
   "compilerOptions": {
     "types": [
       // ...
-      "@pinia/nuxt"
+      "@pinia/nuxt",
+      "@nuxt/types",
+      "@nuxtjs/axios",
+      "vitest/importMeta",
+      "vitest/globals"
     ]
   }
 }

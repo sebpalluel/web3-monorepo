@@ -8,3 +8,4 @@ Dockerfile
 .cache
 .output
 .vite
+coverage
