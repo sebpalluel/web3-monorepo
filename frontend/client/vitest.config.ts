@@ -2,9 +2,10 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
     test: {
         globals: true,
-        environment: 'jsdom',
+        environment: 'happy-dom',
         deps: {
-            inline: ['@vue', '@nuxt/test-utils-edge', '@testing-library/vue']
+            inline: [
+            '@nuxt/test-utils-edge', '@testing-library/vue']
         }
     }
 })
