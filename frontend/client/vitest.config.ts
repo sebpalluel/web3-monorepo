@@ -4,8 +4,7 @@ export default defineConfig({
         globals: true,
         environment: 'happy-dom',
         deps: {
-            inline: [
-            '@nuxt/test-utils-edge', '@testing-library/vue']
+            inline: ['@nuxt/test-utils-edge']
         }
     }
 })
