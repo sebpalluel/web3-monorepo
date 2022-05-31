@@ -18,7 +18,7 @@
         "@nuxtjs/eslint-config-typescript": "^10.0.0",
         "@nuxtjs/eslint-module": "^3.1.0",
         "@nuxtjs/stylelint-module": "^4.1.0",
-        "@testing-library/vue": "^5.8.3",
+        "@testing-library/vue": "^6.4.2",
         "@typescript-eslint/eslint-plugin": "^5.21.0",
         "@typescript-eslint/parser": "^5.21.0",
         "@vue/eslint-config-standard": "^6.1.0",
