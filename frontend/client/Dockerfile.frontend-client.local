@@ -1,21 +1,7 @@
 FROM node:lts-alpine
 
-# make the 'frontend' folder the current working directory, in root to avoid access right issues
 WORKDIR /frontend
 
-# # To handle 'not get uid/gid'
-# RUN npm config set unsafe-perm true
-
 # install project dependencies
-COPY package.json ./
+COPY package.json yarn.lock ./
 RUN yarn
-
-# # copy project files and folders to the current working directory (i.e. 'frontend' folder)
-# COPY --chown=node:node . .
-
-EXPOSE 3000
-
-ENV NUXT_HOST=0.0.0.0
-ENV NUXT_PORT=3000
-
-# USER node

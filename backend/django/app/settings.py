@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     ## see https://academind.com/tutorials/localstorage-vs-cookies-xss, use instead http-only cookie
     # 'django.middleware.csrf.CsrfViewMiddleware',
@@ -150,8 +151,15 @@ SIMPLE_JWT = {
 }
 
 CSRF_COOKIE_SECURE = False
-CSRF_TRUSTED_ORIGINS = ['http://localhost']
-CORS_ORIGIN_WHITELIST = ['http://localhost:8080', 'http://localhost:3000']
+# CSRF_TRUSTED_ORIGINS = ['http://localhost']
+
+# ALLOWED_HOSTS=['http://localhost:3000']
+# CORS_ORIGIN_ALLOW_ALL = False
+# CORS_ORIGIN_WHITELIST = ['http://localhost:3000']
+
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'http://localhost:8088']
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'http://localhost:8088']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

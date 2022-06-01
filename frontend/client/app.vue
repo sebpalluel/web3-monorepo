@@ -1,6 +1,8 @@
 <template>
     <div>
-        <NuxtPage />
+        <NuxtLayout>
+            <NuxtPage />
+        </NuxtLayout>
         <!-- <p v-if="error">Something went wrong...</p>
         <p v-else-if="loading">Loading...</p>
         <p
@@ -15,33 +17,33 @@
 </template>
 
 <script>
-import gql from 'graphql-tag'
-import { useQuery } from '@vue/apollo-composable'
+// import gql from 'graphql-tag'
+// import { useQuery } from '@vue/apollo-composable'
 
-const CHARACTERS_QUERY = gql`
-    query Characters {
-        characters {
-            results {
-                id
-                name
-                image
-            }
-        }
-    }
-`
+// const CHARACTERS_QUERY = gql`
+//     query Characters {
+//         characters {
+//             results {
+//                 id
+//                 name
+//                 image
+//             }
+//         }
+//     }
+// `
 
-export default {
-    setup() {
-        const { result, loading, error } = useQuery(CHARACTERS_QUERY)
-        // onMounted(() => {
-        //     // const res = await this.$axios.$get()
-        //     // console.log({res})
-        // })
-        return {
-            result,
-            loading,
-            error
-        }
-    }
-}
+// export default {
+//     setup() {
+//         const { result, loading, error } = useQuery(CHARACTERS_QUERY)
+//         // onMounted(() => {
+//         //     // const res = await this.$axios.$get()
+//         //     // console.log({res})
+//         // })
+//         return {
+//             result,
+//             loading,
+//             error
+//         }
+//     }
+// }
 </script>
