@@ -3,5 +3,5 @@ FROM node:lts-alpine
 WORKDIR /frontend
 
 # install project dependencies
-COPY package.json yarn.lock ./
+COPY package.json ./
 RUN yarn
