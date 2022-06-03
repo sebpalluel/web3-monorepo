@@ -1,0 +1,157 @@
+version: '3.9'
+
+services:
+
+  # svelte:
+  #   image: node:lts
+  #   container_name: client-svelte
+  #   command: bash -c "npm install && HOST=0.0.0.0 npm run dev"
+  #   ports:
+  #     - "127.0.0.1:35729:35729" # Live Reload
+  #     - "127.0.0.1:8088:8088"
+  #   working_dir: /home/node/apps/app
+  #   volumes:
+  #     - ./clients/svelte:/home/node/apps/app
+  # frontend-client:
+  #   build:
+  #     context: ../frontend/client
+  #     dockerfile: Dockerfile.frontend-client.local
+  #   ports:
+  #     - 3000:3000
+  #     - 24678:24678
+  #   command: /bin/sh -c "yarn dev"
+  #   volumes:
+  #     - ../frontend/client:/frontend
+  #   networks:
+  #     - web
+  
+  # backend-django:
+  #   build:
+  #     context: ../backend/django
+  #     dockerfile: Dockerfile.backend-django.local
+  #   stdin_open: true
+  #   tty: true
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+  #   volumes:
+  #     - ../backend/django:/backend
+  #   environment:
+  #     PYTHONUNBUFFERED: 1
+  #     DJANGO_SECRET: '${JWT_SECRET}' # *** CHANGE THIS ***
+  #     DJANGO_SUPERUSER_PASSWORD: ${DJANGO_ADMIN_PASS}
+  #     DJANGO_SUPERUSER_USERNAME: ${DJANGO_ADMIN_NAME}
+  #     DJANGO_SUPERUSER_EMAIL: ${DJANGO_ADMIN_MAIL}
+  #     PYTHONBREAKPOINT: ipdb.set_trace
+  #   ports:
+  #     - "${DJANGO_PORT}:${DJANGO_PORT}"
+  #   networks:
+  #     - db
+  #     - web
+
+## TODO DEFINE PATH SO THAT CAN FIND HASURA CMD
+  graphql-engine:
+    image: hasura/graphql-engine:v2.7.0
+    ports:
+    - "8080:8080"
+    depends_on:
+    - "db"
+    restart: always
+    environment:
+      ## postgres database to store Hasura metadata
+      HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASS}@db:${POSTGRES_PORT}/${POSTGRES_DB}
+      ## this env var can be used to add the above postgres database to Hasura as a data source. this can be removed/updated based on your needs
+      PG_DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASS}@db:${POSTGRES_PORT}/${POSTGRES_DB}
+      ## enable the console served by server
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
+      ## enable debugging mode. It is recommended to disable this in production
+      HASURA_GRAPHQL_DEV_MODE: "true"
+      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+      ## uncomment next line to set an admin secret
+      # HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
+
+  # backend-hasura-engine:
+  #   image: hasura/graphql-engine:${HASURA_VERSION}
+  #   ports:
+  #     - "${HASURA_PORT}:${HASURA_PORT}"
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+  #   environment:
+  #     PG_DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASS}@db:${POSTGRES_PORT}/${POSTGRES_DB}
+  #     HASURA_GRAPHQL_ENABLE_CONSOLE: "false"
+  #     HASURA_GRAPHQL_DEV_MODE: "true"
+  #     HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+  #     HASURA_GRAPHQL_ENABLE_TELEMETRY: "false"
+  #     HASURA_GRAPHQL_JWT_SECRET: '{"type": "RS256","key":${JWT_SECRET}}'
+  #   networks:
+  #     - web
+  #     - db
+  #   labels:
+  #     - "traefik.enable=true"
+  #     - "traefik.docker.network=web"
+  #     - "traefik.http.routers.hasura-engine.rule=Host(`hasura-engine.${POSTGRES_DB}.test`)"
+  #   tty: true
+  #   restart: unless-stopped
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "apt-get update -y && apt-get install -y curl && curl --fail http://localhost:${HASURA_PORT}/healthz || exit 1"]
+  #     interval: 5s
+  #     timeout: 3s
+  #     retries: 5
+
+  # backend-hasura-console:
+  #   image: hasura/graphql-engine:${HASURA_VERSION}
+  #   build:
+  #     context: ../backend/hasura-console
+  #     dockerfile: Dockerfile.backend-hasura-console.local
+  #   volumes:
+  #     - ../backend/hasura-console:/usr/src/hasura
+  #   environment:
+  #     PG_DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASS}@db:${POSTGRES_PORT}/${POSTGRES_DB}
+  #     HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_ADMIN_SECRET}
+  #     HASURA_GRAPHQL_ENDPOINT: http://127.0.0.1:${HASURA_PORT}
+  #     HASURA_RUN_CONSOLE: "true"
+  #   ports:
+  #     - "9695:9695"
+  #     - "9693:9693"
+  #   extra_hosts:
+  #     - "host.docker.internal:host-gateway"
+  #   networks:
+  #     - web
+  #   labels:
+  #     - "traefik.enable=true"
+  #     - "traefik.docker.network=web"
+  #     - "traefik.http.services.hasura-console.loadbalancer.server.port=9695"
+  #     - "traefik.http.routers.hasura-console.rule=Host(`hasura-console.${POSTGRES_DB}.test`)"
+  #   depends_on:
+  #     backend-hasura-engine:
+  #       condition: service_healthy
+
+  db:
+    image: postgres:12
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_PASSWORD=${POSTGRES_PASS}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+    networks:
+      - db
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 2s
+      timeout: 2s
+      retries: 10
+
+  
+volumes:
+  db_data:
+
+networks:
+  web:
+    driver: bridge
+  db:
+    driver: bridge
