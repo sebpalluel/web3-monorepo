@@ -1,10 +1,13 @@
 import { setup } from '@nuxt/test-utils-edge'
+import { fileURLToPath } from 'node:url'
 import { useUserStore } from './user'
 import { createPinia } from 'pinia'
 
 describe('User store', async () => {
-    await setup({})
-
+    await setup({
+        rootDir: fileURLToPath(new URL('..', import.meta.url)),
+        server: true
+    })
     test('login', async () => {
         const formData = {
             email: '',

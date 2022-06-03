@@ -65,7 +65,8 @@ export const useUserStore = defineStore({
     actions: {
         async login(formData: FormLogin) {
             try {
-                const res = await this.$nuxt.$axios.post('/token/', formData)
+                //TODO set back origin formData when based on email
+                const res = await this.$nuxt.$axios.post('/token/', {username:formData.email, password:formData.password})
 
                 console.log({ res })
                 setToken(res.data.access)
