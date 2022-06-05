@@ -17,7 +17,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['DJANGO_SECRET']
+SECRET_KEY = os.environ['JWT_SECRET']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     ## see https://academind.com/tutorials/localstorage-vs-cookies-xss, use instead http-only cookie
     # 'django.middleware.csrf.CsrfViewMiddleware',
@@ -80,12 +81,13 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # },
+    # TODO READ FROM env on ./local
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'password',
-        'HOST': 'postgres',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
@@ -146,12 +148,21 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer', 'JWT'),
     # 'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
-    'REFRESH_TOKEN_LIFETIME': timedelta(weeks=1)
+    'REFRESH_TOKEN_LIFETIME': timedelta(weeks=1),
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
 }
 
 CSRF_COOKIE_SECURE = False
-CSRF_TRUSTED_ORIGINS = ['http://localhost']
-CORS_ORIGIN_WHITELIST = ['http://localhost:8080', 'http://localhost:3000']
+# CSRF_TRUSTED_ORIGINS = ['http://localhost']
+
+# ALLOWED_HOSTS=['http://localhost:3000']
+# CORS_ORIGIN_ALLOW_ALL = False
+# CORS_ORIGIN_WHITELIST = ['http://localhost:3000']
+
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'http://localhost:8088']
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'http://localhost:8088']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

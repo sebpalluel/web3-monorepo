@@ -1,36 +1,23 @@
-<template>
-    <div class="d-flex flex-column">
-        <v-text-field v-model="formData.email" v-bind="{ label: 'email' }" />
-        <v-text-field
-            v-model="formData.password"
-            v-bind="{ label: 'password', errorMessages: passwordErrors }"
-        />
-    </div>
-</template>
-
 <script setup lang="ts">
-// onMounted(async () => {
-//     const res = await $axios.$get('log')
-//     console.log({ res })
-// })
+import { useUserStore, FormLogin } from '@/store/user'
 
-interface FormData {
-    email: string
-    password: string
-}
-
-let formData: FormData = reactive({
+let formData: FormLogin = reactive({
     email: '',
     password: ''
 })
 
-let passwordErrors = computed(() => {
-    const errors: string[] = []
-    if (formData.password.length < 8) {
-        errors.push('password must be at least 8 characters')
-    }
-    return errors
-});
+const user = useUserStore()
 </script>
+
+<template>
+    <div class="d-flex flex-column pa-5 ma-5">
+        <input v-model="formData.email" placeholder="email" />
+        <input v-model="formData.password" placeholder="password" />
+        <v-btn color="primary" @click="() => user.login(formData)">
+            Login
+        </v-btn>
+        <NuxtLink to="/auth/register"> Register </NuxtLink>
+    </div>
+</template>
 
 <style lang="scss" scoped></style>
