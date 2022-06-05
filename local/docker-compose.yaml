@@ -90,8 +90,10 @@ services:
       HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_ADMIN_SECRET}
       HASURA_GRAPHQL_ENDPOINT: http://127.0.0.1:${HASURA_PORT}
       HASURA_RUN_CONSOLE: "true"
+      HASURA_PORT: ${HASURA_PORT}
+      HASURA_CONSOLE_PORT: ${HASURA_CONSOLE_PORT}
     ports:
-      - "9695:9695"
+      - "${HASURA_CONSOLE_PORT}:${HASURA_CONSOLE_PORT}"
       - "9693:9693"
     extra_hosts:
       - "host.docker.internal:host-gateway"
@@ -101,11 +103,12 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
-      - "traefik.http.services.hasura-console.loadbalancer.server.port=9695"
+      - "traefik.http.services.hasura-console.loadbalancer.server.port=${HASURA_CONSOLE_PORT}"
       - "traefik.http.routers.hasura-console.rule=Host(`hasura-console.${POSTGRES_DB}.test`)"
     depends_on:
       backend-hasura-engine:
         condition: service_healthy
+    restart: unless-stopped
 
   db:
     image: postgres:12

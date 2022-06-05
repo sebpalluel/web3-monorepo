@@ -8,8 +8,8 @@ cd $HASURA_FOLDER || {
 }
 
 # Workaround for https://github.com/hasura/graphql-engine/issues/2824#issuecomment-801293056
-socat TCP-LISTEN:8080,fork TCP:backend-hasura-engine:8080 &
-socat TCP-LISTEN:9695,fork,reuseaddr,bind=backend-hasura-console TCP:127.0.0.1:9695 &
+socat TCP-LISTEN:$HASURA_PORT,fork TCP:backend-hasura-engine:$HASURA_PORT &
+socat TCP-LISTEN:$HASURA_CONSOLE_PORT,fork,reuseaddr,bind=backend-hasura-console TCP:127.0.0.1:$HASURA_CONSOLE_PORT &
 socat TCP-LISTEN:9693,fork,reuseaddr,bind=backend-hasura-console TCP:127.0.0.1:9693 &
 {
     # Apply migrations
