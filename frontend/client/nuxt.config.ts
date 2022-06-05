@@ -25,8 +25,8 @@ export default defineNuxtConfig({
             }
         },
         // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-        baseURL: 'http://localhost:8000/api/',
-        browserBaseURL: 'http://localhost:3000'
+        baseURL: process.env.AUTH_API_ENDPOINT,
+        browserBaseURL: process.env.BASE_URL
     },
     // https://nuxtjs.org/docs/features/loading/
     loading: {
