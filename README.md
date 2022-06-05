@@ -4,9 +4,8 @@
 Run all the docker container and deploy the proxy console for hasura
 ```zsh
 make
-make hasura-console
 ```
-
+All the config for local development is available in the `local` folder 
 
 ## Project structure
 - [**Hasura console**](http://localhost:9695/console)
