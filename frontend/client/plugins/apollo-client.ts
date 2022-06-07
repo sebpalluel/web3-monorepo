@@ -5,7 +5,7 @@ import { DefaultApolloClient } from '@vue/apollo-composable'
 export default defineNuxtPlugin((nuxtApp) => {
     const apolloClient = new ApolloClient({
         cache: new InMemoryCache(),
-        uri: process.env.API_ENDPOINT
+        uri: process.env.GQL_API_ENDPOINT,
         // other configuration
     })
     nuxtApp.vueApp.provide(DefaultApolloClient, apolloClient)

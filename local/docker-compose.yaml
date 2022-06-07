@@ -31,7 +31,7 @@ services:
     volumes:
       - ../frontend/client:/frontend
       - /frontend/node_modules
-      # - /frontend/.nuxt
+      - /frontend/.nuxt
     networks:
       - web
   

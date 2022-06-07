@@ -1,15 +1,21 @@
-<script setup lang="ts">
+<script lang="ts">
 import gql from 'graphql-tag'
 import { useQuery } from '@vue/apollo-composable'
-const { result, loading, error } = await useQuery(gql`
-    query getUsers {
-        api_user {
-            id
-            email
-        }
+export default {
+    setup() {
+        const { result, loading, error } = useQuery(gql`
+            query getUsers {
+                api_user {
+                    id
+                    email
+                }
+            }
+        `)
+        console.log(result)
+        // const users = computed(() => result.api_user : [])
+        return { result, loading }
     }
-`)
-// const users = computed(() => result.api_user : [])
+}
 </script>
 
 <template>
@@ -19,9 +25,10 @@ const { result, loading, error } = await useQuery(gql`
         </div>
         <div>
             {{ result }}
+            {{ loading }}
         </div>
         <span class="pb-5"> User list: </span>
-        <div v-for="user in result.api_user" :key="user.id">
+        <div v-for="user in result?.api_user" :key="user.id">
             {{ user.email }}
         </div>
     </div>

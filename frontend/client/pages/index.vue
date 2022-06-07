@@ -8,6 +8,9 @@
             <NuxtLink to="/auth">
                 Login
             </NuxtLink>
+            <NuxtLink to="/test">
+                Test
+            </NuxtLink>
         </div>
     </div>
 </template>
