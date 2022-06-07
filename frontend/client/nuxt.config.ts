@@ -9,7 +9,8 @@ export default defineNuxtConfig({
         '@nuxtjs/stylelint-module',
         '@nuxtjs/eslint-module',
         '@vueuse/nuxt',
-        '@pinia/nuxt'
+        '@pinia/nuxt',
+        '@nuxtjs/google-fonts'
     ],
     modules: [
         // https://go.nuxtjs.dev/axios
@@ -36,16 +37,41 @@ export default defineNuxtConfig({
     //         uri: process.env.GQL_API_ENDPOINT
     //     }
     // },
+    // https://google-fonts.nuxtjs.org/options
+    googlFonts: {
+        famillies: {
+            Inter: true
+        },
+        prefetch: true,
+        display: 'swap'
+    },
     // https://nuxtjs.org/docs/features/loading/
     loading: {
         color: 'blue',
         height: '5px'
     },
-    css: ['vuetify/styles'],
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {
-        transpile: ['vuetify', '@apollo/client', 'ts-invariant/process']
+        transpile: [
+            '@headlessui/vue',
+            '@apollo/client',
+            'ts-invariant/process'
+        ],
+        postcss: {
+            // plugins: {
+            //     tailwindcss: {},
+            //     autoprefixer: {}
+            // },
+            // temporary fix for nuxt3 integration of tailwind
+            postcssOptions: {
+                plugins: {
+                    tailwindcss: {},
+                    autoprefixer: {}
+                }
+            }
+        }
     },
+    css: ['@/assets/css/main.css'],
     vite: {
         define: {
             'process.env.DEBUG': process.env.NODE_ENV == 'development',
