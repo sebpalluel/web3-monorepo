@@ -14,7 +14,8 @@ export default defineNuxtConfig({
     ],
     modules: [
         // https://go.nuxtjs.dev/axios
-        ['@nuxtjs/axios', { proxyHeaders: false }] // TODO Set to true when fixed, causing issue with CORS headers policy in django
+        ['@nuxtjs/axios', { proxyHeaders: false }], // TODO Set to true when fixed, causing issue with CORS headers policy in django
+        '@nuxtjs/tailwindcss'
     ],
     plugins: ['~/plugins/axios'],
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -57,21 +58,24 @@ export default defineNuxtConfig({
             '@apollo/client',
             'ts-invariant/process'
         ],
-        postcss: {
-            // plugins: {
-            //     tailwindcss: {},
-            //     autoprefixer: {}
-            // },
-            // temporary fix for nuxt3 integration of tailwind
-            postcssOptions: {
-                plugins: {
-                    tailwindcss: {},
-                    autoprefixer: {}
-                }
-            }
-        }
+        // postcss: {
+        //     // plugins: {
+        //     //     tailwindcss: {},
+        //     //     autoprefixer: {}
+        //     // },
+        //     // temporary fix for nuxt3 integration of tailwind
+        //     postcssOptions: {
+        //         // https://tailwindcss.com/docs/optimizing-for-production
+        //         plugins: {
+        //             tailwindcss: {},
+        //             autoprefixer: {},
+        //             ...(process.env.NODE_ENV === 'production'
+        //                 ? { cssnano: {} }
+        //                 : {})
+        //         }
+        //     }
+        // }
     },
-    css: ['@/assets/css/main.css'],
     vite: {
         define: {
             'process.env.DEBUG': process.env.NODE_ENV == 'development',
