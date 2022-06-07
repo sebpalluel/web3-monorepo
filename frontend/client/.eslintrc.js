@@ -20,5 +20,19 @@ module.exports = {
     rules: {
         'prettier/prettier': ['error'],
         'vue/script-setup-no-uses-vars': 'off'
-    }
+    },
+    overrides: [
+        {
+            files: ['*.js', '*.ts'],
+            processor: '@graphql-eslint/graphql'
+        },
+        {
+            files: ['*.graphql'],
+            parser: '@graphql-eslint/eslint-plugin',
+            plugins: ['@graphql-eslint'],
+            rules: {
+                '@graphql-eslint/known-type-names': 'error'
+            }
+        }
+    ]
 }

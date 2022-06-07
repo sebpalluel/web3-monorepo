@@ -664,6 +664,22 @@
     parse-filepath "^1.0.2"
     tslib "~2.4.0"
 
+"@graphql-eslint/eslint-plugin@^3.10.4":
+  version "3.10.4"
+  resolved "https://registry.yarnpkg.com/@graphql-eslint/eslint-plugin/-/eslint-plugin-3.10.4.tgz#fcc3b54ef1d6d38e89daf848d93be2d5359fef98"
+  integrity sha512-+Vmi1E5uSWOgtylosHS3HYWHF+x0GMgaMOHmSfOflTE51VXnLM2tvGKMd3lpyngCEZG1wjvqdlB5rn2iwhhzqA==
+  dependencies:
+    "@babel/code-frame" "^7.16.7"
+    "@graphql-tools/code-file-loader" "^7.2.14"
+    "@graphql-tools/graphql-tag-pluck" "^7.2.6"
+    "@graphql-tools/utils" "^8.6.9"
+    chalk "^4.1.2"
+    debug "^4.3.4"
+    fast-glob "^3.2.11"
+    graphql-config "^4.3.0"
+    graphql-depth-limit "^1.1.0"
+    lodash.lowercase "^4.3.0"
+
 "@graphql-tools/apollo-engine-loader@^7.0.5":
   version "7.2.18"
   resolved "https://registry.yarnpkg.com/@graphql-tools/apollo-engine-loader/-/apollo-engine-loader-7.2.18.tgz#24e0dd354f851b08b89f25ef0458b9dabbdcf9d2"
@@ -684,7 +700,7 @@
     tslib "~2.4.0"
     value-or-promise "1.0.11"
 
-"@graphql-tools/code-file-loader@^7.0.6":
+"@graphql-tools/code-file-loader@^7.0.6", "@graphql-tools/code-file-loader@^7.2.14":
   version "7.2.17"
   resolved "https://registry.yarnpkg.com/@graphql-tools/code-file-loader/-/code-file-loader-7.2.17.tgz#b5cbc261ef27183901670f6f557dc76051ebfc45"
   integrity sha512-HHF2B2/QOKp/2k00SfhsEAP6ZH5oief9oENb3KkOZioLfiYwozvoWQ9FHtmgRzlm3TtWutAaFlPefVIhOCasoA==
@@ -742,7 +758,7 @@
     tslib "~2.4.0"
     unixify "^1.0.0"
 
-"@graphql-tools/graphql-tag-pluck@7.2.9":
+"@graphql-tools/graphql-tag-pluck@7.2.9", "@graphql-tools/graphql-tag-pluck@^7.2.6":
   version "7.2.9"
   resolved "https://registry.yarnpkg.com/@graphql-tools/graphql-tag-pluck/-/graphql-tag-pluck-7.2.9.tgz#e3b1eedd49a9ee04246accf33fbb8e3164b382f6"
   integrity sha512-CLg1seduXN8W3XOGyW+cxUdnoFbafoScLWZcRBFeOb5KKqs8PisysatHhei4FVpuam64+4Rxvkp4UqywKgKs6w==
@@ -863,7 +879,7 @@
     value-or-promise "^1.0.11"
     ws "^8.3.0"
 
-"@graphql-tools/utils@8.6.12", "@graphql-tools/utils@^8.1.1", "@graphql-tools/utils@^8.3.0", "@graphql-tools/utils@^8.5.2", "@graphql-tools/utils@^8.6.5":
+"@graphql-tools/utils@8.6.12", "@graphql-tools/utils@^8.1.1", "@graphql-tools/utils@^8.3.0", "@graphql-tools/utils@^8.5.2", "@graphql-tools/utils@^8.6.5", "@graphql-tools/utils@^8.6.9":
   version "8.6.12"
   resolved "https://registry.yarnpkg.com/@graphql-tools/utils/-/utils-8.6.12.tgz#0a550dc0331fd9b097fe7223d65cbbee720556e4"
   integrity sha512-WQ91O40RC+UJgZ9K+IzevSf8oolR1QE+WQ21Oyc2fgDYYiqT0eSf+HVyhZr/8x9rVjn3N9HeqCsywbdmbljg0w==
@@ -2838,7 +2854,7 @@ chalk@^2.0.0, chalk@^2.4.1, chalk@^2.4.2:
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
 
-chalk@^4.0.0, chalk@^4.1.0, chalk@^4.1.1:
+chalk@^4.0.0, chalk@^4.1.0, chalk@^4.1.1, chalk@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.2.tgz#aac4e2b7734a740867aeb16bf02aad556a1e7a01"
   integrity sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==
@@ -4924,7 +4940,7 @@ graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.2.0, graceful-fs@^4.2.4, 
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.10.tgz#147d3a006da4ca3ce14728c7aefc287c367d7a6c"
   integrity sha512-9ByhssR2fPVsNZj478qUUbKfmL0+t5BDVyjShtyZZLiK7ZDAArFFfopyOTj0M05wE2tJPisA4iTnnXl2YoPvOA==
 
-graphql-config@^4.1.0:
+graphql-config@^4.1.0, graphql-config@^4.3.0, graphql-config@^4.3.1:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/graphql-config/-/graphql-config-4.3.1.tgz#636b539b1acc06fb48012d0e0f228014ccb0325f"
   integrity sha512-czBWzJSGaLJfOHBLuUTZVRTjfgohPfvlaeN1B5nXBVptFARpiFuS7iI4FnRhCGwm6qt1h2j1g05nkg0OIGA6bg==
@@ -4940,6 +4956,13 @@ graphql-config@^4.1.0:
     cosmiconfig-toml-loader "1.0.0"
     minimatch "4.2.1"
     string-env-interpolation "1.0.1"
+
+graphql-depth-limit@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/graphql-depth-limit/-/graphql-depth-limit-1.1.0.tgz#59fe6b2acea0ab30ee7344f4c75df39cc18244e8"
+  integrity sha512-+3B2BaG8qQ8E18kzk9yiSdAa75i/hnnOwgSeAxVJctGQPvmeiLtqKOYF6HETCyRjiF7Xfsyal0HbLlxCQkgkrw==
+  dependencies:
+    arrify "^1.0.1"
 
 graphql-executor@0.0.23:
   version "0.0.23"
@@ -6081,6 +6104,11 @@ lodash.isstring@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/lodash.isstring/-/lodash.isstring-4.0.1.tgz#d527dfb5456eca7cc9bb95d5daeaf88ba54a5451"
   integrity sha512-0wJxfxH1wgO3GrbuP+dTTk7op+6L41QCXbGINEmD+ny/G/eCqGzxyCsh7159S+mgDDcoarnBw6PC1PS5+wUGgw==
+
+lodash.lowercase@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/lodash.lowercase/-/lodash.lowercase-4.3.0.tgz#46515aced4acb0b7093133333af068e4c3b14e9d"
+  integrity sha512-UcvP1IZYyDKyEL64mmrwoA1AbFu5ahojhTtkOUr1K9dbuxzS9ev8i4TxMMGCqRC9TE8uDaSoufNAXxRPNTseVA==
 
 lodash.memoize@^4.1.2:
   version "4.1.2"
