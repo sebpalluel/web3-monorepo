@@ -19,7 +19,7 @@ services:
     ports:
       - "${CLIENT_PORT}:${CLIENT_PORT}"
       - 24678:24678
-    command: /bin/sh -c "yarn dev"
+    command: yarn dev
     environment:
       NODE_ENV: development
       PORT: ${CLIENT_PORT}

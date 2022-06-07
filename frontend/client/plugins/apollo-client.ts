@@ -1,9 +1,12 @@
 import { defineNuxtPlugin } from '#app'
+import { refreshToken } from '@/store/user'
+
 import { ApolloClient, InMemoryCache } from '@apollo/client/core'
 import { DefaultApolloClient } from '@vue/apollo-composable'
 import { HttpLink, split } from '@apollo/client/core'
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { createClient } from 'graphql-ws'
+import WebSocket from 'ws'
 import { getMainDefinition } from '@apollo/client/utilities'
 
 // https://www.apollographql.com/docs/react/api/link/apollo-link-subscriptions/
@@ -11,12 +14,10 @@ import { getMainDefinition } from '@apollo/client/utilities'
 
 export default defineNuxtPlugin(async (nuxtApp) => {
     // Create an http link:
-    console.log({ nuxtApp })
     const httpLink = new HttpLink({
         uri: process.env.GQL_API_ENDPOINT,
         headers: async () => {
-            const accessToken = ''
-            // const accessToken = await token()
+            const accessToken = await refreshToken(nuxtApp.$axios)
             return {
                 Authorization: accessToken ? `Bearer ${accessToken}` : ''
             }
@@ -24,14 +25,15 @@ export default defineNuxtPlugin(async (nuxtApp) => {
     })
 
     // Create a WebSocket link:
+    // https://github.com/enisdenjo/graphql-ws/blob/master/docs/interfaces/client.ClientOptions.md
     const wsLink = new GraphQLWsLink(
         createClient({
             url: process.env.GQL_WS_API_ENDPOINT,
             lazy: true,
             reconnect: true,
+            webSocketImpl: WebSocket,
             connectionParams: async () => {
-                const accessToken = ''
-                // const accessToken = await token()
+                const accessToken = await refreshToken(nuxtApp.$axios)
                 return {
                     headers: {
                         Authorization: accessToken

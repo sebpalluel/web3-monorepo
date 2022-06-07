@@ -4,4 +4,10 @@ WORKDIR /frontend
 
 # install project dependencies
 COPY package.json ./
+COPY . ./
 RUN yarn
+
+EXPOSE ${PORT}
+
+ENV NUXT_HOST=${HOST}
+ENV NUXT_PORT=${PORT}
