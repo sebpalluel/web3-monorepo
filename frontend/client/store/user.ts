@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 import Cookies from 'js-cookie'
 import jwt_decode from 'jwt-decode'
-// import AuthService from '@/services/auth'
 
 export interface User {
     id: string
@@ -63,7 +62,10 @@ function setToken(token: string) {
     )
 }
 
-export const refreshToken = async function ($axios: any): Promise<string> {
+export const refreshToken = async function (
+    $axios: any,
+    $apollo: any
+): Promise<string> {
     let accessToken = ''
     try {
         const refresh = Cookies.get('refresh')
@@ -86,13 +88,15 @@ export const refreshToken = async function ($axios: any): Promise<string> {
         // Refresh token expiry, need to re-login
         else if (!refresh) {
             clearToken()
+            $apollo.resetStore()
             navigateTo('/')
         } else {
             // No need to refresh token
         }
     } catch (e) {
         clearToken()
-        throw e;
+        $apollo.resetStore()
+        throw e
     } finally {
         return accessToken
     }
@@ -138,6 +142,7 @@ export const useUserStore = defineStore({
         async logout() {
             try {
                 clearToken()
+                this.$nuxt.$apollo.resetStore()
                 navigateTo('/')
             } catch (e) {
                 console.error({ e })
@@ -173,7 +178,7 @@ export const useUserStore = defineStore({
         },
         async refreshToken() {
             try {
-                await refreshToken(this.$nuxt.$axios)
+                await refreshToken(this.$nuxt.$axios, this.$nuxt.$apollo)
             } catch (e) {
                 console.error({ e })
             }

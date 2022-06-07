@@ -12,6 +12,10 @@
         "coverage": "vitest run --coverage"
     },
     "devDependencies": {
+        "@graphql-codegen/cli": "^2.6.2",
+        "@graphql-codegen/typescript": "^2.5.0",
+        "@graphql-codegen/typescript-operations": "^2.4.1",
+        "@graphql-codegen/typescript-vue-apollo": "^3.2.13",
         "@nuxt/test-utils-edge": "^3.0.0-rc.3-27550969.a4a3cff",
         "@nuxt/types": "latest",
         "@nuxt/typescript-build": "latest",
@@ -21,6 +25,7 @@
         "@testing-library/vue": "^6.4.2",
         "@typescript-eslint/eslint-plugin": "^5.21.0",
         "@typescript-eslint/parser": "^5.21.0",
+        "@vue/apollo-composable": "^4.0.0-alpha.16",
         "@vue/eslint-config-standard": "^6.1.0",
         "@vue/test-utils": "^2.0.0-rc.18",
         "@vueuse/core": "^8.4.2",
@@ -36,17 +41,17 @@
         "nuxt": "3.0.0-rc.3",
         "stylelint": "^14.8.0",
         "stylelint-config-standard": "^24.0.0",
-        "vitest": "^0.13.0"
+        "vitest": "^0.13.0",
+        "vue-apollo": "^3.1.0"
     },
     "dependencies": {
-        "@apollo/client": "^3.5.10",
+        "@apollo/client": "^3.6.6",
         "@mdi/font": "5.9.55",
         "@nuxt/typescript-runtime": "^2.1.0",
         "@nuxtjs/axios": "^5.13.6",
         "@pinia/nuxt": "^0.1.9",
-        "@vue/apollo-composable": "^4.0.0-alpha.16",
         "axios": "^0.27.2",
-        "graphql": "^16.3.0",
+        "graphql": "^16.5.0",
         "graphql-tag": "^2.12.6",
         "graphql-ws": "^5.8.2",
         "happy-dom": "^4.1.0",

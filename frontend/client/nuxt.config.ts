@@ -28,6 +28,14 @@ export default defineNuxtConfig({
         baseURL: process.env.AUTH_API_ENDPOINT,
         browserBaseURL: process.env.BASE_URL
     },
+    // graphqlCodegen: {
+    //     schema: [process.env.GQL_API_ENDPOINT]
+    // },
+    // apollo: {
+    //     default: {
+    //         uri: process.env.GQL_API_ENDPOINT
+    //     }
+    // },
     // https://nuxtjs.org/docs/features/loading/
     loading: {
         color: 'blue',

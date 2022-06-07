@@ -1,8 +1,11 @@
-import { defineNuxtPlugin } from '#app'
+import { defineNuxtPlugin, NuxtApp } from '#app'
 import { refreshToken } from '@/store/user'
 
 import { ApolloClient, InMemoryCache, from } from '@apollo/client/core'
-import { DefaultApolloClient } from '@vue/apollo-composable'
+import {
+    DefaultApolloClient,
+    provideApolloClient
+} from '@vue/apollo-composable'
 import { HttpLink, split } from '@apollo/client/core'
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { createClient } from 'graphql-ws'
@@ -10,15 +13,21 @@ import WebSocket from 'ws'
 import { getMainDefinition } from '@apollo/client/utilities'
 import { onError } from '@apollo/client/link/error'
 
+// Solution to support nuxt3 with apollo https://dev.to/joshwcorbett/nuxt-3-apollo-client-h6
 // https://www.apollographql.com/docs/react/api/link/apollo-link-subscriptions/
 // https://v4.apollo.vuejs.org/guide-composable/subscription.html#client-setup
 
-export default defineNuxtPlugin(async (nuxtApp) => {
+// @ts-ignore
+export default defineNuxtPlugin((nuxt: NuxtApp) => {
     // Create an http link:
     const httpLink = new HttpLink({
         uri: process.env.GQL_API_ENDPOINT,
-        headers: async () => {
-            const accessToken = await refreshToken(nuxtApp.$axios)
+        headers: () => {
+            const accessToken = ''
+            // const accessToken = await refreshToken(
+            //     nuxtApp.$axios,
+            //     nuxtApp.$apollo
+            // )
             return {
                 Authorization: accessToken ? `Bearer ${accessToken}` : ''
             }
@@ -33,8 +42,12 @@ export default defineNuxtPlugin(async (nuxtApp) => {
             lazy: true,
             reconnect: true,
             webSocketImpl: WebSocket,
-            connectionParams: async () => {
-                const accessToken = await refreshToken(nuxtApp.$axios)
+            connectionParams: () => {
+                const accessToken = ''
+                // const accessToken = await refreshToken(
+                //     nuxtApp.$axios,
+                //     nuxtApp.$apollo
+                // )
                 return {
                     headers: {
                         Authorization: accessToken
@@ -46,6 +59,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
         })
     )
 
+    // error handling for apollo client
     const errorLink = onError(({ graphQLErrors, networkError }) => {
         if (graphQLErrors)
             graphQLErrors.forEach(({ message, locations, path }) =>
@@ -74,8 +88,11 @@ export default defineNuxtPlugin(async (nuxtApp) => {
 
     const apolloClient = new ApolloClient({
         cache: new InMemoryCache(),
+        //https://www.apollographql.com/docs/react/api/link/introduction/
         link: from([errorLink, link]),
         connectToDevTools: true
     })
-    nuxtApp.vueApp.provide(DefaultApolloClient, apolloClient)
+    // provideApolloClient(apolloClient)
+    nuxt.vueApp.provide(DefaultApolloClient, apolloClient)
+    // nuxt.vueApp.provide('apollo', { DefaultApolloClient, apolloClient })
 })
