@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import gql from 'graphql-tag'
-import { useQuery, useResult } from '@vue/apollo-composable'
+import { useQuery } from '@vue/apollo-composable'
 const { result, loading, error } = await useQuery(gql`
     query getUsers {
         api_user {
@@ -9,8 +9,7 @@ const { result, loading, error } = await useQuery(gql`
         }
     }
 `)
-console.log({ result, loading, error })
-const users = useResult(result, null, (data) => data.api_user)
+// const users = computed(() => result.api_user : [])
 </script>
 
 <template>
@@ -19,10 +18,10 @@ const users = useResult(result, null, (data) => data.api_user)
             <NuxtLink to="/"> Go Home </NuxtLink>
         </div>
         <div>
-            {{ users }}
+            {{ result }}
         </div>
         <span class="pb-5"> User list: </span>
-        <div v-for="user in users" :key="user.id">
+        <div v-for="user in result.api_user" :key="user.id">
             {{ user.email }}
         </div>
     </div>
