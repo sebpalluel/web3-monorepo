@@ -1,13 +1,14 @@
 import { defineNuxtPlugin } from '#app'
 import { refreshToken } from '@/store/user'
 
-import { ApolloClient, InMemoryCache } from '@apollo/client/core'
+import { ApolloClient, InMemoryCache, from } from '@apollo/client/core'
 import { DefaultApolloClient } from '@vue/apollo-composable'
 import { HttpLink, split } from '@apollo/client/core'
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { createClient } from 'graphql-ws'
 import WebSocket from 'ws'
 import { getMainDefinition } from '@apollo/client/utilities'
+import { onError } from '@apollo/client/link/error'
 
 // https://www.apollographql.com/docs/react/api/link/apollo-link-subscriptions/
 // https://v4.apollo.vuejs.org/guide-composable/subscription.html#client-setup
@@ -45,6 +46,17 @@ export default defineNuxtPlugin(async (nuxtApp) => {
         })
     )
 
+    const errorLink = onError(({ graphQLErrors, networkError }) => {
+        if (graphQLErrors)
+            graphQLErrors.forEach(({ message, locations, path }) =>
+                console.log(
+                    `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+                )
+            )
+
+        if (networkError) console.log(`[Network error]: ${networkError}`)
+    })
+
     // using the ability to split links, you can send data to each link
     // depending on what kind of operation is being sent
     const link = split(
@@ -62,7 +74,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
 
     const apolloClient = new ApolloClient({
         cache: new InMemoryCache(),
-        link,
+        link: from([errorLink, link]),
         connectToDevTools: true
     })
     nuxtApp.vueApp.provide(DefaultApolloClient, apolloClient)
