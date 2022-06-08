@@ -1,0 +1,10 @@
+schema: ${GQL_API_ENDPOINT}
+extensions:
+  codegen:
+    generates:
+      ./src/types.ts:
+        plugins:
+          - typescript
+          - typescript-resolvers
+          - typescript-operations
+          - typescript-vue-apollo

@@ -12,18 +12,28 @@ services:
   #   working_dir: /home/node/apps/app
   #   volumes:
   #     - ./clients/svelte:/home/node/apps/app
-  # frontend-client:
-  #   build:
-  #     context: ../frontend/client
-  #     dockerfile: Dockerfile.frontend-client.local
-  #   ports:
-  #     - 3000:3000
-  #     - 24678:24678
-  #   command: /bin/sh -c "yarn dev"
-  #   volumes:
-  #     - ../frontend/client:/frontend
-  #   networks:
-  #     - web
+  frontend-client:
+    build:
+      context: ../frontend/client
+      dockerfile: Dockerfile.frontend-client.local
+    ports:
+      - "${CLIENT_PORT}:${CLIENT_PORT}"
+      - 24678:24678
+    command: yarn dev
+    environment:
+      NODE_ENV: development
+      PORT: ${CLIENT_PORT}
+      HOST: ${CLIENT_HOST}
+      BASE_URL: ${CLIENT_BASE_URL}
+      GQL_API_ENDPOINT: ${GQL_API_ENDPOINT}
+      GQL_WS_API_ENDPOINT: ${GQL_WS_API_ENDPOINT}
+      AUTH_API_ENDPOINT: ${AUTH_API_ENDPOINT}
+    volumes:
+      - ../frontend/client:/frontend
+      - /frontend/node_modules
+      - /frontend/.nuxt
+    networks:
+      - web
   
   backend-django:
     build:
@@ -42,7 +52,9 @@ services:
       DJANGO_SUPERUSER_PASSWORD: ${DJANGO_ADMIN_PASS}
       DJANGO_SUPERUSER_USERNAME: ${DJANGO_ADMIN_NAME}
       DJANGO_SUPERUSER_EMAIL: ${DJANGO_ADMIN_MAIL}
+      DJANGO_PORT: ${DJANGO_PORT}
       PYTHONBREAKPOINT: ipdb.set_trace
+      CLIENT_BASE_URL: ${CLIENT_BASE_URL}
     ports:
       - "${DJANGO_PORT}:${DJANGO_PORT}"
     networks:
@@ -57,6 +69,7 @@ services:
       db:
         condition: service_healthy
     environment:
+      HASURA_GRAPHQL_SERVER_PORT: ${HASURA_PORT}
       HASURA_GRAPHQL_DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASS}@db:${POSTGRES_PORT}/${POSTGRES_DB}
       HASURA_GRAPHQL_ENABLE_CONSOLE: "false"
       HASURA_GRAPHQL_DEV_MODE: "true"
@@ -88,7 +101,7 @@ services:
     environment:
       HASURA_GRAPHQL_DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASS}@db:${POSTGRES_PORT}/${POSTGRES_DB}
       HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_ADMIN_SECRET}
-      HASURA_GRAPHQL_ENDPOINT: http://127.0.0.1:${HASURA_PORT}
+      HASURA_GRAPHQL_ADDRESS: 127.0.0.1
       HASURA_RUN_CONSOLE: "true"
       HASURA_PORT: ${HASURA_PORT}
       HASURA_CONSOLE_PORT: ${HASURA_CONSOLE_PORT}

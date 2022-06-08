@@ -9,11 +9,13 @@ export default defineNuxtConfig({
         '@nuxtjs/stylelint-module',
         '@nuxtjs/eslint-module',
         '@vueuse/nuxt',
-        '@pinia/nuxt'
+        '@pinia/nuxt',
+        '@nuxtjs/google-fonts'
     ],
     modules: [
         // https://go.nuxtjs.dev/axios
-        ['@nuxtjs/axios', { proxyHeaders: false }] // TODO Set to true when fixed, causing issue with CORS headers policy in django
+        ['@nuxtjs/axios', { proxyHeaders: false }], // TODO Set to true when fixed, causing issue with CORS headers policy in django
+        '@nuxtjs/tailwindcss'
     ],
     plugins: ['~/plugins/axios'],
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -25,18 +27,67 @@ export default defineNuxtConfig({
             }
         },
         // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-        baseURL: 'http://localhost:8000/api/',
-        browserBaseURL: 'http://localhost:3000'
+        baseURL: process.env.AUTH_API_ENDPOINT,
+        browserBaseURL: process.env.BASE_URL
     },
+    publicRuntimeConfig: {
+        graphqlUri: process.env.GQL_API_ENDPOINT,
+        graphqlWsUri: process.env.GQL_WS_API_ENDPOINT
+        //     graphqlUri: 'https://rickandmortyapi.com/graphql',
+        //     graphqlWsUri: 'https://rickandmortyapi.com/graphql'
+    },
+    privateRuntimeConfig: {},
+    // graphqlCodegen: {
+    //     schema: [process.env.GQL_API_ENDPOINT]
+    // },
+    // apollo: {
+    //     default: {
+    //         uri: process.env.GQL_API_ENDPOINT
+    //     }
+    // },
+    // https://google-fonts.nuxtjs.org/options
+    googlFonts: {
+        famillies: {
+            Inter: true
+        },
+        prefetch: true,
+        display: 'swap'
+    },
+    // https://tailwindcss.nuxtjs.org/options
+    tailwindcss: {
+        // cssPath: '~/assets/css/tailwind.css',
+        configPath: 'tailwind.config.js',
+        exposeConfig: false,
+        config: {},
+        injectPosition: 0,
+        viewer: true
+    },
+
     // https://nuxtjs.org/docs/features/loading/
     loading: {
         color: 'blue',
         height: '5px'
     },
-    css: ['vuetify/styles'],
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {
-        transpile: ['vuetify', '@apollo/client', 'ts-invariant/process']
+        transpile: ['@headlessui/vue', '@apollo/client', 'ts-invariant/process']
+        // postcss: {
+        //     // plugins: {
+        //     //     tailwindcss: {},
+        //     //     autoprefixer: {}
+        //     // },
+        //     // temporary fix for nuxt3 integration of tailwind
+        //     postcssOptions: {
+        //         // https://tailwindcss.com/docs/optimizing-for-production
+        //         plugins: {
+        //             tailwindcss: {},
+        //             autoprefixer: {},
+        //             ...(process.env.NODE_ENV === 'production'
+        //                 ? { cssnano: {} }
+        //                 : {})
+        //         }
+        //     }
+        // }
     },
     vite: {
         define: {

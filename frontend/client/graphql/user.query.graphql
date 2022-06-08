@@ -1,0 +1,6 @@
+query User($emailInput: EmailInput!) {
+    api_user(emailInput: $emailInput) {
+        id
+        email
+    }
+}

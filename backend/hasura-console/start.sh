@@ -21,7 +21,7 @@ socat TCP-LISTEN:9693,fork,reuseaddr,bind=backend-hasura-console TCP:127.0.0.1:9
     # Run console if specified
     if [[ -v HASURA_RUN_CONSOLE ]]; then
         echo "Starting console..."
-        $HASURA_PATH console --log-level DEBUG --address "127.0.0.1" --no-browser || exit 1
+        $HASURA_PATH console --log-level DEBUG --address ${HASURA_GRAPHQL_ADDRESS} --no-browser --admin-secret ${HASURA_GRAPHQL_ADMIN_SECRET} || exit 1
     else
         echo "Started without console"
         tail -f /dev/null

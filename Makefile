@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: hasura-console install run clean db-clean db-migrate db-dump prune update populate-backend django-bash test-frontend-client
+.PHONY: hasura-console install run clean db-clean db-migrate db-dump prune update populate-backend django-bash test-frontend-client generate-gql
 
 all: run
 
@@ -45,3 +45,5 @@ db-dump:
 # frontend
 test-frontend-client:
 	@docker-compose -f ./local/docker-compose.yaml exec frontend-client yarn test
+generate-gql:
+	@docker-compose -f ./local/docker-compose.yaml exec frontend-client yarn generate-gql

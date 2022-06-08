@@ -154,15 +154,11 @@ SIMPLE_JWT = {
 }
 
 CSRF_COOKIE_SECURE = False
-# CSRF_TRUSTED_ORIGINS = ['http://localhost']
 
-# ALLOWED_HOSTS=['http://localhost:3000']
-# CORS_ORIGIN_ALLOW_ALL = False
-# CORS_ORIGIN_WHITELIST = ['http://localhost:3000']
-
-CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'http://localhost:8088']
+# TODO REMOVE 8088 url when svelte client deleted
+CSRF_TRUSTED_ORIGINS = [os.environ['CLIENT_BASE_URL'], 'http://localhost:8088']
 CORS_ORIGIN_ALLOW_ALL = False
-CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'http://localhost:8088']
+CORS_ALLOWED_ORIGINS = [os.environ['CLIENT_BASE_URL'], 'http://localhost:8088']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
