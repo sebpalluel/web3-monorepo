@@ -31,10 +31,10 @@ export default defineNuxtConfig({
         browserBaseURL: process.env.BASE_URL
     },
     publicRuntimeConfig: {
-        // graphqlUri: process.env.GQL_API_ENDPOINT,
-        // graphqlWsUri: process.env.GQL_WS_API_ENDPOINT
-        graphqlUri: 'https://rickandmortyapi.com/graphql',
-        graphqlWsUri: 'https://rickandmortyapi.com/graphql'
+        graphqlUri: process.env.GQL_API_ENDPOINT,
+        graphqlWsUri: process.env.GQL_WS_API_ENDPOINT
+        //     graphqlUri: 'https://rickandmortyapi.com/graphql',
+        //     graphqlWsUri: 'https://rickandmortyapi.com/graphql'
     },
     privateRuntimeConfig: {},
     // graphqlCodegen: {

@@ -1,3 +1,10 @@
 table:
   schema: public
   name: api_user
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - email
+        - id
+      filter: {}

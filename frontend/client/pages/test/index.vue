@@ -22,14 +22,22 @@ export default {
 import gql from 'graphql-tag'
 import { useQuery } from '@vue/apollo-composable'
 
+// const { result, loading, error } = useQuery(gql`
+//     query Characters {
+//         characters {
+//             results {
+//                 id
+//                 name
+//                 image
+//             }
+//         }
+//     }
+// `)
 const { result, loading, error } = useQuery(gql`
-    query Characters {
-        characters {
-            results {
-                id
-                name
-                image
-            }
+    query getUsers {
+        api_user {
+            id
+            email
         }
     }
 `)
@@ -40,17 +48,13 @@ const { result, loading, error } = useQuery(gql`
         <div class="pb-5">
             <NuxtLink to="/"> Go Home </NuxtLink>
         </div>
-        <!-- <div>
-            {{ result }}
-            {{ loading }}
-        </div>
         <span class="pb-5"> User list: </span>
         <div v-for="user in result?.api_user" :key="user.id">
             {{ user.email }}
-        </div> -->
+        </div>
 
-        <p v-if="error">Something went wrong... {{error}}</p>
-        <p v-else-if="loading">Loading...</p>
+        <p v-if="error">Something went wrong... {{ error }}</p>
+        <!-- <p v-else-if="loading">Loading...</p>
         <p
             v-for="character in result.characters.results"
             v-else
@@ -58,6 +62,6 @@ const { result, loading, error } = useQuery(gql`
         >
             {{ character.name }}
         </p>
-        <div></div>
+        <div></div> -->
     </div>
 </template>
