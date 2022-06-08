@@ -18,8 +18,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the docker-compose stack
-      run: docker-compose up -d backend-django
+      run: docker-compose -f ./local/docker-compose.yaml up -d backend-django
     
     - name: Run Tests
       run: |
-        docker-compose exec -T backend-django pytest --cov=api/ api/tests/test_register.py
+        docker-compose -f ./local/docker-compose.yaml exec -T backend-django pytest --cov=api/ api/tests/test_register.py
