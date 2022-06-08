@@ -1,25 +1,27 @@
-import { defineNuxtPlugin } from '#app'
-import { ApolloClient, InMemoryCache } from '@apollo/client/core'
-import { DefaultApolloClient } from '@vue/apollo-composable'
+// import { defineNuxtPlugin } from '#app'
+// import { ApolloClient, InMemoryCache } from '@apollo/client/core'
+// import { DefaultApolloClient } from '@vue/apollo-composable'
 
-export default defineNuxtPlugin((nuxtApp) => {
-    const apolloClient = new ApolloClient({
-        cache: new InMemoryCache(),
-        uri: process.env.GQL_API_ENDPOINT,
-        // other configuration
-    })
-    nuxtApp.vueApp.provide(DefaultApolloClient, apolloClient)
-})
+// export default defineNuxtPlugin((nuxtApp) => {
+//     const apolloClient = new ApolloClient({
+//         cache: new InMemoryCache(),
+//         // uri: process.env.GQL_API_ENDPOINT
+//         uri: 'https://rickandmortyapi.com/graphql'
+//         // other configuration
+//     })
+//     nuxtApp.vueApp.provide(DefaultApolloClient, apolloClient)
+// })
+
+
+
+
 
 
 // import { defineNuxtPlugin, NuxtApp } from '#app'
 // import { refreshToken } from '@/store/user'
 
 // import { ApolloClient, InMemoryCache, from } from '@apollo/client/core'
-// import {
-//     DefaultApolloClient,
-//     provideApolloClient
-// } from '@vue/apollo-composable'
+// import { DefaultApolloClient } from '@vue/apollo-composable'
 // import { HttpLink, split } from '@apollo/client/core'
 // import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 // import { createClient } from 'graphql-ws'
@@ -35,7 +37,8 @@ export default defineNuxtPlugin((nuxtApp) => {
 // export default defineNuxtPlugin((nuxt: NuxtApp) => {
 //     // Create an http link:
 //     const httpLink = new HttpLink({
-//         uri: process.env.GQL_API_ENDPOINT,
+//         // uri: process.env.GQL_API_ENDPOINT,
+//         uri: 'https://rickandmortyapi.com/graphql',
 //         headers: () => {
 //             const accessToken = ''
 //             // const accessToken = await refreshToken(
@@ -52,7 +55,8 @@ export default defineNuxtPlugin((nuxtApp) => {
 //     // https://github.com/enisdenjo/graphql-ws/blob/master/docs/interfaces/client.ClientOptions.md
 //     const wsLink = new GraphQLWsLink(
 //         createClient({
-//             url: process.env.GQL_WS_API_ENDPOINT,
+//             // url: process.env.GQL_WS_API_ENDPOINT,
+//             uri: 'https://rickandmortyapi.com/graphql',
 //             lazy: true,
 //             reconnect: true,
 //             webSocketImpl: WebSocket,
@@ -103,7 +107,9 @@ export default defineNuxtPlugin((nuxtApp) => {
 //     const apolloClient = new ApolloClient({
 //         cache: new InMemoryCache(),
 //         //https://www.apollographql.com/docs/react/api/link/introduction/
-//         link: from([errorLink, link]),
+//         link,
+//         // link: from([errorLink, link]),
+//         // uri: 'https://rickandmortyapi.com/graphql',
 //         connectToDevTools: true
 //     })
 //     // provideApolloClient(apolloClient)

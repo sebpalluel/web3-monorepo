@@ -30,6 +30,13 @@ export default defineNuxtConfig({
         baseURL: process.env.AUTH_API_ENDPOINT,
         browserBaseURL: process.env.BASE_URL
     },
+    publicRuntimeConfig: {
+        // graphqlUri: process.env.GQL_API_ENDPOINT,
+        // graphqlWsUri: process.env.GQL_WS_API_ENDPOINT
+        graphqlUri: 'https://rickandmortyapi.com/graphql',
+        graphqlWsUri: 'https://rickandmortyapi.com/graphql'
+    },
+    privateRuntimeConfig: {},
     // graphqlCodegen: {
     //     schema: [process.env.GQL_API_ENDPOINT]
     // },
@@ -46,6 +53,16 @@ export default defineNuxtConfig({
         prefetch: true,
         display: 'swap'
     },
+    // https://tailwindcss.nuxtjs.org/options
+    tailwindcss: {
+        // cssPath: '~/assets/css/tailwind.css',
+        configPath: 'tailwind.config.js',
+        exposeConfig: false,
+        config: {},
+        injectPosition: 0,
+        viewer: true
+    },
+
     // https://nuxtjs.org/docs/features/loading/
     loading: {
         color: 'blue',
@@ -53,11 +70,7 @@ export default defineNuxtConfig({
     },
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {
-        transpile: [
-            '@headlessui/vue',
-            '@apollo/client',
-            'ts-invariant/process'
-        ],
+        transpile: ['@headlessui/vue', '@apollo/client', 'ts-invariant/process']
         // postcss: {
         //     // plugins: {
         //     //     tailwindcss: {},

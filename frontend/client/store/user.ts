@@ -142,6 +142,7 @@ export const useUserStore = defineStore({
         async logout() {
             try {
                 clearToken()
+                //https://www.apollographql.com/docs/react/networking/authentication/#reset-store-on-logout
                 this.$nuxt.$apollo.resetStore()
                 navigateTo('/')
             } catch (e) {

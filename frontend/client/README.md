@@ -1,4 +1,4 @@
-# Nuxt 3 Minimal Starter
+# Nuxt 3 + TailwindCSS 3 + HeadlessUI
 
 Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
 
@@ -22,7 +22,7 @@ pnpm install --shamefully-hoist
 Start the development server on http://localhost:3000
 
 ```bash
-npm run dev
+yarn dev
 ```
 
 ## Production
@@ -40,3 +40,7 @@ npm run preview
 ```
 
 Checkout the [deployment documentation](https://v3.nuxtjs.org/docs/deployment) for more information.
+
+## TailwindCSS
+
+[Tailwind config viewer](http://localhost:3000/_tailwind/)

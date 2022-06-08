@@ -1,49 +1,16 @@
 <template>
     <div>
-        <NuxtLayout>
-            <NuxtPage />
-        </NuxtLayout>
-        <!-- <p v-if="error">Something went wrong...</p>
-        <p v-else-if="loading">Loading...</p>
-        <p
-            v-for="character in result.characters.results"
-            v-else
-            :key="character.id"
-        >
-            {{ character.name }}
-        </p>
-        <div></div> -->
+        <NuxtPage />
     </div>
 </template>
 
-<script>
-// import gql from 'graphql-tag'
-// import { useQuery } from '@vue/apollo-composable'
-
-// const CHARACTERS_QUERY = gql`
-//     query Characters {
-//         characters {
-//             results {
-//                 id
-//                 name
-//                 image
-//             }
-//         }
-//     }
-// `
-
-// export default {
-//     setup() {
-//         const { result, loading, error } = useQuery(CHARACTERS_QUERY)
-//         // onMounted(() => {
-//         //     // const res = await this.$axios.$get()
-//         //     // console.log({res})
-//         // })
-//         return {
-//             result,
-//             loading,
-//             error
-//         }
-//     }
-// }
+<script lang="ts">
+import { defineComponent } from 'vue'
+import { useApolloClient } from '@/composables/useApolloClient'
+export default defineComponent({
+    async setup() {
+        // TODO add token to headers on init when loggedin and restore when logged out
+        useApolloClient()
+    }
+})
 </script>
