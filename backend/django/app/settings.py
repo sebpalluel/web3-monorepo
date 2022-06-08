@@ -22,8 +22,8 @@ SECRET_KEY = os.environ['JWT_SECRET']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 # Change depending of env for staging/formation/prod
-ALLOWED_HOSTS = ['*']
-# ALLOWED_HOSTS = ['localhost', 'host.docker.internal']
+# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', 'host.docker.internal']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
