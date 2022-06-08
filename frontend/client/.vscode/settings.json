@@ -14,5 +14,8 @@
     "comments": false,
     "strings": true
   },
-  "css.validate": false
+  "css.validate": false,
+  "vitest.enable": true,
+  "vitest.showFailMessages": true,
+  "vitest.commandLine": "yarn test --"
 }
