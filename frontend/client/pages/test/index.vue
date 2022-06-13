@@ -1,38 +1,7 @@
-<!-- <script lang="ts">
-import gql from 'graphql-tag'
-import { useQuery } from '@vue/apollo-composable'
-export default {
-    setup() {
-        const { result, loading, error } = useQuery(gql`
-            query getUsers {
-                api_user {
-                    id
-                    email
-                }
-            }
-        `)
-        console.log(result)
-        // const users = computed(() => result.api_user : [])
-        return { result, loading }
-    }
-}
-</script> -->
-
 <script setup lang="ts">
 import gql from 'graphql-tag'
 import { useQuery } from '@vue/apollo-composable'
 
-// const { result, loading, error } = useQuery(gql`
-//     query Characters {
-//         characters {
-//             results {
-//                 id
-//                 name
-//                 image
-//             }
-//         }
-//     }
-// `)
 const { result, loading, error } = useQuery(gql`
     query getUsers {
         api_user {
@@ -41,6 +10,10 @@ const { result, loading, error } = useQuery(gql`
         }
     }
 `)
+
+definePageMeta({
+    middleware: 'auth'
+})
 </script>
 
 <template>

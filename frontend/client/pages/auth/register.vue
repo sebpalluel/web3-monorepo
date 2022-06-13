@@ -7,6 +7,10 @@ let formData: FormRegister = reactive({
     password_confirmation: ''
 })
 const user = useUserStore()
+
+definePageMeta({
+    middleware: 'guest'
+})
 </script>
 
 <template>

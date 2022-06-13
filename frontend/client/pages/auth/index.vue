@@ -7,6 +7,10 @@ let formData: FormLogin = reactive({
 })
 
 const user = useUserStore()
+
+definePageMeta({
+    middleware: 'guest'
+})
 </script>
 
 <template>
@@ -35,7 +39,7 @@ const user = useUserStore()
             "
             @click="() => user.login(formData)"
         >
-                Login
+            Login
         </button>
         <NuxtLink to="/auth/register"> Register </NuxtLink>
     </div>

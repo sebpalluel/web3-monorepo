@@ -30,12 +30,6 @@ export default defineNuxtConfig({
         baseURL: process.env.AUTH_API_ENDPOINT,
         browserBaseURL: process.env.BASE_URL
     },
-    publicRuntimeConfig: {
-        graphqlUri: process.env.GQL_API_ENDPOINT,
-        graphqlWsUri: process.env.GQL_WS_API_ENDPOINT
-        //     graphqlUri: 'https://rickandmortyapi.com/graphql',
-        //     graphqlWsUri: 'https://rickandmortyapi.com/graphql'
-    },
     privateRuntimeConfig: {},
     // graphqlCodegen: {
     //     schema: [process.env.GQL_API_ENDPOINT]

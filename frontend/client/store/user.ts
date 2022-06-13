@@ -6,7 +6,9 @@ export interface User {
     id: string
     email: string
     name: string
-    isAdmin: boolean
+    isAdmin: boolean,
+    isAuthenticated: boolean,
+    isLoggedIn: boolean,
 }
 
 export interface FormLogin {
@@ -109,7 +111,9 @@ export const useUserStore = defineStore({
             id: '',
             name: '',
             email: '',
-            isAdmin: false
+            isAdmin: false,
+            isAuthenticated: false,
+            isLoggedIn: false,
         }
         return user
     },
@@ -121,6 +125,13 @@ export const useUserStore = defineStore({
                     username: formData.email,
                     password: formData.password
                 })
+                // // The server handler is responsible for setting user fingerprint cookie during this as well
+                // const { jwtToken, refreshToken } = await login({
+                //     email,
+                //     password
+                // })
+                // setJwtToken(jwtToken)
+                // setRefreshToken(refreshToken)
 
                 console.log({ res })
                 setToken(res.data.access)
