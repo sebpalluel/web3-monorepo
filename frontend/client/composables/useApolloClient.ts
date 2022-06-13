@@ -13,15 +13,14 @@ import {
     ApolloLink,
     NormalizedCacheObject
 } from '@apollo/client/core'
+import { onError } from "@apollo/client/link/error";
 import { setContext } from '@apollo/client/link/context'
 // import { WebSocketLink } from '@apollo/client/link/ws'
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { getMainDefinition } from '@apollo/client/utilities'
 import { createClient } from 'graphql-ws'
-import merge from 'deepmerge'
 
 import { getJwtToken } from '@/utils/auth'
-import console, { log } from 'console'
 
 let apolloClient: ApolloClient<NormalizedCacheObject>
 
@@ -62,6 +61,11 @@ function getOrCreateWebsocketLink() {
     return wsLink
 }
 
+const logoutLink = onError(({ networkError }) => {
+    // if (networkError.statusCode === 401) 
+    // logout();
+})
+
 function createLink(): ApolloLink {
     const httpLink = new HttpLink({
         uri: process.env['GQL_API_ENDPOINT'],
@@ -81,6 +85,7 @@ function createLink(): ApolloLink {
     // link websocket only when query not made server side
     if (!isSSR) {
         return ApolloLink.from([
+            logoutLink,
             authLink,
             // Use "getOrCreateWebsocketLink" to init WS lazily
             // otherwise WS connection will be created + used even if using "query"
@@ -91,7 +96,7 @@ function createLink(): ApolloLink {
             )
         ])
     } else {
-        return ApolloLink.from([authLink, httpLink])
+        return ApolloLink.from([authLink, logoutLink, httpLink])
     }
 }
 

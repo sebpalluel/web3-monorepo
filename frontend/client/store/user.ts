@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import Cookies from 'js-cookie'
-import jwt_decode from 'jwt-decode'
+import jwt_decode, { JwtPayload } from "jwt-decode"
+import { setJwtToken, setRefreshToken, getRefreshToken, getJwtToken } from "@/utils/auth"
 
 export interface User {
     id: string
@@ -27,7 +28,9 @@ export interface FormResetPassword {
 }
 
 function clearToken() {
-    localStorage.removeItem('token')
+    // localStorage.removeItem('token')
+    setJwtToken("")
+    setRefreshToken("")
     localStorage.removeItem('token_expiry')
     localStorage.removeItem('user_email')
     localStorage.removeItem('user_id')
@@ -51,7 +54,7 @@ function setToken(token: string) {
     const tokenDecoded = jwt_decode<MyToken>(token)
     // Load up new token > go home / we'll stash role and user name for display reasons (permissions are handled Hasura/Django-side)
     // Stashing expiry for token expiry to know when to re-run the token refresh
-    localStorage.setItem('token', token)
+    setJwtToken(token)
     localStorage.setItem('token_expiry', tokenDecoded.exp)
     localStorage.setItem('user_email', tokenDecoded.user_email)
     localStorage.setItem(
