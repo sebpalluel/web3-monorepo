@@ -1,31 +1,4 @@
-# Python / JS
-*.egg-info
-*.pot
-*.py[co]
-.tox/
-__pycache__
-MANIFEST
-dist/
-docs/_build/
-docs/locale/
-node_modules/
-coverage
-*package-lock.json
-tests/coverage_html/
-tests/.coverage
-build/
-tests/report/
-/.pnp
-.pnp.js
-django/static/*
-!django/static/__init__.py
-*.log
-
-# OS Specific Jams
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
+.nhost
+web/node_modules
+node_modules
+functions/node_modules

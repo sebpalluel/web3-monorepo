@@ -15,7 +15,7 @@ export default defineNuxtConfig({
     modules: [
         // https://go.nuxtjs.dev/axios
         ['@nuxtjs/axios', { proxyHeaders: false }], // TODO Set to true when fixed, causing issue with CORS headers policy in django
-        '@nuxtjs/tailwindcss'
+        '@nuxtjs/tailwindcss',
     ],
     plugins: ['~/plugins/axios'],
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -30,7 +30,10 @@ export default defineNuxtConfig({
         baseURL: process.env.AUTH_API_ENDPOINT,
         browserBaseURL: process.env.BASE_URL
     },
-    privateRuntimeConfig: {},
+    // // https://github.com/xlanex6/nuxt-nhost
+    // nhost: {
+    //     backendUrl: process.env.NHOST_BACKEND_URL,
+    // },
     // graphqlCodegen: {
     //     schema: [process.env.GQL_API_ENDPOINT]
     // },
@@ -93,6 +96,9 @@ export default defineNuxtConfig({
     bridge: {
         nitro: process.env.NODE_ENV !== 'production',
         autoImports: true
+    },
+    nitro: {
+        preset: "vercel",
     },
     vue: {
         config: {
