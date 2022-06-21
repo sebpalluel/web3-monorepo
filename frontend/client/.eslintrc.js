@@ -23,7 +23,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ["*.js", "*.ts"],
+      files: ['*.js', '*.jsx', '*.ts', '*.tsx'],
       processor: "@graphql-eslint/graphql",
     },
     {

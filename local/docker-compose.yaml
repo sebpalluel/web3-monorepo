@@ -21,13 +21,10 @@ services:
       - "${CLIENT_PORT}:${CLIENT_PORT}"
     command: yarn dev
     environment:
-      NODE_ENV: development
       PORT: ${CLIENT_PORT}
       HOST: ${CLIENT_HOST}
-      BASE_URL: ${CLIENT_BASE_URL}
-      GQL_API_ENDPOINT: ${GQL_API_ENDPOINT}
-      GQL_WS_API_ENDPOINT: ${GQL_WS_API_ENDPOINT}
-      AUTH_API_ENDPOINT: ${AUTH_API_ENDPOINT}
+    env_file:
+      - .env.local
     volumes:
       - ../frontend/client:/frontend
       - /frontend/node_modules

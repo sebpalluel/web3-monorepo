@@ -31,18 +31,18 @@ export default defineNuxtConfig({
         browserBaseURL: process.env.BASE_URL
     },
     publicRuntimeConfig: {
-        graphqlUri: process.env.GQL_API_ENDPOINT,
-        graphqlWsUri: process.env.GQL_WS_API_ENDPOINT
+        graphqlUri: process.env.HASURA_PROJECT_ENDPOINT,
+        graphqlWsUri: process.env.HASURA_PROJECT_ENDPOINT_WS
         //     graphqlUri: 'https://rickandmortyapi.com/graphql',
         //     graphqlWsUri: 'https://rickandmortyapi.com/graphql'
     },
     privateRuntimeConfig: {},
     // graphqlCodegen: {
-    //     schema: [process.env.GQL_API_ENDPOINT]
+    //     schema: [process.env.HASURA_PROJECT_ENDPOINT]
     // },
     // apollo: {
     //     default: {
-    //         uri: process.env.GQL_API_ENDPOINT
+    //         uri: process.env.HASURA_PROJECT_ENDPOINT
     //     }
     // },
     // https://google-fonts.nuxtjs.org/options

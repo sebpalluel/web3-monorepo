@@ -1,4 +1,4 @@
-schema: ${GQL_API_ENDPOINT}
+schema: ${HASURA_PROJECT_ENDPOINT}
 extensions:
   codegen:
     generates:

@@ -1,63 +1,79 @@
-import NextAuth from "next-auth"
-import GoogleProvider from "next-auth/providers/google"
-import FacebookProvider from "next-auth/providers/facebook"
-import GithubProvider from "next-auth/providers/github"
-import TwitterProvider from "next-auth/providers/twitter"
-import Auth0Provider from "next-auth/providers/auth0"
-// import AppleProvider from "next-auth/providers/apple"
-// import EmailProvider from "next-auth/providers/email"
+import NextAuth from "next-auth";
+import GithubProvider from "next-auth/providers/github";
+import EmailProvider from "next-auth/providers/email";
+import { JWT } from "next-auth/jwt";
+import { HasuraAdapter } from "@skillrecordings/next-auth-hasura-adapter";
+import * as jsonwebtoken from "jsonwebtoken";
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
 export default NextAuth({
   // https://next-auth.js.org/configuration/providers/oauth
   providers: [
-    /* EmailProvider({
-         server: process.env.EMAIL_SERVER,
-         from: process.env.EMAIL_FROM,
-       }),
-    // Temporarily removing the Apple provider from the demo site as the
-    // callback URL for it needs updating due to Vercel changing domains
-      
-    Providers.Apple({
-      clientId: process.env.APPLE_ID,
-      clientSecret: {
-        appleId: process.env.APPLE_ID,
-        teamId: process.env.APPLE_TEAM_ID,
-        privateKey: process.env.APPLE_PRIVATE_KEY,
-        keyId: process.env.APPLE_KEY_ID,
-      },
-    }),
-    */
-    FacebookProvider({
-      clientId: process.env.FACEBOOK_ID,
-      clientSecret: process.env.FACEBOOK_SECRET,
-    }),
     GithubProvider({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
     }),
-    GoogleProvider({
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET,
-    }),
-    TwitterProvider({
-      clientId: process.env.TWITTER_ID,
-      clientSecret: process.env.TWITTER_SECRET,
-    }),
-    Auth0Provider({
-      clientId: process.env.AUTH0_ID,
-      clientSecret: process.env.AUTH0_SECRET,
-      issuer: process.env.AUTH0_ISSUER,
+    // https://next-auth.js.org/configuration/providers/email
+    // https://next-auth.js.org/providers/email
+    EmailProvider({
+      server: {
+        host: process.env.EMAIL_SERVER_HOST,
+        port: process.env.EMAIL_SERVER_PORT,
+        auth: {
+          user: process.env.EMAIL_SERVER_USER,
+          pass: process.env.EMAIL_SERVER_PASSWORD
+        }
+      },
+      from: process.env.EMAIL_FROM,
+      // maxAge: 24 * 60 * 60, // How long email links are valid for (default 24h)
     }),
   ],
+  adapter: HasuraAdapter({
+    endpoint: process.env.HASURA_PROJECT_ENDPOINT!,
+    adminSecret: process.env.HASURA_ADMIN_SECRET!,
+  }),
+  secret: process.env.NEXTAUTH_SECRET,
   theme: {
-    colorScheme: "light",
+    colorScheme: "auto",
   },
-  callbacks: {
-    async jwt({ token }) {
-      token.userRole = "admin"
-      return token
+  // Use JWT strategy so we can forward them to Hasura
+  session: { strategy: "jwt" },
+  // Encode and decode your JWT with the HS256 algorithm
+  jwt: {
+    encode: ({ secret, token }) => {
+      const encodedToken = jsonwebtoken.sign(token!, secret, {
+        algorithm: "HS256",
+      });
+      return encodedToken;
+    },
+    decode: async ({ secret, token }) => {
+      const decodedToken = jsonwebtoken.verify(token!, secret, {
+        algorithms: ["HS256"],
+      });
+      return decodedToken as JWT;
     },
   },
-})
+  callbacks: {
+    // Add the required Hasura claims
+    // https://hasura.io/docs/latest/graphql/core/auth/authentication/jwt/#the-spec
+    async jwt({ token }) {
+      return {
+        ...token,
+        "https://hasura.io/jwt/claims": {
+          "x-hasura-allowed-roles": ["user"],
+          "x-hasura-default-role": "user",
+          "x-hasura-role": "user",
+          "x-hasura-user-id": token.sub,
+        },
+      };
+    },
+    // Add user ID to the session
+    session: async ({ session, token }) => {
+      if (session?.user) {
+        session.user.id = token.sub!;
+      }
+      return session;
+    },
+  },
+});
