@@ -1,14 +1,33 @@
 {
-  // https://v3.nuxtjs.org/concepts/typescript
-  "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
-    "types": [
-      // ...
-      "@pinia/nuxt",
-      "@nuxt/types",
-      "@nuxtjs/axios",
-      "vitest/importMeta",
-      "vitest/globals"
-    ]
-  }
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "baseUrl": "src",
+    "incremental": true
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src",
+    "commitlint.config.js"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

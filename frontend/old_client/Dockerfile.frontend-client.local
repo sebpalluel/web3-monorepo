@@ -8,3 +8,6 @@ COPY . ./
 RUN yarn
 
 EXPOSE ${PORT}
+
+ENV NUXT_HOST=${HOST}
+ENV NUXT_PORT=${PORT}
