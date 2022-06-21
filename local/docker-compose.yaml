@@ -12,28 +12,29 @@ services:
   #   working_dir: /home/node/apps/app
   #   volumes:
   #     - ./clients/svelte:/home/node/apps/app
-  frontend-client:
-    build:
-      context: ../frontend/client
-      dockerfile: Dockerfile.frontend-client.local
-    ports:
-      - "${CLIENT_PORT}:${CLIENT_PORT}"
-      - 24678:24678
-    command: yarn dev
-    environment:
-      NODE_ENV: development
-      PORT: ${CLIENT_PORT}
-      HOST: ${CLIENT_HOST}
-      BASE_URL: ${CLIENT_BASE_URL}
-      GQL_API_ENDPOINT: ${GQL_API_ENDPOINT}
-      GQL_WS_API_ENDPOINT: ${GQL_WS_API_ENDPOINT}
-      AUTH_API_ENDPOINT: ${AUTH_API_ENDPOINT}
-    volumes:
-      - ../frontend/client:/frontend
-      - /frontend/node_modules
-      - /frontend/.nuxt
-    networks:
-      - web
+
+  # frontend-client:
+  #   build:
+  #     context: ../frontend/client
+  #     dockerfile: Dockerfile.frontend-client.local
+  #   ports:
+  #     - "${CLIENT_PORT}:${CLIENT_PORT}"
+  #     - 24678:24678
+  #   command: yarn dev
+  #   environment:
+  #     NODE_ENV: development
+  #     PORT: ${CLIENT_PORT}
+  #     HOST: ${CLIENT_HOST}
+  #     BASE_URL: ${CLIENT_BASE_URL}
+  #     GQL_API_ENDPOINT: ${GQL_API_ENDPOINT}
+  #     GQL_WS_API_ENDPOINT: ${GQL_WS_API_ENDPOINT}
+  #     AUTH_API_ENDPOINT: ${AUTH_API_ENDPOINT}
+  #   volumes:
+  #     - ../frontend/client:/frontend
+  #     - /frontend/node_modules
+  #     - /frontend/.nuxt
+  #   networks:
+  #     - web
   
   # backend-django:
   #   build:
