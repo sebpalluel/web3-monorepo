@@ -8,14 +8,14 @@ install:
 	@npm i
 
 build:
-	@docker-compose -f ./local/docker-compose.yaml build
+	@docker-compose -f ./local/docker-compose.yaml --env-file ./local/.env.local build
 
 # django create superuser username / password and email are set in environment variables
 populate-backend:
 	@docker-compose exec backend-django ./manage.py createsuperuser --noinput
 
 run:	build
-	@docker-compose -f ./local/docker-compose.yaml up
+	@docker-compose -f ./local/docker-compose.yaml --env-file ./local/.env.local up
 
 update:
 	@git submodule init
@@ -34,7 +34,7 @@ django-bash:
 db-clean:
 	@docker-compose -f ./local/docker-compose.yaml down
 	@docker volume rm governance_db_data
-	@docker-compose -f ./local/docker-compose.yaml up
+	@docker-compose -f ./local/docker-compose.yaml --env-file ./local/.env.local up
 
 db-migrate:
 	@docker-compose -f ./local/docker-compose.yaml exec backend-django python manage.py migrate

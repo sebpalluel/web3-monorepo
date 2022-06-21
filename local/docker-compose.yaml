@@ -35,31 +35,31 @@ services:
     networks:
       - web
   
-  backend-django:
-    build:
-      context: ../backend/django
-      dockerfile: Dockerfile.backend-django.local
-    stdin_open: true
-    tty: true
-    depends_on:
-      db:
-        condition: service_healthy
-    volumes:
-      - ../backend/django:/backend
-    environment:
-      PYTHONUNBUFFERED: 1
-      JWT_SECRET: '${JWT_SECRET}'
-      DJANGO_SUPERUSER_PASSWORD: ${DJANGO_ADMIN_PASS}
-      DJANGO_SUPERUSER_USERNAME: ${DJANGO_ADMIN_NAME}
-      DJANGO_SUPERUSER_EMAIL: ${DJANGO_ADMIN_MAIL}
-      DJANGO_PORT: ${DJANGO_PORT}
-      PYTHONBREAKPOINT: ipdb.set_trace
-      CLIENT_BASE_URL: ${CLIENT_BASE_URL}
-    ports:
-      - "${DJANGO_PORT}:${DJANGO_PORT}"
-    networks:
-      - db
-      - web
+  # backend-django:
+  #   build:
+  #     context: ../backend/django
+  #     dockerfile: Dockerfile.backend-django.local
+  #   stdin_open: true
+  #   tty: true
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+  #   volumes:
+  #     - ../backend/django:/backend
+  #   environment:
+  #     PYTHONUNBUFFERED: 1
+  #     JWT_SECRET: '${JWT_SECRET}'
+  #     DJANGO_SUPERUSER_PASSWORD: ${DJANGO_ADMIN_PASS}
+  #     DJANGO_SUPERUSER_USERNAME: ${DJANGO_ADMIN_NAME}
+  #     DJANGO_SUPERUSER_EMAIL: ${DJANGO_ADMIN_MAIL}
+  #     DJANGO_PORT: ${DJANGO_PORT}
+  #     PYTHONBREAKPOINT: ipdb.set_trace
+  #     CLIENT_BASE_URL: ${CLIENT_BASE_URL}
+  #   ports:
+  #     - "${DJANGO_PORT}:${DJANGO_PORT}"
+  #   networks:
+  #     - db
+  #     - web
 
   backend-hasura-engine:
     image: hasura/graphql-engine:${HASURA_VERSION}
