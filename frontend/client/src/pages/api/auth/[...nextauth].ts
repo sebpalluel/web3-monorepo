@@ -175,11 +175,10 @@ export default NextAuth({
     // if you want to override the default behaviour.
     encode: async (args) => {
       const { secret, token } = args
-      console.log({ provider: token.provider });
       let name: string = '';
       let email: string = '';
       let id: string = '';
-      switch (token.provider?.id) {
+      switch (token.provider) {
         case "google":
           name = token.name
           email = token.email
@@ -200,7 +199,8 @@ export default NextAuth({
           "x-hasura-default-role": "user",
           "x-hasura-role": "user",
           "x-hasura-user-id": id,
-        }
+        },
+        ...token
       };
       const encodedToken = jwt.sign(jwtClaims, secret, { algorithm: 'HS256' });
       return encodedToken;
@@ -208,7 +208,6 @@ export default NextAuth({
     decode: async (args) => {
       const { secret, token } = args
       const decodedToken = jwt.verify(token, secret, { algorithms: ['HS256'] });
-      console.log({ argsDecode: args, argsDecodeToken: decodedToken });
       return decodedToken as JWT;
     },
   },
@@ -251,7 +250,6 @@ export default NextAuth({
       return Promise.resolve(session);
     },
     async jwt(args) {
-      console.log({ argsJwt: args });
       const { token, user, account } = args
       // Initial sign in
       if (account && user) {
@@ -261,21 +259,19 @@ export default NextAuth({
           accessTokenExpires: Date.now() + account.expires_at * 1000,
           refreshToken: account.refresh_token,
           user,
-          provider: account.provider
+          provider: account.provider,
+          ...token,
+          ...account,
+          ...user
         }
-      }
-
-      const tokenWithProvider = {
-        ...token,
-        provider: account?.provider
       }
       // Return previous token if the access token has not expired yet
       if (Date.now() < token.accessTokenExpires) {
-        return tokenWithProvider
+        return token
       }
 
       // Access token has expired, try to update it
-      return refreshAccessToken(tokenWithProvider)
+      return refreshAccessToken(token)
     },
   },
 
