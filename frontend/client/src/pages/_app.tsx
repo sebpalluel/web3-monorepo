@@ -9,7 +9,7 @@ import { Chakra } from 'lib/components/Chakra'
 import Layout from 'lib/layout'
 import 'lib/styles/globals.css'
 
-const MyApp = ({ Component, pageProps }: AppProps) => {
+const MyApp = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
     return (
         <Chakra>
             <Head>
@@ -19,7 +19,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                 />
             </Head>
             <DefaultSeo {...defaultSEOConfig} />
-            <SessionProvider session={pageProps.session} refetchInterval={0}>
+            <SessionProvider session={session}>
                 <Layout>
                     <Component {...pageProps} />
                 </Layout>

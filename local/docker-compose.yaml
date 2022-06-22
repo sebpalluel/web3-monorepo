@@ -66,9 +66,11 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    env_file:
+      - .env.local
     environment:
       HASURA_GRAPHQL_SERVER_PORT: ${HASURA_PORT}
-      HASURA_GRAPHQL_DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASS}@db:${POSTGRES_PORT}/${POSTGRES_DB}
+      HASURA_GRAPHQL_DATABASE_URL: ${DATABASE_URL}
       HASURA_GRAPHQL_ENABLE_CONSOLE: "false"
       HASURA_GRAPHQL_DEV_MODE: "true"
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
@@ -97,7 +99,7 @@ services:
     volumes:
       - ../backend/hasura-console:/usr/src/hasura
     environment:
-      HASURA_GRAPHQL_DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASS}@db:${POSTGRES_PORT}/${POSTGRES_DB}
+      HASURA_GRAPHQL_DATABASE_URL: ${DATABASE_URL}
       HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_ADMIN_SECRET}
       HASURA_GRAPHQL_ADDRESS: 127.0.0.1
       HASURA_RUN_CONSOLE: "true"
