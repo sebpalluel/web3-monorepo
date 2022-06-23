@@ -26,7 +26,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     `;
 
     const { users_by_pk: user } = await request(
-      process.env.HASURA_PROJECT_ENDPOINT!,
+      process.env.HASURA_URL!,
       query,
       { id: session.user?.id },
       { authorization: `Bearer ${token}` }

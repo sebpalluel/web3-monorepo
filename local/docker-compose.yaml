@@ -1,17 +1,30 @@
 version: '3.9'
-
 services:
-
-  # svelte:
-  #   image: node:lts
-  #   container_name: client-svelte
-  #   command: bash -c "npm install && HOST=0.0.0.0 npm run dev"
+  
+  # old-frontend-client:
+  #   build:
+  #     context: ../frontend/old_client
+  #     dockerfile: Dockerfile.frontend-client.local
   #   ports:
-  #     - "127.0.0.1:35729:35729" # Live Reload
-  #     - "127.0.0.1:8088:8088"
-  #   working_dir: /home/node/apps/app
+  #     - "${CLIENT_PORT}:${CLIENT_PORT}"
+  #     - 24678:24678
+  #   command: yarn dev
+  #   environment:
+  #     NODE_ENV: development
+  #     PORT: ${CLIENT_PORT}
+  #     HOST: ${CLIENT_HOST}
+  #     BASE_URL: ${CLIENT_BASE_URL}
+  #     GQL_API_ENDPOINT: ${GQL_API_ENDPOINT}
+  #     GQL_WS_API_ENDPOINT: ${GQL_WS_API_ENDPOINT}
+  #     AUTH_API_ENDPOINT: ${AUTH_API_ENDPOINT}
+  #   env_file:
+  #     - .env.local
   #   volumes:
-  #     - ./clients/svelte:/home/node/apps/app
+  #     - ../frontend/old_client:/old_frontend
+  #     - /old_frontend/node_modules
+  #     - /old_frontend/.nuxt
+  #   networks:
+  #     - web
 
   frontend-client:
     build:
@@ -23,6 +36,7 @@ services:
     environment:
       PORT: ${CLIENT_PORT}
       HOST: ${CLIENT_HOST}
+      AUTH_PRIVATE_KEY: '{"type": "HS256","key": "${JWT_SECRET}" }'
     env_file:
       - .env.local
     volumes:
@@ -32,6 +46,8 @@ services:
     networks:
       - web
       - db
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
   
   # backend-django:
   #   build:
@@ -76,7 +92,6 @@ services:
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
       HASURA_GRAPHQL_ENABLE_TELEMETRY: "false"
       HASURA_GRAPHQL_JWT_SECRET: '{"type": "HS256","key": "${JWT_SECRET}" }'
-      HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_ADMIN_SECRET}
     networks:
       - web
       - db
@@ -91,6 +106,8 @@ services:
       interval: 5s
       timeout: 3s
       retries: 5
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   backend-hasura-console:
     build:
@@ -100,7 +117,7 @@ services:
       - ../backend/hasura-console:/usr/src/hasura
     environment:
       HASURA_GRAPHQL_DATABASE_URL: ${DATABASE_URL}
-      HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_ADMIN_SECRET}
+      HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET}
       HASURA_GRAPHQL_ADDRESS: 127.0.0.1
       HASURA_RUN_CONSOLE: "true"
       HASURA_PORT: ${HASURA_PORT}

@@ -1,4 +1,4 @@
-schema: ${HASURA_PROJECT_ENDPOINT}
+schema: ${HASURA_URL}
 extensions:
   codegen:
     generates:

@@ -6,10 +6,28 @@ select_permissions:
     permission:
       columns:
         - email
+        - id
         - image
         - name
         - emailVerified
+      filter: {}
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - email
         - id
+        - image
+        - name
+        - emailVerified
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+      check: null
+delete_permissions:
+  - role: user
+    permission:
+      backend_only: false
       filter:
         id:
           _eq: X-Hasura-User-Id

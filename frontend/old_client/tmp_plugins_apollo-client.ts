@@ -5,7 +5,7 @@
 // export default defineNuxtPlugin((nuxtApp) => {
 //     const apolloClient = new ApolloClient({
 //         cache: new InMemoryCache(),
-//         // uri: process.env.HASURA_PROJECT_ENDPOINT
+//         // uri: process.env.HASURA_URL
 //         uri: 'https://rickandmortyapi.com/graphql'
 //         // other configuration
 //     })
@@ -37,7 +37,7 @@
 // export default defineNuxtPlugin((nuxt: NuxtApp) => {
 //     // Create an http link:
 //     const httpLink = new HttpLink({
-//         // uri: process.env.HASURA_PROJECT_ENDPOINT,
+//         // uri: process.env.HASURA_URL,
 //         uri: 'https://rickandmortyapi.com/graphql',
 //         headers: () => {
 //             const accessToken = ''
@@ -55,7 +55,7 @@
 //     // https://github.com/enisdenjo/graphql-ws/blob/master/docs/interfaces/client.ClientOptions.md
 //     const wsLink = new GraphQLWsLink(
 //         createClient({
-//             // url: process.env.HASURA_PROJECT_ENDPOINT_WS,
+//             // url: process.env.HASURA_URL_WS,
 //             uri: 'https://rickandmortyapi.com/graphql',
 //             lazy: true,
 //             reconnect: true,
