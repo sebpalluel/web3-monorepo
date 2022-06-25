@@ -26,6 +26,7 @@
         "framer-motion": "^6.3.11",
         "graphql": "^16.5.0",
         "graphql-request": "^4.3.0",
+        "graphql-tag": "^2.12.6",
         "jsonwebtoken": "^8.5.1",
         "next": "12.1.5",
         "next-auth": "latest",

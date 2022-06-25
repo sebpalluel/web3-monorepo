@@ -25,10 +25,9 @@ export const hasuraRequest = async ({ query, variables, token = null, admin = fa
 				body: JSON.stringify({ query, variables }),
 				headers: headers
 			})
-			console.log({ response });
-
 
 			const jsonResponse = await response.json()
+			console.log({ jsonResponse });
 			if (jsonResponse.errors) {
 				const { message } = jsonResponse.errors[0] || 'Error..'
 				throw new Error(message)
@@ -155,6 +154,7 @@ export const HasuraAdapter = (config = {}, options = {}) => {
 				},
 				admin: true,
 			});
+
 			return data?.users[0] || null
 		},
 		async updateUser(user) {
