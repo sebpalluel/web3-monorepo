@@ -140,6 +140,18 @@ services:
         condition: service_healthy
     restart: unless-stopped
 
+  mailhog:
+    image: mailhog/mailhog
+    logging:
+      driver: 'none' # disable saving logs
+    ports:
+      - "${EMAIL_SERVER_PORT}:${EMAIL_SERVER_PORT}" # smtp server
+      - "${EMAIL_WEB_UI}:${EMAIL_WEB_UI}" # web ui
+    networks:
+      - web
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
   db:
     image: postgres:12
     environment:
