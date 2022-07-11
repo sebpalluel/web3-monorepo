@@ -151,6 +151,9 @@ services:
       - web
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    env_file:
+      - .env.local
+    restart: on-failure
 
   db:
     image: postgres:12

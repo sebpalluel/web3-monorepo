@@ -243,10 +243,58 @@ export const HasuraAdapter = (config = {}, options = {}) => {
 			return
 		},
 		async createVerificationToken({ identifier, expires, token }) {
-			return
+			const data = await hasuraRequest({
+				query: `
+          mutation createVerificationToken($verificationToken: verificationTokens_insert_input!) {
+            insert_verificationTokens_one(object: $verificationToken) {
+              	identifier,
+		expires,
+		token,
+            }
+          }
+        `,
+				variables: {
+					verificationToken: {
+						identifier,
+						expires,
+						token,
+					}
+				},
+				admin: true,
+			});
+			return data?.insert_sessions_one || null
 		},
 		async useVerificationToken({ identifier, token }) {
-			return
+			const data = await hasuraRequest({
+				query: `
+          query getVerificationToken($token: String!){
+	verificationTokens(where: {token: {_eq: $token}}) {
+              	identifier,
+		expires,
+		token,
+            }
+          }
+        `,
+				variables: {
+					token,
+				},
+				admin: true,
+			});
+			const verifToken = data?.verificationTokens[0]
+			if (verifToken)
+				await hasuraRequest({
+					query: `
+					mutation delete_verificationToken {
+						delete_verificationTokens(where: {token: {_eq: ${verifToken.token}}}) {
+						  affected_rows
+						}
+					      }
+					      `,
+					variables: {
+					},
+					admin: true,
+				})
+			return verifToken
 		},
 	}
 }
