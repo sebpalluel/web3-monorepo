@@ -32,7 +32,9 @@ services:
       dockerfile: Dockerfile.frontend-client.local
     ports:
       - "${CLIENT_PORT}:${CLIENT_PORT}"
-    command: yarn dev
+    command: >
+      sh -c "yarn dev &
+            yarn graphql-codegen"
     environment:
       PORT: ${CLIENT_PORT}
       HOST: ${CLIENT_HOST}
@@ -45,9 +47,11 @@ services:
       - /frontend/.next
     networks:
       - web
-      - db
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    depends_on:
+      backend-hasura-engine:
+        condition: service_healthy
   
   # backend-django:
   #   build:

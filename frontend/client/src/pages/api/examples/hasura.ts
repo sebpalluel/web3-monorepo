@@ -20,7 +20,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 users(where: {id: {_eq: $id}}) {
                     id
                     email
-                }
+              }
             }
        `,
         variables: { 
