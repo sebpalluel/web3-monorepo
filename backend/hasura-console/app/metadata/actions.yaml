@@ -1,6 +1,37 @@
-actions: []
+actions:
+  - name: login
+    definition:
+      kind: ""
+      handler: '{{ACTION_BASE_URL}}/api/actions/login'
+      forward_client_headers: true
+    permissions:
+      - role: anonymous
+  - name: refreshJwtToken
+    definition:
+      kind: ""
+      handler: '{{ACTION_BASE_URL}}/api/actions/refresh-jwt'
+    permissions:
+      - role: anonymous
+      - role: user
+  - name: signout
+    definition:
+      kind: synchronous
+      handler: '{{ACTION_BASE_URL}}/api/actions/signout'
+    permissions:
+      - role: user
+  - name: signup
+    definition:
+      kind: synchronous
+      handler: '{{ACTION_BASE_URL}}/api/actions/signup'
+    permissions:
+      - role: anonymous
 custom_types:
   enums: []
-  input_objects: []
-  objects: []
+  input_objects:
+    - name: LoginInput
+    - name: SignupInput
+  objects:
+    - name: AccessTokens
+    - name: JwtToken
+    - name: SignoutOutput
   scalars: []

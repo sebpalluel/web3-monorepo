@@ -1,65 +1,79 @@
 version: '3.9'
-
 services:
-
-  # svelte:
-  #   image: node:lts
-  #   container_name: client-svelte
-  #   command: bash -c "npm install && HOST=0.0.0.0 npm run dev"
+  
+  # old-frontend-client:
+  #   build:
+  #     context: ../frontend/old_client
+  #     dockerfile: Dockerfile.frontend-client.local
   #   ports:
-  #     - "127.0.0.1:35729:35729" # Live Reload
-  #     - "127.0.0.1:8088:8088"
-  #   working_dir: /home/node/apps/app
+  #     - "${CLIENT_PORT}:${CLIENT_PORT}"
+  #     - 24678:24678
+  #   command: yarn dev
+  #   environment:
+  #     NODE_ENV: development
+  #     PORT: ${CLIENT_PORT}
+  #     HOST: ${CLIENT_HOST}
+  #     BASE_URL: ${CLIENT_BASE_URL}
+  #     GQL_API_ENDPOINT: ${GQL_API_ENDPOINT}
+  #     GQL_WS_API_ENDPOINT: ${GQL_WS_API_ENDPOINT}
+  #     AUTH_API_ENDPOINT: ${AUTH_API_ENDPOINT}
+  #   env_file:
+  #     - .env.local
   #   volumes:
-  #     - ./clients/svelte:/home/node/apps/app
+  #     - ../frontend/old_client:/old_frontend
+  #     - /old_frontend/node_modules
+  #     - /old_frontend/.nuxt
+  #   networks:
+  #     - web
+
   frontend-client:
     build:
       context: ../frontend/client
       dockerfile: Dockerfile.frontend-client.local
     ports:
       - "${CLIENT_PORT}:${CLIENT_PORT}"
-      - 24678:24678
     command: yarn dev
     environment:
-      NODE_ENV: development
       PORT: ${CLIENT_PORT}
       HOST: ${CLIENT_HOST}
-      BASE_URL: ${CLIENT_BASE_URL}
-      GQL_API_ENDPOINT: ${GQL_API_ENDPOINT}
-      GQL_WS_API_ENDPOINT: ${GQL_WS_API_ENDPOINT}
-      AUTH_API_ENDPOINT: ${AUTH_API_ENDPOINT}
+      AUTH_PRIVATE_KEY: '{"type": "HS256","key": "${JWT_SECRET}" }'
+    env_file:
+      - .env.local
     volumes:
       - ../frontend/client:/frontend
       - /frontend/node_modules
-      - /frontend/.nuxt
+      - /frontend/.next
     networks:
       - web
-  
-  backend-django:
-    build:
-      context: ../backend/django
-      dockerfile: Dockerfile.backend-django.local
-    stdin_open: true
-    tty: true
-    depends_on:
-      db:
-        condition: service_healthy
-    volumes:
-      - ../backend/django:/backend
-    environment:
-      PYTHONUNBUFFERED: 1
-      JWT_SECRET: '${JWT_SECRET}'
-      DJANGO_SUPERUSER_PASSWORD: ${DJANGO_ADMIN_PASS}
-      DJANGO_SUPERUSER_USERNAME: ${DJANGO_ADMIN_NAME}
-      DJANGO_SUPERUSER_EMAIL: ${DJANGO_ADMIN_MAIL}
-      DJANGO_PORT: ${DJANGO_PORT}
-      PYTHONBREAKPOINT: ipdb.set_trace
-      CLIENT_BASE_URL: ${CLIENT_BASE_URL}
-    ports:
-      - "${DJANGO_PORT}:${DJANGO_PORT}"
-    networks:
       - db
-      - web
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  
+  # backend-django:
+  #   build:
+  #     context: ../backend/django
+  #     dockerfile: Dockerfile.backend-django.local
+  #   stdin_open: true
+  #   tty: true
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+  #   volumes:
+  #     - ../backend/django:/backend
+  #   environment:
+  #     PYTHONUNBUFFERED: 1
+  #     JWT_SECRET: '${JWT_SECRET}'
+  #     DJANGO_SUPERUSER_PASSWORD: ${DJANGO_ADMIN_PASS}
+  #     DJANGO_SUPERUSER_USERNAME: ${DJANGO_ADMIN_NAME}
+  #     DJANGO_SUPERUSER_EMAIL: ${DJANGO_ADMIN_MAIL}
+  #     DJANGO_PORT: ${DJANGO_PORT}
+  #     PYTHONBREAKPOINT: ipdb.set_trace
+  #     CLIENT_BASE_URL: ${CLIENT_BASE_URL}
+  #   ports:
+  #     - "${DJANGO_PORT}:${DJANGO_PORT}"
+  #   networks:
+  #     - db
+  #     - web
 
   backend-hasura-engine:
     image: hasura/graphql-engine:${HASURA_VERSION}
@@ -68,15 +82,16 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    env_file:
+      - .env.local
     environment:
       HASURA_GRAPHQL_SERVER_PORT: ${HASURA_PORT}
-      HASURA_GRAPHQL_DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASS}@db:${POSTGRES_PORT}/${POSTGRES_DB}
+      HASURA_GRAPHQL_DATABASE_URL: ${DATABASE_URL}
       HASURA_GRAPHQL_ENABLE_CONSOLE: "false"
       HASURA_GRAPHQL_DEV_MODE: "true"
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
       HASURA_GRAPHQL_ENABLE_TELEMETRY: "false"
       HASURA_GRAPHQL_JWT_SECRET: '{"type": "HS256","key": "${JWT_SECRET}" }'
-      HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_ADMIN_SECRET}
     networks:
       - web
       - db
@@ -91,6 +106,8 @@ services:
       interval: 5s
       timeout: 3s
       retries: 5
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   backend-hasura-console:
     build:
@@ -99,8 +116,8 @@ services:
     volumes:
       - ../backend/hasura-console:/usr/src/hasura
     environment:
-      HASURA_GRAPHQL_DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASS}@db:${POSTGRES_PORT}/${POSTGRES_DB}
-      HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_ADMIN_SECRET}
+      HASURA_GRAPHQL_DATABASE_URL: ${DATABASE_URL}
+      HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET}
       HASURA_GRAPHQL_ADDRESS: 127.0.0.1
       HASURA_RUN_CONSOLE: "true"
       HASURA_PORT: ${HASURA_PORT}
@@ -122,6 +139,21 @@ services:
       backend-hasura-engine:
         condition: service_healthy
     restart: unless-stopped
+
+  mailhog:
+    image: mailhog/mailhog
+    logging:
+      driver: 'none' # disable saving logs
+    ports:
+      - "${EMAIL_SERVER_PORT}:${EMAIL_SERVER_PORT}" # smtp server
+      - "${EMAIL_WEB_UI}:${EMAIL_WEB_UI}" # web ui
+    networks:
+      - web
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    env_file:
+      - .env.local
+    restart: on-failure
 
   db:
     image: postgres:12
