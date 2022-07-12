@@ -18,7 +18,7 @@ export const hasuraRequest = async ({ query, variables, token = null, admin = fa
 			} else if (token) {
 				headers['Authorization'] = `Bearer ${token}`;
 			}
-			console.log({ headers });
+			// console.log({ headers });
 
 			const response = await fetch(process.browser ? process.env.HASURA_URL : process.env.HASURA_SSR_URL, {
 				method: 'POST',
@@ -78,7 +78,9 @@ export const HasuraAdapter = (config = {}, options = {}) => {
           mutation createUser($user: users_insert_input!) {
             insert_users_one(object: $user) {
               id
-              email
+              email,
+	      name,
+	      image,
             }
           }
         `,
@@ -98,8 +100,10 @@ export const HasuraAdapter = (config = {}, options = {}) => {
 				query: `
           query getUser($id: Int!){
             users(where: {id: {_eq: $id}}) {
-              id
-              email
+              	id
+              	email
+		name,
+		image,
             }
           }
         `,
@@ -115,8 +119,10 @@ export const HasuraAdapter = (config = {}, options = {}) => {
 				query: `
           query getUser($email: String!){
             users(where: {email: {_eq: $email}}) {
-              id
-              email
+              	id
+              	email,
+		name,
+		image,
             }
           }
         `,
@@ -125,7 +131,9 @@ export const HasuraAdapter = (config = {}, options = {}) => {
 				},
 				admin: true,
 			});
-			return data?.users[0] || null
+			const user = data?.users[0]
+			console.log({ userByEmail: user });
+			return user || null
 		},
 		async getUserByAccount({ providerAccountId, provider }) {
 			const data = await hasuraRequest({
@@ -140,7 +148,9 @@ export const HasuraAdapter = (config = {}, options = {}) => {
                 }
               }){
               id
-              email
+              email,
+	      name,
+	      image,
               accounts {
                 provider
                 providerAccountId
@@ -224,8 +234,10 @@ export const HasuraAdapter = (config = {}, options = {}) => {
               sessionToken
               expires
               User {
-                id
-                emai;
+                id,
+		name,
+		image,
+                email;
               }
             }
           }
@@ -234,6 +246,8 @@ export const HasuraAdapter = (config = {}, options = {}) => {
 					sessionToken,
 				},
 			});
+			console.log({data});
+			
 			return data?.sessions[0] || null
 		},
 		async updateSession({ sessionToken }) {
@@ -281,16 +295,19 @@ export const HasuraAdapter = (config = {}, options = {}) => {
 				admin: true,
 			});
 			const verifToken = data?.verificationTokens[0]
+			console.log({ verifToken });
+
 			if (verifToken)
 				await hasuraRequest({
 					query: `
-					mutation delete_verificationToken {
-						delete_verificationTokens(where: {token: {_eq: ${verifToken.token}}}) {
+					mutation delete_verificationToken($token: String!) {
+						delete_verificationTokens(where: {token: {_eq: $token}}) {
 						  affected_rows
 						}
 					      }
 					      `,
 					variables: {
+						token: verifToken.token
 					},
 					admin: true,
 				})
