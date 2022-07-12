@@ -1,10 +1,9 @@
 // https://codedgeekery.com/blog/hasura-nextauth
 // https://next-auth.js.org/tutorials/creating-a-database-adapter
+// https://hasura.io/learn/graphql/hasura-authentication/integrations/nextjs-auth/
 
 import fetch from 'node-fetch'
-import jwt from 'jsonwebtoken';
 import { randomBytes } from "crypto"
-
 
 export const hasuraRequest = async ({ query, variables, token = null, admin = false }) => {
 	if (process.env.HASURA_URL && process.env.HASURA_GRAPHQL_ADMIN_SECRET) {
@@ -35,33 +34,6 @@ export const hasuraRequest = async ({ query, variables, token = null, admin = fa
 		}
 	}
 	return {}
-}
-
-export const hasuraClaims = async (id, email) => {
-	const jwtSecret = JSON.parse(process.env.AUTH_PRIVATE_KEY || "");
-	const token = jwt.sign({
-		userId: String(id),
-		'https://hasura.io/jwt/claims': {
-			'x-hasura-user-id': String(id),
-			"x-hasura-role": "user",
-			'x-hasura-default-role': 'user',
-			'x-hasura-allowed-roles': ['user']
-		},
-		iat: Date.now() / 1000,
-		exp: Math.floor(Date.now() / 1000) + 24 * 60 * 60,
-		sub: id,
-	}, jwtSecret.key, {
-		algorithm: jwtSecret.type
-	})
-	return token;
-}
-
-export const hasuraDecodeToken = async (token) => {
-	const jwtSecret = JSON.parse(process.env.AUTH_PRIVATE_KEY || "");
-	const decodedToken = jwt.verify(token, jwtSecret.key, {
-		algorithms: jwtSecret.type,
-	});
-	return decodedToken
 }
 
 /** @return { import("next-auth/adapters").Adapter } */

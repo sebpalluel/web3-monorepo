@@ -11,11 +11,10 @@ const secret = process.env.NEXTAUTH_SECRET
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req })
-  const token = await getToken({ req, secret })
+  const token = await getToken({ req, secret, raw:true })
   if (session && token) {
-    const htoken = await hasuraClaims(token.sub, session?.user?.email);
     const data = await hasuraRequest({
-        token: htoken,
+        token: token,
         query: `
             query getUser($id: String!){
                 users(where: {id: {_eq: $id}}) {
@@ -25,7 +24,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             }
        `,
         variables: { 
-            id: token.sub
+            id: session?.user?.id
         },
     });
     res.send({ me: data?.users[0] })

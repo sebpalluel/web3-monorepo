@@ -1,8 +1,11 @@
 import NextAuth from "next-auth"
+import { JWT } from "next-auth/jwt";
 import GoogleProvider from "next-auth/providers/google"
 import GithubProvider from "next-auth/providers/github"
 import EmailProvider from "next-auth/providers/email";
 import CredentialsProvider from "next-auth/providers/credentials"
+
+import * as jsonwebtoken from "jsonwebtoken";
 
 import { HasuraAdapter, hasuraRequest } from "../../../lib/hasuraAdapter"
 
@@ -82,20 +85,47 @@ export default NextAuth({
     // newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
   },
   theme: {
-    colorScheme: "light",
+    colorScheme: "auto",
   },
   session: {
     strategy: "jwt",
-    maxAge: 30 * 24 * 60 * 60, // 30 days
-    updateAge: 24 * 60 * 60, // 24 hours
+    jwt: true,
+    // maxAge: 30 * 24 * 60 * 60, // 30 days
+    // updateAge: 24 * 60 * 60, // 24 hours
   },
   jwt: {
-    maxAge: 60 * 60 * 24 * 30,
+    // maxAge: 60 * 60 * 24 * 30,
+    encode: ({ secret, token }) => {
+      const encodedToken = jsonwebtoken.sign(token!, secret, {
+        algorithm: "HS256",
+      });
+      return encodedToken;
+    },
+    decode: async ({ secret, token }) => {
+      const decodedToken = jsonwebtoken.verify(token!, secret, {
+        algorithms: ["HS256"],
+      });
+      return decodedToken as JWT;
+    },
   },
   callbacks: {
     async jwt({ token }) {
-      token.userRole = "admin"
-      return token
+      return {
+        ...token,
+        "https://hasura.io/jwt/claims": {
+          "x-hasura-allowed-roles": ["user", "admin", "anonymous"],
+          "x-hasura-default-role": "user",
+          "x-hasura-role": "user",
+          "x-hasura-user-id": token.sub,
+        },
+      };
+    },
+    // Add user ID to the session
+    session: async ({ session, token }) => {
+      if (session?.user) {
+        session.user.id = token.sub!;
+      }
+      return session;
     },
   },
 })
