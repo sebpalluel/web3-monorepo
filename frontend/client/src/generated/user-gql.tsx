@@ -273,17 +273,25 @@ export type GetUserQueryVariables = Exact<{
 }>;
 
 
-export type GetUserQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: string, email?: string | null }> };
+export type GetUserQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: string, name?: string | null, email?: string | null, image?: string | null }> };
 
+export type UserFieldsFragment = { __typename?: 'users', id: string, name?: string | null, email?: string | null, image?: string | null };
 
+export const UserFieldsFragmentDoc = `
+    fragment UserFields on users {
+  id
+  name
+  email
+  image
+}
+    `;
 export const GetUserDocument = `
     query getUser($id: String!) {
   users(where: {id: {_eq: $id}}) {
-    id
-    email
+    ...UserFields
   }
 }
-    `;
+    ${UserFieldsFragmentDoc}`;
 export const useGetUserQuery = <
       TData = GetUserQuery,
       TError = unknown
@@ -297,3 +305,8 @@ export const useGetUserQuery = <
       fetcher<GetUserQuery, GetUserQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, GetUserDocument, variables),
       options
     );
+
+useGetUserQuery.getKey = (variables: GetUserQueryVariables) => ['getUser', variables];
+;
+
+useGetUserQuery.fetcher = (dataSource: { endpoint: string, fetchParams?: RequestInit }, variables: GetUserQueryVariables) => fetcher<GetUserQuery, GetUserQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, GetUserDocument, variables);

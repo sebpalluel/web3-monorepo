@@ -1,21 +1,32 @@
+const userHeaders = {
+    'x-hasura-role': 'user',
+    'x-hasura-default-role': 'user',
+    'x-hasura-admin-secret':
+        process.env.HASURA_GRAPHQL_ADMIN_SECRET || 'password'
+}
+
+const hasuraSchema = (headers = userHeaders) => {
+    return {
+        'http://backend-hasura-engine:8080/v1/graphql': {
+            headers
+        }
+    }
+}
+
 module.exports = {
     overwrite: true,
     watch: true,
     generates: {
+        './src/generated/user-gql.schema.json': {
+            schema: [hasuraSchema()],
+            plugins: ['introspection']
+        },
+        './src/generated/user-gql.schema.graphql': {
+            schema: [hasuraSchema()],
+            plugins: ['schema-ast']
+        },
         './src/generated/user-gql.tsx': {
-            schema: [
-                {
-                    'http://backend-hasura-engine:8080/v1/graphql': {
-                        headers: {
-                            'x-hasura-role': 'user',
-                            'x-hasura-default-role': 'user',
-                            'x-hasura-admin-secret':
-                                process.env.HASURA_GRAPHQL_ADMIN_SECRET ||
-                                'password'
-                        }
-                    }
-                }
-            ],
+            schema: [hasuraSchema()],
             documents: ['./src/queries/user/**/*.{graphql,gql}'],
             plugins: [
                 'typescript',
@@ -29,9 +40,12 @@ module.exports = {
                 withHOC: false,
                 withComponent: false,
                 enumsAsTypes: true,
-                constEnums: true
+                constEnums: true,
+                exposeQueryKeys: true,
+                exposeFetcher: true
             }
         }
+
         // './src/admin.ts': {
         //     schema: [
         //         {

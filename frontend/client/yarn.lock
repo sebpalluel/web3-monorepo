@@ -2287,7 +2287,7 @@
     "@graphql-tools/utils" "^8.8.0"
     tslib "~2.4.0"
 
-"@graphql-codegen/introspection@2.2.0":
+"@graphql-codegen/introspection@^2.2.0":
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/introspection/-/introspection-2.2.0.tgz#52fb1b54476f9e272be3dba736abafcf1bcb083a"
   integrity sha512-duIRd/o3SHEEwnxc+lx6v5y/DZEeesxCOusY+u8Bjh8ZBssh3wXcWsGSGhH1amfNMRTby+xsz7HiLW6Q4x7Qwg==
