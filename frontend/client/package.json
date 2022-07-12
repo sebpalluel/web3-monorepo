@@ -36,7 +36,8 @@
         "nodemailer": "^6.7.7",
         "react": "^18.1.0",
         "react-dom": "^18.1.0",
-        "react-icons": "^4.4.0"
+        "react-icons": "^4.4.0",
+        "react-query": "^3.39.1"
     },
     "devDependencies": {
         "@commitlint/config-conventional": "^17.0.2",

@@ -17,7 +17,7 @@ export default function ApiExamplePage() {
             <iframe src="/api/examples/jwt" />
             <summary>Hasura call</summary>
             <h2>Hasura call</h2>
-            <p>/api/examples/h</p>
+            <p>/api/examples/hasura</p>
             <iframe src="/api/examples/hasura" />
         </div>
     )

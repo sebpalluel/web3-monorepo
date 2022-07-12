@@ -3,13 +3,21 @@ import { DefaultSeo } from 'next-seo'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { SessionProvider } from 'next-auth/react'
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 import defaultSEOConfig from '../../next-seo.config'
 import { Chakra } from 'lib/components/Chakra'
 import Layout from 'lib/layout'
 import 'lib/styles/globals.css'
+import { useState } from 'react'
 
-const MyApp = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
+const MyApp = ({
+    Component,
+    pageProps: { session, ...pageProps }
+}: AppProps) => {
+    // https://tanstack.com/query/v4/docs/guides/ssr?from=reactQueryV3&original=https://react-query-v3.tanstack.com/guides/ssr#using-nextjs
+    const [queryClient] = useState(() => new QueryClient())
     return (
         <Chakra>
             <Head>
@@ -21,7 +29,12 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps } }: AppProps) =>
             <DefaultSeo {...defaultSEOConfig} />
             <SessionProvider session={session}>
                 <Layout>
-                    <Component {...pageProps} />
+                    <QueryClientProvider client={queryClient}>
+                        <Hydrate state={pageProps.dehydratedState}>
+                            <Component {...pageProps} />
+                        </Hydrate>
+                        <ReactQueryDevtools initialIsOpen={false} />
+                    </QueryClientProvider>
                 </Layout>
             </SessionProvider>
         </Chakra>
