@@ -23,7 +23,7 @@ update:
 	@git submodule foreach 'git checkout main && git pull || :'
 
 prune:
-	@docker-compose -f ./local/docker-compose.yaml rm -f
+	@docker-compose -f ./local/docker-compose.yaml --env-file ./local/.env.local rm -f
 
 clean:	prune
 	@npm run clean
