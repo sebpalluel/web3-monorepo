@@ -12,14 +12,11 @@ export const hasuraRequest = async ({ query, variables, token = null, admin = fa
 			let headers = {
 				'Content-Type': 'application/json',
 			};
-			// token = '25f3a4d8b7a24990794824ecc449c86b3fd74607335344918ad1667fab82f21a%7C57fda82a7566de6a672e2d7bc2c0f8301de9ccb685212d6429203c137444c5ab'
 			if (admin) {
 				headers['X-Hasura-Admin-Secret'] = process.env.HASURA_GRAPHQL_ADMIN_SECRET;
 			} else if (token) {
 				headers['Authorization'] = `Bearer ${token}`;
 			}
-			// console.log({ headers });
-
 			const response = await fetch(process.browser ? process.env.HASURA_URL : process.env.HASURA_SSR_URL, {
 				method: 'POST',
 				body: JSON.stringify({ query, variables }),
@@ -246,8 +243,8 @@ export const HasuraAdapter = (config = {}, options = {}) => {
 					sessionToken,
 				},
 			});
-			console.log({data});
-			
+			console.log({ data });
+
 			return data?.sessions[0] || null
 		},
 		async updateSession({ sessionToken }) {
