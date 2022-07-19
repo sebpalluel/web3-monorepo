@@ -43,6 +43,7 @@
     "devDependencies": {
         "@commitlint/config-conventional": "^17.0.2",
         "@commitlint/cz-commitlint": "^17.0.0",
+        "@graphql-codegen/add": "^3.2.0",
         "@graphql-codegen/cli": "2.8.0",
         "@graphql-codegen/introspection": "^2.2.0",
         "@graphql-codegen/schema-ast": "^2.5.0",
