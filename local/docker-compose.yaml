@@ -17,8 +17,8 @@ services:
       - .env.local
     volumes:
       - ../frontend/client:/frontend
-      - /frontend/node_modules
-      - /frontend/.next
+      - frontend-client-node_modules:/frontend/node_modules
+      - frontend-client-next:/frontend/.next
     networks:
       - web
     extra_hosts:
@@ -27,7 +27,7 @@ services:
       backend-hasura-engine:
         condition: service_healthy
 
-   backend-hasura-engine:
+  backend-hasura-engine:
     container_name: backend-hasura-engine
     image: hasura/graphql-engine:${HASURA_VERSION}
     ports:
@@ -133,6 +133,8 @@ services:
   
 volumes:
   db_data:
+  frontend-client-node_modules:
+  frontend-client-next:
 
 networks:
   web:
