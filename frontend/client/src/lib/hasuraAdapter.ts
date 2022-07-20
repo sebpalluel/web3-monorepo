@@ -97,8 +97,13 @@ export const hasuraRequest = async ({
                 'Content-Type': 'application/json'
             }
             if (admin) {
-                headers['X-Hasura-Admin-Secret'] =
-                    process.env.HASURA_GRAPHQL_ADMIN_SECRET
+                if (typeof window !== 'undefined')
+                    throw new Error(
+                        'Admin access is only available on the server'
+                    )
+                else
+                    headers['X-Hasura-Admin-Secret'] =
+                        process.env.HASURA_GRAPHQL_ADMIN_SECRET
             } else if (token) {
                 headers['Authorization'] = `Bearer ${token}`
             }
