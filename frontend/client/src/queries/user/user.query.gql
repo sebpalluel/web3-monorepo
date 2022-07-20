@@ -4,6 +4,12 @@ query getUser($id: String!) {
     }
 }
 
+query getMyUserByEmail($email: String!) {
+    users(where: { email: { _eq: $email } }) {
+        ...MyUserFields
+    }
+}
+
 # mutation createUser($input: users_set_input!) {
 #     insert_users_one(data: $input) {
 #         ...UserFields

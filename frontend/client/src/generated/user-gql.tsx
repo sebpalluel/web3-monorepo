@@ -207,9 +207,12 @@ export type Users = {
   __typename?: 'users';
   email?: Maybe<Scalars['String']>;
   emailVerified?: Maybe<Scalars['timestamp']>;
+  firstName?: Maybe<Scalars['String']>;
   id: Scalars['String'];
   image?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  password?: Maybe<Scalars['String']>;
 };
 
 /** Boolean expression to filter rows from the table "users". All fields are combined with a logical 'AND'. */
@@ -219,9 +222,12 @@ export type Users_Bool_Exp = {
   _or?: InputMaybe<Array<Users_Bool_Exp>>;
   email?: InputMaybe<String_Comparison_Exp>;
   emailVerified?: InputMaybe<Timestamp_Comparison_Exp>;
+  firstName?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<String_Comparison_Exp>;
   image?: InputMaybe<String_Comparison_Exp>;
+  lastName?: InputMaybe<String_Comparison_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
+  password?: InputMaybe<String_Comparison_Exp>;
 };
 
 /** response of any mutation on the table "users" */
@@ -237,9 +243,12 @@ export type Users_Mutation_Response = {
 export type Users_Order_By = {
   email?: InputMaybe<Order_By>;
   emailVerified?: InputMaybe<Order_By>;
+  firstName?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   image?: InputMaybe<Order_By>;
+  lastName?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
+  password?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: users */
@@ -254,11 +263,17 @@ export const enum Users_Select_Column {
   /** column name */
   EmailVerified = 'emailVerified',
   /** column name */
+  FirstName = 'firstName',
+  /** column name */
   Id = 'id',
   /** column name */
   Image = 'image',
   /** column name */
-  Name = 'name'
+  LastName = 'lastName',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  Password = 'password'
 };
 
 /** input type for updating data in table "users" */
@@ -270,6 +285,8 @@ export type Users_Set_Input = {
   name?: InputMaybe<Scalars['String']>;
 };
 
+export type MyUserFieldsFragment = { __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null, password?: string | null };
+
 export type GetUserQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
@@ -277,8 +294,25 @@ export type GetUserQueryVariables = Exact<{
 
 export type GetUserQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null }> };
 
+export type GetMyUserByEmailQueryVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+
+export type GetMyUserByEmailQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null, password?: string | null }> };
+
 export type UserFieldsFragment = { __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null };
 
+export const MyUserFieldsFragmentDoc = `
+    fragment MyUserFields on users {
+  id
+  name
+  email
+  emailVerified
+  image
+  password
+}
+    `;
 export const UserFieldsFragmentDoc = `
     fragment UserFields on users {
   id
@@ -313,3 +347,28 @@ useGetUserQuery.getKey = (variables: GetUserQueryVariables) => ['getUser', varia
 ;
 
 useGetUserQuery.fetcher = (dataSource: { endpoint: string, fetchParams?: RequestInit }, variables: GetUserQueryVariables) => fetcher<GetUserQuery, GetUserQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, GetUserDocument, variables);
+export const GetMyUserByEmailDocument = `
+    query getMyUserByEmail($email: String!) {
+  users(where: {email: {_eq: $email}}) {
+    ...MyUserFields
+  }
+}
+    ${MyUserFieldsFragmentDoc}`;
+export const useGetMyUserByEmailQuery = <
+      TData = GetMyUserByEmailQuery,
+      TError = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      variables: GetMyUserByEmailQueryVariables,
+      options?: UseQueryOptions<GetMyUserByEmailQuery, TError, TData>
+    ) =>
+    useQuery<GetMyUserByEmailQuery, TError, TData>(
+      ['getMyUserByEmail', variables],
+      fetcher<GetMyUserByEmailQuery, GetMyUserByEmailQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, GetMyUserByEmailDocument, variables),
+      options
+    );
+
+useGetMyUserByEmailQuery.getKey = (variables: GetMyUserByEmailQueryVariables) => ['getMyUserByEmail', variables];
+;
+
+useGetMyUserByEmailQuery.fetcher = (dataSource: { endpoint: string, fetchParams?: RequestInit }, variables: GetMyUserByEmailQueryVariables) => fetcher<GetMyUserByEmailQuery, GetMyUserByEmailQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, GetMyUserByEmailDocument, variables);

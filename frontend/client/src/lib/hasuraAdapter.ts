@@ -176,6 +176,9 @@ export const HasuraAdapter = (config = {}, options = {}): Adapter => {
             users(where: {email: {_eq: $email}}) {
               	id
               	email,
+                name,
+                image,
+                password,
 		name,
 		image,
             }

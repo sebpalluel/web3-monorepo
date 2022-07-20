@@ -212,9 +212,12 @@ columns and relationships of "users"
 type users {
   email: String
   emailVerified: timestamp
+  firstName: String
   id: String!
   image: String
+  lastName: String
   name: String
+  password: String
 }
 
 """
@@ -226,9 +229,12 @@ input users_bool_exp {
   _or: [users_bool_exp!]
   email: String_comparison_exp
   emailVerified: timestamp_comparison_exp
+  firstName: String_comparison_exp
   id: String_comparison_exp
   image: String_comparison_exp
+  lastName: String_comparison_exp
   name: String_comparison_exp
+  password: String_comparison_exp
 }
 
 """
@@ -246,9 +252,12 @@ type users_mutation_response {
 input users_order_by {
   email: order_by
   emailVerified: order_by
+  firstName: order_by
   id: order_by
   image: order_by
+  lastName: order_by
   name: order_by
+  password: order_by
 }
 
 """primary key columns input for table: users"""
@@ -267,13 +276,22 @@ enum users_select_column {
   emailVerified
 
   """column name"""
+  firstName
+
+  """column name"""
   id
 
   """column name"""
   image
 
   """column name"""
+  lastName
+
+  """column name"""
   name
+
+  """column name"""
+  password
 }
 
 """

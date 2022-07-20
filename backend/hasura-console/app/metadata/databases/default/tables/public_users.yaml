@@ -21,10 +21,13 @@ select_permissions:
     permission:
       columns:
         - email
+        - emailVerified
+        - firstName
         - id
         - image
+        - lastName
         - name
-        - emailVerified
+        - password
       filter: {}
 update_permissions:
   - role: user
