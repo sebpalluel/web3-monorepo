@@ -26,6 +26,7 @@
         "@emotion/styled": "^11.9.3",
         "chalk": "^5.0.1",
         "crypto": "^1.0.1",
+        "crypto-js": "^4.1.1",
         "framer-motion": "^6.3.11",
         "graphql": "^16.5.0",
         "graphql-request": "^4.3.0",
