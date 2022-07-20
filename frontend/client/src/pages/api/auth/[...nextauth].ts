@@ -1,6 +1,4 @@
 import * as jsonwebtoken from 'jsonwebtoken'
-import type { NextApiHandler } from 'next'
-import type { NextAuthOptions } from 'next-auth'
 import NextAuth from 'next-auth'
 import type { Adapter } from 'next-auth/adapters'
 import type { JWT } from 'next-auth/jwt'
@@ -13,7 +11,8 @@ import { HasuraAdapter, hasuraRequest } from '../../../lib/hasuraAdapter'
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
-const options: NextAuthOptions = {
+// const options: NextAuthOptions = {
+export default NextAuth({
     debug: true,
     // https://next-auth.js.org/configuration/providers/oauth
     providers: [
@@ -82,8 +81,8 @@ const options: NextAuthOptions = {
     ],
     adapter: HasuraAdapter() as Adapter,
     pages: {
-        // signIn: '/auth/signin',
-        // signOut: '/auth/signout',
+        signIn: '/auth/signin',
+        signOut: '/auth/signout'
         // error: '/auth/error', // Error code passed in query string as ?error=
         // verifyRequest: '/auth/verify-request', // (used for check email message)
         // newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
@@ -140,7 +139,7 @@ const options: NextAuthOptions = {
             return session
         }
     }
-}
+})
 
-const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options)
-export default authHandler
+// const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options)
+// export default authHandler
