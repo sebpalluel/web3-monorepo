@@ -1,10 +1,9 @@
 node_modules
+.next
 Dockerfile
 .git/
 .gitignore
 .dockerignore
-.nuxt
-.nitro
 .cache
 .output
 coverage

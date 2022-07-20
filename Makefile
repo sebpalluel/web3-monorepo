@@ -10,12 +10,21 @@ install:
 build:
 	@docker-compose -f ./local/docker-compose.yaml --env-file ./local/.env.local build
 
+build-no-cache:
+	@docker-compose -f ./local/docker-compose.yaml --env-file ./local/.env.local build --no-cache
+
 # django create superuser username / password and email are set in environment variables
 populate-backend:
 	@docker-compose exec backend-django ./manage.py createsuperuser --noinput
 
 run:	build
 	@docker-compose -f ./local/docker-compose.yaml --env-file ./local/.env.local up
+	
+run-no-cache:
+		@docker-compose -f ./local/docker-compose.yaml --env-file ./local/.env.local up --force-recreate
+
+build-run-no-cache:	build-no-cache
+	run-no-cache
 
 update:
 	@git submodule init
@@ -23,7 +32,8 @@ update:
 	@git submodule foreach 'git checkout main && git pull || :'
 
 prune:
-	@docker-compose -f ./local/docker-compose.yaml rm -f
+	@docker-compose -f ./local/docker-compose.yaml --env-file ./local/.env.local down
+	@docker-compose -f ./local/docker-compose.yaml --env-file ./local/.env.local rm -f
 
 clean:	prune
 	@npm run clean

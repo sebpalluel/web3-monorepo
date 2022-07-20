@@ -1,81 +1,34 @@
 version: '3.9'
 services:
-  
-  # old-frontend-client:
-  #   build:
-  #     context: ../frontend/old_client
-  #     dockerfile: Dockerfile.frontend-client.local
-  #   ports:
-  #     - "${CLIENT_PORT}:${CLIENT_PORT}"
-  #     - 24678:24678
-  #   command: yarn dev
-  #   environment:
-  #     NODE_ENV: development
-  #     PORT: ${CLIENT_PORT}
-  #     HOST: ${CLIENT_HOST}
-  #     BASE_URL: ${CLIENT_BASE_URL}
-  #     GQL_API_ENDPOINT: ${GQL_API_ENDPOINT}
-  #     GQL_WS_API_ENDPOINT: ${GQL_WS_API_ENDPOINT}
-  #     AUTH_API_ENDPOINT: ${AUTH_API_ENDPOINT}
-  #   env_file:
-  #     - .env.local
-  #   volumes:
-  #     - ../frontend/old_client:/old_frontend
-  #     - /old_frontend/node_modules
-  #     - /old_frontend/.nuxt
-  #   networks:
-  #     - web
-
   frontend-client:
+    container_name: frontend-client
     build:
       context: ../frontend/client
       dockerfile: Dockerfile.frontend-client.local
     ports:
       - "${CLIENT_PORT}:${CLIENT_PORT}"
-    command: yarn dev
+    command: >
+      sh -c "yarn dev &
+            yarn graphql-codegen"
     environment:
       PORT: ${CLIENT_PORT}
       HOST: ${CLIENT_HOST}
-      AUTH_PRIVATE_KEY: '{"type": "HS256","key": "${JWT_SECRET}" }'
     env_file:
       - .env.local
     volumes:
       - ../frontend/client:/frontend
-      - /frontend/node_modules
-      - /frontend/.next
+      - frontend-client-node_modules:/frontend/node_modules
+      - frontend-client-next:/frontend/.next
     networks:
       - web
-      - db
     extra_hosts:
       - "host.docker.internal:host-gateway"
-  
-  # backend-django:
-  #   build:
-  #     context: ../backend/django
-  #     dockerfile: Dockerfile.backend-django.local
-  #   stdin_open: true
-  #   tty: true
-  #   depends_on:
-  #     db:
-  #       condition: service_healthy
-  #   volumes:
-  #     - ../backend/django:/backend
-  #   environment:
-  #     PYTHONUNBUFFERED: 1
-  #     JWT_SECRET: '${JWT_SECRET}'
-  #     DJANGO_SUPERUSER_PASSWORD: ${DJANGO_ADMIN_PASS}
-  #     DJANGO_SUPERUSER_USERNAME: ${DJANGO_ADMIN_NAME}
-  #     DJANGO_SUPERUSER_EMAIL: ${DJANGO_ADMIN_MAIL}
-  #     DJANGO_PORT: ${DJANGO_PORT}
-  #     PYTHONBREAKPOINT: ipdb.set_trace
-  #     CLIENT_BASE_URL: ${CLIENT_BASE_URL}
-  #   ports:
-  #     - "${DJANGO_PORT}:${DJANGO_PORT}"
-  #   networks:
-  #     - db
-  #     - web
+    depends_on:
+      backend-hasura-engine:
+        condition: service_healthy
 
   backend-hasura-engine:
+    container_name: backend-hasura-engine
     image: hasura/graphql-engine:${HASURA_VERSION}
     ports:
       - "${HASURA_PORT}:${HASURA_PORT}"
@@ -110,6 +63,7 @@ services:
       - "host.docker.internal:host-gateway"
 
   backend-hasura-console:
+    container_name: backend-hasura-console
     build:
       context: ../backend/hasura-console
       dockerfile: Dockerfile.backend-hasura-console.local
@@ -141,6 +95,7 @@ services:
     restart: unless-stopped
 
   mailhog:
+    container_name: mailhog
     image: mailhog/mailhog
     logging:
       driver: 'none' # disable saving logs
@@ -156,6 +111,7 @@ services:
     restart: on-failure
 
   db:
+    container_name: db
     image: postgres:12
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
@@ -177,6 +133,8 @@ services:
   
 volumes:
   db_data:
+  frontend-client-node_modules:
+  frontend-client-next:
 
 networks:
   web:

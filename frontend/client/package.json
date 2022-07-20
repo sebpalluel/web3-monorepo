@@ -16,7 +16,8 @@
         "up-latest": "yarn up --latest",
         "release": "cross-env HUSKY=0 standard-version",
         "push-release": "git push --follow-tags origin main",
-        "prepare": "husky install"
+        "prepare": "husky install",
+        "graphql-codegen": "graphql-codegen --config codegen.js"
     },
     "dependencies": {
         "@chakra-ui/react": "^2.2.1",
@@ -36,11 +37,20 @@
         "nodemailer": "^6.7.7",
         "react": "^18.1.0",
         "react-dom": "^18.1.0",
-        "react-icons": "^4.4.0"
+        "react-icons": "^4.4.0",
+        "react-query": "^3.39.1"
     },
     "devDependencies": {
         "@commitlint/config-conventional": "^17.0.2",
         "@commitlint/cz-commitlint": "^17.0.0",
+        "@graphql-codegen/add": "^3.2.0",
+        "@graphql-codegen/cli": "2.8.0",
+        "@graphql-codegen/introspection": "^2.2.0",
+        "@graphql-codegen/schema-ast": "^2.5.0",
+        "@graphql-codegen/typescript": "2.7.1",
+        "@graphql-codegen/typescript-operations": "2.5.1",
+        "@graphql-codegen/typescript-react-query": "^3.6.1",
+        "@graphql-eslint/eslint-plugin": "^3.10.5",
         "@types/jsonwebtoken": "^8.5.8",
         "@types/node": "^17.0.14",
         "@types/react": "^18.0.12",
