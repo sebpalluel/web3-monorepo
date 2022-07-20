@@ -1,12 +1,13 @@
 import * as jsonwebtoken from 'jsonwebtoken'
-import { NextApiHandler } from 'next'
-import NextAuth, { NextAuthOptions } from 'next-auth'
+import type { NextApiHandler } from 'next'
+import type { NextAuthOptions } from 'next-auth'
+import NextAuth from 'next-auth'
 import type { Adapter } from 'next-auth/adapters'
 import type { JWT } from 'next-auth/jwt'
 import EmailProvider from 'next-auth/providers/email'
-// import GithubProvider from 'next-auth/providers/github'
+import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
-// import CredentialsProvider from 'next-auth/providers/credentials'
+import CredentialsProvider from 'next-auth/providers/credentials'
 
 import { HasuraAdapter, hasuraRequest } from '../../../lib/hasuraAdapter'
 
@@ -16,10 +17,10 @@ const options: NextAuthOptions = {
     debug: true,
     // https://next-auth.js.org/configuration/providers/oauth
     providers: [
-        // GithubProvider({
-        //     clientId: process.env.GITHUB_ID,
-        //     clientSecret: process.env.GITHUB_SECRET
-        // }),
+        GithubProvider({
+            clientId: process.env.GITHUB_ID,
+            clientSecret: process.env.GITHUB_SECRET
+        }),
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID || '',
             clientSecret: process.env.GOOGLE_CLIENT_SECRET || ''
@@ -35,48 +36,49 @@ const options: NextAuthOptions = {
                 }
             },
             from: process.env.EMAIL_FROM
+        }),
+        CredentialsProvider({
+            // The name to display on the sign in form (e.g. 'Sign in with...')
+            id: 'credentials',
+            name: 'credentials',
+            // The credentials is used to generate a suitable form on the sign in page.
+            // You can specify whatever fields you are expecting to be submitted.
+            // e.g. domain, username, password, 2FA token, etc.
+            // You can pass any HTML attribute to the <input> tag through the object.
+            credentials: {
+                username: {
+                    label: 'Username',
+                    type: 'text',
+                    placeholder: 'jsmith'
+                },
+                password: { label: 'Password', type: 'password' }
+            },
+            authorize: async (credentials, req) => {
+                const user = await fetch(
+                    `${process.env.NEXTAUTH_URL}/api/user/check-credentials`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            accept: 'application/json'
+                        },
+                        body: Object.entries(credentials)
+                            .map((e) => e.join('='))
+                            .join('&')
+                    }
+                )
+                    .then((res) => res.json())
+                    .catch((err) => {
+                        return null
+                    })
+
+                if (user) {
+                    return user
+                } else {
+                    return null
+                }
+            }
         })
-        // CredentialsProvider({
-        //   // You can specify whatever fields you are expecting to be submitted.
-        //   // e.g. domain, username, password, 2FA token, etc.
-        //   // You can pass any HTML attribute to the <input> tag through the object.
-        //   credentials: {
-        //     email: { label: "Email", type: "email" },
-        //     password: { label: "Password", type: "password" }
-        //   },
-        //   async authorize(credentials, req) {
-        //     console.log({credentials, req});
-
-        //     // You need to provide your own logic here that takes the credentials
-        //     // submitted and returns either a object representing a user or value
-        //     // that is false/null if the credentials are invalid.
-        //     // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
-        //     // You can also use the `req` object to obtain additional parameters
-        //     // (i.e., the request IP address)
-        //     const res = hasuraRequest({
-        // 		query: `
-        //       query getUser($id: Int!){
-        //         users(where: {id: {_eq: $id}}) {
-        //           id
-        //           email
-        //         }
-        //       }
-        //     `,
-        // 		variables: {
-        // 			id
-        // 		},
-        // 		admin: true,
-        // 	})
-        //     const user = await res.json()
-
-        //     // If no error and we have user data, return it
-        //     if (res.ok && user) {
-        //       return user
-        //     }
-        //     // Return null if user data could not be retrieved
-        //     return null
-        //   }
-        // })
     ],
     adapter: HasuraAdapter() as Adapter,
     pages: {
