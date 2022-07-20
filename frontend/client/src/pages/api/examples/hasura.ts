@@ -13,6 +13,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req })
   const token = await getToken({ req, secret, raw: true })
   if (session && token) {
+    console.log({token});
+    
     const data = await hasuraRequest({
       token,
       query: `

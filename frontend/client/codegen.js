@@ -29,20 +29,23 @@ module.exports = {
             schema: [hasuraSchema()],
             documents: ['./src/queries/user/**/*.{graphql,gql}'],
             plugins: [
+                // 'add',
                 'typescript',
                 'typescript-operations',
                 'typescript-react-query'
             ],
             config: {
                 preResolveTypes: true,
-                skipTypename: false,
-                withHooks: true,
-                withHOC: false,
-                withComponent: false,
-                enumsAsTypes: true,
                 constEnums: true,
                 exposeQueryKeys: true,
-                exposeFetcher: true
+                exposeFetcher: true,
+                content: `import { fetchParams } from 'lib/hasuraAdapter.ts';`,
+                // fetcher: {
+                //     endpoint: `${process.env.HASURA_URL}`,
+                //     fetchParams: 'await(fetchParams())'
+                // }
+                // // https://www.graphql-code-generator.com/plugins/typescript/typescript-react-query
+                // fetcher: './src/lib/hasuraAdapter.ts#myFetcher',
             }
         }
 

@@ -1,13 +1,18 @@
-import { useSession, getSession } from 'next-auth/react'
 import type { NextPageContext } from 'next'
+import { getSession, useSession } from 'next-auth/react'
+import { hasuraOptions } from 'lib/hasuraAdapter'
+import { useGetUserQuery } from 'generated/user-gql'
 
 export default function ServerSidePage() {
     // As this page uses Server Side Rendering, the `session` will be already
     // populated on render without needing to go through a loading stage.
     // This is possible because of the shared context configured in `_app.js` that
     // is used by `useSession()`.
-    const { data: session, status } = useSession()
-    const loading = status === 'loading'
+    // const loading = status === 'loading'
+
+    const {data, status} = useSession()
+    // const { status, data, error, isFetching } = useGetUserQuery(,{})
+    console.log({ session:data, loading:status })
 
     return (
         <div>

@@ -3,7 +3,7 @@ import NextAuth from 'next-auth'
 import type { Adapter } from 'next-auth/adapters'
 import type { JWT } from 'next-auth/jwt'
 import EmailProvider from 'next-auth/providers/email'
-import GithubProvider from 'next-auth/providers/github'
+// import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
 // import CredentialsProvider from 'next-auth/providers/credentials'
 
@@ -14,10 +14,10 @@ import { HasuraAdapter, hasuraRequest } from '../../../lib/hasuraAdapter'
 export default NextAuth({
     // https://next-auth.js.org/configuration/providers/oauth
     providers: [
-        GithubProvider({
-            clientId: process.env.GITHUB_ID,
-            clientSecret: process.env.GITHUB_SECRET
-        }),
+        // GithubProvider({
+        //     clientId: process.env.GITHUB_ID,
+        //     clientSecret: process.env.GITHUB_SECRET
+        // }),
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID || '',
             clientSecret: process.env.GOOGLE_CLIENT_SECRET || ''
@@ -89,17 +89,15 @@ export default NextAuth({
     },
     session: {
         strategy: 'jwt',
-        jwt: true
-        // maxAge: 30 * 24 * 60 * 60, // 30 days
+        maxAge: 30 * 24 * 60 * 60 // 30 days
         // updateAge: 24 * 60 * 60, // 24 hours
     },
     jwt: {
         // maxAge: 60 * 60 * 24 * 30,
         encode: ({ secret, token }) => {
-            const encodedToken = jsonwebtoken.sign(token!, secret, {
+            return jsonwebtoken.sign(token!, secret, {
                 algorithm: 'HS256'
             })
-            return encodedToken
         },
         decode: async ({ secret, token }) => {
             const decodedToken = jsonwebtoken.verify(token!, secret, {
@@ -110,11 +108,13 @@ export default NextAuth({
     },
     callbacks: {
         // Add hasura claims and accessToken
-        async jwt({ token, user }) {
-            const accessToken: string | unknown = user?.accessToken
+        async jwt({ token, user, account, profile, isNewUser }) {
+            console.log({ token, user, account, profile, isNewUser })
+            // Persist the OAuth or credential access_token to the token right after signin
+            if (account) token.accessToken = account.access_token
             return {
                 ...token,
-                accessToken,
+                // accessToken,
                 'https://hasura.io/jwt/claims': {
                     'x-hasura-allowed-roles': ['user', 'admin', 'anonymous'],
                     'x-hasura-default-role': 'user',
@@ -123,13 +123,17 @@ export default NextAuth({
                 }
             }
         },
-        // Add user ID to the session add accessToken
-        session: async ({ session, token }) => {
+        // Add user ID and accessToken to the session
+        async session({ session, token }) {
             if (session?.user) {
                 session.user.id = token.sub!
+                const accessToken: string | unknown = token?.accessToken
+                session.user.accessToken = accessToken
             }
-            const accessToken: string | unknown = token?.accessToken
-            return { ...session, accessToken }
+            session.accessToken = token?.accessToken
+            console.log({ session, token })
+
+            return session
         }
     }
 })

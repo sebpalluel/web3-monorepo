@@ -1,5 +1,11 @@
 query getUser($id: String!) {
     users(where: { id: { _eq: $id } }) {
-        ...UserFields,
+        ...UserFields
     }
 }
+
+# mutation createUser($input: users_set_input!) {
+#     insert_users_one(data: $input) {
+#         ...UserFields
+#     }
+# }

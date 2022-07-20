@@ -1,10 +1,10 @@
 // https://codedgeekery.com/blog/hasura-nextauth
 // https://next-auth.js.org/tutorials/creating-a-database-adapter
 // https://hasura.io/learn/graphql/hasura-authentication/integrations/nextjs-auth/
+// implementation ref with prisma https://github.com/nextauthjs/adapters/blob/main/packages/prisma/src/index.ts
+
 import { randomBytes } from 'crypto'
-import type { NextApiRequest } from 'next'
 import type { Adapter } from 'next-auth/adapters'
-import { getSession } from 'next-auth/react'
 import fetch from 'node-fetch'
 
 export const endpointUrl = () =>
@@ -12,23 +12,16 @@ export const endpointUrl = () =>
         ? process.env.HASURA_URL
         : process.env.HASURA_SSR_URL
 
-export const fetchParams = async (req: NextApiRequest | undefined) => {
-    if (typeof window === 'undefined' && !req)
-        throw new Error('fetchParams: req is required')
-    else {
-        const session = await getSession({ req })
-        return {
-            headers: {
-                Authorization: `Bearer ${session?.accessToken}`
-            }
-        }
+export const fetchParams = async (accessToken: string) => ({
+    headers: {
+        Authorization: `Bearer ${accessToken}`
     }
-}
+})
 
-export const hasuraOptions = async (req: NextApiRequest | undefined) => {
-    const params = await fetchParams(req)
-    return { fetchParams: params, endpoint: endpointUrl() }
-}
+export const hasuraOptions = async (accessToken: string) => ({
+    fetchParams: fetchParams(accessToken),
+    endpoint: endpointUrl()
+})
 
 // export const fetchData = <TData, TVariables>(
 //     query: string,
@@ -109,16 +102,11 @@ export const hasuraRequest = async ({
             } else if (token) {
                 headers['Authorization'] = `Bearer ${token}`
             }
-            const response = await fetch(
-                process.browser
-                    ? process.env.HASURA_URL
-                    : process.env.HASURA_SSR_URL,
-                {
-                    method: 'POST',
-                    body: JSON.stringify({ query, variables }),
-                    headers: headers
-                }
-            )
+            const response = await fetch(endpointUrl() as string, {
+                method: 'POST',
+                body: JSON.stringify({ query, variables }),
+                headers: headers
+            })
 
             const jsonResponse = await response.json()
             console.log({ jsonResponse })
@@ -199,7 +187,6 @@ export const HasuraAdapter = (config = {}, options = {}): Adapter => {
                 admin: true
             })
             const user = data?.users[0]
-            console.log({ userByEmail: user })
             return user || null
         },
         async getUserByAccount({ providerAccountId, provider }) {
@@ -231,7 +218,6 @@ export const HasuraAdapter = (config = {}, options = {}): Adapter => {
                 },
                 admin: true
             })
-
             return data?.users[0] || null
         },
         async updateUser(user) {
@@ -260,6 +246,7 @@ export const HasuraAdapter = (config = {}, options = {}): Adapter => {
                 },
                 admin: true
             })
+            console.log({ linkAccount: data })
             return data?.insert_accounts_one || null
         },
         async unlinkAccount({ providerAccountId, provider }) {
@@ -292,6 +279,8 @@ export const HasuraAdapter = (config = {}, options = {}): Adapter => {
             return data?.insert_sessions_one || null
         },
         async getSessionAndUser(sessionToken) {
+            console.log({ sessionToken })
+
             const data = await hasuraRequest({
                 query: `
           query getSessionAndUser(!sessionToken: String!){
@@ -362,8 +351,6 @@ export const HasuraAdapter = (config = {}, options = {}): Adapter => {
                 admin: true
             })
             const verifToken = data?.verificationTokens[0]
-            console.log({ verifToken })
-
             if (verifToken)
                 await hasuraRequest({
                     query: `
@@ -378,6 +365,12 @@ export const HasuraAdapter = (config = {}, options = {}): Adapter => {
                     },
                     admin: true
                 })
+            console.log({ verifToken })
+
+            // If token already used/deleted, just return null
+            if (verifToken?.expires < new Date()) {
+                return null
+            }
             return verifToken
         }
     }

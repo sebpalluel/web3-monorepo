@@ -118,19 +118,20 @@ export type Mutation_RootUpdate_Users_By_PkArgs = {
 };
 
 /** column ordering options */
-export type Order_By =
+export const enum Order_By {
   /** in ascending order, nulls last */
-  | 'asc'
+  Asc = 'asc',
   /** in ascending order, nulls first */
-  | 'asc_nulls_first'
+  AscNullsFirst = 'asc_nulls_first',
   /** in ascending order, nulls last */
-  | 'asc_nulls_last'
+  AscNullsLast = 'asc_nulls_last',
   /** in descending order, nulls first */
-  | 'desc'
+  Desc = 'desc',
   /** in descending order, nulls first */
-  | 'desc_nulls_first'
+  DescNullsFirst = 'desc_nulls_first',
   /** in descending order, nulls last */
-  | 'desc_nulls_last';
+  DescNullsLast = 'desc_nulls_last'
+};
 
 export type Query_Root = {
   __typename?: 'query_root';
@@ -247,17 +248,18 @@ export type Users_Pk_Columns_Input = {
 };
 
 /** select columns of table "users" */
-export type Users_Select_Column =
+export const enum Users_Select_Column {
   /** column name */
-  | 'email'
+  Email = 'email',
   /** column name */
-  | 'emailVerified'
+  EmailVerified = 'emailVerified',
   /** column name */
-  | 'id'
+  Id = 'id',
   /** column name */
-  | 'image'
+  Image = 'image',
   /** column name */
-  | 'name';
+  Name = 'name'
+};
 
 /** input type for updating data in table "users" */
 export type Users_Set_Input = {
@@ -273,15 +275,16 @@ export type GetUserQueryVariables = Exact<{
 }>;
 
 
-export type GetUserQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: string, name?: string | null, email?: string | null, image?: string | null }> };
+export type GetUserQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null }> };
 
-export type UserFieldsFragment = { __typename?: 'users', id: string, name?: string | null, email?: string | null, image?: string | null };
+export type UserFieldsFragment = { __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null };
 
 export const UserFieldsFragmentDoc = `
     fragment UserFields on users {
   id
   name
   email
+  emailVerified
   image
 }
     `;

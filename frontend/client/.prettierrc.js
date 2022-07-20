@@ -8,11 +8,6 @@ module.exports = {
     printWidth: 80,
     overrides: [
         {
-            files: ['*.js', '*.jsx', '*.ts', '*.tsx'],
-            processor: '@graphql-eslint/graphql',
-            extends: ['plugin:prettier/recommended']
-        },
-        {
             files: ['*.graphql', '*.gql'],
             parser: '@graphql-eslint/eslint-plugin',
             plugins: ['@graphql-eslint'],
