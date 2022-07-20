@@ -103,6 +103,18 @@ export default function SimpleCard() {
                         <FormPasswordlessEmail />
                         <Button
                             w="full"
+                            leftIcon={<AiFillGoogleCircle />}
+                            onClick={() =>
+                                signIn('google', {
+                                    callbackUrl:
+                                        router.query.callbackUrl.toString()
+                                })
+                            }
+                        >
+                            Google
+                        </Button>
+                        <Button
+                            w="full"
                             leftIcon={<AiFillGithub />}
                             onClick={() =>
                                 signIn('github', {
