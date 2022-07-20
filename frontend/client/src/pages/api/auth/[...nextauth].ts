@@ -1,5 +1,6 @@
 import * as jsonwebtoken from 'jsonwebtoken'
-import NextAuth from 'next-auth'
+import { NextApiHandler } from 'next'
+import NextAuth, { NextAuthOptions } from 'next-auth'
 import type { Adapter } from 'next-auth/adapters'
 import type { JWT } from 'next-auth/jwt'
 import EmailProvider from 'next-auth/providers/email'
@@ -11,7 +12,8 @@ import { HasuraAdapter, hasuraRequest } from '../../../lib/hasuraAdapter'
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
-export default NextAuth({
+const options: NextAuthOptions = {
+    debug: true,
     // https://next-auth.js.org/configuration/providers/oauth
     providers: [
         // GithubProvider({
@@ -136,4 +138,7 @@ export default NextAuth({
             return session
         }
     }
-})
+}
+
+const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options)
+export default authHandler
