@@ -16,7 +16,6 @@ async function handlePOST(res: any, req: any) {
         admin: true
     })
     const user = data?.users[0]
-    console.log({ user })
 
     //     await prisma.user.findUnique({
     //         where: { email: req.body.username },
@@ -28,7 +27,7 @@ async function handlePOST(res: any, req: any) {
     //             password: true
     //         }
     //     })
-    if (user && user.password == hashPassword(req.body.password)) {
+    if (user && user.password === hashPassword(req.body.password)) {
         logger.debug('password correct')
         res.json(omit(user, 'password'))
     } else {
