@@ -8,7 +8,7 @@ const hashPassword = (password: string) => {
     return sha256(password).toString()
 }
 // POST /api/user
-async function handlePOST(res: any, req: any) {
+async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
     const hasura = HasuraAdapter()
     const data = await hasuraRequest({
         query: GetUsersAndAccountByEmailDocument,
