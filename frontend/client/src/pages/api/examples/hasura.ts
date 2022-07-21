@@ -7,11 +7,11 @@ import { getSession } from 'next-auth/react'
 // This is an example of how to read a JSON Web Token from an API route
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-const secret = process.env.NEXTAUTH_SECRET
-
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     const session = await getSession({ req })
-    const token = await getToken({ req, secret, raw: true })
+    const token = await getToken({ req, raw: true })
+    console.log({ token })
+
     if (session && token) {
         console.log({ token })
 
