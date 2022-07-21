@@ -16,7 +16,7 @@
         "up-latest": "yarn up --latest",
         "release": "cross-env HUSKY=0 standard-version",
         "push-release": "git push --follow-tags origin main",
-        "prepare": "husky install",
+        "prepare": "node -e \"if (process.env.NODE_ENV !== 'production'){process.exit(1)} \" || husky install",
         "graphql-codegen": "graphql-codegen --config codegen.js"
     },
     "dependencies": {
