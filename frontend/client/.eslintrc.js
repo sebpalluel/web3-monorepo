@@ -10,7 +10,7 @@ module.exports = {
         parser: '@typescript-eslint/parser'
     },
     extends: [
-        'sznm/react',
+        'next/core-web-vitals',
         'plugin:react/jsx-runtime',
         'plugin:@next/next/recommended',
         'plugin:@typescript-eslint/recommended',
@@ -18,7 +18,9 @@ module.exports = {
     ],
     plugins: ['@typescript-eslint', 'prettier'],
     rules: {
-        'prettier/prettier': ['error']
+        'prettier/prettier': ['error'],
+        '@typescript-eslint/no-unused-vars': 'error',
+        '@typescript-eslint/no-explicit-any': 'error'
     },
     overrides: [
         {
