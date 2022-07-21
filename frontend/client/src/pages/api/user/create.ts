@@ -1,4 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import {
+    withMiddlewares,
+    withExceptionFilter,
+    withMethodsGuard
+} from 'lib/middlewares'
 import HasuraAdapter, { hasuraRequest } from 'lib/hasuraAdapter'
 import { GetUsersAndAccountByEmailDocument } from 'generated/admin-gql'
 import sha256 from 'crypto-js/sha256'
