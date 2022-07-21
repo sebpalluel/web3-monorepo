@@ -27,7 +27,6 @@ import { logger } from 'lib/logger'
 import { each, forOwn, join } from 'lodash'
 import { useRouter } from 'next/router'
 
-//icons
 import { AiFillGithub, AiFillGoogleCircle } from 'react-icons/ai'
 import { MdOutlineEmail } from 'react-icons/md'
 import { BiLockAlt } from 'react-icons/bi'

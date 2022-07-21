@@ -16,7 +16,7 @@ import {
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
-import { useForm } from 'react-hook-form'
+import { useForm, FormErrorMessage } from 'react-hook-form'
 import { logger } from 'lib/logger'
 import { useRouter } from 'next/router'
 import { resetLevel } from 'loglevel'
@@ -24,6 +24,7 @@ import { resetLevel } from 'loglevel'
 export default function SignupCard() {
     const router = useRouter()
     const [showPassword, setShowPassword] = useState(false)
+    const [errorMsg, setErrorMsg] = useState('')
     const {
         handleSubmit,
         register,
@@ -50,7 +51,10 @@ export default function SignupCard() {
                 }`
             )
         } catch (error) {
-            console.error(error)
+            logger.error(error)
+            if (error.response && error.response.status === 400) {
+                setErrorMsg(error.response.data)
+            }
         }
     }
 
@@ -124,6 +128,11 @@ export default function SignupCard() {
                                         </Button>
                                     </InputRightElement>
                                 </InputGroup>
+                                {errorMsg && (
+                                    <FormErrorMessage>
+                                        {errorMsg}
+                                    </FormErrorMessage>
+                                )}
                             </FormControl>
                             <Stack spacing={10} pt={2}>
                                 <Button

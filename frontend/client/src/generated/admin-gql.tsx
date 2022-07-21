@@ -1460,15 +1460,23 @@ export type VerificationTokens_Set_Input = {
   token?: InputMaybe<Scalars['String']>;
 };
 
-export type GetUsersByEmailQueryVariables = Exact<{
+export type AccountFieldsFragment = { __typename?: 'accounts', type: string, provider: string };
+
+export type GetUsersAndAccountByEmailQueryVariables = Exact<{
   email: Scalars['String'];
 }>;
 
 
-export type GetUsersByEmailQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null, password?: string | null }> };
+export type GetUsersAndAccountByEmailQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null, password?: string | null, accounts: Array<{ __typename?: 'accounts', type: string, provider: string }> }> };
 
 export type UserFieldsFragment = { __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null, password?: string | null };
 
+export const AccountFieldsFragmentDoc = `
+    fragment AccountFields on accounts {
+  type
+  provider
+}
+    `;
 export const UserFieldsFragmentDoc = `
     fragment UserFields on users {
   id
@@ -1479,28 +1487,32 @@ export const UserFieldsFragmentDoc = `
   password
 }
     `;
-export const GetUsersByEmailDocument = `
-    query getUsersByEmail($email: String!) {
+export const GetUsersAndAccountByEmailDocument = `
+    query getUsersAndAccountByEmail($email: String!) {
   users(where: {email: {_eq: $email}}) {
     ...UserFields
+    accounts {
+      ...AccountFields
+    }
   }
 }
-    ${UserFieldsFragmentDoc}`;
-export const useGetUsersByEmailQuery = <
-      TData = GetUsersByEmailQuery,
+    ${UserFieldsFragmentDoc}
+${AccountFieldsFragmentDoc}`;
+export const useGetUsersAndAccountByEmailQuery = <
+      TData = GetUsersAndAccountByEmailQuery,
       TError = unknown
     >(
       dataSource: { endpoint: string, fetchParams?: RequestInit },
-      variables: GetUsersByEmailQueryVariables,
-      options?: UseQueryOptions<GetUsersByEmailQuery, TError, TData>
+      variables: GetUsersAndAccountByEmailQueryVariables,
+      options?: UseQueryOptions<GetUsersAndAccountByEmailQuery, TError, TData>
     ) =>
-    useQuery<GetUsersByEmailQuery, TError, TData>(
-      ['getUsersByEmail', variables],
-      fetcher<GetUsersByEmailQuery, GetUsersByEmailQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, GetUsersByEmailDocument, variables),
+    useQuery<GetUsersAndAccountByEmailQuery, TError, TData>(
+      ['getUsersAndAccountByEmail', variables],
+      fetcher<GetUsersAndAccountByEmailQuery, GetUsersAndAccountByEmailQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, GetUsersAndAccountByEmailDocument, variables),
       options
     );
 
-useGetUsersByEmailQuery.getKey = (variables: GetUsersByEmailQueryVariables) => ['getUsersByEmail', variables];
+useGetUsersAndAccountByEmailQuery.getKey = (variables: GetUsersAndAccountByEmailQueryVariables) => ['getUsersAndAccountByEmail', variables];
 ;
 
-useGetUsersByEmailQuery.fetcher = (dataSource: { endpoint: string, fetchParams?: RequestInit }, variables: GetUsersByEmailQueryVariables) => fetcher<GetUsersByEmailQuery, GetUsersByEmailQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, GetUsersByEmailDocument, variables);
+useGetUsersAndAccountByEmailQuery.fetcher = (dataSource: { endpoint: string, fetchParams?: RequestInit }, variables: GetUsersAndAccountByEmailQueryVariables) => fetcher<GetUsersAndAccountByEmailQuery, GetUsersAndAccountByEmailQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, GetUsersAndAccountByEmailDocument, variables);

@@ -287,8 +287,6 @@ export const HasuraAdapter = (config = {}, options = {}): Adapter => {
             return data?.insert_sessions_one || null
         },
         async getSessionAndUser(sessionToken) {
-            console.log({ sessionToken })
-
             const data = await hasuraRequest({
                 query: `
           query getSessionAndUser(!sessionToken: String!){
@@ -310,8 +308,6 @@ export const HasuraAdapter = (config = {}, options = {}): Adapter => {
                     sessionToken
                 }
             })
-            console.log({ data })
-
             return data?.sessions[0] || null
         },
         async updateSession({ sessionToken }) {

@@ -1,5 +1,8 @@
-query getUsersByEmail($email: String!) {
+query getUsersAndAccountByEmail($email: String!) {
     users(where: { email: { _eq: $email } }) {
         ...UserFields
+        accounts {
+            ...AccountFields
+        }
     }
 }
