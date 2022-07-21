@@ -1,7 +1,7 @@
 import * as jsonwebtoken from 'jsonwebtoken'
-import NextAuth from 'next-auth'
+import NextAuth, { NextAuthOptions } from 'next-auth'
 import type { Adapter } from 'next-auth/adapters'
-import type { JWT } from 'next-auth/jwt'
+import type { JWT, JWTOptions } from 'next-auth/jwt'
 import EmailProvider from 'next-auth/providers/email'
 import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
@@ -11,8 +11,27 @@ import { HasuraAdapter, hasuraRequest } from '../../../lib/hasuraAdapter'
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
-// const options: NextAuthOptions = {
-export default NextAuth({
+export const jwtOptions: JWTOptions = {
+    secret: process.env.NEXTAUTH_SECRET,
+    maxAge:
+        parseInt(process.env.TOKEN_LIFE_TIME as string) || 30 * 24 * 60 * 60, // 30 days
+
+    encode: async ({ secret, token: payload }) => {
+        return jsonwebtoken.sign(payload!, secret, {
+            algorithm: 'HS256'
+        })
+    },
+    decode: async ({ secret, token }) => {
+        let decodedToken = jsonwebtoken.verify(token!, secret, {
+            algorithms: ['HS256']
+        })
+        // run some checks on the returned payload, perhaps you expect some specific values
+
+        // if its all good, return it, or perhaps just return a boolean
+        return decodedToken as JWT
+    }
+}
+export const authOptions: NextAuthOptions = {
     debug: true,
     // https://next-auth.js.org/configuration/providers/oauth
     providers: [
@@ -92,23 +111,12 @@ export default NextAuth({
     },
     session: {
         strategy: 'jwt',
-        maxAge: 30 * 24 * 60 * 60 // 30 days
+        maxAge:
+            parseInt(process.env.TOKEN_LIFE_TIME as string) || 30 * 24 * 60 * 60 // 30 days
         // updateAge: 24 * 60 * 60, // 24 hours
     },
-    jwt: {
-        // maxAge: 60 * 60 * 24 * 30,
-        encode: ({ secret, token }) => {
-            return jsonwebtoken.sign(token!, secret, {
-                algorithm: 'HS256'
-            })
-        },
-        decode: async ({ secret, token }) => {
-            const decodedToken = jsonwebtoken.verify(token!, secret, {
-                algorithms: ['HS256']
-            })
-            return decodedToken as JWT
-        }
-    },
+    jwt: jwtOptions,
+    secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
         // Add hasura claims and accessToken
         async jwt({ token, user, account, profile, isNewUser }) {
@@ -139,4 +147,5 @@ export default NextAuth({
             return session
         }
     }
-})
+}
+export default NextAuth(authOptions)
