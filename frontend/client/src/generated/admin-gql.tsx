@@ -1897,14 +1897,12 @@ export type VerificationTokens_Set_Input = {
 
 export type AccountFieldsFragment = { __typename?: 'accounts', type: string, provider: string };
 
-export type PasswordFieldsFragment = { __typename?: 'passwords', salt: string, hash: string, iterations: number };
-
 export type GetUsersAndAccountByEmailQueryVariables = Exact<{
   email: Scalars['String'];
 }>;
 
 
-export type GetUsersAndAccountByEmailQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null, password?: string | null, accounts: Array<{ __typename?: 'accounts', type: string, provider: string }> }> };
+export type GetUsersAndAccountByEmailQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null, accounts: Array<{ __typename?: 'accounts', type: string, provider: string }> }> };
 
 export type CreateUserWithCredentialsMutationVariables = Exact<{
   user: Users_Insert_Input;
@@ -1912,21 +1910,14 @@ export type CreateUserWithCredentialsMutationVariables = Exact<{
 }>;
 
 
-export type CreateUserWithCredentialsMutation = { __typename?: 'mutation_root', insert_users_one?: { __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null, password?: string | null } | null, insert_passwords_one?: { __typename?: 'passwords', salt: string, hash: string, iterations: number } | null };
+export type CreateUserWithCredentialsMutation = { __typename?: 'mutation_root', insert_users_one?: { __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null } | null, insert_passwords_one?: { __typename?: 'passwords', hash: string } | null };
 
-export type UserFieldsFragment = { __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null, password?: string | null };
+export type UserFieldsFragment = { __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null };
 
 export const AccountFieldsFragmentDoc = `
     fragment AccountFields on accounts {
   type
   provider
-}
-    `;
-export const PasswordFieldsFragmentDoc = `
-    fragment PasswordFields on passwords {
-  salt
-  hash
-  iterations
 }
     `;
 export const UserFieldsFragmentDoc = `
@@ -1936,7 +1927,6 @@ export const UserFieldsFragmentDoc = `
   email
   emailVerified
   image
-  password
 }
     `;
 export const GetUsersAndAccountByEmailDocument = `
@@ -1974,11 +1964,10 @@ export const CreateUserWithCredentialsDocument = `
     ...UserFields
   }
   insert_passwords_one(object: $password) {
-    ...PasswordFields
+    hash
   }
 }
-    ${UserFieldsFragmentDoc}
-${PasswordFieldsFragmentDoc}`;
+    ${UserFieldsFragmentDoc}`;
 export const useCreateUserWithCredentialsMutation = <
       TError = unknown,
       TContext = unknown

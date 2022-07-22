@@ -13,12 +13,8 @@ import cryptojs from 'crypto-js'
 import { randomBytes } from 'crypto'
 import { logger } from 'lib/logger'
 import { ApiError } from 'next/dist/server/api-utils'
+import type { Password } from 'lib/types/crypto'
 
-type Password = {
-    hash: string
-    salt: string
-    iterations: number
-}
 // https://cryptosense.com/blog/parameter-choice-for-pbkdf2
 const hashPasswordWithSalt = (password: string): Password => {
     // const salt = cryptojs.randomBytes(128).toString('base64')

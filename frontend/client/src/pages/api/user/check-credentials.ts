@@ -1,21 +1,35 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { hasuraRequest } from 'lib/hasuraAdapter'
-import { GetMyUserByEmailDocument } from 'generated/user-gql'
+import { GetMyUserAndPasswordByEmailDocument } from 'generated/user-gql'
 import {
     withMiddlewares,
     withErrorHandling,
     withMethodsGuard
 } from 'lib/middlewares'
-import sha256 from 'crypto-js/sha256'
+import cryptojs from 'crypto-js'
 import { logger } from 'lib/logger'
-import { omit } from 'lodash'
 import { ApiError } from 'next/dist/server/api-utils'
+import type { PasswordWithAttempt } from 'lib/types/crypto'
 
 // function isPasswordCorrect(savedHash, savedSalt, savedIterations, passwordAttempt) {
 //     return savedHash == pbkdf2(passwordAttempt, savedSalt, savedIterations);
 // }
-const hashPassword = (password: string) => {
-    return sha256(password).toString()
+// const hashPassword = (password: string) => {
+//     return sha256(password).toString()
+// }
+
+const isPasswordCorrect = (
+    secret: string,
+    password: PasswordWithAttempt
+): Boolean => {
+    // return password.hash === hashPassword(password.password)
+    const key512Bits = cryptojs.PBKDF2(secret, password.salt, {
+        keySize: parseInt(process.env.PBKDF2_KEY_SIZE as string) || 512 / 32,
+        iterations: password.iterations,
+        hasher: cryptojs.algo.SHA256
+    })
+    const hash = key512Bits.toString(cryptojs.enc.Base64)
+    return hash === password.hash
 }
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -24,14 +38,19 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         throw new ApiError(400, 'Invalid credentials')
     }
     const data = await hasuraRequest({
-        query: GetMyUserByEmailDocument,
+        query: GetMyUserAndPasswordByEmailDocument,
         variables: { email: req.body.username },
         admin: true
     })
-    const user = data?.users[0]
-    if (user && user.password === hashPassword(req.body.password)) {
-        res.json(omit(user, 'password'))
+    const { passwords, ...user } = data?.users[0]
+    const lastPassword = passwords[passwords.length - 1]
+    logger.debug({ user, passwords })
+    if (isPasswordCorrect(req.body.password, lastPassword)) {
+        // on success, if attempt > 0, update with attempt to 0
+        res.json(user)
     } else {
+        // update with attempt+1
+        // if attempt > process.env.PSWD_MAX_ATTEMPTS, block user and ask to reset password
         throw new ApiError(400, 'Invalid credentials')
     }
 }

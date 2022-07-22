@@ -4,5 +4,4 @@ fragment UserFields on users {
     email
     emailVerified
     image
-    password
 }

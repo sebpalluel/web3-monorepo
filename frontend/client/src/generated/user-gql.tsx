@@ -519,6 +519,8 @@ export type Users_Set_Input = {
 
 export type MyUserFieldsFragment = { __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null, password?: string | null };
 
+export type PasswordFieldsFragment = { __typename?: 'passwords', salt: string, hash: string, iterations: number, attempts: number };
+
 export type GetUserQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
@@ -540,6 +542,13 @@ export type GetMyUserByEmailQueryVariables = Exact<{
 
 export type GetMyUserByEmailQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null, password?: string | null }> };
 
+export type GetMyUserAndPasswordByEmailQueryVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+
+export type GetMyUserAndPasswordByEmailQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null, password?: string | null, passwords: Array<{ __typename?: 'passwords', salt: string, hash: string, iterations: number, attempts: number }> }> };
+
 export type UserFieldsFragment = { __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null };
 
 export const MyUserFieldsFragmentDoc = `
@@ -550,6 +559,14 @@ export const MyUserFieldsFragmentDoc = `
   emailVerified
   image
   password
+}
+    `;
+export const PasswordFieldsFragmentDoc = `
+    fragment PasswordFields on passwords {
+  salt
+  hash
+  iterations
+  attempts
 }
     `;
 export const UserFieldsFragmentDoc = `
@@ -636,3 +653,32 @@ useGetMyUserByEmailQuery.getKey = (variables: GetMyUserByEmailQueryVariables) =>
 ;
 
 useGetMyUserByEmailQuery.fetcher = (dataSource: { endpoint: string, fetchParams?: RequestInit }, variables: GetMyUserByEmailQueryVariables) => fetcher<GetMyUserByEmailQuery, GetMyUserByEmailQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, GetMyUserByEmailDocument, variables);
+export const GetMyUserAndPasswordByEmailDocument = `
+    query getMyUserAndPasswordByEmail($email: String!) {
+  users(where: {email: {_eq: $email}}) {
+    ...MyUserFields
+    passwords {
+      ...PasswordFields
+    }
+  }
+}
+    ${MyUserFieldsFragmentDoc}
+${PasswordFieldsFragmentDoc}`;
+export const useGetMyUserAndPasswordByEmailQuery = <
+      TData = GetMyUserAndPasswordByEmailQuery,
+      TError = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      variables: GetMyUserAndPasswordByEmailQueryVariables,
+      options?: UseQueryOptions<GetMyUserAndPasswordByEmailQuery, TError, TData>
+    ) =>
+    useQuery<GetMyUserAndPasswordByEmailQuery, TError, TData>(
+      ['getMyUserAndPasswordByEmail', variables],
+      fetcher<GetMyUserAndPasswordByEmailQuery, GetMyUserAndPasswordByEmailQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, GetMyUserAndPasswordByEmailDocument, variables),
+      options
+    );
+
+useGetMyUserAndPasswordByEmailQuery.getKey = (variables: GetMyUserAndPasswordByEmailQueryVariables) => ['getMyUserAndPasswordByEmail', variables];
+;
+
+useGetMyUserAndPasswordByEmailQuery.fetcher = (dataSource: { endpoint: string, fetchParams?: RequestInit }, variables: GetMyUserAndPasswordByEmailQueryVariables) => fetcher<GetMyUserAndPasswordByEmailQuery, GetMyUserAndPasswordByEmailQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, GetMyUserAndPasswordByEmailDocument, variables);
