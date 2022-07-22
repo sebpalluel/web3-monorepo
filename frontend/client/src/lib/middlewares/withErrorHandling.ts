@@ -69,6 +69,7 @@ export default function withExceptionFilter(
             const responseBody = {
                 statusCode,
                 timestamp,
+                message,
                 path: req.url
             }
 

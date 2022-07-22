@@ -1,7 +1,7 @@
 export default function withMethodsGuard(methods: string[]) {
-    return function withMethodsGuardHandler(req: any, res: any, next: any) {
+    return function withMethodsGuardHandler(req: any, res: any) {
         if (methods.includes(req.method)) {
-            next()
+            return
         } else {
             res.status(405).json({
                 error: 'Method not allowed'
