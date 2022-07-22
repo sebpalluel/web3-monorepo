@@ -14,7 +14,7 @@ const hashPassword = (password: string) => {
     return sha256(password).toString()
 }
 // POST /api/user
-async function createUser(req: NextApiRequest, res: NextApiResponse) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
     const hasura = HasuraAdapter()
     const data = await hasuraRequest({
         query: GetUsersAndAccountByEmailDocument,
@@ -25,7 +25,7 @@ async function createUser(req: NextApiRequest, res: NextApiResponse) {
     if (existingUser) {
         let errorMessage = `User with email ${req.body.email} already exists`
         if (existingUser.accounts.length)
-            errorMessage += `. Please login with your ${existingUser.accounts[0].provider} account`
+            errorMessage += `. Please login using the ${existingUser.accounts[0].provider} provider`
         else errorMessage += '. Please login with this email and your password'
         throw new ApiError(400, errorMessage)
     } else {
@@ -41,11 +41,9 @@ async function createUser(req: NextApiRequest, res: NextApiResponse) {
     }
 }
 
-export default function myApiHandler(
-    req: NextApiRequest,
-    res: NextApiResponse
-) {
-    const handler = withMiddlewares(withMethodsGuard(['POST']), createUser)
-
-    return withErrorHandling(req, res)(handler)
+export default function create(req: NextApiRequest, res: NextApiResponse) {
+    return withErrorHandling(
+        req,
+        res
+    )(withMiddlewares(withMethodsGuard(['POST']), handler))
 }

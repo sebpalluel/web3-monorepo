@@ -39,7 +39,7 @@ export default function SignupCard() {
             const body = { ...values }
             console.log(`POSTing ${JSON.stringify(body, null, 2)}`)
             const res = await fetchJson(`/api/user/create`, {
-                method: 'PATCH',
+                method: 'POST',
                 body: JSON.stringify(body)
             })
             logger.debug(`res`, res)

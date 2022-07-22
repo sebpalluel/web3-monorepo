@@ -2,12 +2,14 @@ import * as jsonwebtoken from 'jsonwebtoken'
 import NextAuth, { NextAuthOptions } from 'next-auth'
 import type { Adapter } from 'next-auth/adapters'
 import type { JWT, JWTOptions } from 'next-auth/jwt'
-import EmailProvider from 'next-auth/providers/email'
+// import EmailProvider from 'next-auth/providers/email'
 import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
 import { HasuraAdapter, hasuraRequest } from '../../../lib/hasuraAdapter'
+import fetchJSON from 'lib/fetchJson'
+import { logger } from 'lib/logger'
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
@@ -44,17 +46,17 @@ export const authOptions: NextAuthOptions = {
             clientSecret: process.env.GOOGLE_CLIENT_SECRET || ''
         }),
         // https://next-auth.js.org/configuration/providers/email
-        EmailProvider({
-            server: {
-                host: process.env.EMAIL_SERVER_HOST,
-                port: process.env.EMAIL_SERVER_PORT,
-                auth: {
-                    user: process.env.EMAIL_SERVER_USER,
-                    pass: process.env.EMAIL_SERVER_PASSWORD
-                }
-            },
-            from: process.env.EMAIL_FROM
-        }),
+        // EmailProvider({
+        //     server: {
+        //         host: process.env.EMAIL_SERVER_HOST,
+        //         port: process.env.EMAIL_SERVER_PORT,
+        //         auth: {
+        //             user: process.env.EMAIL_SERVER_USER,
+        //             pass: process.env.EMAIL_SERVER_PASSWORD
+        //         }
+        //     },
+        //     from: process.env.EMAIL_FROM
+        // }),
         CredentialsProvider({
             // The name to display on the sign in form (e.g. 'Sign in with...')
             id: 'credentials',
@@ -72,27 +74,27 @@ export const authOptions: NextAuthOptions = {
                 password: { label: 'Password', type: 'password' }
             },
             authorize: async (credentials, req) => {
-                const user = await fetch(
-                    `${process.env.NEXTAUTH_URL}/api/user/check-credentials`,
-                    {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                            accept: 'application/json'
-                        },
-                        body: Object.entries(credentials)
-                            .map((e) => e.join('='))
-                            .join('&')
-                    }
-                )
-                    .then((res) => res.json())
-                    .catch((err) => {
+                try {
+                    const user = await fetchJSON(
+                        `${process.env.NEXTAUTH_URL}/api/user/check-credentials`,
+                        {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type':
+                                    'application/x-www-form-urlencoded',
+                                accept: 'application/json'
+                            },
+                            body: Object.entries(credentials)
+                                .map((e) => e.join('='))
+                                .join('&')
+                        }
+                    )
+                    if (user) {
+                        return user
+                    } else {
                         return null
-                    })
-
-                if (user) {
-                    return user
-                } else {
+                    }
+                } catch (e) {
                     return null
                 }
             }
