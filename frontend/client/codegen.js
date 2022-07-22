@@ -5,6 +5,35 @@ const userHeaders = {
         process.env.HASURA_GRAPHQL_ADMIN_SECRET || 'password'
 }
 
+const adminHeaders = {
+    'x-hasura-role': 'admin',
+    'x-hasura-default-role': 'admin',
+    'x-hasura-admin-secret':
+        process.env.HASURA_GRAPHQL_ADMIN_SECRET || 'password'
+}
+
+const pluginsAndConfig = {
+    plugins: [
+        // 'add',
+        'typescript',
+        'typescript-operations',
+        'typescript-react-query'
+    ],
+    config: {
+        preResolveTypes: true,
+        constEnums: true,
+        exposeQueryKeys: true,
+        exposeFetcher: true
+        // content: `import { fetchParams } from 'lib/hasuraAdapter.ts';`,
+        // fetcher: {
+        //     endpoint: `${process.env.HASURA_URL}`,
+        //     fetchParams: 'await(fetchParams())'
+        // }
+        // // https://www.graphql-code-generator.com/plugins/typescript/typescript-react-query
+        // fetcher: './src/lib/hasuraAdapter.ts#myFetcher',
+    }
+}
+
 const hasuraSchema = (headers = userHeaders) => {
     return {
         'http://backend-hasura-engine:8080/v1/graphql': {
@@ -28,50 +57,20 @@ module.exports = {
         './src/generated/user-gql.tsx': {
             schema: [hasuraSchema()],
             documents: ['./src/queries/user/**/*.{graphql,gql}'],
-            plugins: [
-                // 'add',
-                'typescript',
-                'typescript-operations',
-                'typescript-react-query'
-            ],
-            config: {
-                preResolveTypes: true,
-                constEnums: true,
-                exposeQueryKeys: true,
-                exposeFetcher: true,
-                content: `import { fetchParams } from 'lib/hasuraAdapter.ts';`,
-                // fetcher: {
-                //     endpoint: `${process.env.HASURA_URL}`,
-                //     fetchParams: 'await(fetchParams())'
-                // }
-                // // https://www.graphql-code-generator.com/plugins/typescript/typescript-react-query
-                // fetcher: './src/lib/hasuraAdapter.ts#myFetcher',
-            }
+            ...pluginsAndConfig
+        },
+        './src/generated/admin-gql.schema.json': {
+            schema: [hasuraSchema(adminHeaders)],
+            plugins: ['introspection']
+        },
+        './src/generated/admin-gql.schema.graphql': {
+            schema: [hasuraSchema(adminHeaders)],
+            plugins: ['schema-ast']
+        },
+        './src/generated/admin-gql.tsx': {
+            schema: [hasuraSchema(adminHeaders)],
+            documents: ['./src/queries/admin/**/*.{graphql,gql}'],
+            ...pluginsAndConfig
         }
-
-        // './src/admin.ts': {
-        //     schema: [
-        //         {
-        //             'http://localhost:8080/v1/graphql': {
-        //                 headers: {
-        //                     'x-hasura-role': 'admin',
-        //                     'x-hasura-admin-secret': process.env.HASURA_GRAPHQL_ADMIN_SECRET
-        //                 }
-        //             }
-        //         }
-        //     ],
-        //     documents: ['./src/admin/**/*.graphql'],
-        //     plugins: [
-        //         'typescript',
-        //         'typescript-operations',
-        //         'typescript-graphql-request'
-        //     ],
-        //     config: {
-        //         preResolveTypes: true,
-        //         skipTypename: false,
-        //         enumsAsTypes: true,
-        //         constEnums: true
-        //     }
-        // }
     }
 }

@@ -16,7 +16,7 @@
         "up-latest": "yarn up --latest",
         "release": "cross-env HUSKY=0 standard-version",
         "push-release": "git push --follow-tags origin main",
-        "prepare": "husky install",
+        "prepare": "node -e \"if (process.env.NODE_ENV !== 'production'){process.exit(1)} \" || husky install",
         "graphql-codegen": "graphql-codegen --config codegen.js"
     },
     "dependencies": {
@@ -31,6 +31,7 @@
         "graphql": "^16.5.0",
         "graphql-request": "^4.3.0",
         "graphql-tag": "^2.12.6",
+        "http-status-codes": "^2.2.0",
         "jsonwebtoken": "^8.5.1",
         "lodash": "^4.17.21",
         "loglevel": "^1.8.0",
@@ -66,7 +67,6 @@
         "cross-env": "^7.0.3",
         "eslint": "^8.16.0",
         "eslint-config-next": "^12.1.6",
-        "eslint-config-sznm": "^1.0.0",
         "husky": "^8.0.1",
         "lint-staged": "^12.5.0",
         "next-sitemap": "^2.5.28",

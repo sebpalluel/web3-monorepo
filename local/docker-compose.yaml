@@ -23,6 +23,7 @@ services:
       - web
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    restart: unless-stopped
     depends_on:
       backend-hasura-engine:
         condition: service_healthy

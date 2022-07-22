@@ -4,6 +4,12 @@ query getUser($id: String!) {
     }
 }
 
+query getUserByEmail($email: String!) {
+    users(where: { email: { _eq: $email } }) {
+        ...UserFields
+    }
+}
+
 query getMyUserByEmail($email: String!) {
     users(where: { email: { _eq: $email } }) {
         ...MyUserFields

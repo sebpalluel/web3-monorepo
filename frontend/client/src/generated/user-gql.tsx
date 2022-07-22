@@ -294,6 +294,13 @@ export type GetUserQueryVariables = Exact<{
 
 export type GetUserQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null }> };
 
+export type GetUserByEmailQueryVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+
+export type GetUserByEmailQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null }> };
+
 export type GetMyUserByEmailQueryVariables = Exact<{
   email: Scalars['String'];
 }>;
@@ -347,6 +354,31 @@ useGetUserQuery.getKey = (variables: GetUserQueryVariables) => ['getUser', varia
 ;
 
 useGetUserQuery.fetcher = (dataSource: { endpoint: string, fetchParams?: RequestInit }, variables: GetUserQueryVariables) => fetcher<GetUserQuery, GetUserQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, GetUserDocument, variables);
+export const GetUserByEmailDocument = `
+    query getUserByEmail($email: String!) {
+  users(where: {email: {_eq: $email}}) {
+    ...UserFields
+  }
+}
+    ${UserFieldsFragmentDoc}`;
+export const useGetUserByEmailQuery = <
+      TData = GetUserByEmailQuery,
+      TError = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      variables: GetUserByEmailQueryVariables,
+      options?: UseQueryOptions<GetUserByEmailQuery, TError, TData>
+    ) =>
+    useQuery<GetUserByEmailQuery, TError, TData>(
+      ['getUserByEmail', variables],
+      fetcher<GetUserByEmailQuery, GetUserByEmailQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, GetUserByEmailDocument, variables),
+      options
+    );
+
+useGetUserByEmailQuery.getKey = (variables: GetUserByEmailQueryVariables) => ['getUserByEmail', variables];
+;
+
+useGetUserByEmailQuery.fetcher = (dataSource: { endpoint: string, fetchParams?: RequestInit }, variables: GetUserByEmailQueryVariables) => fetcher<GetUserByEmailQuery, GetUserByEmailQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, GetUserByEmailDocument, variables);
 export const GetMyUserByEmailDocument = `
     query getMyUserByEmail($email: String!) {
   users(where: {email: {_eq: $email}}) {

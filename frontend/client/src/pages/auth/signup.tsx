@@ -12,18 +12,21 @@ import {
     Heading,
     Text,
     useColorModeValue,
-    Link
+    Link,
+    FormErrorMessage
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import { useForm } from 'react-hook-form'
 import { logger } from 'lib/logger'
 import { useRouter } from 'next/router'
+import fetchJson from 'lib/fetchJson'
 import { resetLevel } from 'loglevel'
 
 export default function SignupCard() {
     const router = useRouter()
     const [showPassword, setShowPassword] = useState(false)
+    const [errorMsg, setErrorMsg] = useState('')
     const {
         handleSubmit,
         register,
@@ -35,9 +38,8 @@ export default function SignupCard() {
         try {
             const body = { ...values }
             console.log(`POSTing ${JSON.stringify(body, null, 2)}`)
-            const res = await fetch(`/api/user/create`, {
+            const res = await fetchJson(`/api/user/create`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body)
             })
             logger.debug(`res`, res)
@@ -49,8 +51,9 @@ export default function SignupCard() {
                         : ''
                 }`
             )
-        } catch (error) {
-            console.error(error)
+        } catch (error: any) {
+            logger.error(`error`, error?.message)
+            if (error?.message) setErrorMsg(error.message)
         }
     }
 
@@ -95,7 +98,11 @@ export default function SignupCard() {
                                 <FormLabel>Email address</FormLabel>
                                 <Input type="email" {...register('email')} />
                             </FormControl>
-                            <FormControl id="password" isRequired>
+                            <FormControl
+                                id="password"
+                                isRequired
+                                isInvalid={!!errorMsg}
+                            >
                                 <FormLabel>Password</FormLabel>
                                 <InputGroup>
                                     <Input
@@ -124,6 +131,7 @@ export default function SignupCard() {
                                         </Button>
                                     </InputRightElement>
                                 </InputGroup>
+                                <FormErrorMessage>{errorMsg}</FormErrorMessage>
                             </FormControl>
                             <Stack spacing={10} pt={2}>
                                 <Button

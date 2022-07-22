@@ -19,15 +19,13 @@ import {
     Collapse,
     useDisclosure
 } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
-import { signIn, useSession } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 import { logger } from 'lib/logger'
-import { each, forOwn, join } from 'lodash'
 import { useRouter } from 'next/router'
 
-//icons
 import { AiFillGithub, AiFillGoogleCircle } from 'react-icons/ai'
 import { MdOutlineEmail } from 'react-icons/md'
 import { BiLockAlt } from 'react-icons/bi'
@@ -37,45 +35,48 @@ export default function SimpleCard() {
     const [showPassword, setShowPassword] = useState(false)
     const { isOpen: isOpenCollapse, onToggle: onToggleCollapse } =
         useDisclosure()
-    const { isOpen: isOpenEmail, onToggle: onToggleEmail } = useDisclosure()
-    const { data: session, status } = useSession()
     const router = useRouter()
+    const [credientialsInvalid, OAuthAccountNotLinked] = useMemo(() => {
+        const error = router.query.error
+        return [
+            error === 'CredientialsInvalid' ? 'Invalid email or password' : '',
+            error === 'OAuthAccountNotLinked'
+                ? 'You tried to sign in with a provider that is not linked to an existing account.\n\
+                Try with an other one or proceed with an email and password.'
+                : ''
+        ]
+    }, [router.query.error])
 
     const {
         handleSubmit,
         register,
-        watch,
-        formState: { errors, isSubmitting }
+        formState: { isSubmitting }
     } = useForm()
 
     let defaultBody = {
         grant_type: '',
-        username: 'asdf@gmail.com',
-        password: 'asdf',
+        username: '',
+        password: '',
         scope: '',
         client_id: '',
         client_secret: ''
     }
 
-    async function onSubmit(values) {
+    async function onSubmit(values: any) {
         try {
             const body = { ...defaultBody, ...values }
-            console.log(`POSTing ${JSON.stringify(body, null, 2)}`)
+            // console.log(`POSTing ${JSON.stringify(body, null, 2)}`)
             let res = await signIn('credentials', {
                 ...body,
-                callbackUrl: router.query.callbackUrl
+                callbackUrl: router.query.callbackUrl,
+                redirect: false
             })
             logger.debug(`signing:onsubmit:res`, res)
+            if (res?.ok) router.push(res.url || '/')
+            else router.push({ query: { error: 'CredientialsInvalid' } })
         } catch (error) {
             logger.error(error)
         }
-    }
-    if (status === 'authenticated') {
-        router.push('/', {
-            query: {
-                callbackUrl: router.query.callbackUrl
-            }
-        })
     }
 
     return (
@@ -99,46 +100,53 @@ export default function SimpleCard() {
                     boxShadow={'lg'}
                     p={8}
                 >
-                    <VStack>
-                        <FormPasswordlessEmail />
-                        <Button
-                            w="full"
-                            leftIcon={<AiFillGoogleCircle />}
-                            onClick={() =>
-                                signIn('google', {
-                                    callbackUrl:
-                                        router.query.callbackUrl.toString()
-                                })
-                            }
-                        >
-                            Google
-                        </Button>
-                        <Button
-                            w="full"
-                            leftIcon={<AiFillGithub />}
-                            onClick={() =>
-                                signIn('github', {
-                                    callbackUrl:
-                                        router.query.callbackUrl.toString()
-                                })
-                            }
-                        >
-                            Github
-                        </Button>
-                        <Button
-                            w="full"
-                            leftIcon={<BiLockAlt />}
-                            onClick={onToggleCollapse}
-                        >
-                            User & password
-                        </Button>
-                    </VStack>
+                    <FormControl id="oauth" isInvalid={!!OAuthAccountNotLinked}>
+                        <VStack>
+                            {/* <FormPasswordlessEmail /> */}
+                            <Button
+                                w="full"
+                                leftIcon={<AiFillGoogleCircle />}
+                                onClick={() =>
+                                    signIn('google', {
+                                        callbackUrl:
+                                            router.query.callbackUrl?.toString() ||
+                                            ''
+                                    })
+                                }
+                            >
+                                Google
+                            </Button>
+                            <Button
+                                w="full"
+                                leftIcon={<AiFillGithub />}
+                                onClick={() =>
+                                    signIn('github', {
+                                        callbackUrl:
+                                            router.query.callbackUrl?.toString() ||
+                                            ''
+                                    })
+                                }
+                            >
+                                Github
+                            </Button>
+                            <Button
+                                w="full"
+                                leftIcon={<BiLockAlt />}
+                                onClick={onToggleCollapse}
+                            >
+                                User & password
+                            </Button>
+                        </VStack>
+                        <FormErrorMessage>
+                            {OAuthAccountNotLinked}
+                        </FormErrorMessage>
+                    </FormControl>
                     <Collapse in={isOpenCollapse}>
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <Stack spacing={4} pt={10}>
                                 <FormControl
                                     id="email"
-                                    isInvalid={Boolean(router.query.error)}
+                                    isInvalid={!!credientialsInvalid}
                                     isRequired
                                 >
                                     <FormLabel>Email</FormLabel>
@@ -150,7 +158,7 @@ export default function SimpleCard() {
                                 <FormControl
                                     id="password"
                                     isRequired
-                                    isInvalid={Boolean(router.query.error)}
+                                    isInvalid={!!credientialsInvalid}
                                 >
                                     <FormLabel>Password</FormLabel>
                                     <InputGroup>
@@ -182,13 +190,9 @@ export default function SimpleCard() {
                                             </Button>
                                         </InputRightElement>
                                     </InputGroup>
-                                    {router.query.error &&
-                                        router.query.error ===
-                                            'CredentialsSignin' && (
-                                            <FormErrorMessage>
-                                                Invalid credentials
-                                            </FormErrorMessage>
-                                        )}
+                                    <FormErrorMessage>
+                                        {credientialsInvalid}
+                                    </FormErrorMessage>
                                 </FormControl>
                                 <Stack spacing={10}>
                                     <Stack
