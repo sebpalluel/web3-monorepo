@@ -18,15 +18,10 @@ type AccessTokens {
   refreshToken: String!
 }
 
-input Int_cast_exp {
-  String: String_comparison_exp
-}
-
 """
 Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'.
 """
 input Int_comparison_exp {
-  _cast: Int_cast_exp
   _eq: Int
   _gt: Int
   _gte: Int
@@ -556,6 +551,19 @@ type mutation_root {
   delete_accounts_by_pk(id: String!): accounts
 
   """
+  delete data from the table: "passwords"
+  """
+  delete_passwords(
+    """filter the rows which have to be deleted"""
+    where: passwords_bool_exp!
+  ): passwords_mutation_response
+
+  """
+  delete single row from the table: "passwords"
+  """
+  delete_passwords_by_pk(hash: String!): passwords
+
+  """
   delete data from the table: "sessions"
   """
   delete_sessions(
@@ -610,6 +618,28 @@ type mutation_root {
     """upsert condition"""
     on_conflict: accounts_on_conflict
   ): accounts
+
+  """
+  insert data into the table: "passwords"
+  """
+  insert_passwords(
+    """the rows to be inserted"""
+    objects: [passwords_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: passwords_on_conflict
+  ): passwords_mutation_response
+
+  """
+  insert a single row into the table: "passwords"
+  """
+  insert_passwords_one(
+    """the row to be inserted"""
+    object: passwords_insert_input!
+
+    """upsert condition"""
+    on_conflict: passwords_on_conflict
+  ): passwords
 
   """
   insert data into the table: "sessions"
@@ -700,6 +730,32 @@ type mutation_root {
   ): accounts
 
   """
+  update data of the table: "passwords"
+  """
+  update_passwords(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: passwords_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: passwords_set_input
+
+    """filter the rows which have to be updated"""
+    where: passwords_bool_exp!
+  ): passwords_mutation_response
+
+  """
+  update single row of the table: "passwords"
+  """
+  update_passwords_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: passwords_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: passwords_set_input
+    pk_columns: passwords_pk_columns_input!
+  ): passwords
+
+  """
   update data of the table: "sessions"
   """
   update_sessions(
@@ -772,8 +828,358 @@ enum order_by {
   desc_nulls_last
 }
 
+"""
+columns and relationships of "passwords"
+"""
+type passwords {
+  attempts: Int!
+  hash: String!
+  iterations: Int!
+  salt: String!
+  userId: String!
+}
+
+"""
+aggregated selection of "passwords"
+"""
+type passwords_aggregate {
+  aggregate: passwords_aggregate_fields
+  nodes: [passwords!]!
+}
+
+"""
+aggregate fields of "passwords"
+"""
+type passwords_aggregate_fields {
+  avg: passwords_avg_fields
+  count(columns: [passwords_select_column!], distinct: Boolean): Int!
+  max: passwords_max_fields
+  min: passwords_min_fields
+  stddev: passwords_stddev_fields
+  stddev_pop: passwords_stddev_pop_fields
+  stddev_samp: passwords_stddev_samp_fields
+  sum: passwords_sum_fields
+  var_pop: passwords_var_pop_fields
+  var_samp: passwords_var_samp_fields
+  variance: passwords_variance_fields
+}
+
+"""
+order by aggregate values of table "passwords"
+"""
+input passwords_aggregate_order_by {
+  avg: passwords_avg_order_by
+  count: order_by
+  max: passwords_max_order_by
+  min: passwords_min_order_by
+  stddev: passwords_stddev_order_by
+  stddev_pop: passwords_stddev_pop_order_by
+  stddev_samp: passwords_stddev_samp_order_by
+  sum: passwords_sum_order_by
+  var_pop: passwords_var_pop_order_by
+  var_samp: passwords_var_samp_order_by
+  variance: passwords_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "passwords"
+"""
+input passwords_arr_rel_insert_input {
+  data: [passwords_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: passwords_on_conflict
+}
+
+"""aggregate avg on columns"""
+type passwords_avg_fields {
+  attempts: Float
+  iterations: Float
+}
+
+"""
+order by avg() on columns of table "passwords"
+"""
+input passwords_avg_order_by {
+  attempts: order_by
+  iterations: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "passwords". All fields are combined with a logical 'AND'.
+"""
+input passwords_bool_exp {
+  _and: [passwords_bool_exp!]
+  _not: passwords_bool_exp
+  _or: [passwords_bool_exp!]
+  attempts: Int_comparison_exp
+  hash: String_comparison_exp
+  iterations: Int_comparison_exp
+  salt: String_comparison_exp
+  userId: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "passwords"
+"""
+enum passwords_constraint {
+  """
+  unique or primary key constraint on columns "hash"
+  """
+  passwords_pkey
+
+  """
+  unique or primary key constraint on columns "salt"
+  """
+  passwords_salt_key
+}
+
+"""
+input type for incrementing numeric columns in table "passwords"
+"""
+input passwords_inc_input {
+  attempts: Int
+  iterations: Int
+}
+
+"""
+input type for inserting data into table "passwords"
+"""
+input passwords_insert_input {
+  attempts: Int
+  hash: String
+  iterations: Int
+  salt: String
+  userId: String
+}
+
+"""aggregate max on columns"""
+type passwords_max_fields {
+  attempts: Int
+  hash: String
+  iterations: Int
+  salt: String
+  userId: String
+}
+
+"""
+order by max() on columns of table "passwords"
+"""
+input passwords_max_order_by {
+  attempts: order_by
+  hash: order_by
+  iterations: order_by
+  salt: order_by
+  userId: order_by
+}
+
+"""aggregate min on columns"""
+type passwords_min_fields {
+  attempts: Int
+  hash: String
+  iterations: Int
+  salt: String
+  userId: String
+}
+
+"""
+order by min() on columns of table "passwords"
+"""
+input passwords_min_order_by {
+  attempts: order_by
+  hash: order_by
+  iterations: order_by
+  salt: order_by
+  userId: order_by
+}
+
+"""
+response of any mutation on the table "passwords"
+"""
+type passwords_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [passwords!]!
+}
+
+"""
+on_conflict condition type for table "passwords"
+"""
+input passwords_on_conflict {
+  constraint: passwords_constraint!
+  update_columns: [passwords_update_column!]! = []
+  where: passwords_bool_exp
+}
+
+"""Ordering options when selecting data from "passwords"."""
+input passwords_order_by {
+  attempts: order_by
+  hash: order_by
+  iterations: order_by
+  salt: order_by
+  userId: order_by
+}
+
+"""primary key columns input for table: passwords"""
+input passwords_pk_columns_input {
+  hash: String!
+}
+
+"""
+select columns of table "passwords"
+"""
+enum passwords_select_column {
+  """column name"""
+  attempts
+
+  """column name"""
+  hash
+
+  """column name"""
+  iterations
+
+  """column name"""
+  salt
+
+  """column name"""
+  userId
+}
+
+"""
+input type for updating data in table "passwords"
+"""
+input passwords_set_input {
+  attempts: Int
+  hash: String
+  iterations: Int
+  salt: String
+  userId: String
+}
+
+"""aggregate stddev on columns"""
+type passwords_stddev_fields {
+  attempts: Float
+  iterations: Float
+}
+
+"""
+order by stddev() on columns of table "passwords"
+"""
+input passwords_stddev_order_by {
+  attempts: order_by
+  iterations: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type passwords_stddev_pop_fields {
+  attempts: Float
+  iterations: Float
+}
+
+"""
+order by stddev_pop() on columns of table "passwords"
+"""
+input passwords_stddev_pop_order_by {
+  attempts: order_by
+  iterations: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type passwords_stddev_samp_fields {
+  attempts: Float
+  iterations: Float
+}
+
+"""
+order by stddev_samp() on columns of table "passwords"
+"""
+input passwords_stddev_samp_order_by {
+  attempts: order_by
+  iterations: order_by
+}
+
+"""aggregate sum on columns"""
+type passwords_sum_fields {
+  attempts: Int
+  iterations: Int
+}
+
+"""
+order by sum() on columns of table "passwords"
+"""
+input passwords_sum_order_by {
+  attempts: order_by
+  iterations: order_by
+}
+
+"""
+update columns of table "passwords"
+"""
+enum passwords_update_column {
+  """column name"""
+  attempts
+
+  """column name"""
+  hash
+
+  """column name"""
+  iterations
+
+  """column name"""
+  salt
+
+  """column name"""
+  userId
+}
+
+"""aggregate var_pop on columns"""
+type passwords_var_pop_fields {
+  attempts: Float
+  iterations: Float
+}
+
+"""
+order by var_pop() on columns of table "passwords"
+"""
+input passwords_var_pop_order_by {
+  attempts: order_by
+  iterations: order_by
+}
+
+"""aggregate var_samp on columns"""
+type passwords_var_samp_fields {
+  attempts: Float
+  iterations: Float
+}
+
+"""
+order by var_samp() on columns of table "passwords"
+"""
+input passwords_var_samp_order_by {
+  attempts: order_by
+  iterations: order_by
+}
+
+"""aggregate variance on columns"""
+type passwords_variance_fields {
+  attempts: Float
+  iterations: Float
+}
+
+"""
+order by variance() on columns of table "passwords"
+"""
+input passwords_variance_order_by {
+  attempts: order_by
+  iterations: order_by
+}
+
 type query_root {
-  """An array relationship"""
+  """
+  fetch data from the table: "accounts"
+  """
   accounts(
     """distinct select on columns"""
     distinct_on: [accounts_select_column!]
@@ -791,7 +1197,9 @@ type query_root {
     where: accounts_bool_exp
   ): [accounts!]!
 
-  """An aggregate relationship"""
+  """
+  fetch aggregated fields from the table: "accounts"
+  """
   accounts_aggregate(
     """distinct select on columns"""
     distinct_on: [accounts_select_column!]
@@ -812,11 +1220,48 @@ type query_root {
   """fetch data from the table: "accounts" using primary key columns"""
   accounts_by_pk(id: String!): accounts
   login(params: LoginInput!): AccessTokens!
+
+  """An array relationship"""
+  passwords(
+    """distinct select on columns"""
+    distinct_on: [passwords_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [passwords_order_by!]
+
+    """filter the rows returned"""
+    where: passwords_bool_exp
+  ): [passwords!]!
+
+  """An aggregate relationship"""
+  passwords_aggregate(
+    """distinct select on columns"""
+    distinct_on: [passwords_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [passwords_order_by!]
+
+    """filter the rows returned"""
+    where: passwords_bool_exp
+  ): passwords_aggregate!
+
+  """fetch data from the table: "passwords" using primary key columns"""
+  passwords_by_pk(hash: String!): passwords
   refreshJwtToken(fingerprintHash: String!, refreshToken: String!): JwtToken!
 
-  """
-  fetch data from the table: "sessions"
-  """
+  """An array relationship"""
   sessions(
     """distinct select on columns"""
     distinct_on: [sessions_select_column!]
@@ -834,9 +1279,7 @@ type query_root {
     where: sessions_bool_exp
   ): [sessions!]!
 
-  """
-  fetch aggregated fields from the table: "sessions"
-  """
+  """An aggregate relationship"""
   sessions_aggregate(
     """distinct select on columns"""
     distinct_on: [sessions_select_column!]
@@ -1134,7 +1577,9 @@ enum sessions_update_column {
 }
 
 type subscription_root {
-  """An array relationship"""
+  """
+  fetch data from the table: "accounts"
+  """
   accounts(
     """distinct select on columns"""
     distinct_on: [accounts_select_column!]
@@ -1152,7 +1597,9 @@ type subscription_root {
     where: accounts_bool_exp
   ): [accounts!]!
 
-  """An aggregate relationship"""
+  """
+  fetch aggregated fields from the table: "accounts"
+  """
   accounts_aggregate(
     """distinct select on columns"""
     distinct_on: [accounts_select_column!]
@@ -1173,9 +1620,46 @@ type subscription_root {
   """fetch data from the table: "accounts" using primary key columns"""
   accounts_by_pk(id: String!): accounts
 
-  """
-  fetch data from the table: "sessions"
-  """
+  """An array relationship"""
+  passwords(
+    """distinct select on columns"""
+    distinct_on: [passwords_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [passwords_order_by!]
+
+    """filter the rows returned"""
+    where: passwords_bool_exp
+  ): [passwords!]!
+
+  """An aggregate relationship"""
+  passwords_aggregate(
+    """distinct select on columns"""
+    distinct_on: [passwords_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [passwords_order_by!]
+
+    """filter the rows returned"""
+    where: passwords_bool_exp
+  ): passwords_aggregate!
+
+  """fetch data from the table: "passwords" using primary key columns"""
+  passwords_by_pk(hash: String!): passwords
+
+  """An array relationship"""
   sessions(
     """distinct select on columns"""
     distinct_on: [sessions_select_column!]
@@ -1193,9 +1677,7 @@ type subscription_root {
     where: sessions_bool_exp
   ): [sessions!]!
 
-  """
-  fetch aggregated fields from the table: "sessions"
-  """
+  """An aggregate relationship"""
   sessions_aggregate(
     """distinct select on columns"""
     distinct_on: [sessions_select_column!]
@@ -1302,15 +1784,10 @@ type subscription_root {
 
 scalar timestamp
 
-input timestamp_cast_exp {
-  String: String_comparison_exp
-}
-
 """
 Boolean expression to compare columns of type "timestamp". All fields are combined with logical 'AND'.
 """
 input timestamp_comparison_exp {
-  _cast: timestamp_cast_exp
   _eq: timestamp
   _gt: timestamp
   _gte: timestamp
@@ -1326,7 +1803,9 @@ input timestamp_comparison_exp {
 columns and relationships of "users"
 """
 type users {
-  """An array relationship"""
+  """
+  fetch data from the table: "accounts"
+  """
   accounts(
     """distinct select on columns"""
     distinct_on: [accounts_select_column!]
@@ -1344,7 +1823,9 @@ type users {
     where: accounts_bool_exp
   ): [accounts!]!
 
-  """An aggregate relationship"""
+  """
+  fetch aggregated fields from the table: "accounts"
+  """
   accounts_aggregate(
     """distinct select on columns"""
     distinct_on: [accounts_select_column!]
@@ -1370,9 +1851,43 @@ type users {
   name: String
   password: String
 
-  """
-  fetch data from the table: "sessions"
-  """
+  """An array relationship"""
+  passwords(
+    """distinct select on columns"""
+    distinct_on: [passwords_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [passwords_order_by!]
+
+    """filter the rows returned"""
+    where: passwords_bool_exp
+  ): [passwords!]!
+
+  """An aggregate relationship"""
+  passwords_aggregate(
+    """distinct select on columns"""
+    distinct_on: [passwords_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [passwords_order_by!]
+
+    """filter the rows returned"""
+    where: passwords_bool_exp
+  ): passwords_aggregate!
+
+  """An array relationship"""
   sessions(
     """distinct select on columns"""
     distinct_on: [sessions_select_column!]
@@ -1390,9 +1905,7 @@ type users {
     where: sessions_bool_exp
   ): [sessions!]!
 
-  """
-  fetch aggregated fields from the table: "sessions"
-  """
+  """An aggregate relationship"""
   sessions_aggregate(
     """distinct select on columns"""
     distinct_on: [sessions_select_column!]
@@ -1444,6 +1957,7 @@ input users_bool_exp {
   lastName: String_comparison_exp
   name: String_comparison_exp
   password: String_comparison_exp
+  passwords: passwords_bool_exp
   sessions: sessions_bool_exp
 }
 
@@ -1470,6 +1984,7 @@ input users_insert_input {
   lastName: String
   name: String
   password: String
+  passwords: passwords_arr_rel_insert_input
   sessions: sessions_arr_rel_insert_input
 }
 
@@ -1528,6 +2043,7 @@ input users_order_by {
   lastName: order_by
   name: order_by
   password: order_by
+  passwords_aggregate: passwords_aggregate_order_by
   sessions_aggregate: sessions_aggregate_order_by
 }
 

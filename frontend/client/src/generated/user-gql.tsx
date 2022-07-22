@@ -34,6 +34,19 @@ export type Scalars = {
   timestamp: any;
 };
 
+/** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
+export type Int_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['Int']>;
+  _gt?: InputMaybe<Scalars['Int']>;
+  _gte?: InputMaybe<Scalars['Int']>;
+  _in?: InputMaybe<Array<Scalars['Int']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['Int']>;
+  _lte?: InputMaybe<Scalars['Int']>;
+  _neq?: InputMaybe<Scalars['Int']>;
+  _nin?: InputMaybe<Array<Scalars['Int']>>;
+};
+
 export type JwtToken = {
   __typename?: 'JwtToken';
   jwt: Scalars['String'];
@@ -84,6 +97,10 @@ export type Mutation_Root = {
   delete_users?: Maybe<Users_Mutation_Response>;
   /** delete single row from the table: "users" */
   delete_users_by_pk?: Maybe<Users>;
+  /** insert data into the table: "passwords" */
+  insert_passwords?: Maybe<Passwords_Mutation_Response>;
+  /** insert a single row into the table: "passwords" */
+  insert_passwords_one?: Maybe<Passwords>;
   signout?: Maybe<SignoutOutput>;
   /** update data of the table: "users" */
   update_users?: Maybe<Users_Mutation_Response>;
@@ -101,6 +118,20 @@ export type Mutation_RootDelete_UsersArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Users_By_PkArgs = {
   id: Scalars['String'];
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_PasswordsArgs = {
+  objects: Array<Passwords_Insert_Input>;
+  on_conflict?: InputMaybe<Passwords_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Passwords_OneArgs = {
+  object: Passwords_Insert_Input;
+  on_conflict?: InputMaybe<Passwords_On_Conflict>;
 };
 
 
@@ -133,13 +164,187 @@ export const enum Order_By {
   DescNullsLast = 'desc_nulls_last'
 };
 
+/** columns and relationships of "passwords" */
+export type Passwords = {
+  __typename?: 'passwords';
+  attempts: Scalars['Int'];
+  hash: Scalars['String'];
+  iterations: Scalars['Int'];
+  salt: Scalars['String'];
+};
+
+/** order by aggregate values of table "passwords" */
+export type Passwords_Aggregate_Order_By = {
+  avg?: InputMaybe<Passwords_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Passwords_Max_Order_By>;
+  min?: InputMaybe<Passwords_Min_Order_By>;
+  stddev?: InputMaybe<Passwords_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Passwords_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Passwords_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Passwords_Sum_Order_By>;
+  var_pop?: InputMaybe<Passwords_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Passwords_Var_Samp_Order_By>;
+  variance?: InputMaybe<Passwords_Variance_Order_By>;
+};
+
+/** order by avg() on columns of table "passwords" */
+export type Passwords_Avg_Order_By = {
+  attempts?: InputMaybe<Order_By>;
+  iterations?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "passwords". All fields are combined with a logical 'AND'. */
+export type Passwords_Bool_Exp = {
+  _and?: InputMaybe<Array<Passwords_Bool_Exp>>;
+  _not?: InputMaybe<Passwords_Bool_Exp>;
+  _or?: InputMaybe<Array<Passwords_Bool_Exp>>;
+  attempts?: InputMaybe<Int_Comparison_Exp>;
+  hash?: InputMaybe<String_Comparison_Exp>;
+  iterations?: InputMaybe<Int_Comparison_Exp>;
+  salt?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "passwords" */
+export const enum Passwords_Constraint {
+  /** unique or primary key constraint on columns "hash" */
+  PasswordsPkey = 'passwords_pkey',
+  /** unique or primary key constraint on columns "salt" */
+  PasswordsSaltKey = 'passwords_salt_key'
+};
+
+/** input type for inserting data into table "passwords" */
+export type Passwords_Insert_Input = {
+  hash?: InputMaybe<Scalars['String']>;
+  iterations?: InputMaybe<Scalars['Int']>;
+  salt?: InputMaybe<Scalars['String']>;
+};
+
+/** order by max() on columns of table "passwords" */
+export type Passwords_Max_Order_By = {
+  attempts?: InputMaybe<Order_By>;
+  hash?: InputMaybe<Order_By>;
+  iterations?: InputMaybe<Order_By>;
+  salt?: InputMaybe<Order_By>;
+};
+
+/** order by min() on columns of table "passwords" */
+export type Passwords_Min_Order_By = {
+  attempts?: InputMaybe<Order_By>;
+  hash?: InputMaybe<Order_By>;
+  iterations?: InputMaybe<Order_By>;
+  salt?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "passwords" */
+export type Passwords_Mutation_Response = {
+  __typename?: 'passwords_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Passwords>;
+};
+
+/** on_conflict condition type for table "passwords" */
+export type Passwords_On_Conflict = {
+  constraint: Passwords_Constraint;
+  update_columns?: Array<Passwords_Update_Column>;
+  where?: InputMaybe<Passwords_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "passwords". */
+export type Passwords_Order_By = {
+  attempts?: InputMaybe<Order_By>;
+  hash?: InputMaybe<Order_By>;
+  iterations?: InputMaybe<Order_By>;
+  salt?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "passwords" */
+export const enum Passwords_Select_Column {
+  /** column name */
+  Attempts = 'attempts',
+  /** column name */
+  Hash = 'hash',
+  /** column name */
+  Iterations = 'iterations',
+  /** column name */
+  Salt = 'salt'
+};
+
+/** order by stddev() on columns of table "passwords" */
+export type Passwords_Stddev_Order_By = {
+  attempts?: InputMaybe<Order_By>;
+  iterations?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_pop() on columns of table "passwords" */
+export type Passwords_Stddev_Pop_Order_By = {
+  attempts?: InputMaybe<Order_By>;
+  iterations?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_samp() on columns of table "passwords" */
+export type Passwords_Stddev_Samp_Order_By = {
+  attempts?: InputMaybe<Order_By>;
+  iterations?: InputMaybe<Order_By>;
+};
+
+/** order by sum() on columns of table "passwords" */
+export type Passwords_Sum_Order_By = {
+  attempts?: InputMaybe<Order_By>;
+  iterations?: InputMaybe<Order_By>;
+};
+
+/** placeholder for update columns of table "passwords" (current role has no relevant permissions) */
+export const enum Passwords_Update_Column {
+  /** placeholder (do not use) */
+  Placeholder = '_PLACEHOLDER'
+};
+
+/** order by var_pop() on columns of table "passwords" */
+export type Passwords_Var_Pop_Order_By = {
+  attempts?: InputMaybe<Order_By>;
+  iterations?: InputMaybe<Order_By>;
+};
+
+/** order by var_samp() on columns of table "passwords" */
+export type Passwords_Var_Samp_Order_By = {
+  attempts?: InputMaybe<Order_By>;
+  iterations?: InputMaybe<Order_By>;
+};
+
+/** order by variance() on columns of table "passwords" */
+export type Passwords_Variance_Order_By = {
+  attempts?: InputMaybe<Order_By>;
+  iterations?: InputMaybe<Order_By>;
+};
+
 export type Query_Root = {
   __typename?: 'query_root';
+  /** An array relationship */
+  passwords: Array<Passwords>;
+  /** fetch data from the table: "passwords" using primary key columns */
+  passwords_by_pk?: Maybe<Passwords>;
   refreshJwtToken: JwtToken;
   /** fetch data from the table: "users" */
   users: Array<Users>;
   /** fetch data from the table: "users" using primary key columns */
   users_by_pk?: Maybe<Users>;
+};
+
+
+export type Query_RootPasswordsArgs = {
+  distinct_on?: InputMaybe<Array<Passwords_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Passwords_Order_By>>;
+  where?: InputMaybe<Passwords_Bool_Exp>;
+};
+
+
+export type Query_RootPasswords_By_PkArgs = {
+  hash: Scalars['String'];
 };
 
 
@@ -164,10 +369,28 @@ export type Query_RootUsers_By_PkArgs = {
 
 export type Subscription_Root = {
   __typename?: 'subscription_root';
+  /** An array relationship */
+  passwords: Array<Passwords>;
+  /** fetch data from the table: "passwords" using primary key columns */
+  passwords_by_pk?: Maybe<Passwords>;
   /** fetch data from the table: "users" */
   users: Array<Users>;
   /** fetch data from the table: "users" using primary key columns */
   users_by_pk?: Maybe<Users>;
+};
+
+
+export type Subscription_RootPasswordsArgs = {
+  distinct_on?: InputMaybe<Array<Passwords_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Passwords_Order_By>>;
+  where?: InputMaybe<Passwords_Bool_Exp>;
+};
+
+
+export type Subscription_RootPasswords_By_PkArgs = {
+  hash: Scalars['String'];
 };
 
 
@@ -184,13 +407,8 @@ export type Subscription_RootUsers_By_PkArgs = {
   id: Scalars['String'];
 };
 
-export type Timestamp_Cast_Exp = {
-  String?: InputMaybe<String_Comparison_Exp>;
-};
-
 /** Boolean expression to compare columns of type "timestamp". All fields are combined with logical 'AND'. */
 export type Timestamp_Comparison_Exp = {
-  _cast?: InputMaybe<Timestamp_Cast_Exp>;
   _eq?: InputMaybe<Scalars['timestamp']>;
   _gt?: InputMaybe<Scalars['timestamp']>;
   _gte?: InputMaybe<Scalars['timestamp']>;
@@ -213,6 +431,18 @@ export type Users = {
   lastName?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
+  /** An array relationship */
+  passwords: Array<Passwords>;
+};
+
+
+/** columns and relationships of "users" */
+export type UsersPasswordsArgs = {
+  distinct_on?: InputMaybe<Array<Passwords_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Passwords_Order_By>>;
+  where?: InputMaybe<Passwords_Bool_Exp>;
 };
 
 /** Boolean expression to filter rows from the table "users". All fields are combined with a logical 'AND'. */
@@ -228,6 +458,7 @@ export type Users_Bool_Exp = {
   lastName?: InputMaybe<String_Comparison_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
   password?: InputMaybe<String_Comparison_Exp>;
+  passwords?: InputMaybe<Passwords_Bool_Exp>;
 };
 
 /** response of any mutation on the table "users" */
@@ -249,6 +480,7 @@ export type Users_Order_By = {
   lastName?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
   password?: InputMaybe<Order_By>;
+  passwords_aggregate?: InputMaybe<Passwords_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: users */

@@ -11,6 +11,9 @@ import { logger } from 'lib/logger'
 import { omit } from 'lodash'
 import { ApiError } from 'next/dist/server/api-utils'
 
+// function isPasswordCorrect(savedHash, savedSalt, savedIterations, passwordAttempt) {
+//     return savedHash == pbkdf2(passwordAttempt, savedSalt, savedIterations);
+// }
 const hashPassword = (password: string) => {
     return sha256(password).toString()
 }

@@ -4,18 +4,41 @@ import {
     withErrorHandling,
     withMethodsGuard
 } from 'lib/middlewares'
-import HasuraAdapter, { hasuraRequest } from 'lib/hasuraAdapter'
-import { GetUsersAndAccountByEmailDocument } from 'generated/admin-gql'
-import sha256 from 'crypto-js/sha256'
+import { hasuraRequest } from 'lib/hasuraAdapter'
+import {
+    GetUsersAndAccountByEmailDocument,
+    CreateUserWithCredentialsDocument
+} from 'generated/admin-gql'
+import cryptojs from 'crypto-js'
+import { randomBytes } from 'crypto'
 import { logger } from 'lib/logger'
 import { ApiError } from 'next/dist/server/api-utils'
 
-const hashPassword = (password: string) => {
-    return sha256(password).toString()
+type Password = {
+    hash: string
+    salt: string
+    iterations: number
+}
+// https://cryptosense.com/blog/parameter-choice-for-pbkdf2
+const hashPasswordWithSalt = (password: string): Password => {
+    // const salt = cryptojs.randomBytes(128).toString('base64')
+    let salt = cryptojs.lib.WordArray.random(128 / 8)
+    salt = salt.toString(cryptojs.enc.Base64)
+    const iterations =
+        parseInt(process.env.PBKDF2_ITERATIONS as string) || 10000
+    var key512Bits = cryptojs.PBKDF2(password, salt, {
+        keySize: parseInt(process.env.PBKDF2_KEY_SIZE as string) || 512 / 32,
+        iterations,
+        hasher: cryptojs.algo.SHA256
+    })
+    return {
+        hash: key512Bits.toString(cryptojs.enc.Base64),
+        salt,
+        iterations
+    }
 }
 // POST /api/user
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const hasura = HasuraAdapter()
     const data = await hasuraRequest({
         query: GetUsersAndAccountByEmailDocument,
         variables: { email: req.body.email },
@@ -29,15 +52,23 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         else errorMessage += '. Please login with this email and your password'
         throw new ApiError(400, errorMessage)
     } else {
+        let { password: secret, ...user } = req.body
+        const password = hashPasswordWithSalt(secret)
+        const id = randomBytes(32).toString('hex')
+        user = { ...user, id }
         logger.debug('creating user', {
-            ...req.body,
-            password: hashPassword(req.body.password)
+            user,
+            password
         })
-        const user = await hasura.createUser({
-            ...req.body,
-            password: hashPassword(req.body.password)
+        const data = await hasuraRequest({
+            query: CreateUserWithCredentialsDocument,
+            variables: { user, password: { ...password, userId: id } },
+            admin: true
         })
-        res.json(user)
+        logger.debug({ data: JSON.parse(JSON.stringify(data)) })
+        const createdUser = data?.insert_users_one
+        logger.debug('created user', createdUser)
+        res.json(createdUser)
     }
 }
 
