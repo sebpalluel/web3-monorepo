@@ -19,6 +19,21 @@ type AccessTokens {
 }
 
 """
+Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'.
+"""
+input Boolean_comparison_exp {
+  _eq: Boolean
+  _gt: Boolean
+  _gte: Boolean
+  _in: [Boolean!]
+  _is_null: Boolean
+  _lt: Boolean
+  _lte: Boolean
+  _neq: Boolean
+  _nin: [Boolean!]
+}
+
+"""
 Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'.
 """
 input Int_comparison_exp {
@@ -1842,6 +1857,7 @@ type users {
     """filter the rows returned"""
     where: accounts_bool_exp
   ): accounts_aggregate!
+  blocked: Boolean!
   email: String
   emailVerified: timestamp
   firstName: String
@@ -1949,6 +1965,7 @@ input users_bool_exp {
   _not: users_bool_exp
   _or: [users_bool_exp!]
   accounts: accounts_bool_exp
+  blocked: Boolean_comparison_exp
   email: String_comparison_exp
   emailVerified: timestamp_comparison_exp
   firstName: String_comparison_exp
@@ -1976,6 +1993,7 @@ input type for inserting data into table "users"
 """
 input users_insert_input {
   accounts: accounts_arr_rel_insert_input
+  blocked: Boolean
   email: String
   emailVerified: timestamp
   firstName: String
@@ -2035,6 +2053,7 @@ input users_on_conflict {
 """Ordering options when selecting data from "users"."""
 input users_order_by {
   accounts_aggregate: accounts_aggregate_order_by
+  blocked: order_by
   email: order_by
   emailVerified: order_by
   firstName: order_by
@@ -2056,6 +2075,9 @@ input users_pk_columns_input {
 select columns of table "users"
 """
 enum users_select_column {
+  """column name"""
+  blocked
+
   """column name"""
   email
 
@@ -2085,6 +2107,7 @@ enum users_select_column {
 input type for updating data in table "users"
 """
 input users_set_input {
+  blocked: Boolean
   email: String
   emailVerified: timestamp
   firstName: String
@@ -2099,6 +2122,9 @@ input users_set_input {
 update columns of table "users"
 """
 enum users_update_column {
+  """column name"""
+  blocked
+
   """column name"""
   email
 

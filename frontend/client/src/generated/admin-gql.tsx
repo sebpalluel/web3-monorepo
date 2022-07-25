@@ -40,6 +40,19 @@ export type AccessTokens = {
   refreshToken: Scalars['String'];
 };
 
+/** Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'. */
+export type Boolean_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['Boolean']>;
+  _gt?: InputMaybe<Scalars['Boolean']>;
+  _gte?: InputMaybe<Scalars['Boolean']>;
+  _in?: InputMaybe<Array<Scalars['Boolean']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['Boolean']>;
+  _lte?: InputMaybe<Scalars['Boolean']>;
+  _neq?: InputMaybe<Scalars['Boolean']>;
+  _nin?: InputMaybe<Array<Scalars['Boolean']>>;
+};
+
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
 export type Int_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['Int']>;
@@ -1546,6 +1559,7 @@ export type Users = {
   accounts: Array<Accounts>;
   /** fetch aggregated fields from the table: "accounts" */
   accounts_aggregate: Accounts_Aggregate;
+  blocked: Scalars['Boolean'];
   email?: Maybe<Scalars['String']>;
   emailVerified?: Maybe<Scalars['timestamp']>;
   firstName?: Maybe<Scalars['String']>;
@@ -1652,6 +1666,7 @@ export type Users_Bool_Exp = {
   _not?: InputMaybe<Users_Bool_Exp>;
   _or?: InputMaybe<Array<Users_Bool_Exp>>;
   accounts?: InputMaybe<Accounts_Bool_Exp>;
+  blocked?: InputMaybe<Boolean_Comparison_Exp>;
   email?: InputMaybe<String_Comparison_Exp>;
   emailVerified?: InputMaybe<Timestamp_Comparison_Exp>;
   firstName?: InputMaybe<String_Comparison_Exp>;
@@ -1673,6 +1688,7 @@ export const enum Users_Constraint {
 /** input type for inserting data into table "users" */
 export type Users_Insert_Input = {
   accounts?: InputMaybe<Accounts_Arr_Rel_Insert_Input>;
+  blocked?: InputMaybe<Scalars['Boolean']>;
   email?: InputMaybe<Scalars['String']>;
   emailVerified?: InputMaybe<Scalars['timestamp']>;
   firstName?: InputMaybe<Scalars['String']>;
@@ -1730,6 +1746,7 @@ export type Users_On_Conflict = {
 /** Ordering options when selecting data from "users". */
 export type Users_Order_By = {
   accounts_aggregate?: InputMaybe<Accounts_Aggregate_Order_By>;
+  blocked?: InputMaybe<Order_By>;
   email?: InputMaybe<Order_By>;
   emailVerified?: InputMaybe<Order_By>;
   firstName?: InputMaybe<Order_By>;
@@ -1750,6 +1767,8 @@ export type Users_Pk_Columns_Input = {
 /** select columns of table "users" */
 export const enum Users_Select_Column {
   /** column name */
+  Blocked = 'blocked',
+  /** column name */
   Email = 'email',
   /** column name */
   EmailVerified = 'emailVerified',
@@ -1769,6 +1788,7 @@ export const enum Users_Select_Column {
 
 /** input type for updating data in table "users" */
 export type Users_Set_Input = {
+  blocked?: InputMaybe<Scalars['Boolean']>;
   email?: InputMaybe<Scalars['String']>;
   emailVerified?: InputMaybe<Scalars['timestamp']>;
   firstName?: InputMaybe<Scalars['String']>;
@@ -1781,6 +1801,8 @@ export type Users_Set_Input = {
 
 /** update columns of table "users" */
 export const enum Users_Update_Column {
+  /** column name */
+  Blocked = 'blocked',
   /** column name */
   Email = 'email',
   /** column name */
