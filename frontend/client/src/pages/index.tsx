@@ -11,7 +11,6 @@ export default function Home() {
     const { data: session } = useSession()
 
     useEffect(() => {
-        console.log('session', session)
         if (session?.error === 'RefreshAccessTokenError') {
             signIn() // Force sign in to hopefully resolve error
         }

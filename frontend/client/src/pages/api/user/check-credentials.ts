@@ -11,18 +11,10 @@ import { logger } from 'lib/logger'
 import { ApiError } from 'next/dist/server/api-utils'
 import type { PasswordWithAttempt } from 'lib/types/crypto'
 
-// function isPasswordCorrect(savedHash, savedSalt, savedIterations, passwordAttempt) {
-//     return savedHash == pbkdf2(passwordAttempt, savedSalt, savedIterations);
-// }
-// const hashPassword = (password: string) => {
-//     return sha256(password).toString()
-// }
-
 const isPasswordCorrect = (
     secret: string,
     password: PasswordWithAttempt
 ): Boolean => {
-    // return password.hash === hashPassword(password.password)
     const key512Bits = cryptojs.PBKDF2(secret, password.salt, {
         keySize: parseInt(process.env.PBKDF2_KEY_SIZE as string) || 512 / 32,
         iterations: password.iterations,
@@ -33,10 +25,10 @@ const isPasswordCorrect = (
 }
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-    logger.debug({ body: req.body })
     if (!req.body) {
         throw new ApiError(400, 'Invalid credentials')
     }
+    logger.debug('geting user by email', req.body)
     const data = await hasuraRequest({
         query: GetMyUserAndPasswordByEmailDocument,
         variables: { email: req.body.username },

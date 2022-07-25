@@ -33,16 +33,26 @@ const hashPasswordWithSalt = (password: string): Password => {
         iterations
     }
 }
+
+const isEmailValid = (email: string): boolean => {
+    // chek if email is valid and check if doesn't contain + character
+    const emailRegex =
+        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    return emailRegex.test(email) && !email.includes('+')
+}
 // POST /api/user
 async function handler(req: NextApiRequest, res: NextApiResponse) {
+    const { email } = req.body
+    if (!isEmailValid(email)) throw new ApiError(400, 'Email format is invalid')
     const data = await hasuraRequest({
         query: GetUsersAndAccountByEmailDocument,
-        variables: { email: req.body.email },
+        variables: { email },
         admin: true
     })
     const existingUser = data?.users[0]
     if (existingUser) {
-        let errorMessage = `User with email ${req.body.email} already exists`
+        let errorMessage = `User with email ${email} already exists`
+        // TODO check if provider is credentials
         if (existingUser.accounts.length)
             errorMessage += `. Please login using the ${existingUser.accounts[0].provider} provider`
         else errorMessage += '. Please login with this email and your password'
@@ -64,6 +74,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         logger.debug({ data: JSON.parse(JSON.stringify(data)) })
         const createdUser = data?.insert_users_one
         logger.debug('created user', createdUser)
+
         res.json(createdUser)
     }
 }
