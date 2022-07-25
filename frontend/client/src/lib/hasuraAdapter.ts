@@ -6,6 +6,8 @@
 import { randomBytes } from 'crypto'
 import type { Adapter } from 'next-auth/adapters'
 import fetch from 'node-fetch'
+import type { JWT } from 'next-auth/jwt'
+import { User } from 'next-auth'
 
 export const endpointUrl = () =>
     typeof window !== 'undefined'
@@ -23,68 +25,26 @@ export const hasuraOptions = async (accessToken: string) => ({
     endpoint: endpointUrl()
 })
 
-// export const fetchData = <TData, TVariables>(
-//     query: string,
-//     variables?: TVariables,
-//     options?: RequestInit['headers']
-// ): (() => Promise<TData>) => {
-//     return async () => {
-// 	// await getSession
-//         const res = await fetch(endpointUrl() as string, {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//                 ...options
-//             },
-//             body: JSON.stringify({
-//                 query,
-//                 variables
-//             })
-//         })
+export enum Roles {
+    user = 'user',
+    admin = 'admin',
+    anonymous = 'anonymous'
+}
 
-//         const json = await res.json()
+export type UserRole = Roles.user
+export type AdminRole = Roles.admin
+export type AnonymousRole = Roles.anonymous
 
-//         if (json.errors) {
-//             const { message } = json.errors[0] || {}
-//             throw new Error(message || 'Error…')
-//         }
+export type Role = UserRole | AdminRole | AnonymousRole
 
-//         return json.data
-//     }
-// }
-
-// export const useFetchData = <TData, TVariables>(
-//     query: string,
-//     options?: RequestInit['headers']
-// ): ((variables?: TVariables) => Promise<TData>) => {
-//     // it is safe to call React Hooks here.
-//     const { url, headers } = React.useContext(FetchParamsContext)
-
-//     return async (variables?: TVariables) => {
-//         const res = await fetch(url, {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//                 ...headers,
-//                 ...options
-//             },
-//             body: JSON.stringify({
-//                 query,
-//                 variables
-//             })
-//         })
-
-//         const json = await res.json()
-
-//         if (json.errors) {
-//             const { message } = json.errors[0] || {}
-//             throw new Error(message || 'Error…')
-//         }
-
-//         return json.data
-//     }
-// }
-
+export const hasuraClaims = (token: JWT, role: Role) => ({
+    'https://hasura.io/jwt/claims': {
+        'x-hasura-allowed-roles': [Roles.user, Roles.admin, Roles.anonymous],
+        'x-hasura-default-role': Roles.user,
+        'x-hasura-role': role,
+        'x-hasura-user-id': token.sub
+    }
+})
 export const hasuraRequest = async ({
     query,
     variables,

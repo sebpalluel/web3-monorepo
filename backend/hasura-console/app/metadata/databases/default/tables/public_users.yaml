@@ -1,21 +1,30 @@
 table:
-  schema: public
   name: users
+  schema: public
 array_relationships:
   - name: accounts
     using:
       foreign_key_constraint_on:
         column: userId
         table:
-          schema: public
           name: accounts
+          schema: public
+  - name: passwords
+    using:
+      manual_configuration:
+        column_mapping:
+          id: userId
+        insertion_order: null
+        remote_table:
+          name: passwords
+          schema: public
   - name: sessions
     using:
       foreign_key_constraint_on:
         column: userId
         table:
-          schema: public
           name: sessions
+          schema: public
 select_permissions:
   - role: user
     permission:
