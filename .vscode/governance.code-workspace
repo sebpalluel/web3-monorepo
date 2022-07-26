@@ -5,26 +5,26 @@
 			"name": "root",
 			"path": "../"
 		},
-		{
-			"name": "frontend/client",
-			"path": "../frontend/client"
-		},
-		{
-			"name": "frontend/ui",
-			"path": "../frontend/ui"
-		},
 		// {
-		// 	"name": "backend/django",
-		// 	"path": "../backend/django"
+		// 	"name": "frontend/client",
+		// 	"path": "../frontend/client"
 		// },
-		{
-			"name": "backend/hasura-console",
-			"path": "../backend/hasura-console"
-		},
-		{
-			"name": "backend/identity",
-			"path": "../backend/identity"
-		},
+		// {
+		// 	"name": "frontend/ui",
+		// 	"path": "../frontend/ui"
+		// },
+		// // {
+		// // 	"name": "backend/django",
+		// // 	"path": "../backend/django"
+		// // },
+		// {
+		// 	"name": "backend/hasura-console",
+		// 	"path": "../backend/hasura-console"
+		// },
+		// {
+		// 	"name": "backend/identity",
+		// 	"path": "../backend/identity"
+		// },
 	],
 	// common settings for all subfolders
 	"settings": {

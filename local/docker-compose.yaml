@@ -1,14 +1,14 @@
 version: '3.9'
 services:
-  frontend-client:
-    container_name: frontend-client
+  web:
+    container_name: web
     build:
-      context: ../frontend/client
-      dockerfile: Dockerfile.frontend-client.local
+      context: ../
+      dockerfile: ./apps/web/Dockerfile.web.local
     ports:
       - "${CLIENT_PORT}:${CLIENT_PORT}"
     command: >
-      sh -c "yarn dev &
+      sh -c "cd apps/web/ && yarn dev &
             yarn graphql-codegen"
     environment:
       PORT: ${CLIENT_PORT}
@@ -16,9 +16,9 @@ services:
     env_file:
       - .env.local
     volumes:
-      - ../frontend/client:/frontend
-      - frontend-client-node_modules:/frontend/node_modules
-      - frontend-client-next:/frontend/.next
+      - ./apps/web:/web
+      - web_node_modules:/app/node_modules
+      - web_next:/frontend/.next
     networks:
       - web
     extra_hosts:
@@ -102,7 +102,7 @@ services:
       driver: 'none' # disable saving logs
     ports:
       - "${EMAIL_SERVER_PORT}:${EMAIL_SERVER_PORT}" # smtp server
-      - "${EMAIL_WEB_UI}:${EMAIL_WEB_UI}" # web ui
+      - "${EMAIL_WEB_UI}:${EMAIL_WEB_UI}" # mailcatcher web interface
     networks:
       - web
     extra_hosts:
@@ -134,8 +134,8 @@ services:
   
 volumes:
   db_data:
-  frontend-client-node_modules:
-  frontend-client-next:
+  web_node_modules:
+  web_next:
 
 networks:
   web:
