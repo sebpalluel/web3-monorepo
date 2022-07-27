@@ -1,28 +1,28 @@
 query getUser($id: String!) {
-    users(where: { id: { _eq: $id } }) {
-        ...UserFields
-    }
+  users(where: { id: { _eq: $id } }) {
+    ...UserFields
+  }
 }
 
 query getUserByEmail($email: String!) {
-    users(where: { email: { _eq: $email } }) {
-        ...UserFields
-    }
+  users(where: { email: { _eq: $email } }) {
+    ...UserFields
+  }
 }
 
 query getMyUserByEmail($email: String!) {
-    users(where: { email: { _eq: $email } }) {
-        ...MyUserFields
-    }
+  users(where: { email: { _eq: $email } }) {
+    ...MyUserFields
+  }
 }
 
 query getMyUserAndPasswordByEmail($email: String!) {
-    users(where: { email: { _eq: $email } }) {
-        ...MyUserFields
-        passwords {
-            ...PasswordFields
-        }
+  users(where: { email: { _eq: $email } }) {
+    ...MyUserFields
+    passwords {
+      ...PasswordFields
     }
+  }
 }
 
 # mutation createUser($input: users_set_input!) {

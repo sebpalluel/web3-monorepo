@@ -1,8 +1,8 @@
 fragment MyUserFields on users {
-    id
-    name
-    email,
-    emailVerified,
-    image,
-    password,
+  id
+  name
+  email
+  emailVerified
+  image
+  password
 }

@@ -1,25 +1,25 @@
-name: Django CI
+# name: Django CI
 
-on:
-  push:
-    branches: [ main ]
-    paths:
-      - backend/django/**
-  pull_request:
-    branches: [ main ]
-    paths:
-      - backend/django/**
+# on:
+#   push:
+#     branches: [ main ]
+#     paths:
+#       - backend/django/**
+#   pull_request:
+#     branches: [ main ]
+#     paths:
+#       - backend/django/**
 
-jobs:
-  build:
+# jobs:
+#   build:
 
-    runs-on: ubuntu-latest
+#     runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v3
-    - name: Build the docker-compose stack
-      run: docker-compose -f ./local/docker-compose.yaml up -d backend-django
-    
-    - name: Run Tests
-      run: |
-        docker-compose -f ./local/docker-compose.yaml exec -T backend-django pytest --cov=api/ api/tests/test_register.py
+#     steps:
+#     - uses: actions/checkout@v3
+#     - name: Build the docker-compose stack
+#       run: docker-compose -f ./local/docker-compose.yaml up -d backend-django
+
+#     - name: Run Tests
+#       run: |
+#         docker-compose -f ./local/docker-compose.yaml exec -T backend-django pytest --cov=api/ api/tests/test_register.py
