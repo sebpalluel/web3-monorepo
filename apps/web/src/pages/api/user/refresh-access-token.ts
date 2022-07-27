@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { hasuraRequest } from "@web/lib/hasuraAdapter";
-import { GetMyUserAndPasswordByEmailDocument } from "generated/user-gql";
+import { GetMyUserAndPasswordByEmailDocument } from "@web/generated/user-gql";
 import {
   withMiddlewares,
   withErrorHandling,

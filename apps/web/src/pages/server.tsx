@@ -1,7 +1,7 @@
 import type { NextPageContext } from "next";
 import { getSession, useSession } from "next-auth/react";
 import { hasuraOptions } from "@web/lib/hasuraAdapter";
-import { useGetUserQuery } from "generated/user-gql";
+import { useGetUserQuery } from "@web/generated/user-gql";
 import React, { useState } from "react";
 
 export default function ServerSidePage() {

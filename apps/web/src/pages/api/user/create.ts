@@ -8,7 +8,7 @@ import { hasuraRequest } from "@web/lib/hasuraAdapter";
 import {
   GetUsersAndAccountByEmailDocument,
   CreateUserWithCredentialsDocument,
-} from "generated/admin-gql";
+} from "@web/generated/admin-gql";
 import cryptojs from "crypto-js";
 import { randomBytes } from "crypto";
 import { logger } from "@web/lib/logger";

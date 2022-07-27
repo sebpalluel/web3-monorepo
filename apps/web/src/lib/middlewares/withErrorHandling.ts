@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse, NextApiHandler } from "next";
 import { ApiError } from "next/dist/server/api-utils";
-import { InternalServerError } from "http-status-codes";
+import { StatusCodes } from "http-status-codes";
 import { logger } from "@web/lib/logger";
 
 // https://giancarlobuomprisco.com/next/handling-api-errors-in-nextjs
@@ -8,7 +8,7 @@ import { logger } from "@web/lib/logger";
 function getExceptionStatus(exception: unknown) {
   return exception instanceof ApiError
     ? exception.statusCode
-    : InternalServerError;
+    : StatusCodes.INTERNAL_SERVER_ERROR;
 }
 
 function getExceptionMessage(exception: unknown) {
