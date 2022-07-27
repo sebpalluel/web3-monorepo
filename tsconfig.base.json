@@ -17,7 +17,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@web/*": [
+        "apps/web/src/*"
+      ]
+    }
   },
   "exclude": [
     "node_modules",

@@ -7,9 +7,9 @@ import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
 import defaultSEOConfig from "../../next-seo.config";
-import { Chakra } from "lib/components/Chakra";
-import Layout from "lib/layout";
-import "lib/styles/globals.css";
+import { Chakra } from "@web/lib/components/Chakra";
+import Layout from "@web/lib/layout";
+import "@web/lib/styles/globals.css";
 import { useState } from "react";
 
 const MyApp = ({

@@ -1,79 +1,79 @@
-import { NextApiRequest, NextApiResponse, NextApiHandler } from 'next'
-import { ApiError } from 'next/dist/server/api-utils'
-import { InternalServerError } from 'http-status-codes'
-import { logger } from 'lib/logger'
+import { NextApiRequest, NextApiResponse, NextApiHandler } from "next";
+import { ApiError } from "next/dist/server/api-utils";
+import { InternalServerError } from "http-status-codes";
+import { logger } from "@web/lib/logger";
 
 // https://giancarlobuomprisco.com/next/handling-api-errors-in-nextjs
 
 function getExceptionStatus(exception: unknown) {
-    return exception instanceof ApiError
-        ? exception.statusCode
-        : InternalServerError
+  return exception instanceof ApiError
+    ? exception.statusCode
+    : InternalServerError;
 }
 
 function getExceptionMessage(exception: unknown) {
-    return isError(exception) ? exception.message : `Internal Server Error`
+  return isError(exception) ? exception.message : `Internal Server Error`;
 }
 
 function getExceptionStack(exception: unknown) {
-    return isError(exception) ? exception.stack : undefined
+  return isError(exception) ? exception.stack : undefined;
 }
 
 function isError(exception: unknown): exception is Error {
-    return exception instanceof Error
+  return exception instanceof Error;
 }
 
 export default function withExceptionFilter(
-    req: NextApiRequest,
-    res: NextApiResponse
+  req: NextApiRequest,
+  res: NextApiResponse
 ) {
-    return async function (handler: NextApiHandler) {
-        try {
-            await handler(req, res)
-        } catch (exception) {
-            const { url, headers } = req
+  return async function (handler: NextApiHandler) {
+    try {
+      await handler(req, res);
+    } catch (exception) {
+      const { url, headers } = req;
 
-            const statusCode = getExceptionStatus(exception)
-            const message = getExceptionMessage(exception)
-            const stack = getExceptionStack(exception)
+      const statusCode = getExceptionStatus(exception);
+      const message = getExceptionMessage(exception);
+      const stack = getExceptionStack(exception);
 
-            // // NB: tweak this according to how you retrieve your user in your requests
-            // const user = req.user
-            // const userId = user?.uid ?? 'Not Authenticated'
+      // // NB: tweak this according to how you retrieve your user in your requests
+      // const user = req.user
+      // const userId = user?.uid ?? 'Not Authenticated'
 
-            const referer = headers['referer']
-            const userAgent = headers['user-agent']
+      const referer = headers["referer"];
+      const userAgent = headers["user-agent"];
 
-            // this is the context being logged
-            const requestContext = {
-                url,
-                // userId,
-                referer,
-                userAgent,
-                message
-            }
+      // this is the context being logged
+      const requestContext = {
+        url,
+        // userId,
+        referer,
+        userAgent,
+        message,
+      };
 
-            // edit the message according to your preferences
-            const exceptionMessage = `An unhandled exception occurred.`
+      // edit the message according to your preferences
+      const exceptionMessage = `An unhandled exception occurred.`;
 
-            logger.error(requestContext, exceptionMessage)
+      logger.error(requestContext, exceptionMessage);
 
-            // if we are able to retrieve the stack, we add it to the debugging logs
-            if (stack) {
-                logger.debug(stack)
-            }
+      // if we are able to retrieve the stack, we add it to the debugging logs
+      if (stack) {
+        logger.debug(stack);
+      }
 
-            const timestamp = new Date().toISOString()
+      const timestamp = new Date().toISOString();
 
-            // return just enough information without leaking any data
-            const responseBody = {
-                statusCode,
-                timestamp,
-                message,
-                path: req.url
-            }
+      // return just enough information without leaking any data
+      const responseBody = {
+        statusCode,
+        timestamp,
+        message,
+        path: req.url,
+      };
 
-            return res.status(statusCode).send(responseBody)
-        }
+      return res.status(statusCode).send(responseBody);
     }
+  };
 }
