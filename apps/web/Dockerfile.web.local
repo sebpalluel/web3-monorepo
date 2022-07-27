@@ -43,7 +43,7 @@ EXPOSE ${PORT}
 # COPY --from=installer /app/apps/web/app.config.js .
 # COPY --from=installer /app/apps/web/package.json .
 
-# # Automatically leverage output traces to reduce image size 
+# # Automatically leverage output traces to reduce image size
 # # https://nextjs.org/docs/advanced-features/output-file-tracing
 # COPY --from=installer --chown=nextjs:nodejs /app/apps/web/.app/standalone ./
 # COPY --from=installer --chown=nextjs:nodejs /app/apps/web/.app/static ./apps/web/.app/static
