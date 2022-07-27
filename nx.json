@@ -1,0 +1,41 @@
+{
+  "extends": "nx/presets/npm.json",
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/nx-cloud",
+      "options": {
+        "cacheableOperations": [
+          "dev",
+          "build",
+          "postbuild",
+          "lint",
+          "lint:fix",
+          "type-check",
+          "up",
+          "up-latest",
+          "push-release",
+          "graphql-codegen",
+          "prebuild",
+          "format",
+          "test",
+          "test:watch",
+          "test:cov",
+          "test:debug",
+          "test:e2e",
+          "clean"
+        ],
+        "accessToken": "ZmMwYzlkZTktYjUzOS00ZTc5LTljMDAtOGNhMTg3NGQxOTEzfHJlYWQtd3JpdGU="
+      }
+    }
+  },
+  "targetDefaults": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ]
+    }
+  },
+  "affected": {
+    "defaultBase": "main"
+  }
+}

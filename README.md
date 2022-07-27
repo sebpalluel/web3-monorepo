@@ -1,35 +1,39 @@
 # Governance
 
 ## How to run the project ?
+
 Run all the docker container and deploy the proxy console for hasura
+
 ```zsh
 make
 ```
-All the config for local development is available in the `local` folder 
+
+All the config for local development is available in the `local` folder
 
 ## Project structure
-- [**Hasura console**](http://localhost:9695/console)
-The console is used as a backoffice to handle the graphQL server and to innerlink all the microservices.
-- [**Vue client**](http://localhost:3000/)
-This is the main web app client used to access the whole array of services.
-- [**Django admin**](http://localhost:8000/admin/)
-The admin backoffice is used to manage the different accounts
 
+- [**Hasura console**](http://localhost:9695/console)
+  The console is used as a backoffice to handle the graphQL server and to innerlink all the microservices.
+- [**Vue client**](http://localhost:3000/)
+  This is the main web app client used to access the whole array of services.
+- [**Django admin**](http://localhost:8000/admin/)
+  The admin backoffice is used to manage the different accounts
 
 ## Clean the project
+
 ```zsh
 make clean
 ```
 
 ## Doc
-- [**Notion**](https://www.notion.so/governance-assembly)
 
+- [**Notion**](https://www.notion.so/governance-assembly)
 
 <!-- TODO: Correct the following app structure -->
 
 ## What's inside?
 
-This turborepo uses [Yarn](https://classic.yarnpkg.com/lang/en/) as a package manager. It includes the following packages/apps:
+This repo uses [Yarn](https://classic.yarnpkg.com/lang/en/) as a package manager. It includes the following packages/apps:
 
 ### Apps and Packages
 
