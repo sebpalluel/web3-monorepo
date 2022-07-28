@@ -17,6 +17,8 @@
     "affected:lint": "nx affected:lint",
     "affected:dep-graph": "nx affected:dep-graph",
     "affected": "nx affected",
+    "all:test": "nx run-many --target=test --all",
+    "all:e2e": "nx run-many --target=e2e --all",
     "format": "nx format:write",
     "format:write": "nx format:write",
     "format:check": "nx format:check",
@@ -24,8 +26,8 @@
     "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "docker:build": "docker-compose build",
-    "docker:start": "docker-compose up"
+    "docker:build": "docker-compose --env-file .env.local build",
+    "docker:start": "docker-compose --env-file .env.local up"
   },
   "private": true,
   "dependencies": {

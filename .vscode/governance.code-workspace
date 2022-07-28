@@ -1,38 +1,18 @@
 // https://medium.com/rewrite-tech/visual-studio-code-tips-for-monorepo-development-with-multi-root-workspaces-and-extension-6b69420ecd12
 {
-	"folders": [
-		{
-			"name": "root",
-			"path": "../"
-		},
-		// {
-		// 	"name": "frontend/client",
-		// 	"path": "../frontend/client"
-		// },
-		// {
-		// 	"name": "frontend/ui",
-		// 	"path": "../frontend/ui"
-		// },
-		// // {
-		// // 	"name": "backend/django",
-		// // 	"path": "../backend/django"
-		// // },
-		// {
-		// 	"name": "backend/hasura-console",
-		// 	"path": "../backend/hasura-console"
-		// },
-		// {
-		// 	"name": "backend/identity",
-		// 	"path": "../backend/identity"
-		// },
-	],
-	// common settings for all subfolders
-	"settings": {
-		"files.exclude": {
-			"**/node_modules/**": true,
-			"node_modules/**": true,
-		},
-	},
-	// common extensions settings for all subfolders
-	"extensions": {},
+  "folders": [
+    {
+      "name": "root",
+      "path": "../"
+    },
+  ],
+  // common settings for all subfolders
+  "settings": {
+    "files.exclude": {
+      "**/node_modules/**": true,
+      "node_modules/**": true,
+    },
+  },
+  // common extensions settings for all subfolders
+  "extensions": {},
 }
