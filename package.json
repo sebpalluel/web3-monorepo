@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "nx": "nx",
-    "start": "nx serve && pnpm run docker:build && pnpm docker:start",
+    "serve": "nx serve",
+    "start": "npm-run-all --parallel serve docker:start",
     "build": "nx build",
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",
@@ -104,6 +105,7 @@
     "eslint-plugin-react-hooks": "4.6.0",
     "jest": "27.5.1",
     "next-sitemap": "^2.5.28",
+    "npm-run-all": "^4.1.5",
     "nx": "14.4.3",
     "prettier": "^2.7.1",
     "react-test-renderer": "18.2.0",

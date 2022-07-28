@@ -22,6 +22,8 @@
       "options": {
         "cacheableOperations": [
           "dev",
+          "serve",
+          "start",
           "build",
           "postbuild",
           "lint",
