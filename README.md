@@ -94,6 +94,26 @@ This project was generated using [Nx](https://nx.dev).
 
 🔎 **Smart, Fast and Extensible Build System**
 
+## Categories of libraries
+
+In a workspace, libraries are typically divided into four different types:
+
+### Feature
+
+Libraries that implement “smart” UI (e.g. is effectful, is connected to data sources, handles routing, etc.) for specific business use cases.
+
+### UI
+
+Libraries that contain only presentational components. That is, compo- nents that render purely from their props, and calls function handlers when interaction occurs.
+
+### Data-access
+
+Libraries that contain the means for interacting with external data services; external services are typically backend services.
+
+### Utility
+
+Libraries that contain common utilities that are shared by many projects.
+
 ## Adding capabilities to your workspace
 
 Nx supports many plugins which add capabilities for developing different types of applications and different tools.
@@ -135,7 +155,7 @@ Libraries are shareable across libraries and applications. They can be imported 
 
 ## Development server
 
-Run `nx serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+Run `nx serve web` for a dev server. Navigate to http://localhost:3000/. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
