@@ -5,6 +5,7 @@
     "dsznajder.es7-react-js-snippets",
     "mhutchie.git-graph",
     "oderwat.indent-rainbow",
-    "nrwl.angular-console"
+    "nrwl.angular-console",
+    "firsttris.vscode-jest-runner"
   ]
 }

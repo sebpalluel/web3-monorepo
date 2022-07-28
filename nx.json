@@ -1,4 +1,16 @@
 {
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "npmScope": "governance",
+  "affected": {
+    "defaultBase": "main"
+  },
+  "implicitDependencies": {
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    ".eslintrc.json": "*"
+  },
   "extends": "nx/presets/npm.json",
   "tasksRunnerOptions": {
     "default": {
@@ -33,7 +45,18 @@
       "dependsOn": ["^build"]
     }
   },
-  "affected": {
-    "defaultBase": "main"
-  }
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "babel": true
+      }
+    },
+    "@nrwl/next": {
+      "application": {
+        "style": "@emotion/styled",
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "web"
 }
