@@ -30,7 +30,8 @@
     "docker:build": "docker-compose --env-file .env.local build",
     "docker:start": "docker-compose --env-file .env.local up",
     "docker:stop": "docker-compose --env-file .env.local stop",
-    "graphql-codegen": "nx run gql:generate"
+    "graphql-codegen": "nx run gql:generate",
+    "prepare": "husky install"
   },
   "private": true,
   "dependencies": {
@@ -123,15 +124,10 @@
     "node": ">=14.0.0",
     "npm": ">=7.0.0"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "*": [
-      "pnpm format --uncommitted",
-      "eslint"
-    ]
+      "eslint --cache --fix"
+    ],
+    "*.format:write": "prettier --write"
   }
 }
