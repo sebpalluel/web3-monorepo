@@ -1,8 +1,5 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "**/*"
-  ],
   "plugins": [
     "@nrwl/nx"
   ],
@@ -30,8 +27,7 @@
             ]
           }
         ]
-      },
-      "processor": "@graphql-eslint/graphql"
+      }
     },
     {
       "files": [
@@ -55,17 +51,12 @@
     },
     {
       "files": [
-        "*.graphql",
-        ".*.gql"
+        "*.json"
       ],
-      "parser": "@graphql-eslint/eslint-plugin",
-      "plugins": [
-        "@graphql-eslint"
+      "extends": [
+        "plugin:json/recommended"
       ],
-      "rules": {
-        "@graphql-eslint/known-type-names": "error",
-        "@graphql-eslint/no-unreachable-types": "error"
-      }
+      "rules": {}
     }
   ]
 }

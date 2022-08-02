@@ -1,4 +1,5 @@
 fragment AccountFields on accounts {
-	type,
-	provider,
+  type
+  provider
+  machineName
 }
