@@ -10,30 +10,16 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@governance/gql-user": [
-        "libs/gql/src/user/generated/index.tsx"
-      ],
-      "@governance/gql-admin": [
-        "libs/gql/src/admin/generated/index.tsx"
-      ],
-      "@governance/gql-anonymous": [
-        "libs/gql/src/anonymous/generated/index.tsx"
-      ],
-      "@web/*": [
-        "apps/web/src/*"
-      ]
+      "@governance/gql-admin": ["libs/gql/src/admin/generated/index.tsx"],
+      "@governance/gql-anonymous": ["libs/gql/src/anonymous/generated/index.tsx"],
+      "@governance/gql-user": ["libs/gql/src/user/generated/index.tsx"],
+      "@web/*": ["apps/web/src/*"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }
