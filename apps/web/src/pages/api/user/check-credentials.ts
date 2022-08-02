@@ -1,15 +1,15 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import { hasuraRequest } from "@web/lib/hasuraAdapter";
-import { GetMyUserAndPasswordByEmailDocument } from "@web/generated/user-gql";
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { hasuraRequest } from '@web/lib/hasuraAdapter';
+import { GetMyUserAndPasswordByEmailDocument } from '@governance/gql-user';
 import {
   withMiddlewares,
   withErrorHandling,
   withMethodsGuard,
-} from "@web/lib/middlewares";
-import cryptojs from "crypto-js";
-import { logger } from "@web/lib/logger";
-import { ApiError } from "next/dist/server/api-utils";
-import type { PasswordWithAttempt } from "@web/lib/types/crypto";
+} from '@web/lib/middlewares';
+import cryptojs from 'crypto-js';
+import { logger } from '@web/lib/logger';
+import { ApiError } from 'next/dist/server/api-utils';
+import type { PasswordWithAttempt } from '@web/lib/types/crypto';
 
 const isPasswordCorrect = (
   secret: string,
@@ -26,9 +26,9 @@ const isPasswordCorrect = (
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (!req.body) {
-    throw new ApiError(400, "Invalid credentials");
+    throw new ApiError(400, 'Invalid credentials');
   }
-  logger.debug("geting user by email", req.body);
+  logger.debug('geting user by email', req.body);
   const data = await hasuraRequest({
     query: GetMyUserAndPasswordByEmailDocument,
     variables: { email: req.body.username },
@@ -43,7 +43,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   } else {
     // update with attempt+1
     // if attempt > process.env.PSWD_MAX_ATTEMPTS, block user and ask to reset password
-    throw new ApiError(400, "Invalid credentials");
+    throw new ApiError(400, 'Invalid credentials');
   }
 }
 
@@ -54,5 +54,5 @@ export default async function checkCredentials(
   return withErrorHandling(
     req,
     res
-  )(withMiddlewares(withMethodsGuard(["POST"]), handler));
+  )(withMiddlewares(withMethodsGuard(['POST']), handler));
 }

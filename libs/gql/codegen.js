@@ -35,41 +35,39 @@ const pluginsAndConfig = {
 };
 
 const hasuraSchema = (headers = userHeaders) => {
-  return {
-    'http://localhost:8080/v1/graphql': {
-      headers,
-    },
-  };
+  let schema = {};
+  schema[process.env.HASURA_URL] = { headers };
+  return schema;
 };
 
 module.exports = {
   overwrite: true,
   watch: true,
   generates: {
-    'libs/gql/src/lib/generated/user-gql.schema.json': {
+    'libs/gql/src/user/generated/gql.schema.json': {
       schema: [hasuraSchema()],
       plugins: ['introspection'],
     },
-    'libs/gql/src/lib/generated/user-gql.schema.graphql': {
+    'libs/gql/src/user/generated/gql.schema.graphql': {
       schema: [hasuraSchema()],
       plugins: ['schema-ast'],
     },
-    'libs/gql/src/lib/generated/user-gql.tsx': {
+    'libs/gql/src/user/generated/index.tsx': {
       schema: [hasuraSchema()],
-      documents: ['libs/gql/src/lib/queries/user/**/*.{graphql,gql}'],
+      documents: ['libs/gql/src/user/queries/**/*.{graphql,gql}'],
       ...pluginsAndConfig,
     },
-    'libs/gql/src/lib/generated/admin-gql.schema.json': {
+    'libs/gql/src/admin/generated/gql.schema.json': {
       schema: [hasuraSchema(adminHeaders)],
       plugins: ['introspection'],
     },
-    'libs/gql/src/lib/generated/admin-gql.schema.graphql': {
+    'libs/gql/src/admin/generated/gql.schema.graphql': {
       schema: [hasuraSchema(adminHeaders)],
       plugins: ['schema-ast'],
     },
-    'libs/gql/src/lib/generated/admin-gql.tsx': {
+    'libs/gql/src/admin/generated/index.tsx': {
       schema: [hasuraSchema(adminHeaders)],
-      documents: ['libs/gql/src/lib/queries/admin/**/*.{graphql,gql}'],
+      documents: ['libs/gql/src/admin/queries/**/*.{graphql,gql}'],
       ...pluginsAndConfig,
     },
   },

@@ -1,19 +1,19 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from 'next';
 import {
   withMiddlewares,
   withErrorHandling,
   withMethodsGuard,
-} from "@web/lib/middlewares";
-import { hasuraRequest } from "@web/lib/hasuraAdapter";
+} from '@web/lib/middlewares';
+import { hasuraRequest } from '@web/lib/hasuraAdapter';
 import {
   GetUsersAndAccountByEmailDocument,
   CreateUserWithCredentialsDocument,
-} from "@web/generated/admin-gql";
-import cryptojs from "crypto-js";
-import { randomBytes } from "crypto";
-import { logger } from "@web/lib/logger";
-import { ApiError } from "next/dist/server/api-utils";
-import type { Password } from "@web/lib/types/crypto";
+} from '@governance/gql-admin';
+import cryptojs from 'crypto-js';
+import { randomBytes } from 'crypto';
+import { logger } from '@web/lib/logger';
+import { ApiError } from 'next/dist/server/api-utils';
+import type { Password } from '@web/lib/types/crypto';
 
 // https://cryptosense.com/blog/parameter-choice-for-pbkdf2
 const hashPasswordWithSalt = (password: string): Password => {
@@ -37,12 +37,12 @@ const isEmailValid = (email: string): boolean => {
   // chek if email is valid and check if doesn't contain + character
   const emailRegex =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return emailRegex.test(email) && !email.includes("+");
+  return emailRegex.test(email) && !email.includes('+');
 };
 // POST /api/user
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { email } = req.body;
-  if (!isEmailValid(email)) throw new ApiError(400, "Email format is invalid");
+  if (!isEmailValid(email)) throw new ApiError(400, 'Email format is invalid');
   const data = await hasuraRequest({
     query: GetUsersAndAccountByEmailDocument,
     variables: { email },
@@ -54,14 +54,14 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     // TODO check if provider is credentials
     if (existingUser.accounts.length)
       errorMessage += `. Please login using the ${existingUser.accounts[0].provider} provider`;
-    else errorMessage += ". Please login with this email and your password";
+    else errorMessage += '. Please login with this email and your password';
     throw new ApiError(400, errorMessage);
   } else {
     let { password: secret, ...user } = req.body;
     const password = hashPasswordWithSalt(secret);
-    const id = randomBytes(32).toString("hex");
+    const id = randomBytes(32).toString('hex');
     user = { ...user, id };
-    logger.debug("creating user", {
+    logger.debug('creating user', {
       user,
       password,
     });
@@ -72,7 +72,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     });
     logger.debug({ data: JSON.parse(JSON.stringify(data)) });
     const createdUser = data?.insert_users_one;
-    logger.debug("created user", createdUser);
+    logger.debug('created user', createdUser);
 
     res.json(createdUser);
   }
@@ -82,5 +82,5 @@ export default function create(req: NextApiRequest, res: NextApiResponse) {
   return withErrorHandling(
     req,
     res
-  )(withMiddlewares(withMethodsGuard(["POST"]), handler));
+  )(withMiddlewares(withMethodsGuard(['POST']), handler));
 }

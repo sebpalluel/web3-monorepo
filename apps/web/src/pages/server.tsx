@@ -1,8 +1,8 @@
-import type { NextPageContext } from "next";
-import { getSession, useSession } from "next-auth/react";
-import { hasuraOptions } from "@web/lib/hasuraAdapter";
-import { useGetUserQuery } from "@web/generated/user-gql";
-import React, { useState } from "react";
+import type { NextPageContext } from 'next';
+import { getSession, useSession } from 'next-auth/react';
+import { hasuraOptions } from '@web/lib/hasuraAdapter';
+import { useGetUserQuery } from '@governance/gql-user';
+import React, { useState } from 'react';
 
 export default function ServerSidePage() {
   // As this page uses Server Side Rendering, the `session` will be already
@@ -19,11 +19,11 @@ export default function ServerSidePage() {
     <div>
       <h1>Server Side Rendering</h1>
       <p>
-        This page uses the universal <strong>getSession()</strong> method in{" "}
+        This page uses the universal <strong>getSession()</strong> method in{' '}
         <strong>getServerSideProps()</strong>.
       </p>
       <p>
-        Using <strong>getSession()</strong> in{" "}
+        Using <strong>getSession()</strong> in{' '}
         <strong>getServerSideProps()</strong> is the recommended approach if you
         need to support Server Side Rendering with authentication.
       </p>

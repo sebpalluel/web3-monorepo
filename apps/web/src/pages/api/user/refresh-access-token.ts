@@ -1,19 +1,19 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import { hasuraRequest } from "@web/lib/hasuraAdapter";
-import { GetMyUserAndPasswordByEmailDocument } from "@web/generated/user-gql";
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { hasuraRequest } from '@web/lib/hasuraAdapter';
+import { GetMyUserAndPasswordByEmailDocument } from '@governance/gql-user';
 import {
   withMiddlewares,
   withErrorHandling,
   withMethodsGuard,
   withSession,
-} from "@web/lib/middlewares";
-import { logger } from "@web/lib/logger";
-import { ApiError } from "next/dist/server/api-utils";
+} from '@web/lib/middlewares';
+import { logger } from '@web/lib/logger';
+import { ApiError } from 'next/dist/server/api-utils';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   logger.debug({ body: req.body, res });
   if (!req.body) {
-    throw new ApiError(400, "Invalid credentials");
+    throw new ApiError(400, 'Invalid credentials');
   }
   const data = await hasuraRequest({
     query: GetMyUserAndPasswordByEmailDocument,
@@ -40,5 +40,5 @@ export default async function checkCredentials(
   return withErrorHandling(
     req,
     res
-  )(withMiddlewares(withMethodsGuard(["GET"]), withSession, handler));
+  )(withMiddlewares(withMethodsGuard(['GET']), withSession, handler));
 }
