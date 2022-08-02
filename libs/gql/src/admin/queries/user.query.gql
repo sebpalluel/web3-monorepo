@@ -1,20 +1,19 @@
-query getUsersAndAccountByEmail($email: String!) {
+query GetUsersAndAccountByEmail($email: String!) {
   users(where: { email: { _eq: $email } }) {
-    ...UserFields
     accounts {
       ...AccountFields
     }
-  }
-}
-
-mutation createUserWithCredentials(
-  $user: users_insert_input!
-  $password: passwords_insert_input!
-) {
-  insert_users_one(object: $user) {
     ...UserFields
   }
+}
+mutation CreateUserWithCredentials(
+  $password: passwords_insert_input!
+  $user: users_insert_input!
+) {
   insert_passwords_one(object: $password) {
     hash
+  }
+  insert_users_one(object: $user) {
+    ...UserFields
   }
 }

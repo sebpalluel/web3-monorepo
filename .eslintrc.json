@@ -1,7 +1,11 @@
 {
   "root": true,
   "plugins": [
-    "@nrwl/nx"
+    "@nrwl/nx",
+    "eslint-plugin-prettier"
+  ],
+  "extends": [
+    "eslint-config-prettier"
   ],
   "overrides": [
     {

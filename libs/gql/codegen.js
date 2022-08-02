@@ -1,15 +1,13 @@
 const userHeaders = {
   'x-hasura-role': 'user',
   'x-hasura-default-role': 'user',
-  'x-hasura-admin-secret':
-    process.env.HASURA_GRAPHQL_ADMIN_SECRET || 'password',
+  'x-hasura-admin-secret': process.env.HASURA_GRAPHQL_ADMIN_SECRET || 'password',
 };
 
 const adminHeaders = {
   'x-hasura-role': 'admin',
   'x-hasura-default-role': 'admin',
-  'x-hasura-admin-secret':
-    process.env.HASURA_GRAPHQL_ADMIN_SECRET || 'password',
+  'x-hasura-admin-secret': process.env.HASURA_GRAPHQL_ADMIN_SECRET || 'password',
 };
 
 const pluginsAndConfig = {
