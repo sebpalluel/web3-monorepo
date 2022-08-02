@@ -2,7 +2,7 @@ module.exports = {
   endOfLine: 'lf',
   singleQuote: true,
   tabWidth: 2,
-  printWidth: 80,
+  printWidth: 90,
   overrides: [
     {
       files: ['*.graphql', '*.gql'],
