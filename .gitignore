@@ -60,6 +60,7 @@ testem.log
 /typings
 *.pem
 *.log
+*.eslintcache
 
 # System Files
 .DS_Store
