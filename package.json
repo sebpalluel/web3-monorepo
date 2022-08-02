@@ -29,6 +29,7 @@
     "help": "nx help",
     "docker:build": "docker-compose --env-file .env.local build",
     "docker:start": "docker-compose --env-file .env.local up",
+    "docker:stop": "docker-compose --env-file .env.local stop",
     "graphql-codegen": "nx run gql:generate"
   },
   "private": true,
