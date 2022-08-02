@@ -129,8 +129,9 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx,json,css,scss,md,ts,tsx,html,graphql,gql}": [
-      "pnpm format --uncommitted"
+    "*": [
+      "pnpm format --uncommitted",
+      "pnpm lint --uncommitted"
     ]
   }
 }
