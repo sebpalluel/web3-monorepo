@@ -47,12 +47,12 @@ export default function SimpleCard() {
   }, [router.query.error]);
 
   const {
-    handleSubmite,
+    handleSubmit,
     register,
     formState: { isSubmitting },
   } = useForm();
 
-  let defaultBody = {
+  const defaultBody = {
     grant_type: '',
     username: '',
     password: '',
@@ -65,7 +65,7 @@ export default function SimpleCard() {
     try {
       const body = { ...defaultBody, ...values };
       // console.log(`POSTing ${JSON.stringify(body, null, 2)}`)
-      let res = await signIn('credentials', {
+      const res = await signIn('credentials', {
         ...body,
         callbackUrl: router.query.callbackUrl,
         redirect: false,

@@ -11,10 +11,7 @@ import { logger } from '@web/lib/logger';
 import { ApiError } from 'next/dist/server/api-utils';
 import type { PasswordWithAttempt } from '@web/lib/types/crypto';
 
-const isPasswordCorrect = (
-  secret: string,
-  password: PasswordWithAttempt
-): Boolean => {
+const isPasswordCorrect = (secret: string, password: PasswordWithAttempt): boolean => {
   const key512Bits = cryptojs.PBKDF2(secret, password.salt, {
     keySize: parseInt(process.env.PBKDF2_KEY_SIZE as string) || 512 / 32,
     iterations: password.iterations,
