@@ -131,7 +131,7 @@
   "lint-staged": {
     "*": [
       "pnpm format --uncommitted",
-      "pnpm lint --uncommitted"
+      "eslint"
     ]
   }
 }
