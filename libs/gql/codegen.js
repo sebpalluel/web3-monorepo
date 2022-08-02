@@ -44,11 +44,11 @@ module.exports = {
   overwrite: true,
   watch: true,
   generates: {
-    'libs/gql/src/user/generated/gql.schema.json': {
+    'libs/gql/src/user/generated/schema.json': {
       schema: [hasuraSchema()],
       plugins: ['introspection'],
     },
-    'libs/gql/src/user/generated/gql.schema.graphql': {
+    'libs/gql/src/user/generated/schema.graphql': {
       schema: [hasuraSchema()],
       plugins: ['schema-ast'],
     },
@@ -57,11 +57,11 @@ module.exports = {
       documents: ['libs/gql/src/user/queries/**/*.{graphql,gql}'],
       ...pluginsAndConfig,
     },
-    'libs/gql/src/admin/generated/gql.schema.json': {
+    'libs/gql/src/admin/generated/schema.json': {
       schema: [hasuraSchema(adminHeaders)],
       plugins: ['introspection'],
     },
-    'libs/gql/src/admin/generated/gql.schema.graphql': {
+    'libs/gql/src/admin/generated/schema.graphql': {
       schema: [hasuraSchema(adminHeaders)],
       plugins: ['schema-ast'],
     },

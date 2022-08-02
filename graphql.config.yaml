@@ -1,0 +1,12 @@
+schema:
+  - libs/gql/src/admin/generated/schema.graphql
+  - libs/gql/src/admin/generated/schema.json
+  - libs/gql/src/user/generated/schema.graphql
+  - libs/gql/src/user/generated/schema.json
+  - libs/gql/src/anonymous/generated/schema.graphql
+  - libs/gql/src/anonymous/generated/schema.json
+
+documents:
+  - libs/gql/src/admin/queries/**/*.gql
+  - libs/gql/src/user/queries/**/*.gql
+  - libs/gql/src/anonymous/queries/**/*.gql
