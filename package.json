@@ -5,7 +5,7 @@
   "scripts": {
     "nx": "nx",
     "serve": "nx serve",
-    "start": "npm-run-all --parallel serve docker:start",
+    "start": "npm-run-all --parallel serve docker:start graphql-codegen",
     "build": "nx build",
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",
@@ -28,7 +28,8 @@
     "dep-graph": "nx dep-graph",
     "help": "nx help",
     "docker:build": "docker-compose --env-file .env.local build",
-    "docker:start": "docker-compose --env-file .env.local up"
+    "docker:start": "docker-compose --env-file .env.local up",
+    "graphql-codegen": "nx run gql:generate"
   },
   "private": true,
   "dependencies": {

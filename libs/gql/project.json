@@ -17,6 +17,16 @@
         "jestConfig": "libs/gql/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "generate": {
+      "builder": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "npx graphql-codegen --config libs/gql/codegen.js"
+          }
+        ]
+      }
     }
   },
   "tags": ["type:data-access"]
