@@ -3,6 +3,8 @@
   "version": 2,
   "projects": {
     "gql": "libs/gql",
+    "hasura": "libs/hasura",
+    "logger": "libs/logger",
     "web": "apps/web",
     "web-e2e": "apps/web-e2e"
   }

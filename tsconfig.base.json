@@ -18,6 +18,8 @@
       "@governance/gql-admin": ["libs/gql/src/admin/generated/index.tsx"],
       "@governance/gql-anonymous": ["libs/gql/src/anonymous/generated/index.tsx"],
       "@governance/gql-user": ["libs/gql/src/user/generated/index.tsx"],
+      "@governance/hasura": ["libs/hasura/src/index.ts"],
+      "@governance/logger": ["libs/logger/src/index.ts"],
       "@web/*": ["apps/web/src/*"]
     }
   },

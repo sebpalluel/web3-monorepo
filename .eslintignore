@@ -5,3 +5,5 @@ tmp
 generated
 *lock.json
 *lock.yaml
+*.md
+.babelrc
