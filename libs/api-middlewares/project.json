@@ -1,0 +1,43 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/api-middlewares/src",
+  "projectType": "library",
+  "tags": ["data-access"],
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/api-middlewares",
+        "tsConfig": "libs/api-middlewares/tsconfig.lib.json",
+        "project": "libs/api-middlewares/package.json",
+        "entryFile": "libs/api-middlewares/src/index.ts",
+        "external": ["react/jsx-runtime"],
+        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+        "compiler": "babel",
+        "assets": [
+          {
+            "glob": "libs/api-middlewares/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/api-middlewares/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/api-middlewares"],
+      "options": {
+        "jestConfig": "libs/api-middlewares/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

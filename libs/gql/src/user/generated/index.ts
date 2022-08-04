@@ -97,10 +97,6 @@ export type Mutation_Root = {
   delete_users?: Maybe<Users_Mutation_Response>;
   /** delete single row from the table: "users" */
   delete_users_by_pk?: Maybe<Users>;
-  /** insert data into the table: "passwords" */
-  insert_passwords?: Maybe<Passwords_Mutation_Response>;
-  /** insert a single row into the table: "passwords" */
-  insert_passwords_one?: Maybe<Passwords>;
   signout?: Maybe<SignoutOutput>;
   /** update data of the table: "users" */
   update_users?: Maybe<Users_Mutation_Response>;
@@ -118,20 +114,6 @@ export type Mutation_RootDelete_UsersArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Users_By_PkArgs = {
   id: Scalars['String'];
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_PasswordsArgs = {
-  objects: Array<Passwords_Insert_Input>;
-  on_conflict?: InputMaybe<Passwords_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Passwords_OneArgs = {
-  object: Passwords_Insert_Input;
-  on_conflict?: InputMaybe<Passwords_On_Conflict>;
 };
 
 
@@ -205,21 +187,6 @@ export type Passwords_Bool_Exp = {
   salt?: InputMaybe<String_Comparison_Exp>;
 };
 
-/** unique or primary key constraints on table "passwords" */
-export const enum Passwords_Constraint {
-  /** unique or primary key constraint on columns "hash" */
-  PasswordsPkey = 'passwords_pkey',
-  /** unique or primary key constraint on columns "salt" */
-  PasswordsSaltKey = 'passwords_salt_key'
-};
-
-/** input type for inserting data into table "passwords" */
-export type Passwords_Insert_Input = {
-  hash?: InputMaybe<Scalars['String']>;
-  iterations?: InputMaybe<Scalars['Int']>;
-  salt?: InputMaybe<Scalars['String']>;
-};
-
 /** order by max() on columns of table "passwords" */
 export type Passwords_Max_Order_By = {
   attempts?: InputMaybe<Order_By>;
@@ -234,22 +201,6 @@ export type Passwords_Min_Order_By = {
   hash?: InputMaybe<Order_By>;
   iterations?: InputMaybe<Order_By>;
   salt?: InputMaybe<Order_By>;
-};
-
-/** response of any mutation on the table "passwords" */
-export type Passwords_Mutation_Response = {
-  __typename?: 'passwords_mutation_response';
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int'];
-  /** data from the rows affected by the mutation */
-  returning: Array<Passwords>;
-};
-
-/** on_conflict condition type for table "passwords" */
-export type Passwords_On_Conflict = {
-  constraint: Passwords_Constraint;
-  update_columns?: Array<Passwords_Update_Column>;
-  where?: InputMaybe<Passwords_Bool_Exp>;
 };
 
 /** Ordering options when selecting data from "passwords". */
@@ -294,12 +245,6 @@ export type Passwords_Stddev_Samp_Order_By = {
 export type Passwords_Sum_Order_By = {
   attempts?: InputMaybe<Order_By>;
   iterations?: InputMaybe<Order_By>;
-};
-
-/** placeholder for update columns of table "passwords" (current role has no relevant permissions) */
-export const enum Passwords_Update_Column {
-  /** placeholder (do not use) */
-  Placeholder = '_PLACEHOLDER'
 };
 
 /** order by var_pop() on columns of table "passwords" */
@@ -517,7 +462,7 @@ export type Users_Set_Input = {
   name?: InputMaybe<Scalars['String']>;
 };
 
-export type MyUserFieldsFragment = { __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null, password?: string | null };
+export type MyUserFieldsFragment = { __typename?: 'users', email?: string | null, emailVerified?: any | null, id: string, image?: string | null, name?: string | null, password?: string | null };
 
 export type PasswordFieldsFragment = { __typename?: 'passwords', attempts: number, hash: string, iterations: number, salt: string };
 
@@ -526,38 +471,38 @@ export type GetUserQueryVariables = Exact<{
 }>;
 
 
-export type GetUserQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null }> };
+export type GetUserQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', email?: string | null, emailVerified?: any | null, id: string, image?: string | null, name?: string | null }> };
 
 export type GetUserByEmailQueryVariables = Exact<{
   email: Scalars['String'];
 }>;
 
 
-export type GetUserByEmailQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null }> };
+export type GetUserByEmailQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', email?: string | null, emailVerified?: any | null, id: string, image?: string | null, name?: string | null }> };
 
 export type GetMyUserByEmailQueryVariables = Exact<{
   email: Scalars['String'];
 }>;
 
 
-export type GetMyUserByEmailQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null, password?: string | null }> };
+export type GetMyUserByEmailQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', email?: string | null, emailVerified?: any | null, id: string, image?: string | null, name?: string | null, password?: string | null }> };
 
 export type GetMyUserAndPasswordByEmailQueryVariables = Exact<{
   email: Scalars['String'];
 }>;
 
 
-export type GetMyUserAndPasswordByEmailQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null, password?: string | null, passwords: Array<{ __typename?: 'passwords', attempts: number, hash: string, iterations: number, salt: string }> }> };
+export type GetMyUserAndPasswordByEmailQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', email?: string | null, emailVerified?: any | null, id: string, image?: string | null, name?: string | null, password?: string | null, passwords: Array<{ __typename?: 'passwords', attempts: number, hash: string, iterations: number, salt: string }> }> };
 
-export type UserFieldsFragment = { __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null };
+export type UserFieldsFragment = { __typename?: 'users', email?: string | null, emailVerified?: any | null, id: string, image?: string | null, name?: string | null };
 
 export const MyUserFieldsFragmentDoc = `
     fragment MyUserFields on users {
-  id
-  name
   email
   emailVerified
+  id
   image
+  name
   password
 }
     `;
@@ -571,11 +516,11 @@ export const PasswordFieldsFragmentDoc = `
     `;
 export const UserFieldsFragmentDoc = `
     fragment UserFields on users {
-  id
-  name
   email
   emailVerified
+  id
   image
+  name
 }
     `;
 export const GetUserDocument = `

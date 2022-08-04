@@ -1,5 +1,6 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import type { Maybe } from "@web/lib/types/maybe";
+import { NextApiRequest, NextApiResponse } from 'next';
+import type { Maybe } from '@governance/utils/types';
+
 type Middleware = (req: NextApiRequest, res: NextApiResponse) => unknown;
 
 // https://giancarlobuomprisco.com/next/middleware-pipes-nextjs
@@ -8,11 +9,8 @@ type Middleware = (req: NextApiRequest, res: NextApiResponse) => unknown;
  * @description combine multiple middleware before handling your API endpoint
  * @param middlewares
  */
-export default function withMiddleware(...middlewares: Middleware[]) {
-  return async function withMiddlewareHandler(
-    req: NextApiRequest,
-    res: NextApiResponse
-  ) {
+export function withMiddlewares(...middlewares: Middleware[]) {
+  return async function withMiddlewareHandler(req: NextApiRequest, res: NextApiResponse) {
     async function evaluateHandler(
       middleware: Middleware,
       innerMiddleware?: Maybe<Middleware>
@@ -28,10 +26,10 @@ export default function withMiddleware(...middlewares: Middleware[]) {
       // in which case, the handler gets executed as the callback to the previous middleware,
       // and gets removed from the middlewares list,
       // because we already executed it.
-      if (typeof middleware === "function") {
+      if (typeof middleware === 'function') {
         const handler = await middleware(req, res);
 
-        if (typeof handler === "function") {
+        if (typeof handler === 'function') {
           if (innerMiddleware) {
             await handler(innerMiddleware);
 

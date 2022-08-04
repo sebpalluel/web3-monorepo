@@ -10,11 +10,11 @@ mutation CreateUserWithCredentials(
   $password: passwords_insert_input!
   $user: users_insert_input!
 ) {
-  insert_passwords_one(object: $password) {
-    hash
-  }
   insert_users_one(object: $user) {
     ...UserFields
+  }
+  insert_passwords_one(object: $password) {
+    hash
   }
 }
 

@@ -18,6 +18,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@governance/api-middlewares": [
+        "libs/api-middlewares/src/index.ts"
+      ],
       "@governance/gql": [
         "libs/gql/src/index.ts"
       ],
@@ -36,11 +39,21 @@
       "@governance/logger": [
         "libs/logger/src/index.ts"
       ],
+      "@governance/next-auth": [
+        "libs/next-auth/src/index.ts"
+      ],
+      "@governance/utils": [
+        "libs/utils/src/lib/index.ts"
+      ],
+      "@governance/utils/types": [
+        "libs/utils/src/types/index.ts"
+      ],
       "@web/*": [
         "apps/web/src/*"
       ]
     }
   },
+  "include": [],
   "exclude": [
     "node_modules",
     "tmp"

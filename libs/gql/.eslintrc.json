@@ -26,7 +26,8 @@
         ],
         "@graphql-eslint/no-anonymous-operations": "error",
         "@graphql-eslint/unique-fragment-name": "error",
-        "@graphql-eslint/match-document-filename": "off"
+        "@graphql-eslint/match-document-filename": "off",
+        "@graphql-eslint/alphabetize": "off"
       }
     },
     {
@@ -51,7 +52,8 @@
         ],
         "@graphql-eslint/no-anonymous-operations": "error",
         "@graphql-eslint/unique-fragment-name": "error",
-        "@graphql-eslint/match-document-filename": "off"
+        "@graphql-eslint/match-document-filename": "off",
+        "@graphql-eslint/alphabetize": "off"
       }
     }
   ]

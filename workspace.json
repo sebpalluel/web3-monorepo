@@ -2,9 +2,12 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "api-middlewares": "libs/api-middlewares",
     "gql": "libs/gql",
     "hasura": "libs/hasura",
     "logger": "libs/logger",
+    "next-auth": "libs/next-auth",
+    "utils": "libs/utils",
     "web": "apps/web",
     "web-e2e": "apps/web-e2e"
   }

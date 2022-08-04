@@ -1939,7 +1939,7 @@ export type CreateUserWithCredentialsMutationVariables = Exact<{
 }>;
 
 
-export type CreateUserWithCredentialsMutation = { __typename?: 'mutation_root', insert_passwords_one?: { __typename?: 'passwords', hash: string } | null, insert_users_one?: { __typename?: 'users', email?: string | null, emailVerified?: any | null, id: string, image?: string | null, name?: string | null } | null };
+export type CreateUserWithCredentialsMutation = { __typename?: 'mutation_root', insert_users_one?: { __typename?: 'users', email?: string | null, emailVerified?: any | null, id: string, image?: string | null, name?: string | null } | null, insert_passwords_one?: { __typename?: 'passwords', hash: string } | null };
 
 export type UpdateUserMutationVariables = Exact<{
   id: Scalars['String'];
@@ -2018,11 +2018,11 @@ useGetUsersAndAccountByEmailQuery.getKey = (variables: GetUsersAndAccountByEmail
 useGetUsersAndAccountByEmailQuery.fetcher = (dataSource: { endpoint: string, fetchParams?: RequestInit }, variables: GetUsersAndAccountByEmailQueryVariables) => fetcher<GetUsersAndAccountByEmailQuery, GetUsersAndAccountByEmailQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, GetUsersAndAccountByEmailDocument, variables);
 export const CreateUserWithCredentialsDocument = `
     mutation CreateUserWithCredentials($password: passwords_insert_input!, $user: users_insert_input!) {
-  insert_passwords_one(object: $password) {
-    hash
-  }
   insert_users_one(object: $user) {
     ...UserFields
+  }
+  insert_passwords_one(object: $password) {
+    hash
   }
 }
     ${UserFieldsFragmentDoc}`;

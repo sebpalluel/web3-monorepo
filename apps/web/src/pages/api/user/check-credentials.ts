@@ -5,7 +5,7 @@ import {
   withMiddlewares,
   withErrorHandling,
   withMethodsGuard,
-} from '../../../lib/middlewares';
+} from '@governance/api-middlewares';
 import cryptojs from 'crypto-js';
 import { logger } from '@governance/logger';
 import { ApiError } from 'next/dist/server/api-utils';

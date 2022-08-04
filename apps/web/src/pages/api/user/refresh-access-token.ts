@@ -6,7 +6,7 @@ import {
   withErrorHandling,
   withMethodsGuard,
   withSession,
-} from '../../../lib/middlewares';
+} from '@governance/api-middlewares';
 import { logger } from '@governance/logger';
 import { ApiError } from 'next/dist/server/api-utils';
 

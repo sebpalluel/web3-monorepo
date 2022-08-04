@@ -103,28 +103,6 @@ type mutation_root {
   delete single row from the table: "users"
   """
   delete_users_by_pk(id: String!): users
-
-  """
-  insert data into the table: "passwords"
-  """
-  insert_passwords(
-    """the rows to be inserted"""
-    objects: [passwords_insert_input!]!
-
-    """upsert condition"""
-    on_conflict: passwords_on_conflict
-  ): passwords_mutation_response
-
-  """
-  insert a single row into the table: "passwords"
-  """
-  insert_passwords_one(
-    """the row to be inserted"""
-    object: passwords_insert_input!
-
-    """upsert condition"""
-    on_conflict: passwords_on_conflict
-  ): passwords
   signout: SignoutOutput
 
   """
@@ -218,30 +196,6 @@ input passwords_bool_exp {
 }
 
 """
-unique or primary key constraints on table "passwords"
-"""
-enum passwords_constraint {
-  """
-  unique or primary key constraint on columns "hash"
-  """
-  passwords_pkey
-
-  """
-  unique or primary key constraint on columns "salt"
-  """
-  passwords_salt_key
-}
-
-"""
-input type for inserting data into table "passwords"
-"""
-input passwords_insert_input {
-  hash: String
-  iterations: Int
-  salt: String
-}
-
-"""
 order by max() on columns of table "passwords"
 """
 input passwords_max_order_by {
@@ -259,26 +213,6 @@ input passwords_min_order_by {
   hash: order_by
   iterations: order_by
   salt: order_by
-}
-
-"""
-response of any mutation on the table "passwords"
-"""
-type passwords_mutation_response {
-  """number of rows affected by the mutation"""
-  affected_rows: Int!
-
-  """data from the rows affected by the mutation"""
-  returning: [passwords!]!
-}
-
-"""
-on_conflict condition type for table "passwords"
-"""
-input passwords_on_conflict {
-  constraint: passwords_constraint!
-  update_columns: [passwords_update_column!]! = []
-  where: passwords_bool_exp
 }
 
 """Ordering options when selecting data from "passwords"."""
@@ -336,14 +270,6 @@ order by sum() on columns of table "passwords"
 input passwords_sum_order_by {
   attempts: order_by
   iterations: order_by
-}
-
-"""
-placeholder for update columns of table "passwords" (current role has no relevant permissions)
-"""
-enum passwords_update_column {
-  """placeholder (do not use)"""
-  _PLACEHOLDER
 }
 
 """

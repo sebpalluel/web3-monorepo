@@ -20,8 +20,7 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { useForm } from 'react-hook-form';
 import { logger } from '@governance/logger';
 import { useRouter } from 'next/router';
-import fetchJson from '../../lib/fetchJson';
-import { resetLevel } from 'loglevel';
+import fetchJSON from '@governance/utils';
 
 export default function SignupCard() {
   const router = useRouter();
@@ -38,7 +37,7 @@ export default function SignupCard() {
     try {
       const body = { ...values };
       console.log(`POSTing ${JSON.stringify(body, null, 2)}`);
-      const res = await fetchJson(`/api/user/create`, {
+      const res = await fetchJSON(`/api/user/create`, {
         method: 'POST',
         body: JSON.stringify(body),
       });

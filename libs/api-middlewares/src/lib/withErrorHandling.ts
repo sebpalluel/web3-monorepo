@@ -23,7 +23,7 @@ function isError(exception: unknown): exception is Error {
   return exception instanceof Error;
 }
 
-export default function withExceptionFilter(req: NextApiRequest, res: NextApiResponse) {
+export function withErrorHandling(req: NextApiRequest, res: NextApiResponse) {
   return async function (handler: NextApiHandler) {
     try {
       await handler(req, res);
