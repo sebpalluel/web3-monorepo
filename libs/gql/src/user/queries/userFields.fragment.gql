@@ -1,7 +1,7 @@
 fragment UserFields on users {
-    id
-    name
-    email,
-    emailVerified,
-    image
+  email
+  emailVerified
+  id
+  image
+  name
 }

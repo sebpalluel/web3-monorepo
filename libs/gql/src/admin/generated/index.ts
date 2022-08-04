@@ -1,4 +1,4 @@
-import { useQuery, useMutation, UseQueryOptions, UseMutationOptions } from 'react-query';
+import { useMutation, useQuery, UseMutationOptions, UseQueryOptions } from 'react-query';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -1917,51 +1917,87 @@ export type VerificationTokens_Set_Input = {
   token?: InputMaybe<Scalars['String']>;
 };
 
-export type AccountFieldsFragment = { __typename?: 'accounts', type: string, provider: string };
+export type DeleteAccountMutationVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type DeleteAccountMutation = { __typename?: 'mutation_root', delete_accounts_by_pk?: { __typename?: 'accounts', id: string } | null };
+
+export type AccountFieldsFragment = { __typename?: 'accounts', id: string, provider: string, type: string };
 
 export type GetUsersAndAccountByEmailQueryVariables = Exact<{
   email: Scalars['String'];
 }>;
 
 
-export type GetUsersAndAccountByEmailQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null, accounts: Array<{ __typename?: 'accounts', type: string, provider: string }> }> };
+export type GetUsersAndAccountByEmailQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', email?: string | null, emailVerified?: any | null, id: string, image?: string | null, name?: string | null, accounts: Array<{ __typename?: 'accounts', id: string, provider: string, type: string }> }> };
 
 export type CreateUserWithCredentialsMutationVariables = Exact<{
-  user: Users_Insert_Input;
   password: Passwords_Insert_Input;
+  user: Users_Insert_Input;
 }>;
 
 
-export type CreateUserWithCredentialsMutation = { __typename?: 'mutation_root', insert_users_one?: { __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null } | null, insert_passwords_one?: { __typename?: 'passwords', hash: string } | null };
+export type CreateUserWithCredentialsMutation = { __typename?: 'mutation_root', insert_passwords_one?: { __typename?: 'passwords', hash: string } | null, insert_users_one?: { __typename?: 'users', email?: string | null, emailVerified?: any | null, id: string, image?: string | null, name?: string | null } | null };
 
-export type UserFieldsFragment = { __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null };
+export type UpdateUserMutationVariables = Exact<{
+  id: Scalars['String'];
+  user: Users_Set_Input;
+}>;
+
+
+export type UpdateUserMutation = { __typename?: 'mutation_root', update_users_by_pk?: { __typename?: 'users', email?: string | null, emailVerified?: any | null, id: string, image?: string | null, name?: string | null } | null };
+
+export type UserFieldsFragment = { __typename?: 'users', email?: string | null, emailVerified?: any | null, id: string, image?: string | null, name?: string | null };
 
 export const AccountFieldsFragmentDoc = `
     fragment AccountFields on accounts {
-  type
+  id
   provider
+  type
 }
     `;
 export const UserFieldsFragmentDoc = `
     fragment UserFields on users {
-  id
-  name
   email
   emailVerified
+  id
   image
+  name
 }
     `;
+export const DeleteAccountDocument = `
+    mutation DeleteAccount($id: String!) {
+  delete_accounts_by_pk(id: $id) {
+    id
+  }
+}
+    `;
+export const useDeleteAccountMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      options?: UseMutationOptions<DeleteAccountMutation, TError, DeleteAccountMutationVariables, TContext>
+    ) =>
+    useMutation<DeleteAccountMutation, TError, DeleteAccountMutationVariables, TContext>(
+      ['DeleteAccount'],
+      (variables?: DeleteAccountMutationVariables) => fetcher<DeleteAccountMutation, DeleteAccountMutationVariables>(dataSource.endpoint, dataSource.fetchParams || {}, DeleteAccountDocument, variables)(),
+      options
+    );
+useDeleteAccountMutation.fetcher = (dataSource: { endpoint: string, fetchParams?: RequestInit }, variables: DeleteAccountMutationVariables) => fetcher<DeleteAccountMutation, DeleteAccountMutationVariables>(dataSource.endpoint, dataSource.fetchParams || {}, DeleteAccountDocument, variables);
 export const GetUsersAndAccountByEmailDocument = `
-    query getUsersAndAccountByEmail($email: String!) {
+    query GetUsersAndAccountByEmail($email: String!) {
   users(where: {email: {_eq: $email}}) {
-    ...UserFields
     accounts {
       ...AccountFields
     }
+    ...UserFields
   }
 }
-    ${UserFieldsFragmentDoc}
-${AccountFieldsFragmentDoc}`;
+    ${AccountFieldsFragmentDoc}
+${UserFieldsFragmentDoc}`;
 export const useGetUsersAndAccountByEmailQuery = <
       TData = GetUsersAndAccountByEmailQuery,
       TError = unknown
@@ -1971,22 +2007,22 @@ export const useGetUsersAndAccountByEmailQuery = <
       options?: UseQueryOptions<GetUsersAndAccountByEmailQuery, TError, TData>
     ) =>
     useQuery<GetUsersAndAccountByEmailQuery, TError, TData>(
-      ['getUsersAndAccountByEmail', variables],
+      ['GetUsersAndAccountByEmail', variables],
       fetcher<GetUsersAndAccountByEmailQuery, GetUsersAndAccountByEmailQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, GetUsersAndAccountByEmailDocument, variables),
       options
     );
 
-useGetUsersAndAccountByEmailQuery.getKey = (variables: GetUsersAndAccountByEmailQueryVariables) => ['getUsersAndAccountByEmail', variables];
+useGetUsersAndAccountByEmailQuery.getKey = (variables: GetUsersAndAccountByEmailQueryVariables) => ['GetUsersAndAccountByEmail', variables];
 ;
 
 useGetUsersAndAccountByEmailQuery.fetcher = (dataSource: { endpoint: string, fetchParams?: RequestInit }, variables: GetUsersAndAccountByEmailQueryVariables) => fetcher<GetUsersAndAccountByEmailQuery, GetUsersAndAccountByEmailQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, GetUsersAndAccountByEmailDocument, variables);
 export const CreateUserWithCredentialsDocument = `
-    mutation createUserWithCredentials($user: users_insert_input!, $password: passwords_insert_input!) {
-  insert_users_one(object: $user) {
-    ...UserFields
-  }
+    mutation CreateUserWithCredentials($password: passwords_insert_input!, $user: users_insert_input!) {
   insert_passwords_one(object: $password) {
     hash
+  }
+  insert_users_one(object: $user) {
+    ...UserFields
   }
 }
     ${UserFieldsFragmentDoc}`;
@@ -1998,8 +2034,28 @@ export const useCreateUserWithCredentialsMutation = <
       options?: UseMutationOptions<CreateUserWithCredentialsMutation, TError, CreateUserWithCredentialsMutationVariables, TContext>
     ) =>
     useMutation<CreateUserWithCredentialsMutation, TError, CreateUserWithCredentialsMutationVariables, TContext>(
-      ['createUserWithCredentials'],
+      ['CreateUserWithCredentials'],
       (variables?: CreateUserWithCredentialsMutationVariables) => fetcher<CreateUserWithCredentialsMutation, CreateUserWithCredentialsMutationVariables>(dataSource.endpoint, dataSource.fetchParams || {}, CreateUserWithCredentialsDocument, variables)(),
       options
     );
 useCreateUserWithCredentialsMutation.fetcher = (dataSource: { endpoint: string, fetchParams?: RequestInit }, variables: CreateUserWithCredentialsMutationVariables) => fetcher<CreateUserWithCredentialsMutation, CreateUserWithCredentialsMutationVariables>(dataSource.endpoint, dataSource.fetchParams || {}, CreateUserWithCredentialsDocument, variables);
+export const UpdateUserDocument = `
+    mutation UpdateUser($id: String!, $user: users_set_input!) {
+  update_users_by_pk(_set: $user, pk_columns: {id: $id}) {
+    ...UserFields
+  }
+}
+    ${UserFieldsFragmentDoc}`;
+export const useUpdateUserMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      options?: UseMutationOptions<UpdateUserMutation, TError, UpdateUserMutationVariables, TContext>
+    ) =>
+    useMutation<UpdateUserMutation, TError, UpdateUserMutationVariables, TContext>(
+      ['UpdateUser'],
+      (variables?: UpdateUserMutationVariables) => fetcher<UpdateUserMutation, UpdateUserMutationVariables>(dataSource.endpoint, dataSource.fetchParams || {}, UpdateUserDocument, variables)(),
+      options
+    );
+useUpdateUserMutation.fetcher = (dataSource: { endpoint: string, fetchParams?: RequestInit }, variables: UpdateUserMutationVariables) => fetcher<UpdateUserMutation, UpdateUserMutationVariables>(dataSource.endpoint, dataSource.fetchParams || {}, UpdateUserDocument, variables);

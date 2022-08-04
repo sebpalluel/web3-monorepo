@@ -17,3 +17,9 @@ mutation CreateUserWithCredentials(
     ...UserFields
   }
 }
+
+mutation UpdateUser($id: String!, $user: users_set_input!) {
+  update_users_by_pk(_set: $user, pk_columns: { id: $id }) {
+    ...UserFields
+  }
+}

@@ -1,6 +1,5 @@
 import type { NextPageContext } from 'next';
 import { getSession, useSession } from 'next-auth/react';
-import { hasuraOptions } from '@web/lib/hasuraAdapter';
 import { useGetUserQuery } from '@governance/gql-user';
 import React, { useState } from 'react';
 
@@ -23,17 +22,16 @@ export default function ServerSidePage() {
         <strong>getServerSideProps()</strong>.
       </p>
       <p>
-        Using <strong>getSession()</strong> in{' '}
-        <strong>getServerSideProps()</strong> is the recommended approach if you
-        need to support Server Side Rendering with authentication.
+        Using <strong>getSession()</strong> in <strong>getServerSideProps()</strong> is
+        the recommended approach if you need to support Server Side Rendering with
+        authentication.
       </p>
       <p>
-        The advantage of Server Side Rendering is this page does not require
-        client side JavaScript.
+        The advantage of Server Side Rendering is this page does not require client side
+        JavaScript.
       </p>
       <p>
-        The disadvantage of Server Side Rendering is that this page is slower to
-        render.
+        The disadvantage of Server Side Rendering is that this page is slower to render.
       </p>
     </div>
   );

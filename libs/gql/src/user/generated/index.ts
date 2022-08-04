@@ -519,7 +519,7 @@ export type Users_Set_Input = {
 
 export type MyUserFieldsFragment = { __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null, password?: string | null };
 
-export type PasswordFieldsFragment = { __typename?: 'passwords', salt: string, hash: string, iterations: number, attempts: number };
+export type PasswordFieldsFragment = { __typename?: 'passwords', attempts: number, hash: string, iterations: number, salt: string };
 
 export type GetUserQueryVariables = Exact<{
   id: Scalars['String'];
@@ -547,7 +547,7 @@ export type GetMyUserAndPasswordByEmailQueryVariables = Exact<{
 }>;
 
 
-export type GetMyUserAndPasswordByEmailQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null, password?: string | null, passwords: Array<{ __typename?: 'passwords', salt: string, hash: string, iterations: number, attempts: number }> }> };
+export type GetMyUserAndPasswordByEmailQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null, password?: string | null, passwords: Array<{ __typename?: 'passwords', attempts: number, hash: string, iterations: number, salt: string }> }> };
 
 export type UserFieldsFragment = { __typename?: 'users', id: string, name?: string | null, email?: string | null, emailVerified?: any | null, image?: string | null };
 
@@ -563,10 +563,10 @@ export const MyUserFieldsFragmentDoc = `
     `;
 export const PasswordFieldsFragmentDoc = `
     fragment PasswordFields on passwords {
-  salt
+  attempts
   hash
   iterations
-  attempts
+  salt
 }
     `;
 export const UserFieldsFragmentDoc = `

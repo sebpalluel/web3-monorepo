@@ -2,10 +2,13 @@
   "root": true,
   "plugins": [
     "@nrwl/nx",
-    "eslint-plugin-prettier"
+    "eslint-plugin-prettier",
+    "markdown"
   ],
   "extends": [
-    "eslint-config-prettier"
+    "eslint-config-prettier",
+    "plugin:markdown/recommended",
+    "plugin:json/recommended"
   ],
   "overrides": [
     {
@@ -61,6 +64,12 @@
         "plugin:json/recommended"
       ],
       "rules": {}
+    },
+    {
+      "files": [
+        "**/*.md"
+      ],
+      "processor": "markdown/markdown"
     }
   ]
 }

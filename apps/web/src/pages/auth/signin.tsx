@@ -23,13 +23,12 @@ import React, { useState, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { signIn } from 'next-auth/react';
-import { logger } from '@web/lib/logger';
+import { logger } from '@governance/logger';
 import { useRouter } from 'next/router';
 
 import { AiFillGithub, AiFillGoogleCircle } from 'react-icons/ai';
 import { MdOutlineEmail } from 'react-icons/md';
 import { BiLockAlt } from 'react-icons/bi';
-import FormPasswordlessEmail from '@web/lib/components/auth/form-passwordless';
 
 export default function SimpleCard() {
   const [showPassword, setShowPassword] = useState(false);

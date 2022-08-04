@@ -10,18 +10,39 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2017", "dom"],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@governance/gql-admin": ["libs/gql/src/admin/generated/index.tsx"],
-      "@governance/gql-anonymous": ["libs/gql/src/anonymous/generated/index.tsx"],
-      "@governance/gql-user": ["libs/gql/src/user/generated/index.tsx"],
-      "@governance/hasura": ["libs/hasura/src/index.ts"],
-      "@governance/logger": ["libs/logger/src/index.ts"],
-      "@web/*": ["apps/web/src/*"]
+      "@governance/gql": [
+        "libs/gql/src/index.ts"
+      ],
+      "@governance/gql-admin": [
+        "libs/gql/src/admin/generated/index.ts"
+      ],
+      "@governance/gql-anonymous": [
+        "libs/gql/src/anonymous/generated/index.ts"
+      ],
+      "@governance/gql-user": [
+        "libs/gql/src/user/generated/index.ts"
+      ],
+      "@governance/hasura": [
+        "libs/hasura/src/index.ts"
+      ],
+      "@governance/logger": [
+        "libs/logger/src/index.ts"
+      ],
+      "@web/*": [
+        "apps/web/src/*"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

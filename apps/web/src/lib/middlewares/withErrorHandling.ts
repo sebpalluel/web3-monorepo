@@ -1,7 +1,7 @@
-import { NextApiRequest, NextApiResponse, NextApiHandler } from "next";
-import { ApiError } from "next/dist/server/api-utils";
-import { StatusCodes } from "http-status-codes";
-import { logger } from "@web/lib/logger";
+import { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
+import { ApiError } from 'next/dist/server/api-utils';
+import { StatusCodes } from 'http-status-codes';
+import { logger } from '@governance/logger';
 
 // https://giancarlobuomprisco.com/next/handling-api-errors-in-nextjs
 
@@ -23,10 +23,7 @@ function isError(exception: unknown): exception is Error {
   return exception instanceof Error;
 }
 
-export default function withExceptionFilter(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default function withExceptionFilter(req: NextApiRequest, res: NextApiResponse) {
   return async function (handler: NextApiHandler) {
     try {
       await handler(req, res);
@@ -41,8 +38,8 @@ export default function withExceptionFilter(
       // const user = req.user
       // const userId = user?.uid ?? 'Not Authenticated'
 
-      const referer = headers["referer"];
-      const userAgent = headers["user-agent"];
+      const referer = headers['referer'];
+      const userAgent = headers['user-agent'];
 
       // this is the context being logged
       const requestContext = {

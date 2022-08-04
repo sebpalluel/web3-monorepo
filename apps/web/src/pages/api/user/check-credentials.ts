@@ -1,15 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { hasuraRequest } from '@web/lib/hasuraAdapter';
+import { hasuraRequest } from '@governance/hasura';
 import { GetMyUserAndPasswordByEmailDocument } from '@governance/gql-user';
 import {
   withMiddlewares,
   withErrorHandling,
   withMethodsGuard,
-} from '@web/lib/middlewares';
+} from '../../../lib/middlewares';
 import cryptojs from 'crypto-js';
-import { logger } from '@web/lib/logger';
+import { logger } from '@governance/logger';
 import { ApiError } from 'next/dist/server/api-utils';
-import type { PasswordWithAttempt } from '@web/lib/types/crypto';
+import type { PasswordWithAttempt } from '../../../lib/types/crypto';
 
 const isPasswordCorrect = (secret: string, password: PasswordWithAttempt): boolean => {
   const key512Bits = cryptojs.PBKDF2(secret, password.salt, {
@@ -31,16 +31,19 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     variables: { email: req.body.username },
     admin: true,
   });
-  const { passwords, ...user } = data?.users[0];
-  const lastPassword = passwords[passwords.length - 1];
-  logger.debug({ user, passwords });
-  if (isPasswordCorrect(req.body.password, lastPassword)) {
-    // on success, if attempt > 0, update with attempt to 0
-    res.json(user);
-  } else {
-    // update with attempt+1
-    // if attempt > process.env.PSWD_MAX_ATTEMPTS, block user and ask to reset password
-    throw new ApiError(400, 'Invalid credentials');
+  const userPasswords = data?.users[0];
+  if (userPasswords) {
+    const { passwords, ...user } = userPasswords;
+    const lastPassword = passwords[passwords.length - 1];
+    logger.debug({ user, passwords });
+    if (isPasswordCorrect(req.body.password, lastPassword)) {
+      // on success, if attempt > 0, update with attempt to 0
+      res.json(user);
+    } else {
+      // update with attempt+1
+      // if attempt > process.env.PSWD_MAX_ATTEMPTS, block user and ask to reset password
+      throw new ApiError(400, 'Invalid credentials');
+    }
   }
 }
 

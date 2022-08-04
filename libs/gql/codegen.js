@@ -11,24 +11,12 @@ const adminHeaders = {
 };
 
 const pluginsAndConfig = {
-  plugins: [
-    // 'add',
-    'typescript',
-    'typescript-operations',
-    'typescript-react-query',
-  ],
+  plugins: ['typescript', 'typescript-operations', 'typescript-react-query'],
   config: {
     preResolveTypes: true,
     constEnums: true,
     exposeQueryKeys: true,
     exposeFetcher: true,
-    // content: `import { fetchParams } from 'lib/hasuraAdapter.ts';`,
-    // fetcher: {
-    //     endpoint: `${process.env.HASURA_URL}`,
-    //     fetchParams: 'await(fetchParams())'
-    // }
-    // // https://www.graphql-code-generator.com/plugins/typescript/typescript-react-query
-    // fetcher: './src/lib/hasuraAdapter.ts#myFetcher',
   },
 };
 
@@ -50,7 +38,7 @@ module.exports = {
       schema: [hasuraSchema()],
       plugins: ['schema-ast'],
     },
-    'libs/gql/src/user/generated/index.tsx': {
+    'libs/gql/src/user/generated/index.ts': {
       schema: [hasuraSchema()],
       documents: ['libs/gql/src/user/queries/**/*.{graphql,gql}'],
       ...pluginsAndConfig,
@@ -63,7 +51,7 @@ module.exports = {
       schema: [hasuraSchema(adminHeaders)],
       plugins: ['schema-ast'],
     },
-    'libs/gql/src/admin/generated/index.tsx': {
+    'libs/gql/src/admin/generated/index.ts': {
       schema: [hasuraSchema(adminHeaders)],
       documents: ['libs/gql/src/admin/queries/**/*.{graphql,gql}'],
       ...pluginsAndConfig,

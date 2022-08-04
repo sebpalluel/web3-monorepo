@@ -1,18 +1,18 @@
-import { hasuraRequest } from "@web/lib/hasuraAdapter";
+import { hasuraRequest } from '@governance/hasura';
 
-import { getToken } from "next-auth/jwt";
+import { getToken } from 'next-auth/jwt';
 
-import { getSession } from "next-auth/react";
+import { getSession } from 'next-auth/react';
 
 // This is an example of how to read a JSON Web Token from an API route
-import type { NextApiRequest, NextApiResponse } from "next";
-import { logger } from "@web/lib/logger";
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { logger } from '@governance/logger';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req });
   const token = await getToken({ req, raw: true });
   console.log({ token });
-  logger.debug("hasura test api: ", session, token);
+  logger.debug('hasura test api: ', session, token);
 
   if (session && token) {
     console.log({ token });
@@ -34,7 +34,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.send({ me: data?.users[0] });
   } else {
     res.send({
-      error: "You must be sign in to view the protected content on this page.",
+      error: 'You must be sign in to view the protected content on this page.',
     });
   }
 };

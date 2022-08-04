@@ -3,11 +3,31 @@
   "sourceRoot": "libs/gql/src",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nrwl/web:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/gql",
+        "tsConfig": "libs/gql/tsconfig.lib.json",
+        "project": "libs/gql/package.json",
+        "entryFile": "libs/gql/src/index.ts",
+        "external": ["react/jsx-runtime"],
+        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+        "compiler": "babel",
+        "assets": [
+          {
+            "glob": "libs/gql/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      }
+    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/gql/**/*.ts"]
+        "lintFilePatterns": ["libs/gql/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
@@ -19,7 +39,7 @@
       }
     },
     "generate": {
-      "builder": "@nrwl/workspace:run-commands",
+      "executor": "@nrwl/workspace:run-commands",
       "options": {
         "commands": [
           {
