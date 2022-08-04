@@ -1,8 +1,8 @@
-import type { DeepPartial, Theme } from "@chakra-ui/react";
+import type { DeepPartial, Theme } from '@chakra-ui/react';
 
-const Button: DeepPartial<Theme["components"]["Button"]> = {
+const Button: DeepPartial<Theme['components']['Button']> = {
   baseStyle: {
-    borderRadius: "full",
+    borderRadius: 'full',
   },
 };
 

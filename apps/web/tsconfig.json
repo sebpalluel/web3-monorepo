@@ -12,10 +12,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
-    "types": [
-      "jest",
-      "node"
-    ]
+    "types": ["jest", "node"]
   },
   "include": [
     "**/*.ts",
@@ -25,8 +22,5 @@
     "next-env.d.ts",
     "next-auth.d.ts"
   ],
-  "exclude": [
-    "node_modules",
-    "jest.config.ts"
-  ]
+  "exclude": ["node_modules", "jest.config.ts"]
 }

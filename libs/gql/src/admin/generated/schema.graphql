@@ -4,12 +4,18 @@ schema {
   subscription: subscription_root
 }
 
-"""whether this query should be cached (Hasura Cloud only)"""
+"""
+whether this query should be cached (Hasura Cloud only)
+"""
 directive @cached(
-  """refresh the cache entry"""
+  """
+  refresh the cache entry
+  """
   refresh: Boolean! = false
 
-  """measured in seconds"""
+  """
+  measured in seconds
+  """
   ttl: Int! = 60
 ) on QUERY
 
@@ -74,7 +80,9 @@ input String_comparison_exp {
   _gt: String
   _gte: String
 
-  """does the column match the given case-insensitive pattern"""
+  """
+  does the column match the given case-insensitive pattern
+  """
   _ilike: String
   _in: [String!]
 
@@ -84,13 +92,17 @@ input String_comparison_exp {
   _iregex: String
   _is_null: Boolean
 
-  """does the column match the given pattern"""
+  """
+  does the column match the given pattern
+  """
   _like: String
   _lt: String
   _lte: String
   _neq: String
 
-  """does the column NOT match the given case-insensitive pattern"""
+  """
+  does the column NOT match the given case-insensitive pattern
+  """
   _nilike: String
   _nin: [String!]
 
@@ -99,7 +111,9 @@ input String_comparison_exp {
   """
   _niregex: String
 
-  """does the column NOT match the given pattern"""
+  """
+  does the column NOT match the given pattern
+  """
   _nlike: String
 
   """
@@ -107,7 +121,9 @@ input String_comparison_exp {
   """
   _nregex: String
 
-  """does the column NOT match the given SQL regular expression"""
+  """
+  does the column NOT match the given SQL regular expression
+  """
   _nsimilar: String
 
   """
@@ -115,7 +131,9 @@ input String_comparison_exp {
   """
   _regex: String
 
-  """does the column match the given SQL regular expression"""
+  """
+  does the column match the given SQL regular expression
+  """
   _similar: String
 }
 
@@ -185,11 +203,15 @@ input type for inserting array relation for remote table "accounts"
 input accounts_arr_rel_insert_input {
   data: [accounts_insert_input!]!
 
-  """upsert condition"""
+  """
+  upsert condition
+  """
   on_conflict: accounts_on_conflict
 }
 
-"""aggregate avg on columns"""
+"""
+aggregate avg on columns
+"""
 type accounts_avg_fields {
   expires_at: Float
 }
@@ -257,7 +279,9 @@ input accounts_insert_input {
   userId: String
 }
 
-"""aggregate max on columns"""
+"""
+aggregate max on columns
+"""
 type accounts_max_fields {
   access_token: String
   expires_at: Int
@@ -291,7 +315,9 @@ input accounts_max_order_by {
   userId: order_by
 }
 
-"""aggregate min on columns"""
+"""
+aggregate min on columns
+"""
 type accounts_min_fields {
   access_token: String
   expires_at: Int
@@ -329,10 +355,14 @@ input accounts_min_order_by {
 response of any mutation on the table "accounts"
 """
 type accounts_mutation_response {
-  """number of rows affected by the mutation"""
+  """
+  number of rows affected by the mutation
+  """
   affected_rows: Int!
 
-  """data from the rows affected by the mutation"""
+  """
+  data from the rows affected by the mutation
+  """
   returning: [accounts!]!
 }
 
@@ -345,7 +375,9 @@ input accounts_on_conflict {
   where: accounts_bool_exp
 }
 
-"""Ordering options when selecting data from "accounts"."""
+"""
+Ordering options when selecting data from "accounts".
+"""
 input accounts_order_by {
   access_token: order_by
   expires_at: order_by
@@ -361,7 +393,9 @@ input accounts_order_by {
   userId: order_by
 }
 
-"""primary key columns input for table: accounts"""
+"""
+primary key columns input for table: accounts
+"""
 input accounts_pk_columns_input {
   id: String!
 }
@@ -370,40 +404,64 @@ input accounts_pk_columns_input {
 select columns of table "accounts"
 """
 enum accounts_select_column {
-  """column name"""
+  """
+  column name
+  """
   access_token
 
-  """column name"""
+  """
+  column name
+  """
   expires_at
 
-  """column name"""
+  """
+  column name
+  """
   id
 
-  """column name"""
+  """
+  column name
+  """
   id_token
 
-  """column name"""
+  """
+  column name
+  """
   provider
 
-  """column name"""
+  """
+  column name
+  """
   providerAccountId
 
-  """column name"""
+  """
+  column name
+  """
   refresh_token
 
-  """column name"""
+  """
+  column name
+  """
   scope
 
-  """column name"""
+  """
+  column name
+  """
   session_state
 
-  """column name"""
+  """
+  column name
+  """
   token_type
 
-  """column name"""
+  """
+  column name
+  """
   type
 
-  """column name"""
+  """
+  column name
+  """
   userId
 }
 
@@ -425,7 +483,9 @@ input accounts_set_input {
   userId: String
 }
 
-"""aggregate stddev on columns"""
+"""
+aggregate stddev on columns
+"""
 type accounts_stddev_fields {
   expires_at: Float
 }
@@ -437,7 +497,9 @@ input accounts_stddev_order_by {
   expires_at: order_by
 }
 
-"""aggregate stddev_pop on columns"""
+"""
+aggregate stddev_pop on columns
+"""
 type accounts_stddev_pop_fields {
   expires_at: Float
 }
@@ -449,7 +511,9 @@ input accounts_stddev_pop_order_by {
   expires_at: order_by
 }
 
-"""aggregate stddev_samp on columns"""
+"""
+aggregate stddev_samp on columns
+"""
 type accounts_stddev_samp_fields {
   expires_at: Float
 }
@@ -461,7 +525,9 @@ input accounts_stddev_samp_order_by {
   expires_at: order_by
 }
 
-"""aggregate sum on columns"""
+"""
+aggregate sum on columns
+"""
 type accounts_sum_fields {
   expires_at: Int
 }
@@ -477,44 +543,70 @@ input accounts_sum_order_by {
 update columns of table "accounts"
 """
 enum accounts_update_column {
-  """column name"""
+  """
+  column name
+  """
   access_token
 
-  """column name"""
+  """
+  column name
+  """
   expires_at
 
-  """column name"""
+  """
+  column name
+  """
   id
 
-  """column name"""
+  """
+  column name
+  """
   id_token
 
-  """column name"""
+  """
+  column name
+  """
   provider
 
-  """column name"""
+  """
+  column name
+  """
   providerAccountId
 
-  """column name"""
+  """
+  column name
+  """
   refresh_token
 
-  """column name"""
+  """
+  column name
+  """
   scope
 
-  """column name"""
+  """
+  column name
+  """
   session_state
 
-  """column name"""
+  """
+  column name
+  """
   token_type
 
-  """column name"""
+  """
+  column name
+  """
   type
 
-  """column name"""
+  """
+  column name
+  """
   userId
 }
 
-"""aggregate var_pop on columns"""
+"""
+aggregate var_pop on columns
+"""
 type accounts_var_pop_fields {
   expires_at: Float
 }
@@ -526,7 +618,9 @@ input accounts_var_pop_order_by {
   expires_at: order_by
 }
 
-"""aggregate var_samp on columns"""
+"""
+aggregate var_samp on columns
+"""
 type accounts_var_samp_fields {
   expires_at: Float
 }
@@ -538,7 +632,9 @@ input accounts_var_samp_order_by {
   expires_at: order_by
 }
 
-"""aggregate variance on columns"""
+"""
+aggregate variance on columns
+"""
 type accounts_variance_fields {
   expires_at: Float
 }
@@ -550,13 +646,17 @@ input accounts_variance_order_by {
   expires_at: order_by
 }
 
-"""mutation root"""
+"""
+mutation root
+"""
 type mutation_root {
   """
   delete data from the table: "accounts"
   """
   delete_accounts(
-    """filter the rows which have to be deleted"""
+    """
+    filter the rows which have to be deleted
+    """
     where: accounts_bool_exp!
   ): accounts_mutation_response
 
@@ -569,7 +669,9 @@ type mutation_root {
   delete data from the table: "passwords"
   """
   delete_passwords(
-    """filter the rows which have to be deleted"""
+    """
+    filter the rows which have to be deleted
+    """
     where: passwords_bool_exp!
   ): passwords_mutation_response
 
@@ -582,7 +684,9 @@ type mutation_root {
   delete data from the table: "sessions"
   """
   delete_sessions(
-    """filter the rows which have to be deleted"""
+    """
+    filter the rows which have to be deleted
+    """
     where: sessions_bool_exp!
   ): sessions_mutation_response
 
@@ -595,7 +699,9 @@ type mutation_root {
   delete data from the table: "users"
   """
   delete_users(
-    """filter the rows which have to be deleted"""
+    """
+    filter the rows which have to be deleted
+    """
     where: users_bool_exp!
   ): users_mutation_response
 
@@ -608,7 +714,9 @@ type mutation_root {
   delete data from the table: "verificationTokens"
   """
   delete_verificationTokens(
-    """filter the rows which have to be deleted"""
+    """
+    filter the rows which have to be deleted
+    """
     where: verificationTokens_bool_exp!
   ): verificationTokens_mutation_response
 
@@ -616,10 +724,14 @@ type mutation_root {
   insert data into the table: "accounts"
   """
   insert_accounts(
-    """the rows to be inserted"""
+    """
+    the rows to be inserted
+    """
     objects: [accounts_insert_input!]!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: accounts_on_conflict
   ): accounts_mutation_response
 
@@ -627,10 +739,14 @@ type mutation_root {
   insert a single row into the table: "accounts"
   """
   insert_accounts_one(
-    """the row to be inserted"""
+    """
+    the row to be inserted
+    """
     object: accounts_insert_input!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: accounts_on_conflict
   ): accounts
 
@@ -638,10 +754,14 @@ type mutation_root {
   insert data into the table: "passwords"
   """
   insert_passwords(
-    """the rows to be inserted"""
+    """
+    the rows to be inserted
+    """
     objects: [passwords_insert_input!]!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: passwords_on_conflict
   ): passwords_mutation_response
 
@@ -649,10 +769,14 @@ type mutation_root {
   insert a single row into the table: "passwords"
   """
   insert_passwords_one(
-    """the row to be inserted"""
+    """
+    the row to be inserted
+    """
     object: passwords_insert_input!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: passwords_on_conflict
   ): passwords
 
@@ -660,10 +784,14 @@ type mutation_root {
   insert data into the table: "sessions"
   """
   insert_sessions(
-    """the rows to be inserted"""
+    """
+    the rows to be inserted
+    """
     objects: [sessions_insert_input!]!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: sessions_on_conflict
   ): sessions_mutation_response
 
@@ -671,10 +799,14 @@ type mutation_root {
   insert a single row into the table: "sessions"
   """
   insert_sessions_one(
-    """the row to be inserted"""
+    """
+    the row to be inserted
+    """
     object: sessions_insert_input!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: sessions_on_conflict
   ): sessions
 
@@ -682,10 +814,14 @@ type mutation_root {
   insert data into the table: "users"
   """
   insert_users(
-    """the rows to be inserted"""
+    """
+    the rows to be inserted
+    """
     objects: [users_insert_input!]!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: users_on_conflict
   ): users_mutation_response
 
@@ -693,10 +829,14 @@ type mutation_root {
   insert a single row into the table: "users"
   """
   insert_users_one(
-    """the row to be inserted"""
+    """
+    the row to be inserted
+    """
     object: users_insert_input!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: users_on_conflict
   ): users
 
@@ -704,7 +844,9 @@ type mutation_root {
   insert data into the table: "verificationTokens"
   """
   insert_verificationTokens(
-    """the rows to be inserted"""
+    """
+    the rows to be inserted
+    """
     objects: [verificationTokens_insert_input!]!
   ): verificationTokens_mutation_response
 
@@ -712,7 +854,9 @@ type mutation_root {
   insert a single row into the table: "verificationTokens"
   """
   insert_verificationTokens_one(
-    """the row to be inserted"""
+    """
+    the row to be inserted
+    """
     object: verificationTokens_insert_input!
   ): verificationTokens
   signout: SignoutOutput
@@ -722,13 +866,19 @@ type mutation_root {
   update data of the table: "accounts"
   """
   update_accounts(
-    """increments the numeric columns with given value of the filtered values"""
+    """
+    increments the numeric columns with given value of the filtered values
+    """
     _inc: accounts_inc_input
 
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: accounts_set_input
 
-    """filter the rows which have to be updated"""
+    """
+    filter the rows which have to be updated
+    """
     where: accounts_bool_exp!
   ): accounts_mutation_response
 
@@ -736,10 +886,14 @@ type mutation_root {
   update single row of the table: "accounts"
   """
   update_accounts_by_pk(
-    """increments the numeric columns with given value of the filtered values"""
+    """
+    increments the numeric columns with given value of the filtered values
+    """
     _inc: accounts_inc_input
 
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: accounts_set_input
     pk_columns: accounts_pk_columns_input!
   ): accounts
@@ -748,13 +902,19 @@ type mutation_root {
   update data of the table: "passwords"
   """
   update_passwords(
-    """increments the numeric columns with given value of the filtered values"""
+    """
+    increments the numeric columns with given value of the filtered values
+    """
     _inc: passwords_inc_input
 
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: passwords_set_input
 
-    """filter the rows which have to be updated"""
+    """
+    filter the rows which have to be updated
+    """
     where: passwords_bool_exp!
   ): passwords_mutation_response
 
@@ -762,10 +922,14 @@ type mutation_root {
   update single row of the table: "passwords"
   """
   update_passwords_by_pk(
-    """increments the numeric columns with given value of the filtered values"""
+    """
+    increments the numeric columns with given value of the filtered values
+    """
     _inc: passwords_inc_input
 
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: passwords_set_input
     pk_columns: passwords_pk_columns_input!
   ): passwords
@@ -774,10 +938,14 @@ type mutation_root {
   update data of the table: "sessions"
   """
   update_sessions(
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: sessions_set_input
 
-    """filter the rows which have to be updated"""
+    """
+    filter the rows which have to be updated
+    """
     where: sessions_bool_exp!
   ): sessions_mutation_response
 
@@ -785,7 +953,9 @@ type mutation_root {
   update single row of the table: "sessions"
   """
   update_sessions_by_pk(
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: sessions_set_input
     pk_columns: sessions_pk_columns_input!
   ): sessions
@@ -794,10 +964,14 @@ type mutation_root {
   update data of the table: "users"
   """
   update_users(
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: users_set_input
 
-    """filter the rows which have to be updated"""
+    """
+    filter the rows which have to be updated
+    """
     where: users_bool_exp!
   ): users_mutation_response
 
@@ -805,7 +979,9 @@ type mutation_root {
   update single row of the table: "users"
   """
   update_users_by_pk(
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: users_set_input
     pk_columns: users_pk_columns_input!
   ): users
@@ -814,32 +990,50 @@ type mutation_root {
   update data of the table: "verificationTokens"
   """
   update_verificationTokens(
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: verificationTokens_set_input
 
-    """filter the rows which have to be updated"""
+    """
+    filter the rows which have to be updated
+    """
     where: verificationTokens_bool_exp!
   ): verificationTokens_mutation_response
 }
 
-"""column ordering options"""
+"""
+column ordering options
+"""
 enum order_by {
-  """in ascending order, nulls last"""
+  """
+  in ascending order, nulls last
+  """
   asc
 
-  """in ascending order, nulls first"""
+  """
+  in ascending order, nulls first
+  """
   asc_nulls_first
 
-  """in ascending order, nulls last"""
+  """
+  in ascending order, nulls last
+  """
   asc_nulls_last
 
-  """in descending order, nulls first"""
+  """
+  in descending order, nulls first
+  """
   desc
 
-  """in descending order, nulls first"""
+  """
+  in descending order, nulls first
+  """
   desc_nulls_first
 
-  """in descending order, nulls last"""
+  """
+  in descending order, nulls last
+  """
   desc_nulls_last
 }
 
@@ -902,11 +1096,15 @@ input type for inserting array relation for remote table "passwords"
 input passwords_arr_rel_insert_input {
   data: [passwords_insert_input!]!
 
-  """upsert condition"""
+  """
+  upsert condition
+  """
   on_conflict: passwords_on_conflict
 }
 
-"""aggregate avg on columns"""
+"""
+aggregate avg on columns
+"""
 type passwords_avg_fields {
   attempts: Float
   iterations: Float
@@ -968,7 +1166,9 @@ input passwords_insert_input {
   userId: String
 }
 
-"""aggregate max on columns"""
+"""
+aggregate max on columns
+"""
 type passwords_max_fields {
   attempts: Int
   hash: String
@@ -988,7 +1188,9 @@ input passwords_max_order_by {
   userId: order_by
 }
 
-"""aggregate min on columns"""
+"""
+aggregate min on columns
+"""
 type passwords_min_fields {
   attempts: Int
   hash: String
@@ -1012,10 +1214,14 @@ input passwords_min_order_by {
 response of any mutation on the table "passwords"
 """
 type passwords_mutation_response {
-  """number of rows affected by the mutation"""
+  """
+  number of rows affected by the mutation
+  """
   affected_rows: Int!
 
-  """data from the rows affected by the mutation"""
+  """
+  data from the rows affected by the mutation
+  """
   returning: [passwords!]!
 }
 
@@ -1028,7 +1234,9 @@ input passwords_on_conflict {
   where: passwords_bool_exp
 }
 
-"""Ordering options when selecting data from "passwords"."""
+"""
+Ordering options when selecting data from "passwords".
+"""
 input passwords_order_by {
   attempts: order_by
   hash: order_by
@@ -1037,7 +1245,9 @@ input passwords_order_by {
   userId: order_by
 }
 
-"""primary key columns input for table: passwords"""
+"""
+primary key columns input for table: passwords
+"""
 input passwords_pk_columns_input {
   hash: String!
 }
@@ -1046,19 +1256,29 @@ input passwords_pk_columns_input {
 select columns of table "passwords"
 """
 enum passwords_select_column {
-  """column name"""
+  """
+  column name
+  """
   attempts
 
-  """column name"""
+  """
+  column name
+  """
   hash
 
-  """column name"""
+  """
+  column name
+  """
   iterations
 
-  """column name"""
+  """
+  column name
+  """
   salt
 
-  """column name"""
+  """
+  column name
+  """
   userId
 }
 
@@ -1073,7 +1293,9 @@ input passwords_set_input {
   userId: String
 }
 
-"""aggregate stddev on columns"""
+"""
+aggregate stddev on columns
+"""
 type passwords_stddev_fields {
   attempts: Float
   iterations: Float
@@ -1087,7 +1309,9 @@ input passwords_stddev_order_by {
   iterations: order_by
 }
 
-"""aggregate stddev_pop on columns"""
+"""
+aggregate stddev_pop on columns
+"""
 type passwords_stddev_pop_fields {
   attempts: Float
   iterations: Float
@@ -1101,7 +1325,9 @@ input passwords_stddev_pop_order_by {
   iterations: order_by
 }
 
-"""aggregate stddev_samp on columns"""
+"""
+aggregate stddev_samp on columns
+"""
 type passwords_stddev_samp_fields {
   attempts: Float
   iterations: Float
@@ -1115,7 +1341,9 @@ input passwords_stddev_samp_order_by {
   iterations: order_by
 }
 
-"""aggregate sum on columns"""
+"""
+aggregate sum on columns
+"""
 type passwords_sum_fields {
   attempts: Int
   iterations: Int
@@ -1133,23 +1361,35 @@ input passwords_sum_order_by {
 update columns of table "passwords"
 """
 enum passwords_update_column {
-  """column name"""
+  """
+  column name
+  """
   attempts
 
-  """column name"""
+  """
+  column name
+  """
   hash
 
-  """column name"""
+  """
+  column name
+  """
   iterations
 
-  """column name"""
+  """
+  column name
+  """
   salt
 
-  """column name"""
+  """
+  column name
+  """
   userId
 }
 
-"""aggregate var_pop on columns"""
+"""
+aggregate var_pop on columns
+"""
 type passwords_var_pop_fields {
   attempts: Float
   iterations: Float
@@ -1163,7 +1403,9 @@ input passwords_var_pop_order_by {
   iterations: order_by
 }
 
-"""aggregate var_samp on columns"""
+"""
+aggregate var_samp on columns
+"""
 type passwords_var_samp_fields {
   attempts: Float
   iterations: Float
@@ -1177,7 +1419,9 @@ input passwords_var_samp_order_by {
   iterations: order_by
 }
 
-"""aggregate variance on columns"""
+"""
+aggregate variance on columns
+"""
 type passwords_variance_fields {
   attempts: Float
   iterations: Float
@@ -1196,19 +1440,29 @@ type query_root {
   fetch data from the table: "accounts"
   """
   accounts(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [accounts_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [accounts_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: accounts_bool_exp
   ): [accounts!]!
 
@@ -1216,122 +1470,196 @@ type query_root {
   fetch aggregated fields from the table: "accounts"
   """
   accounts_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [accounts_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [accounts_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: accounts_bool_exp
   ): accounts_aggregate!
 
-  """fetch data from the table: "accounts" using primary key columns"""
+  """
+  fetch data from the table: "accounts" using primary key columns
+  """
   accounts_by_pk(id: String!): accounts
   login(params: LoginInput!): AccessTokens!
 
-  """An array relationship"""
+  """
+  An array relationship
+  """
   passwords(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [passwords_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [passwords_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: passwords_bool_exp
   ): [passwords!]!
 
-  """An aggregate relationship"""
+  """
+  An aggregate relationship
+  """
   passwords_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [passwords_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [passwords_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: passwords_bool_exp
   ): passwords_aggregate!
 
-  """fetch data from the table: "passwords" using primary key columns"""
+  """
+  fetch data from the table: "passwords" using primary key columns
+  """
   passwords_by_pk(hash: String!): passwords
   refreshJwtToken(fingerprintHash: String!, refreshToken: String!): JwtToken!
 
-  """An array relationship"""
+  """
+  An array relationship
+  """
   sessions(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [sessions_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [sessions_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: sessions_bool_exp
   ): [sessions!]!
 
-  """An aggregate relationship"""
+  """
+  An aggregate relationship
+  """
   sessions_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [sessions_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [sessions_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: sessions_bool_exp
   ): sessions_aggregate!
 
-  """fetch data from the table: "sessions" using primary key columns"""
+  """
+  fetch data from the table: "sessions" using primary key columns
+  """
   sessions_by_pk(id: String!): sessions
 
   """
   fetch data from the table: "users"
   """
   users(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [users_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [users_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: users_bool_exp
   ): [users!]!
 
@@ -1339,42 +1667,64 @@ type query_root {
   fetch aggregated fields from the table: "users"
   """
   users_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [users_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [users_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: users_bool_exp
   ): users_aggregate!
 
-  """fetch data from the table: "users" using primary key columns"""
+  """
+  fetch data from the table: "users" using primary key columns
+  """
   users_by_pk(id: String!): users
 
   """
   fetch data from the table: "verificationTokens"
   """
   verificationTokens(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [verificationTokens_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [verificationTokens_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: verificationTokens_bool_exp
   ): [verificationTokens!]!
 
@@ -1382,19 +1732,29 @@ type query_root {
   fetch aggregated fields from the table: "verificationTokens"
   """
   verificationTokens_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [verificationTokens_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [verificationTokens_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: verificationTokens_bool_exp
   ): verificationTokens_aggregate!
 }
@@ -1441,7 +1801,9 @@ input type for inserting array relation for remote table "sessions"
 input sessions_arr_rel_insert_input {
   data: [sessions_insert_input!]!
 
-  """upsert condition"""
+  """
+  upsert condition
+  """
   on_conflict: sessions_on_conflict
 }
 
@@ -1478,7 +1840,9 @@ input sessions_insert_input {
   userId: String
 }
 
-"""aggregate max on columns"""
+"""
+aggregate max on columns
+"""
 type sessions_max_fields {
   expires: timestamp
   id: String
@@ -1496,7 +1860,9 @@ input sessions_max_order_by {
   userId: order_by
 }
 
-"""aggregate min on columns"""
+"""
+aggregate min on columns
+"""
 type sessions_min_fields {
   expires: timestamp
   id: String
@@ -1518,10 +1884,14 @@ input sessions_min_order_by {
 response of any mutation on the table "sessions"
 """
 type sessions_mutation_response {
-  """number of rows affected by the mutation"""
+  """
+  number of rows affected by the mutation
+  """
   affected_rows: Int!
 
-  """data from the rows affected by the mutation"""
+  """
+  data from the rows affected by the mutation
+  """
   returning: [sessions!]!
 }
 
@@ -1534,7 +1904,9 @@ input sessions_on_conflict {
   where: sessions_bool_exp
 }
 
-"""Ordering options when selecting data from "sessions"."""
+"""
+Ordering options when selecting data from "sessions".
+"""
 input sessions_order_by {
   expires: order_by
   id: order_by
@@ -1542,7 +1914,9 @@ input sessions_order_by {
   userId: order_by
 }
 
-"""primary key columns input for table: sessions"""
+"""
+primary key columns input for table: sessions
+"""
 input sessions_pk_columns_input {
   id: String!
 }
@@ -1551,16 +1925,24 @@ input sessions_pk_columns_input {
 select columns of table "sessions"
 """
 enum sessions_select_column {
-  """column name"""
+  """
+  column name
+  """
   expires
 
-  """column name"""
+  """
+  column name
+  """
   id
 
-  """column name"""
+  """
+  column name
+  """
   sessionToken
 
-  """column name"""
+  """
+  column name
+  """
   userId
 }
 
@@ -1578,16 +1960,24 @@ input sessions_set_input {
 update columns of table "sessions"
 """
 enum sessions_update_column {
-  """column name"""
+  """
+  column name
+  """
   expires
 
-  """column name"""
+  """
+  column name
+  """
   id
 
-  """column name"""
+  """
+  column name
+  """
   sessionToken
 
-  """column name"""
+  """
+  column name
+  """
   userId
 }
 
@@ -1596,19 +1986,29 @@ type subscription_root {
   fetch data from the table: "accounts"
   """
   accounts(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [accounts_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [accounts_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: accounts_bool_exp
   ): [accounts!]!
 
@@ -1616,120 +2016,194 @@ type subscription_root {
   fetch aggregated fields from the table: "accounts"
   """
   accounts_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [accounts_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [accounts_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: accounts_bool_exp
   ): accounts_aggregate!
 
-  """fetch data from the table: "accounts" using primary key columns"""
+  """
+  fetch data from the table: "accounts" using primary key columns
+  """
   accounts_by_pk(id: String!): accounts
 
-  """An array relationship"""
+  """
+  An array relationship
+  """
   passwords(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [passwords_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [passwords_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: passwords_bool_exp
   ): [passwords!]!
 
-  """An aggregate relationship"""
+  """
+  An aggregate relationship
+  """
   passwords_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [passwords_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [passwords_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: passwords_bool_exp
   ): passwords_aggregate!
 
-  """fetch data from the table: "passwords" using primary key columns"""
+  """
+  fetch data from the table: "passwords" using primary key columns
+  """
   passwords_by_pk(hash: String!): passwords
 
-  """An array relationship"""
+  """
+  An array relationship
+  """
   sessions(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [sessions_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [sessions_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: sessions_bool_exp
   ): [sessions!]!
 
-  """An aggregate relationship"""
+  """
+  An aggregate relationship
+  """
   sessions_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [sessions_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [sessions_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: sessions_bool_exp
   ): sessions_aggregate!
 
-  """fetch data from the table: "sessions" using primary key columns"""
+  """
+  fetch data from the table: "sessions" using primary key columns
+  """
   sessions_by_pk(id: String!): sessions
 
   """
   fetch data from the table: "users"
   """
   users(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [users_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [users_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: users_bool_exp
   ): [users!]!
 
@@ -1737,42 +2211,64 @@ type subscription_root {
   fetch aggregated fields from the table: "users"
   """
   users_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [users_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [users_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: users_bool_exp
   ): users_aggregate!
 
-  """fetch data from the table: "users" using primary key columns"""
+  """
+  fetch data from the table: "users" using primary key columns
+  """
   users_by_pk(id: String!): users
 
   """
   fetch data from the table: "verificationTokens"
   """
   verificationTokens(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [verificationTokens_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [verificationTokens_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: verificationTokens_bool_exp
   ): [verificationTokens!]!
 
@@ -1780,19 +2276,29 @@ type subscription_root {
   fetch aggregated fields from the table: "verificationTokens"
   """
   verificationTokens_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [verificationTokens_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [verificationTokens_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: verificationTokens_bool_exp
   ): verificationTokens_aggregate!
 }
@@ -1822,19 +2328,29 @@ type users {
   fetch data from the table: "accounts"
   """
   accounts(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [accounts_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [accounts_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: accounts_bool_exp
   ): [accounts!]!
 
@@ -1842,19 +2358,29 @@ type users {
   fetch aggregated fields from the table: "accounts"
   """
   accounts_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [accounts_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [accounts_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: accounts_bool_exp
   ): accounts_aggregate!
   blocked: Boolean!
@@ -1867,75 +2393,123 @@ type users {
   name: String
   password: String
 
-  """An array relationship"""
+  """
+  An array relationship
+  """
   passwords(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [passwords_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [passwords_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: passwords_bool_exp
   ): [passwords!]!
 
-  """An aggregate relationship"""
+  """
+  An aggregate relationship
+  """
   passwords_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [passwords_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [passwords_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: passwords_bool_exp
   ): passwords_aggregate!
 
-  """An array relationship"""
+  """
+  An array relationship
+  """
   sessions(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [sessions_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [sessions_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: sessions_bool_exp
   ): [sessions!]!
 
-  """An aggregate relationship"""
+  """
+  An aggregate relationship
+  """
   sessions_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [sessions_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [sessions_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: sessions_bool_exp
   ): sessions_aggregate!
 }
@@ -2006,7 +2580,9 @@ input users_insert_input {
   sessions: sessions_arr_rel_insert_input
 }
 
-"""aggregate max on columns"""
+"""
+aggregate max on columns
+"""
 type users_max_fields {
   email: String
   emailVerified: timestamp
@@ -2018,7 +2594,9 @@ type users_max_fields {
   password: String
 }
 
-"""aggregate min on columns"""
+"""
+aggregate min on columns
+"""
 type users_min_fields {
   email: String
   emailVerified: timestamp
@@ -2034,10 +2612,14 @@ type users_min_fields {
 response of any mutation on the table "users"
 """
 type users_mutation_response {
-  """number of rows affected by the mutation"""
+  """
+  number of rows affected by the mutation
+  """
   affected_rows: Int!
 
-  """data from the rows affected by the mutation"""
+  """
+  data from the rows affected by the mutation
+  """
   returning: [users!]!
 }
 
@@ -2050,7 +2632,9 @@ input users_on_conflict {
   where: users_bool_exp
 }
 
-"""Ordering options when selecting data from "users"."""
+"""
+Ordering options when selecting data from "users".
+"""
 input users_order_by {
   accounts_aggregate: accounts_aggregate_order_by
   blocked: order_by
@@ -2066,7 +2650,9 @@ input users_order_by {
   sessions_aggregate: sessions_aggregate_order_by
 }
 
-"""primary key columns input for table: users"""
+"""
+primary key columns input for table: users
+"""
 input users_pk_columns_input {
   id: String!
 }
@@ -2075,31 +2661,49 @@ input users_pk_columns_input {
 select columns of table "users"
 """
 enum users_select_column {
-  """column name"""
+  """
+  column name
+  """
   blocked
 
-  """column name"""
+  """
+  column name
+  """
   email
 
-  """column name"""
+  """
+  column name
+  """
   emailVerified
 
-  """column name"""
+  """
+  column name
+  """
   firstName
 
-  """column name"""
+  """
+  column name
+  """
   id
 
-  """column name"""
+  """
+  column name
+  """
   image
 
-  """column name"""
+  """
+  column name
+  """
   lastName
 
-  """column name"""
+  """
+  column name
+  """
   name
 
-  """column name"""
+  """
+  column name
+  """
   password
 }
 
@@ -2122,31 +2726,49 @@ input users_set_input {
 update columns of table "users"
 """
 enum users_update_column {
-  """column name"""
+  """
+  column name
+  """
   blocked
 
-  """column name"""
+  """
+  column name
+  """
   email
 
-  """column name"""
+  """
+  column name
+  """
   emailVerified
 
-  """column name"""
+  """
+  column name
+  """
   firstName
 
-  """column name"""
+  """
+  column name
+  """
   id
 
-  """column name"""
+  """
+  column name
+  """
   image
 
-  """column name"""
+  """
+  column name
+  """
   lastName
 
-  """column name"""
+  """
+  column name
+  """
   name
 
-  """column name"""
+  """
+  column name
+  """
   password
 }
 
@@ -2197,14 +2819,18 @@ input verificationTokens_insert_input {
   token: String
 }
 
-"""aggregate max on columns"""
+"""
+aggregate max on columns
+"""
 type verificationTokens_max_fields {
   expires: timestamp
   identifier: String
   token: String
 }
 
-"""aggregate min on columns"""
+"""
+aggregate min on columns
+"""
 type verificationTokens_min_fields {
   expires: timestamp
   identifier: String
@@ -2215,14 +2841,20 @@ type verificationTokens_min_fields {
 response of any mutation on the table "verificationTokens"
 """
 type verificationTokens_mutation_response {
-  """number of rows affected by the mutation"""
+  """
+  number of rows affected by the mutation
+  """
   affected_rows: Int!
 
-  """data from the rows affected by the mutation"""
+  """
+  data from the rows affected by the mutation
+  """
   returning: [verificationTokens!]!
 }
 
-"""Ordering options when selecting data from "verificationTokens"."""
+"""
+Ordering options when selecting data from "verificationTokens".
+"""
 input verificationTokens_order_by {
   expires: order_by
   identifier: order_by
@@ -2233,13 +2865,19 @@ input verificationTokens_order_by {
 select columns of table "verificationTokens"
 """
 enum verificationTokens_select_column {
-  """column name"""
+  """
+  column name
+  """
   expires
 
-  """column name"""
+  """
+  column name
+  """
   identifier
 
-  """column name"""
+  """
+  column name
+  """
   token
 }
 

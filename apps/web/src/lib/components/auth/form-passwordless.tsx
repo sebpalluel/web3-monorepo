@@ -5,31 +5,31 @@ import {
   VStack,
   FormControl,
   FormLabel,
-  Input
-} from '@chakra-ui/react'
-import { watch } from 'fs'
-import { signIn } from 'next-auth/react'
-import router, { useRouter } from 'next/router'
-import React from 'react'
-import { useForm } from 'react-hook-form'
-import { MdOutlineEmail } from 'react-icons/md'
+  Input,
+} from '@chakra-ui/react';
+import { watch } from 'fs';
+import { signIn } from 'next-auth/react';
+import router, { useRouter } from 'next/router';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { MdOutlineEmail } from 'react-icons/md';
 
 export default function FormPasswordlessEmail() {
-  const { isOpen, onToggle } = useDisclosure()
-  const router = useRouter()
+  const { isOpen, onToggle } = useDisclosure();
+  const router = useRouter();
   const {
     handleSubmit,
     register,
     watch,
-    formState: { errors, isSubmitting }
-  } = useForm()
+    formState: { errors, isSubmitting },
+  } = useForm();
 
   const onSubmit = (values: any) => {
     signIn('email', {
       ...values,
-      callbackUrl: router?.query?.callbackUrl?.toString()
-    })
-  }
+      callbackUrl: router?.query?.callbackUrl?.toString(),
+    });
+  };
 
   return (
     <>
@@ -56,5 +56,5 @@ export default function FormPasswordlessEmail() {
         </form>
       </Collapse>
     </>
-  )
+  );
 }

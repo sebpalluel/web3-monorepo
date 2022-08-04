@@ -10,49 +10,23 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@governance/api-middlewares": [
-        "libs/api-middlewares/src/index.ts"
-      ],
-      "@governance/gql": [
-        "libs/gql/src/index.ts"
-      ],
-      "@governance/gql-admin": [
-        "libs/gql/src/admin/generated/index.ts"
-      ],
-      "@governance/gql-user": [
-        "libs/gql/src/user/generated/index.ts"
-      ],
-      "@governance/hasura": [
-        "libs/hasura/src/index.ts"
-      ],
-      "@governance/logger": [
-        "libs/logger/src/index.ts"
-      ],
-      "@governance/next-auth": [
-        "libs/next-auth/src/index.ts"
-      ],
-      "@governance/utils": [
-        "libs/utils/src/lib/index.ts"
-      ],
-      "@governance/utils/types": [
-        "libs/utils/src/types/index.ts"
-      ],
-      "@web/*": [
-        "apps/web/src/*"
-      ]
+      "@governance/api-middlewares": ["libs/api-middlewares/src/index.ts"],
+      "@governance/gql": ["libs/gql/src/index.ts"],
+      "@governance/gql-admin": ["libs/gql/src/admin/generated/index.ts"],
+      "@governance/gql-user": ["libs/gql/src/user/generated/index.ts"],
+      "@governance/hasura": ["libs/hasura/src/index.ts"],
+      "@governance/logger": ["libs/logger/src/index.ts"],
+      "@governance/next-auth": ["libs/next-auth/src/index.ts"],
+      "@governance/utils": ["libs/utils/src/lib/index.ts"],
+      "@governance/utils/types": ["libs/utils/src/types/index.ts"],
+      "@web/*": ["apps/web/src/*"]
     }
   },
   "include": [],
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }

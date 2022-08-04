@@ -1,18 +1,11 @@
 {
-  "extends": [
-    "plugin:@nrwl/nx/react",
-    "../../.eslintrc.json"
-  ],
+  "extends": ["plugin:@nrwl/nx/react", "../../.eslintrc.json"],
   "overrides": [
     {
-      "files": [
-        "src/admin/**/*.gql"
-      ],
+      "files": ["src/admin/**/*.gql"],
       "extends": "plugin:@graphql-eslint/operations-all",
       "parserOptions": {
-        "operations": [
-          "src/admin/**/*.gql"
-        ],
+        "operations": ["src/admin/**/*.gql"],
         "schema": "src/admin/generated/schema.json"
       },
       "rules": {
@@ -31,14 +24,10 @@
       }
     },
     {
-      "files": [
-        "src/user/**/*.gql"
-      ],
+      "files": ["src/user/**/*.gql"],
       "extends": "plugin:@graphql-eslint/operations-all",
       "parserOptions": {
-        "operations": [
-          "src/user/**/*.gql"
-        ],
+        "operations": ["src/user/**/*.gql"],
         "schema": "src/user/generated/schema.json"
       },
       "rules": {

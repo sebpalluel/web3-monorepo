@@ -1,8 +1,8 @@
 // This is an example of to protect an API route
-import { getSession } from "next-auth/react";
-import type { NextApiRequest, NextApiResponse } from "next";
-import { getToken } from "next-auth/jwt";
-import { request, gql } from "graphql-request";
+import { getSession } from 'next-auth/react';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { getToken } from 'next-auth/jwt';
+import { request, gql } from 'graphql-request';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req });
@@ -36,8 +36,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     });
   } else {
     res.send({
-      error:
-        "You must be signed in to view the protected content on this page.",
+      error: 'You must be signed in to view the protected content on this page.',
     });
   }
-};;
+};

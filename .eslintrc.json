@@ -1,10 +1,6 @@
 {
   "root": true,
-  "plugins": [
-    "@nrwl/nx",
-    "eslint-plugin-prettier",
-    "markdown"
-  ],
+  "plugins": ["@nrwl/nx", "eslint-plugin-prettier", "markdown"],
   "extends": [
     "eslint-config-prettier",
     "plugin:markdown/recommended",
@@ -12,12 +8,7 @@
   ],
   "overrides": [
     {
-      "files": [
-        "*.ts",
-        "*.tsx",
-        "*.js",
-        "*.jsx"
-      ],
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
         "@nrwl/nx/enforce-module-boundaries": [
           "error",
@@ -27,9 +18,7 @@
             "depConstraints": [
               {
                 "sourceTag": "*",
-                "onlyDependOnLibsWithTags": [
-                  "*"
-                ]
+                "onlyDependOnLibsWithTags": ["*"]
               }
             ]
           }
@@ -37,38 +26,22 @@
       }
     },
     {
-      "files": [
-        "*.ts",
-        "*.tsx"
-      ],
-      "extends": [
-        "plugin:@nrwl/nx/typescript"
-      ],
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@nrwl/nx/typescript"],
       "rules": {}
     },
     {
-      "files": [
-        "*.js",
-        "*.jsx"
-      ],
-      "extends": [
-        "plugin:@nrwl/nx/javascript"
-      ],
+      "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nrwl/nx/javascript"],
       "rules": {}
     },
     {
-      "files": [
-        "*.json"
-      ],
-      "extends": [
-        "plugin:json/recommended"
-      ],
+      "files": ["*.json"],
+      "extends": ["plugin:json/recommended"],
       "rules": {}
     },
     {
-      "files": [
-        "**/*.md"
-      ],
+      "files": ["**/*.md"],
       "processor": "markdown/markdown"
     }
   ]

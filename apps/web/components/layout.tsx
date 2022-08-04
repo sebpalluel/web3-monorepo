@@ -1,7 +1,7 @@
-import type { ReactChildren } from 'react'
+import type { ReactChildren } from 'react';
 
 interface Props {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 export default function Layout({ children }: Props) {
@@ -9,5 +9,5 @@ export default function Layout({ children }: Props) {
     <>
       <main>{children}</main>
     </>
-  )
+  );
 }
