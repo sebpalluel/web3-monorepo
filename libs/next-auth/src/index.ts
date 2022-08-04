@@ -75,7 +75,7 @@ const refreshAccessToken = async (token: JWT) => {
 };
 
 export const jwtOptions: JWTOptions = {
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET as string,
   maxAge: parseInt(process.env.TOKEN_LIFE_TIME as string) || 30 * 24 * 60 * 60, // 30 days
 
   encode: async ({ secret, token: payload }) => {
@@ -143,7 +143,7 @@ export const authOptions: NextAuthOptions = {
         },
         password: { label: 'Password', type: 'password' },
       },
-      authorize: async (credentials, req) => {
+      authorize: async (credentials) => {
         try {
           const user = await fetchJSON(
             `${process.env.NEXTAUTH_URL}/api/user/check-credentials`,
@@ -153,7 +153,10 @@ export const authOptions: NextAuthOptions = {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 accept: 'application/json',
               },
-              body: Object.entries(credentials)
+              body: Object.entries({
+                username: credentials?.username,
+                password: credentials?.password,
+              })
                 .map((e) => e.join('='))
                 .join('&'),
             }
@@ -213,7 +216,7 @@ export const authOptions: NextAuthOptions = {
         });
         return {
           accessToken: account.access_token,
-          accessTokenExpires: Date.now() + account.expires_at * 1000,
+          accessTokenExpires: Date.now() + (account?.expires_at as number) * 1000,
           refreshToken: account.refresh_token,
           user,
           provider: account.provider,

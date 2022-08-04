@@ -1,13 +1,13 @@
-import { Box } from "@chakra-ui/react";
+import { Box } from '@chakra-ui/react';
 
-import CTASection from "@web/lib/components/samples/CTASection";
-import SomeImage from "@web/lib/components/samples/SomeImage";
-import SomeText from "@web/lib/components/samples/SomeText";
+import CTASection from '../../../lib/components/samples/CTASection';
+import SomeImage from '../../../lib/components/samples/SomeImage';
+import SomeText from '../../../lib/components/samples/SomeText';
 
 const Home = () => {
   return (
     <Box
-      display={{ md: "flex" }}
+      display={{ md: 'flex' }}
       alignItems="center"
       minHeight="70vh"
       gap={8}

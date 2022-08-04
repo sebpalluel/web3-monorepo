@@ -1,5 +1,5 @@
-import { withAuth } from "next-auth/middleware";
-import { jwtOptions } from "@web/pages/api/auth/[...nextauth]";
+import { withAuth } from 'next-auth/middleware';
+import { jwtOptions } from '@governance/next-auth';
 
 // More on how NextAuth.js middleware works: https://next-auth.js.org/configuration/nextjs#middleware
 export default withAuth({
@@ -7,7 +7,7 @@ export default withAuth({
   callbacks: {
     authorized: ({ token }) => {
       console.log({ token });
-      return token?.userRole === "admin";
+      return token?.userRole === 'admin';
     },
   },
 });
