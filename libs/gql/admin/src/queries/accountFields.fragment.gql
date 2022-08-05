@@ -1,0 +1,5 @@
+fragment AccountFields on accounts {
+  id
+  provider
+  type
+}

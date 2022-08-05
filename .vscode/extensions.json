@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "vivaxy.vscode-conventional-commits",
+    "dsznajder.es7-react-js-snippets",
+    "mhutchie.git-graph",
+    "oderwat.indent-rainbow",
+    "streetsidesoftware.code-spell-checker",
+    "nrwl.angular-console",
+    "firsttris.vscode-jest-runner",
+    "graphql.vscode-graphql",
+    "me-dutour-mathieu.vscode-github-actions"
+  ]
+}

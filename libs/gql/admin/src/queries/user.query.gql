@@ -1,0 +1,25 @@
+query GetUsersAndAccountByEmail($email: String!) {
+  users(where: { email: { _eq: $email } }) {
+    accounts {
+      ...AccountFields
+    }
+    ...UserFields
+  }
+}
+mutation CreateUserWithCredentials(
+  $password: passwords_insert_input!
+  $user: users_insert_input!
+) {
+  insert_users_one(object: $user) {
+    ...UserFields
+  }
+  insert_passwords_one(object: $password) {
+    hash
+  }
+}
+
+mutation UpdateUser($id: String!, $user: users_set_input!) {
+  update_users_by_pk(_set: $user, pk_columns: { id: $id }) {
+    ...UserFields
+  }
+}

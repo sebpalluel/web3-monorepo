@@ -1,0 +1,48 @@
+{
+  "root": true,
+  "plugins": ["@nrwl/nx", "eslint-plugin-prettier", "markdown"],
+  "extends": [
+    "eslint-config-prettier",
+    "plugin:markdown/recommended",
+    "plugin:json/recommended"
+  ],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "@nrwl/nx/enforce-module-boundaries": [
+          "error",
+          {
+            "enforceBuildableLibDependency": true,
+            "allow": [],
+            "depConstraints": [
+              {
+                "sourceTag": "*",
+                "onlyDependOnLibsWithTags": ["*"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@nrwl/nx/typescript"],
+      "rules": {}
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nrwl/nx/javascript"],
+      "rules": {}
+    },
+    {
+      "files": ["*.json"],
+      "extends": ["plugin:json/recommended"],
+      "rules": {}
+    },
+    {
+      "files": ["**/*.md"],
+      "processor": "markdown/markdown"
+    }
+  ]
+}

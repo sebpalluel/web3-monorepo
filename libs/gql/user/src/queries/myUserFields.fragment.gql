@@ -1,0 +1,8 @@
+fragment MyUserFields on users {
+  email
+  emailVerified
+  id
+  image
+  name
+  password
+}

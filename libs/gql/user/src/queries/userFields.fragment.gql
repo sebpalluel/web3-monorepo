@@ -1,0 +1,7 @@
+fragment UserFields on users {
+  email
+  emailVerified
+  id
+  image
+  name
+}
