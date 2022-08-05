@@ -3,7 +3,7 @@ import {
   withMiddlewares,
   withErrorHandling,
   withMethodsGuard,
-} from '@governance/api-middlewares';
+} from '../../../lib/middlewares';
 import { hasuraRequest } from '@governance/hasura';
 import {
   GetUsersAndAccountByEmailDocument,

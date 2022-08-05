@@ -2,7 +2,6 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
-    "api-middlewares": "libs/api-middlewares",
     "gql-admin": "libs/gql/admin",
     "gql-user": "libs/gql/user",
     "hasura": "libs/hasura",
