@@ -2,10 +2,19 @@ import { useMutation, useQuery, UseMutationOptions, UseQueryOptions } from 'reac
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
 
-function fetcher<TData, TVariables>(endpoint: string, requestInit: RequestInit, query: string, variables?: TVariables) {
+function fetcher<TData, TVariables>(
+  endpoint: string,
+  requestInit: RequestInit,
+  query: string,
+  variables?: TVariables
+) {
   return async (): Promise<TData> => {
     const res = await fetch(endpoint, {
       method: 'POST',
@@ -22,7 +31,7 @@ function fetcher<TData, TVariables>(endpoint: string, requestInit: RequestInit, 
     }
 
     return json.data;
-  }
+  };
 }
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -159,7 +168,6 @@ export type Accounts_Aggregate_Fields = {
   variance?: Maybe<Accounts_Variance_Fields>;
 };
 
-
 /** aggregate fields of "accounts" */
 export type Accounts_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Accounts_Select_Column>>;
@@ -221,8 +229,8 @@ export type Accounts_Bool_Exp = {
 /** unique or primary key constraints on table "accounts" */
 export const enum Accounts_Constraint {
   /** unique or primary key constraint on columns "id" */
-  AccountsPkey = 'accounts_pkey'
-};
+  AccountsPkey = 'accounts_pkey',
+}
 
 /** input type for incrementing numeric columns in table "accounts" */
 export type Accounts_Inc_Input = {
@@ -373,8 +381,8 @@ export const enum Accounts_Select_Column {
   /** column name */
   Type = 'type',
   /** column name */
-  UserId = 'userId'
-};
+  UserId = 'userId',
+}
 
 /** input type for updating data in table "accounts" */
 export type Accounts_Set_Input = {
@@ -461,8 +469,8 @@ export const enum Accounts_Update_Column {
   /** column name */
   Type = 'type',
   /** column name */
-  UserId = 'userId'
-};
+  UserId = 'userId',
+}
 
 /** aggregate var_pop on columns */
 export type Accounts_Var_Pop_Fields = {
@@ -560,60 +568,50 @@ export type Mutation_Root = {
   update_verificationTokens?: Maybe<VerificationTokens_Mutation_Response>;
 };
 
-
 /** mutation root */
 export type Mutation_RootDelete_AccountsArgs = {
   where: Accounts_Bool_Exp;
 };
-
 
 /** mutation root */
 export type Mutation_RootDelete_Accounts_By_PkArgs = {
   id: Scalars['String'];
 };
 
-
 /** mutation root */
 export type Mutation_RootDelete_PasswordsArgs = {
   where: Passwords_Bool_Exp;
 };
-
 
 /** mutation root */
 export type Mutation_RootDelete_Passwords_By_PkArgs = {
   hash: Scalars['String'];
 };
 
-
 /** mutation root */
 export type Mutation_RootDelete_SessionsArgs = {
   where: Sessions_Bool_Exp;
 };
-
 
 /** mutation root */
 export type Mutation_RootDelete_Sessions_By_PkArgs = {
   id: Scalars['String'];
 };
 
-
 /** mutation root */
 export type Mutation_RootDelete_UsersArgs = {
   where: Users_Bool_Exp;
 };
-
 
 /** mutation root */
 export type Mutation_RootDelete_Users_By_PkArgs = {
   id: Scalars['String'];
 };
 
-
 /** mutation root */
 export type Mutation_RootDelete_VerificationTokensArgs = {
   where: VerificationTokens_Bool_Exp;
 };
-
 
 /** mutation root */
 export type Mutation_RootInsert_AccountsArgs = {
@@ -621,13 +619,11 @@ export type Mutation_RootInsert_AccountsArgs = {
   on_conflict?: InputMaybe<Accounts_On_Conflict>;
 };
 
-
 /** mutation root */
 export type Mutation_RootInsert_Accounts_OneArgs = {
   object: Accounts_Insert_Input;
   on_conflict?: InputMaybe<Accounts_On_Conflict>;
 };
-
 
 /** mutation root */
 export type Mutation_RootInsert_PasswordsArgs = {
@@ -635,13 +631,11 @@ export type Mutation_RootInsert_PasswordsArgs = {
   on_conflict?: InputMaybe<Passwords_On_Conflict>;
 };
 
-
 /** mutation root */
 export type Mutation_RootInsert_Passwords_OneArgs = {
   object: Passwords_Insert_Input;
   on_conflict?: InputMaybe<Passwords_On_Conflict>;
 };
-
 
 /** mutation root */
 export type Mutation_RootInsert_SessionsArgs = {
@@ -649,13 +643,11 @@ export type Mutation_RootInsert_SessionsArgs = {
   on_conflict?: InputMaybe<Sessions_On_Conflict>;
 };
 
-
 /** mutation root */
 export type Mutation_RootInsert_Sessions_OneArgs = {
   object: Sessions_Insert_Input;
   on_conflict?: InputMaybe<Sessions_On_Conflict>;
 };
-
 
 /** mutation root */
 export type Mutation_RootInsert_UsersArgs = {
@@ -663,31 +655,26 @@ export type Mutation_RootInsert_UsersArgs = {
   on_conflict?: InputMaybe<Users_On_Conflict>;
 };
 
-
 /** mutation root */
 export type Mutation_RootInsert_Users_OneArgs = {
   object: Users_Insert_Input;
   on_conflict?: InputMaybe<Users_On_Conflict>;
 };
 
-
 /** mutation root */
 export type Mutation_RootInsert_VerificationTokensArgs = {
   objects: Array<VerificationTokens_Insert_Input>;
 };
-
 
 /** mutation root */
 export type Mutation_RootInsert_VerificationTokens_OneArgs = {
   object: VerificationTokens_Insert_Input;
 };
 
-
 /** mutation root */
 export type Mutation_RootSignupArgs = {
   params: SignupInput;
 };
-
 
 /** mutation root */
 export type Mutation_RootUpdate_AccountsArgs = {
@@ -696,14 +683,12 @@ export type Mutation_RootUpdate_AccountsArgs = {
   where: Accounts_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Accounts_By_PkArgs = {
   _inc?: InputMaybe<Accounts_Inc_Input>;
   _set?: InputMaybe<Accounts_Set_Input>;
   pk_columns: Accounts_Pk_Columns_Input;
 };
-
 
 /** mutation root */
 export type Mutation_RootUpdate_PasswordsArgs = {
@@ -712,7 +697,6 @@ export type Mutation_RootUpdate_PasswordsArgs = {
   where: Passwords_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Passwords_By_PkArgs = {
   _inc?: InputMaybe<Passwords_Inc_Input>;
@@ -720,13 +704,11 @@ export type Mutation_RootUpdate_Passwords_By_PkArgs = {
   pk_columns: Passwords_Pk_Columns_Input;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_SessionsArgs = {
   _set?: InputMaybe<Sessions_Set_Input>;
   where: Sessions_Bool_Exp;
 };
-
 
 /** mutation root */
 export type Mutation_RootUpdate_Sessions_By_PkArgs = {
@@ -734,20 +716,17 @@ export type Mutation_RootUpdate_Sessions_By_PkArgs = {
   pk_columns: Sessions_Pk_Columns_Input;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_UsersArgs = {
   _set?: InputMaybe<Users_Set_Input>;
   where: Users_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Users_By_PkArgs = {
   _set?: InputMaybe<Users_Set_Input>;
   pk_columns: Users_Pk_Columns_Input;
 };
-
 
 /** mutation root */
 export type Mutation_RootUpdate_VerificationTokensArgs = {
@@ -768,8 +747,8 @@ export const enum Order_By {
   /** in descending order, nulls first */
   DescNullsFirst = 'desc_nulls_first',
   /** in descending order, nulls last */
-  DescNullsLast = 'desc_nulls_last'
-};
+  DescNullsLast = 'desc_nulls_last',
+}
 
 /** columns and relationships of "passwords" */
 export type Passwords = {
@@ -803,7 +782,6 @@ export type Passwords_Aggregate_Fields = {
   var_samp?: Maybe<Passwords_Var_Samp_Fields>;
   variance?: Maybe<Passwords_Variance_Fields>;
 };
-
 
 /** aggregate fields of "passwords" */
 export type Passwords_Aggregate_FieldsCountArgs = {
@@ -863,8 +841,8 @@ export const enum Passwords_Constraint {
   /** unique or primary key constraint on columns "hash" */
   PasswordsPkey = 'passwords_pkey',
   /** unique or primary key constraint on columns "salt" */
-  PasswordsSaltKey = 'passwords_salt_key'
-};
+  PasswordsSaltKey = 'passwords_salt_key',
+}
 
 /** input type for incrementing numeric columns in table "passwords" */
 export type Passwords_Inc_Input = {
@@ -960,8 +938,8 @@ export const enum Passwords_Select_Column {
   /** column name */
   Salt = 'salt',
   /** column name */
-  UserId = 'userId'
-};
+  UserId = 'userId',
+}
 
 /** input type for updating data in table "passwords" */
 export type Passwords_Set_Input = {
@@ -1035,8 +1013,8 @@ export const enum Passwords_Update_Column {
   /** column name */
   Salt = 'salt',
   /** column name */
-  UserId = 'userId'
-};
+  UserId = 'userId',
+}
 
 /** aggregate var_pop on columns */
 export type Passwords_Var_Pop_Fields = {
@@ -1111,7 +1089,6 @@ export type Query_Root = {
   verificationTokens_aggregate: VerificationTokens_Aggregate;
 };
 
-
 export type Query_RootAccountsArgs = {
   distinct_on?: InputMaybe<Array<Accounts_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -1119,7 +1096,6 @@ export type Query_RootAccountsArgs = {
   order_by?: InputMaybe<Array<Accounts_Order_By>>;
   where?: InputMaybe<Accounts_Bool_Exp>;
 };
-
 
 export type Query_RootAccounts_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Accounts_Select_Column>>;
@@ -1129,16 +1105,13 @@ export type Query_RootAccounts_AggregateArgs = {
   where?: InputMaybe<Accounts_Bool_Exp>;
 };
 
-
 export type Query_RootAccounts_By_PkArgs = {
   id: Scalars['String'];
 };
 
-
 export type Query_RootLoginArgs = {
   params: LoginInput;
 };
-
 
 export type Query_RootPasswordsArgs = {
   distinct_on?: InputMaybe<Array<Passwords_Select_Column>>;
@@ -1148,7 +1121,6 @@ export type Query_RootPasswordsArgs = {
   where?: InputMaybe<Passwords_Bool_Exp>;
 };
 
-
 export type Query_RootPasswords_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Passwords_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -1157,17 +1129,14 @@ export type Query_RootPasswords_AggregateArgs = {
   where?: InputMaybe<Passwords_Bool_Exp>;
 };
 
-
 export type Query_RootPasswords_By_PkArgs = {
   hash: Scalars['String'];
 };
-
 
 export type Query_RootRefreshJwtTokenArgs = {
   fingerprintHash: Scalars['String'];
   refreshToken: Scalars['String'];
 };
-
 
 export type Query_RootSessionsArgs = {
   distinct_on?: InputMaybe<Array<Sessions_Select_Column>>;
@@ -1177,7 +1146,6 @@ export type Query_RootSessionsArgs = {
   where?: InputMaybe<Sessions_Bool_Exp>;
 };
 
-
 export type Query_RootSessions_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Sessions_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -1186,11 +1154,9 @@ export type Query_RootSessions_AggregateArgs = {
   where?: InputMaybe<Sessions_Bool_Exp>;
 };
 
-
 export type Query_RootSessions_By_PkArgs = {
   id: Scalars['String'];
 };
-
 
 export type Query_RootUsersArgs = {
   distinct_on?: InputMaybe<Array<Users_Select_Column>>;
@@ -1200,7 +1166,6 @@ export type Query_RootUsersArgs = {
   where?: InputMaybe<Users_Bool_Exp>;
 };
 
-
 export type Query_RootUsers_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Users_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -1209,11 +1174,9 @@ export type Query_RootUsers_AggregateArgs = {
   where?: InputMaybe<Users_Bool_Exp>;
 };
 
-
 export type Query_RootUsers_By_PkArgs = {
   id: Scalars['String'];
 };
-
 
 export type Query_RootVerificationTokensArgs = {
   distinct_on?: InputMaybe<Array<VerificationTokens_Select_Column>>;
@@ -1222,7 +1185,6 @@ export type Query_RootVerificationTokensArgs = {
   order_by?: InputMaybe<Array<VerificationTokens_Order_By>>;
   where?: InputMaybe<VerificationTokens_Bool_Exp>;
 };
-
 
 export type Query_RootVerificationTokens_AggregateArgs = {
   distinct_on?: InputMaybe<Array<VerificationTokens_Select_Column>>;
@@ -1255,7 +1217,6 @@ export type Sessions_Aggregate_Fields = {
   max?: Maybe<Sessions_Max_Fields>;
   min?: Maybe<Sessions_Min_Fields>;
 };
-
 
 /** aggregate fields of "sessions" */
 export type Sessions_Aggregate_FieldsCountArgs = {
@@ -1291,8 +1252,8 @@ export type Sessions_Bool_Exp = {
 /** unique or primary key constraints on table "sessions" */
 export const enum Sessions_Constraint {
   /** unique or primary key constraint on columns "id" */
-  SessionsPkey = 'sessions_pkey'
-};
+  SessionsPkey = 'sessions_pkey',
+}
 
 /** input type for inserting data into table "sessions" */
 export type Sessions_Insert_Input = {
@@ -1374,8 +1335,8 @@ export const enum Sessions_Select_Column {
   /** column name */
   SessionToken = 'sessionToken',
   /** column name */
-  UserId = 'userId'
-};
+  UserId = 'userId',
+}
 
 /** input type for updating data in table "sessions" */
 export type Sessions_Set_Input = {
@@ -1394,8 +1355,8 @@ export const enum Sessions_Update_Column {
   /** column name */
   SessionToken = 'sessionToken',
   /** column name */
-  UserId = 'userId'
-};
+  UserId = 'userId',
+}
 
 export type Subscription_Root = {
   __typename?: 'subscription_root';
@@ -1429,7 +1390,6 @@ export type Subscription_Root = {
   verificationTokens_aggregate: VerificationTokens_Aggregate;
 };
 
-
 export type Subscription_RootAccountsArgs = {
   distinct_on?: InputMaybe<Array<Accounts_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -1437,7 +1397,6 @@ export type Subscription_RootAccountsArgs = {
   order_by?: InputMaybe<Array<Accounts_Order_By>>;
   where?: InputMaybe<Accounts_Bool_Exp>;
 };
-
 
 export type Subscription_RootAccounts_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Accounts_Select_Column>>;
@@ -1447,11 +1406,9 @@ export type Subscription_RootAccounts_AggregateArgs = {
   where?: InputMaybe<Accounts_Bool_Exp>;
 };
 
-
 export type Subscription_RootAccounts_By_PkArgs = {
   id: Scalars['String'];
 };
-
 
 export type Subscription_RootPasswordsArgs = {
   distinct_on?: InputMaybe<Array<Passwords_Select_Column>>;
@@ -1461,7 +1418,6 @@ export type Subscription_RootPasswordsArgs = {
   where?: InputMaybe<Passwords_Bool_Exp>;
 };
 
-
 export type Subscription_RootPasswords_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Passwords_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -1470,11 +1426,9 @@ export type Subscription_RootPasswords_AggregateArgs = {
   where?: InputMaybe<Passwords_Bool_Exp>;
 };
 
-
 export type Subscription_RootPasswords_By_PkArgs = {
   hash: Scalars['String'];
 };
-
 
 export type Subscription_RootSessionsArgs = {
   distinct_on?: InputMaybe<Array<Sessions_Select_Column>>;
@@ -1484,7 +1438,6 @@ export type Subscription_RootSessionsArgs = {
   where?: InputMaybe<Sessions_Bool_Exp>;
 };
 
-
 export type Subscription_RootSessions_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Sessions_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -1493,11 +1446,9 @@ export type Subscription_RootSessions_AggregateArgs = {
   where?: InputMaybe<Sessions_Bool_Exp>;
 };
 
-
 export type Subscription_RootSessions_By_PkArgs = {
   id: Scalars['String'];
 };
-
 
 export type Subscription_RootUsersArgs = {
   distinct_on?: InputMaybe<Array<Users_Select_Column>>;
@@ -1507,7 +1458,6 @@ export type Subscription_RootUsersArgs = {
   where?: InputMaybe<Users_Bool_Exp>;
 };
 
-
 export type Subscription_RootUsers_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Users_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -1516,11 +1466,9 @@ export type Subscription_RootUsers_AggregateArgs = {
   where?: InputMaybe<Users_Bool_Exp>;
 };
 
-
 export type Subscription_RootUsers_By_PkArgs = {
   id: Scalars['String'];
 };
-
 
 export type Subscription_RootVerificationTokensArgs = {
   distinct_on?: InputMaybe<Array<VerificationTokens_Select_Column>>;
@@ -1529,7 +1477,6 @@ export type Subscription_RootVerificationTokensArgs = {
   order_by?: InputMaybe<Array<VerificationTokens_Order_By>>;
   where?: InputMaybe<VerificationTokens_Bool_Exp>;
 };
-
 
 export type Subscription_RootVerificationTokens_AggregateArgs = {
   distinct_on?: InputMaybe<Array<VerificationTokens_Select_Column>>;
@@ -1578,7 +1525,6 @@ export type Users = {
   sessions_aggregate: Sessions_Aggregate;
 };
 
-
 /** columns and relationships of "users" */
 export type UsersAccountsArgs = {
   distinct_on?: InputMaybe<Array<Accounts_Select_Column>>;
@@ -1587,7 +1533,6 @@ export type UsersAccountsArgs = {
   order_by?: InputMaybe<Array<Accounts_Order_By>>;
   where?: InputMaybe<Accounts_Bool_Exp>;
 };
-
 
 /** columns and relationships of "users" */
 export type UsersAccounts_AggregateArgs = {
@@ -1598,7 +1543,6 @@ export type UsersAccounts_AggregateArgs = {
   where?: InputMaybe<Accounts_Bool_Exp>;
 };
 
-
 /** columns and relationships of "users" */
 export type UsersPasswordsArgs = {
   distinct_on?: InputMaybe<Array<Passwords_Select_Column>>;
@@ -1607,7 +1551,6 @@ export type UsersPasswordsArgs = {
   order_by?: InputMaybe<Array<Passwords_Order_By>>;
   where?: InputMaybe<Passwords_Bool_Exp>;
 };
-
 
 /** columns and relationships of "users" */
 export type UsersPasswords_AggregateArgs = {
@@ -1618,7 +1561,6 @@ export type UsersPasswords_AggregateArgs = {
   where?: InputMaybe<Passwords_Bool_Exp>;
 };
 
-
 /** columns and relationships of "users" */
 export type UsersSessionsArgs = {
   distinct_on?: InputMaybe<Array<Sessions_Select_Column>>;
@@ -1627,7 +1569,6 @@ export type UsersSessionsArgs = {
   order_by?: InputMaybe<Array<Sessions_Order_By>>;
   where?: InputMaybe<Sessions_Bool_Exp>;
 };
-
 
 /** columns and relationships of "users" */
 export type UsersSessions_AggregateArgs = {
@@ -1652,7 +1593,6 @@ export type Users_Aggregate_Fields = {
   max?: Maybe<Users_Max_Fields>;
   min?: Maybe<Users_Min_Fields>;
 };
-
 
 /** aggregate fields of "users" */
 export type Users_Aggregate_FieldsCountArgs = {
@@ -1682,8 +1622,8 @@ export type Users_Bool_Exp = {
 /** unique or primary key constraints on table "users" */
 export const enum Users_Constraint {
   /** unique or primary key constraint on columns "id" */
-  UsersPkey = 'users_pkey'
-};
+  UsersPkey = 'users_pkey',
+}
 
 /** input type for inserting data into table "users" */
 export type Users_Insert_Input = {
@@ -1783,8 +1723,8 @@ export const enum Users_Select_Column {
   /** column name */
   Name = 'name',
   /** column name */
-  Password = 'password'
-};
+  Password = 'password',
+}
 
 /** input type for updating data in table "users" */
 export type Users_Set_Input = {
@@ -1818,8 +1758,8 @@ export const enum Users_Update_Column {
   /** column name */
   Name = 'name',
   /** column name */
-  Password = 'password'
-};
+  Password = 'password',
+}
 
 /** columns and relationships of "verificationTokens" */
 export type VerificationTokens = {
@@ -1843,7 +1783,6 @@ export type VerificationTokens_Aggregate_Fields = {
   max?: Maybe<VerificationTokens_Max_Fields>;
   min?: Maybe<VerificationTokens_Min_Fields>;
 };
-
 
 /** aggregate fields of "verificationTokens" */
 export type VerificationTokens_Aggregate_FieldsCountArgs = {
@@ -1907,8 +1846,8 @@ export const enum VerificationTokens_Select_Column {
   /** column name */
   Identifier = 'identifier',
   /** column name */
-  Token = 'token'
-};
+  Token = 'token',
+}
 
 /** input type for updating data in table "verificationTokens" */
 export type VerificationTokens_Set_Input = {
@@ -1921,35 +1860,83 @@ export type DeleteAccountMutationVariables = Exact<{
   id: Scalars['String'];
 }>;
 
+export type DeleteAccountMutation = {
+  __typename?: 'mutation_root';
+  delete_accounts_by_pk?: { __typename?: 'accounts'; id: string } | null;
+};
 
-export type DeleteAccountMutation = { __typename?: 'mutation_root', delete_accounts_by_pk?: { __typename?: 'accounts', id: string } | null };
-
-export type AccountFieldsFragment = { __typename?: 'accounts', id: string, provider: string, type: string };
+export type AccountFieldsFragment = {
+  __typename?: 'accounts';
+  id: string;
+  provider: string;
+  type: string;
+};
 
 export type GetUsersAndAccountByEmailQueryVariables = Exact<{
   email: Scalars['String'];
 }>;
 
-
-export type GetUsersAndAccountByEmailQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', email?: string | null, emailVerified?: any | null, id: string, image?: string | null, name?: string | null, accounts: Array<{ __typename?: 'accounts', id: string, provider: string, type: string }> }> };
+export type GetUsersAndAccountByEmailQuery = {
+  __typename?: 'query_root';
+  users: Array<{
+    __typename?: 'users';
+    email?: string | null;
+    emailVerified?: any | null;
+    id: string;
+    image?: string | null;
+    name?: string | null;
+    accounts: Array<{
+      __typename?: 'accounts';
+      id: string;
+      provider: string;
+      type: string;
+    }>;
+  }>;
+};
 
 export type CreateUserWithCredentialsMutationVariables = Exact<{
   password: Passwords_Insert_Input;
   user: Users_Insert_Input;
 }>;
 
-
-export type CreateUserWithCredentialsMutation = { __typename?: 'mutation_root', insert_users_one?: { __typename?: 'users', email?: string | null, emailVerified?: any | null, id: string, image?: string | null, name?: string | null } | null, insert_passwords_one?: { __typename?: 'passwords', hash: string } | null };
+export type CreateUserWithCredentialsMutation = {
+  __typename?: 'mutation_root';
+  insert_users_one?: {
+    __typename?: 'users';
+    email?: string | null;
+    emailVerified?: any | null;
+    id: string;
+    image?: string | null;
+    name?: string | null;
+  } | null;
+  insert_passwords_one?: { __typename?: 'passwords'; hash: string } | null;
+};
 
 export type UpdateUserMutationVariables = Exact<{
   id: Scalars['String'];
   user: Users_Set_Input;
 }>;
 
+export type UpdateUserMutation = {
+  __typename?: 'mutation_root';
+  update_users_by_pk?: {
+    __typename?: 'users';
+    email?: string | null;
+    emailVerified?: any | null;
+    id: string;
+    image?: string | null;
+    name?: string | null;
+  } | null;
+};
 
-export type UpdateUserMutation = { __typename?: 'mutation_root', update_users_by_pk?: { __typename?: 'users', email?: string | null, emailVerified?: any | null, id: string, image?: string | null, name?: string | null } | null };
-
-export type UserFieldsFragment = { __typename?: 'users', email?: string | null, emailVerified?: any | null, id: string, image?: string | null, name?: string | null };
+export type UserFieldsFragment = {
+  __typename?: 'users';
+  email?: string | null;
+  emailVerified?: any | null;
+  id: string;
+  image?: string | null;
+  name?: string | null;
+};
 
 export const AccountFieldsFragmentDoc = `
     fragment AccountFields on accounts {
@@ -1974,19 +1961,36 @@ export const DeleteAccountDocument = `
   }
 }
     `;
-export const useDeleteAccountMutation = <
-      TError = unknown,
-      TContext = unknown
-    >(
-      dataSource: { endpoint: string, fetchParams?: RequestInit },
-      options?: UseMutationOptions<DeleteAccountMutation, TError, DeleteAccountMutationVariables, TContext>
-    ) =>
-    useMutation<DeleteAccountMutation, TError, DeleteAccountMutationVariables, TContext>(
-      ['DeleteAccount'],
-      (variables?: DeleteAccountMutationVariables) => fetcher<DeleteAccountMutation, DeleteAccountMutationVariables>(dataSource.endpoint, dataSource.fetchParams || {}, DeleteAccountDocument, variables)(),
-      options
-    );
-useDeleteAccountMutation.fetcher = (dataSource: { endpoint: string, fetchParams?: RequestInit }, variables: DeleteAccountMutationVariables) => fetcher<DeleteAccountMutation, DeleteAccountMutationVariables>(dataSource.endpoint, dataSource.fetchParams || {}, DeleteAccountDocument, variables);
+export const useDeleteAccountMutation = <TError = unknown, TContext = unknown>(
+  dataSource: { endpoint: string; fetchParams?: RequestInit },
+  options?: UseMutationOptions<
+    DeleteAccountMutation,
+    TError,
+    DeleteAccountMutationVariables,
+    TContext
+  >
+) =>
+  useMutation<DeleteAccountMutation, TError, DeleteAccountMutationVariables, TContext>(
+    ['DeleteAccount'],
+    (variables?: DeleteAccountMutationVariables) =>
+      fetcher<DeleteAccountMutation, DeleteAccountMutationVariables>(
+        dataSource.endpoint,
+        dataSource.fetchParams || {},
+        DeleteAccountDocument,
+        variables
+      )(),
+    options
+  );
+useDeleteAccountMutation.fetcher = (
+  dataSource: { endpoint: string; fetchParams?: RequestInit },
+  variables: DeleteAccountMutationVariables
+) =>
+  fetcher<DeleteAccountMutation, DeleteAccountMutationVariables>(
+    dataSource.endpoint,
+    dataSource.fetchParams || {},
+    DeleteAccountDocument,
+    variables
+  );
 export const GetUsersAndAccountByEmailDocument = `
     query GetUsersAndAccountByEmail($email: String!) {
   users(where: {email: {_eq: $email}}) {
@@ -1999,23 +2003,37 @@ export const GetUsersAndAccountByEmailDocument = `
     ${AccountFieldsFragmentDoc}
 ${UserFieldsFragmentDoc}`;
 export const useGetUsersAndAccountByEmailQuery = <
-      TData = GetUsersAndAccountByEmailQuery,
-      TError = unknown
-    >(
-      dataSource: { endpoint: string, fetchParams?: RequestInit },
-      variables: GetUsersAndAccountByEmailQueryVariables,
-      options?: UseQueryOptions<GetUsersAndAccountByEmailQuery, TError, TData>
-    ) =>
-    useQuery<GetUsersAndAccountByEmailQuery, TError, TData>(
-      ['GetUsersAndAccountByEmail', variables],
-      fetcher<GetUsersAndAccountByEmailQuery, GetUsersAndAccountByEmailQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, GetUsersAndAccountByEmailDocument, variables),
-      options
-    );
+  TData = GetUsersAndAccountByEmailQuery,
+  TError = unknown
+>(
+  dataSource: { endpoint: string; fetchParams?: RequestInit },
+  variables: GetUsersAndAccountByEmailQueryVariables,
+  options?: UseQueryOptions<GetUsersAndAccountByEmailQuery, TError, TData>
+) =>
+  useQuery<GetUsersAndAccountByEmailQuery, TError, TData>(
+    ['GetUsersAndAccountByEmail', variables],
+    fetcher<GetUsersAndAccountByEmailQuery, GetUsersAndAccountByEmailQueryVariables>(
+      dataSource.endpoint,
+      dataSource.fetchParams || {},
+      GetUsersAndAccountByEmailDocument,
+      variables
+    ),
+    options
+  );
 
-useGetUsersAndAccountByEmailQuery.getKey = (variables: GetUsersAndAccountByEmailQueryVariables) => ['GetUsersAndAccountByEmail', variables];
-;
-
-useGetUsersAndAccountByEmailQuery.fetcher = (dataSource: { endpoint: string, fetchParams?: RequestInit }, variables: GetUsersAndAccountByEmailQueryVariables) => fetcher<GetUsersAndAccountByEmailQuery, GetUsersAndAccountByEmailQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, GetUsersAndAccountByEmailDocument, variables);
+useGetUsersAndAccountByEmailQuery.getKey = (
+  variables: GetUsersAndAccountByEmailQueryVariables
+) => ['GetUsersAndAccountByEmail', variables];
+useGetUsersAndAccountByEmailQuery.fetcher = (
+  dataSource: { endpoint: string; fetchParams?: RequestInit },
+  variables: GetUsersAndAccountByEmailQueryVariables
+) =>
+  fetcher<GetUsersAndAccountByEmailQuery, GetUsersAndAccountByEmailQueryVariables>(
+    dataSource.endpoint,
+    dataSource.fetchParams || {},
+    GetUsersAndAccountByEmailDocument,
+    variables
+  );
 export const CreateUserWithCredentialsDocument = `
     mutation CreateUserWithCredentials($password: passwords_insert_input!, $user: users_insert_input!) {
   insert_users_one(object: $user) {
@@ -2027,18 +2045,46 @@ export const CreateUserWithCredentialsDocument = `
 }
     ${UserFieldsFragmentDoc}`;
 export const useCreateUserWithCredentialsMutation = <
-      TError = unknown,
-      TContext = unknown
-    >(
-      dataSource: { endpoint: string, fetchParams?: RequestInit },
-      options?: UseMutationOptions<CreateUserWithCredentialsMutation, TError, CreateUserWithCredentialsMutationVariables, TContext>
-    ) =>
-    useMutation<CreateUserWithCredentialsMutation, TError, CreateUserWithCredentialsMutationVariables, TContext>(
-      ['CreateUserWithCredentials'],
-      (variables?: CreateUserWithCredentialsMutationVariables) => fetcher<CreateUserWithCredentialsMutation, CreateUserWithCredentialsMutationVariables>(dataSource.endpoint, dataSource.fetchParams || {}, CreateUserWithCredentialsDocument, variables)(),
-      options
-    );
-useCreateUserWithCredentialsMutation.fetcher = (dataSource: { endpoint: string, fetchParams?: RequestInit }, variables: CreateUserWithCredentialsMutationVariables) => fetcher<CreateUserWithCredentialsMutation, CreateUserWithCredentialsMutationVariables>(dataSource.endpoint, dataSource.fetchParams || {}, CreateUserWithCredentialsDocument, variables);
+  TError = unknown,
+  TContext = unknown
+>(
+  dataSource: { endpoint: string; fetchParams?: RequestInit },
+  options?: UseMutationOptions<
+    CreateUserWithCredentialsMutation,
+    TError,
+    CreateUserWithCredentialsMutationVariables,
+    TContext
+  >
+) =>
+  useMutation<
+    CreateUserWithCredentialsMutation,
+    TError,
+    CreateUserWithCredentialsMutationVariables,
+    TContext
+  >(
+    ['CreateUserWithCredentials'],
+    (variables?: CreateUserWithCredentialsMutationVariables) =>
+      fetcher<
+        CreateUserWithCredentialsMutation,
+        CreateUserWithCredentialsMutationVariables
+      >(
+        dataSource.endpoint,
+        dataSource.fetchParams || {},
+        CreateUserWithCredentialsDocument,
+        variables
+      )(),
+    options
+  );
+useCreateUserWithCredentialsMutation.fetcher = (
+  dataSource: { endpoint: string; fetchParams?: RequestInit },
+  variables: CreateUserWithCredentialsMutationVariables
+) =>
+  fetcher<CreateUserWithCredentialsMutation, CreateUserWithCredentialsMutationVariables>(
+    dataSource.endpoint,
+    dataSource.fetchParams || {},
+    CreateUserWithCredentialsDocument,
+    variables
+  );
 export const UpdateUserDocument = `
     mutation UpdateUser($id: String!, $user: users_set_input!) {
   update_users_by_pk(_set: $user, pk_columns: {id: $id}) {
@@ -2046,16 +2092,33 @@ export const UpdateUserDocument = `
   }
 }
     ${UserFieldsFragmentDoc}`;
-export const useUpdateUserMutation = <
-      TError = unknown,
-      TContext = unknown
-    >(
-      dataSource: { endpoint: string, fetchParams?: RequestInit },
-      options?: UseMutationOptions<UpdateUserMutation, TError, UpdateUserMutationVariables, TContext>
-    ) =>
-    useMutation<UpdateUserMutation, TError, UpdateUserMutationVariables, TContext>(
-      ['UpdateUser'],
-      (variables?: UpdateUserMutationVariables) => fetcher<UpdateUserMutation, UpdateUserMutationVariables>(dataSource.endpoint, dataSource.fetchParams || {}, UpdateUserDocument, variables)(),
-      options
-    );
-useUpdateUserMutation.fetcher = (dataSource: { endpoint: string, fetchParams?: RequestInit }, variables: UpdateUserMutationVariables) => fetcher<UpdateUserMutation, UpdateUserMutationVariables>(dataSource.endpoint, dataSource.fetchParams || {}, UpdateUserDocument, variables);
+export const useUpdateUserMutation = <TError = unknown, TContext = unknown>(
+  dataSource: { endpoint: string; fetchParams?: RequestInit },
+  options?: UseMutationOptions<
+    UpdateUserMutation,
+    TError,
+    UpdateUserMutationVariables,
+    TContext
+  >
+) =>
+  useMutation<UpdateUserMutation, TError, UpdateUserMutationVariables, TContext>(
+    ['UpdateUser'],
+    (variables?: UpdateUserMutationVariables) =>
+      fetcher<UpdateUserMutation, UpdateUserMutationVariables>(
+        dataSource.endpoint,
+        dataSource.fetchParams || {},
+        UpdateUserDocument,
+        variables
+      )(),
+    options
+  );
+useUpdateUserMutation.fetcher = (
+  dataSource: { endpoint: string; fetchParams?: RequestInit },
+  variables: UpdateUserMutationVariables
+) =>
+  fetcher<UpdateUserMutation, UpdateUserMutationVariables>(
+    dataSource.endpoint,
+    dataSource.fetchParams || {},
+    UpdateUserDocument,
+    variables
+  );

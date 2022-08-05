@@ -1,17 +1,11 @@
 {
-  "extends": [
-    "../../../.eslintrc.json"
-  ],
+  "extends": ["../../../.eslintrc.json"],
   "overrides": [
     {
-      "files": [
-        "src/queries/**/*.gql"
-      ],
+      "files": ["src/queries/**/*.gql"],
       "extends": "plugin:@graphql-eslint/operations-all",
       "parserOptions": {
-        "operations": [
-          "src/queries/**/*.gql"
-        ],
+        "operations": ["src/queries/**/*.gql"],
         "schema": "src/generated/schema.json"
       },
       "rules": {

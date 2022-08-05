@@ -2,10 +2,19 @@ import { useQuery, UseQueryOptions } from 'react-query';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
 
-function fetcher<TData, TVariables>(endpoint: string, requestInit: RequestInit, query: string, variables?: TVariables) {
+function fetcher<TData, TVariables>(
+  endpoint: string,
+  requestInit: RequestInit,
+  query: string,
+  variables?: TVariables
+) {
   return async (): Promise<TData> => {
     const res = await fetch(endpoint, {
       method: 'POST',
@@ -22,7 +31,7 @@ function fetcher<TData, TVariables>(endpoint: string, requestInit: RequestInit, 
     }
 
     return json.data;
-  }
+  };
 }
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -104,25 +113,21 @@ export type Mutation_Root = {
   update_users_by_pk?: Maybe<Users>;
 };
 
-
 /** mutation root */
 export type Mutation_RootDelete_UsersArgs = {
   where: Users_Bool_Exp;
 };
-
 
 /** mutation root */
 export type Mutation_RootDelete_Users_By_PkArgs = {
   id: Scalars['String'];
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_UsersArgs = {
   _set?: InputMaybe<Users_Set_Input>;
   where: Users_Bool_Exp;
 };
-
 
 /** mutation root */
 export type Mutation_RootUpdate_Users_By_PkArgs = {
@@ -143,8 +148,8 @@ export const enum Order_By {
   /** in descending order, nulls first */
   DescNullsFirst = 'desc_nulls_first',
   /** in descending order, nulls last */
-  DescNullsLast = 'desc_nulls_last'
-};
+  DescNullsLast = 'desc_nulls_last',
+}
 
 /** columns and relationships of "passwords" */
 export type Passwords = {
@@ -220,8 +225,8 @@ export const enum Passwords_Select_Column {
   /** column name */
   Iterations = 'iterations',
   /** column name */
-  Salt = 'salt'
-};
+  Salt = 'salt',
+}
 
 /** order by stddev() on columns of table "passwords" */
 export type Passwords_Stddev_Order_By = {
@@ -278,7 +283,6 @@ export type Query_Root = {
   users_by_pk?: Maybe<Users>;
 };
 
-
 export type Query_RootPasswordsArgs = {
   distinct_on?: InputMaybe<Array<Passwords_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -287,17 +291,14 @@ export type Query_RootPasswordsArgs = {
   where?: InputMaybe<Passwords_Bool_Exp>;
 };
 
-
 export type Query_RootPasswords_By_PkArgs = {
   hash: Scalars['String'];
 };
-
 
 export type Query_RootRefreshJwtTokenArgs = {
   fingerprintHash: Scalars['String'];
   refreshToken: Scalars['String'];
 };
-
 
 export type Query_RootUsersArgs = {
   distinct_on?: InputMaybe<Array<Users_Select_Column>>;
@@ -306,7 +307,6 @@ export type Query_RootUsersArgs = {
   order_by?: InputMaybe<Array<Users_Order_By>>;
   where?: InputMaybe<Users_Bool_Exp>;
 };
-
 
 export type Query_RootUsers_By_PkArgs = {
   id: Scalars['String'];
@@ -324,7 +324,6 @@ export type Subscription_Root = {
   users_by_pk?: Maybe<Users>;
 };
 
-
 export type Subscription_RootPasswordsArgs = {
   distinct_on?: InputMaybe<Array<Passwords_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -333,11 +332,9 @@ export type Subscription_RootPasswordsArgs = {
   where?: InputMaybe<Passwords_Bool_Exp>;
 };
 
-
 export type Subscription_RootPasswords_By_PkArgs = {
   hash: Scalars['String'];
 };
-
 
 export type Subscription_RootUsersArgs = {
   distinct_on?: InputMaybe<Array<Users_Select_Column>>;
@@ -346,7 +343,6 @@ export type Subscription_RootUsersArgs = {
   order_by?: InputMaybe<Array<Users_Order_By>>;
   where?: InputMaybe<Users_Bool_Exp>;
 };
-
 
 export type Subscription_RootUsers_By_PkArgs = {
   id: Scalars['String'];
@@ -379,7 +375,6 @@ export type Users = {
   /** An array relationship */
   passwords: Array<Passwords>;
 };
-
 
 /** columns and relationships of "users" */
 export type UsersPasswordsArgs = {
@@ -450,8 +445,8 @@ export const enum Users_Select_Column {
   /** column name */
   Name = 'name',
   /** column name */
-  Password = 'password'
-};
+  Password = 'password',
+}
 
 /** input type for updating data in table "users" */
 export type Users_Set_Input = {
@@ -462,39 +457,105 @@ export type Users_Set_Input = {
   name?: InputMaybe<Scalars['String']>;
 };
 
-export type MyUserFieldsFragment = { __typename?: 'users', email?: string | null, emailVerified?: any | null, id: string, image?: string | null, name?: string | null, password?: string | null };
+export type MyUserFieldsFragment = {
+  __typename?: 'users';
+  email?: string | null;
+  emailVerified?: any | null;
+  id: string;
+  image?: string | null;
+  name?: string | null;
+  password?: string | null;
+};
 
-export type PasswordFieldsFragment = { __typename?: 'passwords', attempts: number, hash: string, iterations: number, salt: string };
+export type PasswordFieldsFragment = {
+  __typename?: 'passwords';
+  attempts: number;
+  hash: string;
+  iterations: number;
+  salt: string;
+};
 
 export type GetUserQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
-
-export type GetUserQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', email?: string | null, emailVerified?: any | null, id: string, image?: string | null, name?: string | null }> };
+export type GetUserQuery = {
+  __typename?: 'query_root';
+  users: Array<{
+    __typename?: 'users';
+    email?: string | null;
+    emailVerified?: any | null;
+    id: string;
+    image?: string | null;
+    name?: string | null;
+  }>;
+};
 
 export type GetUserByEmailQueryVariables = Exact<{
   email: Scalars['String'];
 }>;
 
-
-export type GetUserByEmailQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', email?: string | null, emailVerified?: any | null, id: string, image?: string | null, name?: string | null }> };
+export type GetUserByEmailQuery = {
+  __typename?: 'query_root';
+  users: Array<{
+    __typename?: 'users';
+    email?: string | null;
+    emailVerified?: any | null;
+    id: string;
+    image?: string | null;
+    name?: string | null;
+  }>;
+};
 
 export type GetMyUserByEmailQueryVariables = Exact<{
   email: Scalars['String'];
 }>;
 
-
-export type GetMyUserByEmailQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', email?: string | null, emailVerified?: any | null, id: string, image?: string | null, name?: string | null, password?: string | null }> };
+export type GetMyUserByEmailQuery = {
+  __typename?: 'query_root';
+  users: Array<{
+    __typename?: 'users';
+    email?: string | null;
+    emailVerified?: any | null;
+    id: string;
+    image?: string | null;
+    name?: string | null;
+    password?: string | null;
+  }>;
+};
 
 export type GetMyUserAndPasswordByEmailQueryVariables = Exact<{
   email: Scalars['String'];
 }>;
 
+export type GetMyUserAndPasswordByEmailQuery = {
+  __typename?: 'query_root';
+  users: Array<{
+    __typename?: 'users';
+    email?: string | null;
+    emailVerified?: any | null;
+    id: string;
+    image?: string | null;
+    name?: string | null;
+    password?: string | null;
+    passwords: Array<{
+      __typename?: 'passwords';
+      attempts: number;
+      hash: string;
+      iterations: number;
+      salt: string;
+    }>;
+  }>;
+};
 
-export type GetMyUserAndPasswordByEmailQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', email?: string | null, emailVerified?: any | null, id: string, image?: string | null, name?: string | null, password?: string | null, passwords: Array<{ __typename?: 'passwords', attempts: number, hash: string, iterations: number, salt: string }> }> };
-
-export type UserFieldsFragment = { __typename?: 'users', email?: string | null, emailVerified?: any | null, id: string, image?: string | null, name?: string | null };
+export type UserFieldsFragment = {
+  __typename?: 'users';
+  email?: string | null;
+  emailVerified?: any | null;
+  id: string;
+  image?: string | null;
+  name?: string | null;
+};
 
 export const MyUserFieldsFragmentDoc = `
     fragment MyUserFields on users {
@@ -530,24 +591,33 @@ export const GetUserDocument = `
   }
 }
     ${UserFieldsFragmentDoc}`;
-export const useGetUserQuery = <
-      TData = GetUserQuery,
-      TError = unknown
-    >(
-      dataSource: { endpoint: string, fetchParams?: RequestInit },
-      variables: GetUserQueryVariables,
-      options?: UseQueryOptions<GetUserQuery, TError, TData>
-    ) =>
-    useQuery<GetUserQuery, TError, TData>(
-      ['getUser', variables],
-      fetcher<GetUserQuery, GetUserQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, GetUserDocument, variables),
-      options
-    );
+export const useGetUserQuery = <TData = GetUserQuery, TError = unknown>(
+  dataSource: { endpoint: string; fetchParams?: RequestInit },
+  variables: GetUserQueryVariables,
+  options?: UseQueryOptions<GetUserQuery, TError, TData>
+) =>
+  useQuery<GetUserQuery, TError, TData>(
+    ['getUser', variables],
+    fetcher<GetUserQuery, GetUserQueryVariables>(
+      dataSource.endpoint,
+      dataSource.fetchParams || {},
+      GetUserDocument,
+      variables
+    ),
+    options
+  );
 
 useGetUserQuery.getKey = (variables: GetUserQueryVariables) => ['getUser', variables];
-;
-
-useGetUserQuery.fetcher = (dataSource: { endpoint: string, fetchParams?: RequestInit }, variables: GetUserQueryVariables) => fetcher<GetUserQuery, GetUserQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, GetUserDocument, variables);
+useGetUserQuery.fetcher = (
+  dataSource: { endpoint: string; fetchParams?: RequestInit },
+  variables: GetUserQueryVariables
+) =>
+  fetcher<GetUserQuery, GetUserQueryVariables>(
+    dataSource.endpoint,
+    dataSource.fetchParams || {},
+    GetUserDocument,
+    variables
+  );
 export const GetUserByEmailDocument = `
     query getUserByEmail($email: String!) {
   users(where: {email: {_eq: $email}}) {
@@ -555,24 +625,36 @@ export const GetUserByEmailDocument = `
   }
 }
     ${UserFieldsFragmentDoc}`;
-export const useGetUserByEmailQuery = <
-      TData = GetUserByEmailQuery,
-      TError = unknown
-    >(
-      dataSource: { endpoint: string, fetchParams?: RequestInit },
-      variables: GetUserByEmailQueryVariables,
-      options?: UseQueryOptions<GetUserByEmailQuery, TError, TData>
-    ) =>
-    useQuery<GetUserByEmailQuery, TError, TData>(
-      ['getUserByEmail', variables],
-      fetcher<GetUserByEmailQuery, GetUserByEmailQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, GetUserByEmailDocument, variables),
-      options
-    );
+export const useGetUserByEmailQuery = <TData = GetUserByEmailQuery, TError = unknown>(
+  dataSource: { endpoint: string; fetchParams?: RequestInit },
+  variables: GetUserByEmailQueryVariables,
+  options?: UseQueryOptions<GetUserByEmailQuery, TError, TData>
+) =>
+  useQuery<GetUserByEmailQuery, TError, TData>(
+    ['getUserByEmail', variables],
+    fetcher<GetUserByEmailQuery, GetUserByEmailQueryVariables>(
+      dataSource.endpoint,
+      dataSource.fetchParams || {},
+      GetUserByEmailDocument,
+      variables
+    ),
+    options
+  );
 
-useGetUserByEmailQuery.getKey = (variables: GetUserByEmailQueryVariables) => ['getUserByEmail', variables];
-;
-
-useGetUserByEmailQuery.fetcher = (dataSource: { endpoint: string, fetchParams?: RequestInit }, variables: GetUserByEmailQueryVariables) => fetcher<GetUserByEmailQuery, GetUserByEmailQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, GetUserByEmailDocument, variables);
+useGetUserByEmailQuery.getKey = (variables: GetUserByEmailQueryVariables) => [
+  'getUserByEmail',
+  variables,
+];
+useGetUserByEmailQuery.fetcher = (
+  dataSource: { endpoint: string; fetchParams?: RequestInit },
+  variables: GetUserByEmailQueryVariables
+) =>
+  fetcher<GetUserByEmailQuery, GetUserByEmailQueryVariables>(
+    dataSource.endpoint,
+    dataSource.fetchParams || {},
+    GetUserByEmailDocument,
+    variables
+  );
 export const GetMyUserByEmailDocument = `
     query getMyUserByEmail($email: String!) {
   users(where: {email: {_eq: $email}}) {
@@ -580,24 +662,36 @@ export const GetMyUserByEmailDocument = `
   }
 }
     ${MyUserFieldsFragmentDoc}`;
-export const useGetMyUserByEmailQuery = <
-      TData = GetMyUserByEmailQuery,
-      TError = unknown
-    >(
-      dataSource: { endpoint: string, fetchParams?: RequestInit },
-      variables: GetMyUserByEmailQueryVariables,
-      options?: UseQueryOptions<GetMyUserByEmailQuery, TError, TData>
-    ) =>
-    useQuery<GetMyUserByEmailQuery, TError, TData>(
-      ['getMyUserByEmail', variables],
-      fetcher<GetMyUserByEmailQuery, GetMyUserByEmailQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, GetMyUserByEmailDocument, variables),
-      options
-    );
+export const useGetMyUserByEmailQuery = <TData = GetMyUserByEmailQuery, TError = unknown>(
+  dataSource: { endpoint: string; fetchParams?: RequestInit },
+  variables: GetMyUserByEmailQueryVariables,
+  options?: UseQueryOptions<GetMyUserByEmailQuery, TError, TData>
+) =>
+  useQuery<GetMyUserByEmailQuery, TError, TData>(
+    ['getMyUserByEmail', variables],
+    fetcher<GetMyUserByEmailQuery, GetMyUserByEmailQueryVariables>(
+      dataSource.endpoint,
+      dataSource.fetchParams || {},
+      GetMyUserByEmailDocument,
+      variables
+    ),
+    options
+  );
 
-useGetMyUserByEmailQuery.getKey = (variables: GetMyUserByEmailQueryVariables) => ['getMyUserByEmail', variables];
-;
-
-useGetMyUserByEmailQuery.fetcher = (dataSource: { endpoint: string, fetchParams?: RequestInit }, variables: GetMyUserByEmailQueryVariables) => fetcher<GetMyUserByEmailQuery, GetMyUserByEmailQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, GetMyUserByEmailDocument, variables);
+useGetMyUserByEmailQuery.getKey = (variables: GetMyUserByEmailQueryVariables) => [
+  'getMyUserByEmail',
+  variables,
+];
+useGetMyUserByEmailQuery.fetcher = (
+  dataSource: { endpoint: string; fetchParams?: RequestInit },
+  variables: GetMyUserByEmailQueryVariables
+) =>
+  fetcher<GetMyUserByEmailQuery, GetMyUserByEmailQueryVariables>(
+    dataSource.endpoint,
+    dataSource.fetchParams || {},
+    GetMyUserByEmailDocument,
+    variables
+  );
 export const GetMyUserAndPasswordByEmailDocument = `
     query getMyUserAndPasswordByEmail($email: String!) {
   users(where: {email: {_eq: $email}}) {
@@ -610,20 +704,34 @@ export const GetMyUserAndPasswordByEmailDocument = `
     ${MyUserFieldsFragmentDoc}
 ${PasswordFieldsFragmentDoc}`;
 export const useGetMyUserAndPasswordByEmailQuery = <
-      TData = GetMyUserAndPasswordByEmailQuery,
-      TError = unknown
-    >(
-      dataSource: { endpoint: string, fetchParams?: RequestInit },
-      variables: GetMyUserAndPasswordByEmailQueryVariables,
-      options?: UseQueryOptions<GetMyUserAndPasswordByEmailQuery, TError, TData>
-    ) =>
-    useQuery<GetMyUserAndPasswordByEmailQuery, TError, TData>(
-      ['getMyUserAndPasswordByEmail', variables],
-      fetcher<GetMyUserAndPasswordByEmailQuery, GetMyUserAndPasswordByEmailQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, GetMyUserAndPasswordByEmailDocument, variables),
-      options
-    );
+  TData = GetMyUserAndPasswordByEmailQuery,
+  TError = unknown
+>(
+  dataSource: { endpoint: string; fetchParams?: RequestInit },
+  variables: GetMyUserAndPasswordByEmailQueryVariables,
+  options?: UseQueryOptions<GetMyUserAndPasswordByEmailQuery, TError, TData>
+) =>
+  useQuery<GetMyUserAndPasswordByEmailQuery, TError, TData>(
+    ['getMyUserAndPasswordByEmail', variables],
+    fetcher<GetMyUserAndPasswordByEmailQuery, GetMyUserAndPasswordByEmailQueryVariables>(
+      dataSource.endpoint,
+      dataSource.fetchParams || {},
+      GetMyUserAndPasswordByEmailDocument,
+      variables
+    ),
+    options
+  );
 
-useGetMyUserAndPasswordByEmailQuery.getKey = (variables: GetMyUserAndPasswordByEmailQueryVariables) => ['getMyUserAndPasswordByEmail', variables];
-;
-
-useGetMyUserAndPasswordByEmailQuery.fetcher = (dataSource: { endpoint: string, fetchParams?: RequestInit }, variables: GetMyUserAndPasswordByEmailQueryVariables) => fetcher<GetMyUserAndPasswordByEmailQuery, GetMyUserAndPasswordByEmailQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, GetMyUserAndPasswordByEmailDocument, variables);
+useGetMyUserAndPasswordByEmailQuery.getKey = (
+  variables: GetMyUserAndPasswordByEmailQueryVariables
+) => ['getMyUserAndPasswordByEmail', variables];
+useGetMyUserAndPasswordByEmailQuery.fetcher = (
+  dataSource: { endpoint: string; fetchParams?: RequestInit },
+  variables: GetMyUserAndPasswordByEmailQueryVariables
+) =>
+  fetcher<GetMyUserAndPasswordByEmailQuery, GetMyUserAndPasswordByEmailQueryVariables>(
+    dataSource.endpoint,
+    dataSource.fetchParams || {},
+    GetMyUserAndPasswordByEmailDocument,
+    variables
+  );

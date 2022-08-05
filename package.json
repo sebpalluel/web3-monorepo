@@ -9,7 +9,18 @@
     "build": "nx build",
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",
+    "format": "nx format:write",
+    "format:write": "nx format:write",
+    "format:check": "nx format:check",
     "e2e": "nx e2e",
+    "all:test": "nx run-many --target=test --all",
+    "all:e2e": "nx run-many --target=e2e --all",
+    "update": "nx migrate latest",
+    "workspace-generator": "nx workspace-generator",
+    "dep-graph": "nx dep-graph",
+    "help": "nx help",
+    "graphql-codegen": "nx run web:gql",
+    "affected": "nx affected",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
     "affected:build": "nx affected:build",
@@ -17,20 +28,9 @@
     "affected:test": "nx affected:test",
     "affected:lint": "nx affected:lint",
     "affected:dep-graph": "nx affected:dep-graph",
-    "affected": "nx affected",
-    "all:test": "nx run-many --target=test --all",
-    "all:e2e": "nx run-many --target=e2e --all",
-    "format": "nx format:write",
-    "format:write": "nx format:write",
-    "format:check": "nx format:check",
-    "update": "nx migrate latest",
-    "workspace-generator": "nx workspace-generator",
-    "dep-graph": "nx dep-graph",
-    "help": "nx help",
     "docker:build": "docker-compose --env-file .env.local build",
     "docker:start": "docker-compose --env-file .env.local up",
     "docker:stop": "docker-compose --env-file .env.local stop",
-    "graphql-codegen": "nx run web:gql",
     "prepare": "husky install"
   },
   "private": true,
@@ -130,8 +130,8 @@
   },
   "lint-staged": {
     "*": [
-      "eslint --cache --fix"
-    ],
-    "*.format:write": "prettier --write"
+      "nx affected:lint --fix --files",
+      "nx format:write --files"
+    ]
   }
 }
