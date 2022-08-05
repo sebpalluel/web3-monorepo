@@ -18,6 +18,9 @@ const pluginsAndConfig = {
     exposeQueryKeys: true,
     exposeFetcher: true,
   },
+  hooks: {
+    afterOneFileWrite: ['nx affected:lint --fix --files', 'nx format:write --files'],
+  },
 };
 
 const hasuraSchema = (headers = userHeaders) => {
