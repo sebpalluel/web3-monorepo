@@ -64,5 +64,10 @@
       }
     }
   },
-  "defaultProject": "web"
+  "defaultProject": "web",
+  "pluginsConfig": {
+    "@nrwl/js": {
+      "analyzeSourceFiles": true
+    }
+  }
 }

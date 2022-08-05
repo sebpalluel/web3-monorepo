@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import type { Maybe } from '@governance/utils/types';
+import type { Maybe } from '@governance/utils';
 
 type Middleware = (req: NextApiRequest, res: NextApiResponse) => unknown;
 

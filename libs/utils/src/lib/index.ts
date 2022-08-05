@@ -2,7 +2,7 @@ export interface MyRequestInit extends Omit<RequestInit, 'headers'> {
   headers?: Record<string, string>;
 }
 
-export default async function fetchJSON(
+export async function fetchJSON(
   url: RequestInfo | URL,
   options: MyRequestInit | undefined = {}
 ) {

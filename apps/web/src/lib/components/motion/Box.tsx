@@ -3,7 +3,7 @@ import { chakra } from '@chakra-ui/react';
 import type { HTMLMotionProps } from 'framer-motion';
 import { motion } from 'framer-motion';
 
-import type { Merge } from '@governance/utils/types';
+import type { Merge } from '@governance/utils';
 
 type MotionBoxProps = Merge<HTMLChakraProps<'div'>, HTMLMotionProps<'div'>>;
 

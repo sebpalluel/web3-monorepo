@@ -20,7 +20,7 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { useForm } from 'react-hook-form';
 import { logger } from '@governance/logger';
 import { useRouter } from 'next/router';
-import fetchJSON from '@governance/utils';
+import { fetchJSON } from '@governance/utils';
 
 export default function SignupCard() {
   const router = useRouter();
