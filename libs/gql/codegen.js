@@ -30,30 +30,30 @@ module.exports = {
   overwrite: true,
   watch: true,
   generates: {
-    'libs/gql/src/user/generated/schema.json': {
+    'libs/gql/user/src/generated/schema.json': {
       schema: [hasuraSchema()],
       plugins: ['introspection'],
     },
-    'libs/gql/src/user/generated/schema.graphql': {
+    'libs/gql/user/src/generated/schema.graphql': {
       schema: [hasuraSchema()],
       plugins: ['schema-ast'],
     },
-    'libs/gql/src/user/generated/index.ts': {
+    'libs/gql/user/src/generated/index.ts': {
       schema: [hasuraSchema()],
-      documents: ['libs/gql/src/user/queries/**/*.{graphql,gql}'],
+      documents: ['libs/gql/user/src/queries/**/*.{graphql,gql}'],
       ...pluginsAndConfig,
     },
-    'libs/gql/src/admin/generated/schema.json': {
+    'libs/gql/admin/src/generated/schema.json': {
       schema: [hasuraSchema(adminHeaders)],
       plugins: ['introspection'],
     },
-    'libs/gql/src/admin/generated/schema.graphql': {
+    'libs/gql/admin/src/generated/schema.graphql': {
       schema: [hasuraSchema(adminHeaders)],
       plugins: ['schema-ast'],
     },
-    'libs/gql/src/admin/generated/index.ts': {
+    'libs/gql/admin/src/generated/index.ts': {
       schema: [hasuraSchema(adminHeaders)],
-      documents: ['libs/gql/src/admin/queries/**/*.{graphql,gql}'],
+      documents: ['libs/gql/admin/src/queries/**/*.{graphql,gql}'],
       ...pluginsAndConfig,
     },
   },

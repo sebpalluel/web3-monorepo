@@ -10,13 +10,13 @@ const adminHeaders = {
   'x-hasura-admin-secret': process.env.HASURA_GRAPHQL_ADMIN_SECRET || 'password',
 };
 
-const gqlPath = 'libs/gql/src';
+const gqlPath = 'libs/gql';
 
 module.exports = {
   projects: {
     admin: {
-      schema: `${gqlPath}/admin/generated/schema.json`,
-      documents: `${gqlPath}/admin/queries/*.gql`,
+      schema: `${gqlPath}/admin/src/generated/schema.json`,
+      documents: `${gqlPath}/admin/src/queries/**/*.gql`,
       extensions: {
         endpoints: {
           default: {
@@ -27,8 +27,8 @@ module.exports = {
       },
     },
     user: {
-      schema: `${gqlPath}/user/generated/schema.json`,
-      documents: `${gqlPath}/user/queries/*.gql`,
+      schema: `${gqlPath}/user/src/generated/schema.json`,
+      documents: `${gqlPath}/user/src/queries/**/*.gql`,
       extensions: {
         endpoints: {
           default: {

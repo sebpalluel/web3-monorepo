@@ -58,6 +58,16 @@
       "options": {
         "lintFilePatterns": ["apps/web/**/*.{ts,tsx,js,jsx,gql,graphql}"]
       }
+    },
+    "gql": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "npx graphql-codegen --config libs/gql/codegen.js"
+          }
+        ]
+      }
     }
   },
   "tags": []

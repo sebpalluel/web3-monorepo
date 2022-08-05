@@ -16,9 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@governance/api-middlewares": ["libs/api-middlewares/src/index.ts"],
-      "@governance/gql": ["libs/gql/src/index.ts"],
-      "@governance/gql-admin": ["libs/gql/src/admin/generated/index.ts"],
-      "@governance/gql-user": ["libs/gql/src/user/generated/index.ts"],
+      "@governance/gql-admin": ["libs/gql/admin/src/generated/index.ts"],
+      "@governance/gql-user": ["libs/gql/user/src/generated/index.ts"],
       "@governance/hasura": ["libs/hasura/src/index.ts"],
       "@governance/logger": ["libs/logger/src/index.ts"],
       "@governance/next-auth": ["libs/next-auth/src/index.ts"],
