@@ -1,4 +1,7 @@
 import { useQuery, UseQueryOptions } from 'react-query';
+import { GraphQLClient } from 'graphql-request';
+import * as Dom from 'graphql-request/dist/types.dom';
+import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -735,3 +738,141 @@ useGetMyUserAndPasswordByEmailQuery.fetcher = (
     GetMyUserAndPasswordByEmailDocument,
     variables
   );
+export const MyUserFieldsFragmentDoc = gql`
+  fragment MyUserFields on users {
+    email
+    emailVerified
+    id
+    image
+    name
+    password
+  }
+`;
+export const PasswordFieldsFragmentDoc = gql`
+  fragment PasswordFields on passwords {
+    attempts
+    hash
+    iterations
+    salt
+  }
+`;
+export const UserFieldsFragmentDoc = gql`
+  fragment UserFields on users {
+    email
+    emailVerified
+    id
+    image
+    name
+  }
+`;
+export const GetUserDocument = gql`
+  query getUser($id: String!) {
+    users(where: { id: { _eq: $id } }) {
+      ...UserFields
+    }
+  }
+  ${UserFieldsFragmentDoc}
+`;
+export const GetUserByEmailDocument = gql`
+  query getUserByEmail($email: String!) {
+    users(where: { email: { _eq: $email } }) {
+      ...UserFields
+    }
+  }
+  ${UserFieldsFragmentDoc}
+`;
+export const GetMyUserByEmailDocument = gql`
+  query getMyUserByEmail($email: String!) {
+    users(where: { email: { _eq: $email } }) {
+      ...MyUserFields
+    }
+  }
+  ${MyUserFieldsFragmentDoc}
+`;
+export const GetMyUserAndPasswordByEmailDocument = gql`
+  query getMyUserAndPasswordByEmail($email: String!) {
+    users(where: { email: { _eq: $email } }) {
+      ...MyUserFields
+      passwords {
+        ...PasswordFields
+      }
+    }
+  }
+  ${MyUserFieldsFragmentDoc}
+  ${PasswordFieldsFragmentDoc}
+`;
+
+export type SdkFunctionWrapper = <T>(
+  action: (requestHeaders?: Record<string, string>) => Promise<T>,
+  operationName: string,
+  operationType?: string
+) => Promise<T>;
+
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationType) =>
+  action();
+
+export function getSdk(
+  client: GraphQLClient,
+  withWrapper: SdkFunctionWrapper = defaultWrapper
+) {
+  return {
+    getUser(
+      variables: GetUserQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<GetUserQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetUserQuery>(GetUserDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'getUser',
+        'query'
+      );
+    },
+    getUserByEmail(
+      variables: GetUserByEmailQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<GetUserByEmailQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetUserByEmailQuery>(GetUserByEmailDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'getUserByEmail',
+        'query'
+      );
+    },
+    getMyUserByEmail(
+      variables: GetMyUserByEmailQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<GetMyUserByEmailQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetMyUserByEmailQuery>(GetMyUserByEmailDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'getMyUserByEmail',
+        'query'
+      );
+    },
+    getMyUserAndPasswordByEmail(
+      variables: GetMyUserAndPasswordByEmailQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<GetMyUserAndPasswordByEmailQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetMyUserAndPasswordByEmailQuery>(
+            GetMyUserAndPasswordByEmailDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        'getMyUserAndPasswordByEmail',
+        'query'
+      );
+    },
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;

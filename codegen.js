@@ -11,7 +11,12 @@ const adminHeaders = {
 };
 
 const pluginsAndConfig = {
-  plugins: ['typescript', 'typescript-operations', 'typescript-react-query'],
+  plugins: [
+    'typescript',
+    'typescript-operations',
+    'typescript-react-query',
+    'typescript-graphql-request',
+  ],
   config: {
     preResolveTypes: true,
     constEnums: true,

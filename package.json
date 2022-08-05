@@ -78,6 +78,7 @@
     "@graphql-codegen/introspection": "^2.2.0",
     "@graphql-codegen/schema-ast": "^2.5.0",
     "@graphql-codegen/typescript": "2.7.1",
+    "@graphql-codegen/typescript-graphql-request": "^4.5.2",
     "@graphql-codegen/typescript-operations": "2.5.1",
     "@graphql-codegen/typescript-react-query": "^3.6.2",
     "@graphql-eslint/eslint-plugin": "^3.10.6",

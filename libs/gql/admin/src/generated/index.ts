@@ -1,4 +1,7 @@
 import { useMutation, useQuery, UseMutationOptions, UseQueryOptions } from 'react-query';
+import { GraphQLClient } from 'graphql-request';
+import * as Dom from 'graphql-request/dist/types.dom';
+import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -2122,3 +2125,136 @@ useUpdateUserMutation.fetcher = (
     UpdateUserDocument,
     variables
   );
+export const AccountFieldsFragmentDoc = gql`
+  fragment AccountFields on accounts {
+    id
+    provider
+    type
+  }
+`;
+export const UserFieldsFragmentDoc = gql`
+  fragment UserFields on users {
+    email
+    emailVerified
+    id
+    image
+    name
+  }
+`;
+export const DeleteAccountDocument = gql`
+  mutation DeleteAccount($id: String!) {
+    delete_accounts_by_pk(id: $id) {
+      id
+    }
+  }
+`;
+export const GetUsersAndAccountByEmailDocument = gql`
+  query GetUsersAndAccountByEmail($email: String!) {
+    users(where: { email: { _eq: $email } }) {
+      accounts {
+        ...AccountFields
+      }
+      ...UserFields
+    }
+  }
+  ${AccountFieldsFragmentDoc}
+  ${UserFieldsFragmentDoc}
+`;
+export const CreateUserWithCredentialsDocument = gql`
+  mutation CreateUserWithCredentials(
+    $password: passwords_insert_input!
+    $user: users_insert_input!
+  ) {
+    insert_users_one(object: $user) {
+      ...UserFields
+    }
+    insert_passwords_one(object: $password) {
+      hash
+    }
+  }
+  ${UserFieldsFragmentDoc}
+`;
+export const UpdateUserDocument = gql`
+  mutation UpdateUser($id: String!, $user: users_set_input!) {
+    update_users_by_pk(_set: $user, pk_columns: { id: $id }) {
+      ...UserFields
+    }
+  }
+  ${UserFieldsFragmentDoc}
+`;
+
+export type SdkFunctionWrapper = <T>(
+  action: (requestHeaders?: Record<string, string>) => Promise<T>,
+  operationName: string,
+  operationType?: string
+) => Promise<T>;
+
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationType) =>
+  action();
+
+export function getSdk(
+  client: GraphQLClient,
+  withWrapper: SdkFunctionWrapper = defaultWrapper
+) {
+  return {
+    DeleteAccount(
+      variables: DeleteAccountMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<DeleteAccountMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<DeleteAccountMutation>(DeleteAccountDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'DeleteAccount',
+        'mutation'
+      );
+    },
+    GetUsersAndAccountByEmail(
+      variables: GetUsersAndAccountByEmailQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<GetUsersAndAccountByEmailQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetUsersAndAccountByEmailQuery>(
+            GetUsersAndAccountByEmailDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        'GetUsersAndAccountByEmail',
+        'query'
+      );
+    },
+    CreateUserWithCredentials(
+      variables: CreateUserWithCredentialsMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<CreateUserWithCredentialsMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<CreateUserWithCredentialsMutation>(
+            CreateUserWithCredentialsDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        'CreateUserWithCredentials',
+        'mutation'
+      );
+    },
+    UpdateUser(
+      variables: UpdateUserMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<UpdateUserMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<UpdateUserMutation>(UpdateUserDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'UpdateUser',
+        'mutation'
+      );
+    },
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;
