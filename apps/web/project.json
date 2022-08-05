@@ -64,7 +64,7 @@
       "options": {
         "commands": [
           {
-            "command": "npx graphql-codegen --config libs/gql/codegen.js"
+            "command": "npx graphql-codegen --config codegen.js"
           }
         ]
       }
