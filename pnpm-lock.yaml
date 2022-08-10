@@ -43,6 +43,7 @@ specifiers:
   crypto: ^1.0.1
   crypto-js: ^4.1.1
   cypress: ^9.7.0
+  dotenv: ^16.0.1
   eslint: ~8.15.0
   eslint-config-next: 12.2.2
   eslint-config-prettier: 8.1.0
@@ -101,6 +102,7 @@ dependencies:
   core-js: 3.24.0
   crypto: 1.0.1
   crypto-js: 4.1.1
+  dotenv: 16.0.1
   framer-motion: 6.5.1_biqbaboplfbrettd7655fr4n2y
   graphql: 16.5.0
   graphql-config: 4.3.3_coyzfjge32jlfb2chmficl5a2y
@@ -8930,7 +8932,6 @@ packages:
         integrity: sha512-1K6hR6wtk2FviQ4kEiSjFiH5rpzEVi8WW0x96aztHVMhEspNpc4DVOUTEHtEva5VThQ8IaBX1Pe4gSzpVVUsKQ==,
       }
     engines: { node: '>=12' }
-    dev: true
 
   /dset/3.1.2:
     resolution:
