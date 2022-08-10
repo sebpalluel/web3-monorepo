@@ -7,6 +7,8 @@
     "hasura": "libs/hasura",
     "logger": "libs/logger",
     "next-auth": "libs/next-auth",
+    "test-utils-db": "libs/test-utils/db",
+    "test-utils-jest": "libs/test-utils/jest",
     "utils": "libs/utils",
     "web": "apps/web",
     "web-e2e": "apps/web-e2e"

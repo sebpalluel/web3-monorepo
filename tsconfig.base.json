@@ -20,6 +20,8 @@
       "@governance/hasura": ["libs/hasura/src/index.ts"],
       "@governance/logger": ["libs/logger/src/index.ts"],
       "@governance/next-auth": ["libs/next-auth/src/index.ts"],
+      "@governance/test-utils-db": ["libs/test-utils/db/src/index.ts"],
+      "@governance/test-utils-jest": ["libs/test-utils/jest/src/index.ts"],
       "@governance/utils": ["libs/utils/src/index.ts"],
       "@web/*": ["apps/web/src/*"]
     }
