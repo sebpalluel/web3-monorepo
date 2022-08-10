@@ -57,16 +57,13 @@ const pluginsAndConfig = {
 };
 
 const adminPluginsAndConfig = {
-  plugins: ['typescript', 'typescript-operations', 'typescript-graphql-request'],
+  plugins: ['typescript', 'typescript-operations', 'typescript-generic-sdk', 'add'],
   config: {
-    preResolveTypes: true,
-    constEnums: true,
-    exposeQueryKeys: true,
-    exposeFetcher: true,
-    fetcher: {
-      func: '@governance/hasura#fetchDataAdmin',
-      isReactHook: false,
-    },
+    noExport: true,
+    documentMode: 'string',
+    content: `import { fetchDataAdmin } from "@governance/hasura-fetcher";\n
+    export const adminSdk = getSdk(fetchDataAdmin());`,
+    placement: 'append',
   },
   hooks: {
     afterOneFileWrite: ['nx affected:lint --fix --files', 'nx format:write --files'],

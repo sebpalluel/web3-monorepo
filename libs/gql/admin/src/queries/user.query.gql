@@ -23,3 +23,26 @@ mutation UpdateUser($id: String!, $user: users_set_input!) {
     ...UserFields
   }
 }
+
+query GetUserByAccount($provider: String!, $providerAccountId: String!) {
+  users(
+    where: {
+      _and: {
+        accounts: {
+          provider: { _eq: $provider }
+          providerAccountId: { _eq: $providerAccountId }
+        }
+      }
+    }
+  ) {
+    id
+    email
+    emailVerified
+    name
+    image
+    accounts {
+      provider
+      providerAccountId
+    }
+  }
+}
