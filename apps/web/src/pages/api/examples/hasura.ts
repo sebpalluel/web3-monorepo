@@ -1,4 +1,5 @@
-import { hasuraRequest } from '@governance/hasura';
+import { hasuraRequest } from '@governance/hasura-fetcher';
+import { useGetUserQuery } from '@governance/gql-user';
 
 import { getToken } from 'next-auth/jwt';
 
@@ -17,21 +18,22 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (session && token) {
     console.log({ token });
 
-    const data = await hasuraRequest({
-      token,
-      query: `
-            query getUser($id: String!){
-                users(where: {id: {_eq: $id}}) {
-                    id
-                    email
-              }
-            }
-       `,
-      variables: {
-        id: session?.user?.id,
-      },
-    });
-    res.send({ me: data?.users[0] });
+    // const data = await hasuraRequest({
+    //   token,
+    //   query: `
+    //         query getUser($id: String!){
+    //             users(where: {id: {_eq: $id}}) {
+    //                 id
+    //                 email
+    //           }
+    //         }
+    //    `,
+    //   variables: {
+    //     id: session?.user?.id,
+    //   },
+    // });
+    const { data } = useGetUserQuery({ id: session?.user?.id.toString() });
+    res.send({ me: data });
   } else {
     res.send({
       error: 'You must be sign in to view the protected content on this page.',

@@ -4,7 +4,7 @@ import {
   withErrorHandling,
   withMethodsGuard,
 } from '../../../lib/middlewares';
-import { hasuraRequest } from '@governance/hasura';
+import { hasuraRequest } from '@governance/hasura-fetcher';
 import {
   GetUsersAndAccountByEmailDocument,
   CreateUserWithCredentialsDocument,

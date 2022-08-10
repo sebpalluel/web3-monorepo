@@ -1,7 +1,8 @@
 import { randomBytes } from 'crypto';
 import type { Adapter, AdapterUser } from 'next-auth/adapters';
-import { hasuraRequest } from './utils';
+import { hasuraRequest } from '@governance/hasura-fetcher';
 import { UpdateUserDocument, DeleteAccountDocument } from '@governance/gql-admin';
+import { logger } from '@governance/logger';
 
 export function adapter(): Adapter {
   return {
@@ -71,6 +72,7 @@ export function adapter(): Adapter {
       return user || null;
     },
     async getUserByAccount({ providerAccountId, provider }) {
+      logger.error(providerAccountId, provider);
       const data = await hasuraRequest({
         query: `
           query getUserByAccount($provider: String!, $providerAccountId: String!){
@@ -99,6 +101,7 @@ export function adapter(): Adapter {
         },
         admin: true,
       });
+      logger.error(data);
       return data?.users[0] || null;
     },
     async updateUser(user) {
@@ -111,7 +114,7 @@ export function adapter(): Adapter {
         },
         admin: true,
       });
-      return data?.user as AdapterUser;
+      return data?.['user'] as AdapterUser;
     },
     async deleteUser(userId) {
       return null;

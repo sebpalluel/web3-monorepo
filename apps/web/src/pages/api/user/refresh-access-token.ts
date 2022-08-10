@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { hasuraRequest } from '@governance/hasura';
+import { hasuraRequest } from '@governance/hasura-fetcher';
 import { GetMyUserAndPasswordByEmailDocument } from '@governance/gql-user';
 import {
   withMiddlewares,

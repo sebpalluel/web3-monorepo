@@ -10,6 +10,28 @@ const adminHeaders = {
   'x-hasura-admin-secret': process.env.HASURA_GRAPHQL_ADMIN_SECRET || 'password',
 };
 
+// const operationsConfig = {
+//   plugins: ['typescript', 'typescript-operations'],
+//   config: {
+//     preResolveTypes: true,
+//   },
+//   hooks: {
+//     afterOneFileWrite: ['nx affected:lint --fix --files', 'nx format:write --files'],
+//   },
+// };
+
+// const config = {
+//   plugins: ['typescript', 'typescript-react-query', 'typescript-graphql-request'],
+//   config: {
+//     exposeQueryKeys: true,
+//     exposeFetcher: true,
+//     documentMode: 'external',
+//   },
+//   hooks: {
+//     afterOneFileWrite: ['nx affected:lint --fix --files', 'nx format:write --files'],
+//   },
+// };
+
 const pluginsAndConfig = {
   plugins: [
     'typescript',
@@ -22,6 +44,29 @@ const pluginsAndConfig = {
     constEnums: true,
     exposeQueryKeys: true,
     exposeFetcher: true,
+    documentMode: 'external',
+    importDocumentNodeExternallyFrom: './index',
+    fetcher: {
+      func: '@governance/hasura-fetcher#fetchData',
+      isReactHook: false,
+    },
+  },
+  hooks: {
+    afterOneFileWrite: ['nx affected:lint --fix --files', 'nx format:write --files'],
+  },
+};
+
+const adminPluginsAndConfig = {
+  plugins: ['typescript', 'typescript-operations', 'typescript-graphql-request'],
+  config: {
+    preResolveTypes: true,
+    constEnums: true,
+    exposeQueryKeys: true,
+    exposeFetcher: true,
+    fetcher: {
+      func: '@governance/hasura#fetchDataAdmin',
+      isReactHook: false,
+    },
   },
   hooks: {
     afterOneFileWrite: ['nx affected:lint --fix --files', 'nx format:write --files'],
@@ -30,7 +75,7 @@ const pluginsAndConfig = {
 
 const hasuraSchema = (headers = userHeaders) => {
   let schema = {};
-  schema[process.env.HASURA_URL] = { headers };
+  schema[process.env.NEXT_PUBLIC_HASURA_URL] = { headers };
   return schema;
 };
 
@@ -62,7 +107,7 @@ module.exports = {
     'libs/gql/admin/src/generated/index.ts': {
       schema: [hasuraSchema(adminHeaders)],
       documents: ['libs/gql/admin/src/queries/**/*.{graphql,gql}'],
-      ...pluginsAndConfig,
+      ...adminPluginsAndConfig,
     },
   },
 };

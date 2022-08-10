@@ -1,7 +1,8 @@
 import { useQuery, UseQueryOptions } from 'react-query';
+import { fetchData } from '@governance/hasura-fetcher';
 import { GraphQLClient } from 'graphql-request';
 import * as Dom from 'graphql-request/dist/types.dom';
-import gql from 'graphql-tag';
+import * as Operations from './index';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -11,31 +12,6 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>;
 };
-
-function fetcher<TData, TVariables>(
-  endpoint: string,
-  requestInit: RequestInit,
-  query: string,
-  variables?: TVariables
-) {
-  return async (): Promise<TData> => {
-    const res = await fetch(endpoint, {
-      method: 'POST',
-      ...requestInit,
-      body: JSON.stringify({ query, variables }),
-    });
-
-    const json = await res.json();
-
-    if (json.errors) {
-      const { message } = json.errors[0];
-
-      throw new Error(message);
-    }
-
-    return json.data;
-  };
-}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -595,32 +571,20 @@ export const GetUserDocument = `
 }
     ${UserFieldsFragmentDoc}`;
 export const useGetUserQuery = <TData = GetUserQuery, TError = unknown>(
-  dataSource: { endpoint: string; fetchParams?: RequestInit },
   variables: GetUserQueryVariables,
   options?: UseQueryOptions<GetUserQuery, TError, TData>
 ) =>
   useQuery<GetUserQuery, TError, TData>(
     ['getUser', variables],
-    fetcher<GetUserQuery, GetUserQueryVariables>(
-      dataSource.endpoint,
-      dataSource.fetchParams || {},
-      GetUserDocument,
-      variables
-    ),
+    fetchData<GetUserQuery, GetUserQueryVariables>(GetUserDocument, variables),
     options
   );
 
 useGetUserQuery.getKey = (variables: GetUserQueryVariables) => ['getUser', variables];
 useGetUserQuery.fetcher = (
-  dataSource: { endpoint: string; fetchParams?: RequestInit },
-  variables: GetUserQueryVariables
-) =>
-  fetcher<GetUserQuery, GetUserQueryVariables>(
-    dataSource.endpoint,
-    dataSource.fetchParams || {},
-    GetUserDocument,
-    variables
-  );
+  variables: GetUserQueryVariables,
+  options?: RequestInit['headers']
+) => fetchData<GetUserQuery, GetUserQueryVariables>(GetUserDocument, variables, options);
 export const GetUserByEmailDocument = `
     query getUserByEmail($email: String!) {
   users(where: {email: {_eq: $email}}) {
@@ -629,15 +593,12 @@ export const GetUserByEmailDocument = `
 }
     ${UserFieldsFragmentDoc}`;
 export const useGetUserByEmailQuery = <TData = GetUserByEmailQuery, TError = unknown>(
-  dataSource: { endpoint: string; fetchParams?: RequestInit },
   variables: GetUserByEmailQueryVariables,
   options?: UseQueryOptions<GetUserByEmailQuery, TError, TData>
 ) =>
   useQuery<GetUserByEmailQuery, TError, TData>(
     ['getUserByEmail', variables],
-    fetcher<GetUserByEmailQuery, GetUserByEmailQueryVariables>(
-      dataSource.endpoint,
-      dataSource.fetchParams || {},
+    fetchData<GetUserByEmailQuery, GetUserByEmailQueryVariables>(
       GetUserByEmailDocument,
       variables
     ),
@@ -649,14 +610,13 @@ useGetUserByEmailQuery.getKey = (variables: GetUserByEmailQueryVariables) => [
   variables,
 ];
 useGetUserByEmailQuery.fetcher = (
-  dataSource: { endpoint: string; fetchParams?: RequestInit },
-  variables: GetUserByEmailQueryVariables
+  variables: GetUserByEmailQueryVariables,
+  options?: RequestInit['headers']
 ) =>
-  fetcher<GetUserByEmailQuery, GetUserByEmailQueryVariables>(
-    dataSource.endpoint,
-    dataSource.fetchParams || {},
+  fetchData<GetUserByEmailQuery, GetUserByEmailQueryVariables>(
     GetUserByEmailDocument,
-    variables
+    variables,
+    options
   );
 export const GetMyUserByEmailDocument = `
     query getMyUserByEmail($email: String!) {
@@ -666,15 +626,12 @@ export const GetMyUserByEmailDocument = `
 }
     ${MyUserFieldsFragmentDoc}`;
 export const useGetMyUserByEmailQuery = <TData = GetMyUserByEmailQuery, TError = unknown>(
-  dataSource: { endpoint: string; fetchParams?: RequestInit },
   variables: GetMyUserByEmailQueryVariables,
   options?: UseQueryOptions<GetMyUserByEmailQuery, TError, TData>
 ) =>
   useQuery<GetMyUserByEmailQuery, TError, TData>(
     ['getMyUserByEmail', variables],
-    fetcher<GetMyUserByEmailQuery, GetMyUserByEmailQueryVariables>(
-      dataSource.endpoint,
-      dataSource.fetchParams || {},
+    fetchData<GetMyUserByEmailQuery, GetMyUserByEmailQueryVariables>(
       GetMyUserByEmailDocument,
       variables
     ),
@@ -686,14 +643,13 @@ useGetMyUserByEmailQuery.getKey = (variables: GetMyUserByEmailQueryVariables) =>
   variables,
 ];
 useGetMyUserByEmailQuery.fetcher = (
-  dataSource: { endpoint: string; fetchParams?: RequestInit },
-  variables: GetMyUserByEmailQueryVariables
+  variables: GetMyUserByEmailQueryVariables,
+  options?: RequestInit['headers']
 ) =>
-  fetcher<GetMyUserByEmailQuery, GetMyUserByEmailQueryVariables>(
-    dataSource.endpoint,
-    dataSource.fetchParams || {},
+  fetchData<GetMyUserByEmailQuery, GetMyUserByEmailQueryVariables>(
     GetMyUserByEmailDocument,
-    variables
+    variables,
+    options
   );
 export const GetMyUserAndPasswordByEmailDocument = `
     query getMyUserAndPasswordByEmail($email: String!) {
@@ -710,18 +666,15 @@ export const useGetMyUserAndPasswordByEmailQuery = <
   TData = GetMyUserAndPasswordByEmailQuery,
   TError = unknown
 >(
-  dataSource: { endpoint: string; fetchParams?: RequestInit },
   variables: GetMyUserAndPasswordByEmailQueryVariables,
   options?: UseQueryOptions<GetMyUserAndPasswordByEmailQuery, TError, TData>
 ) =>
   useQuery<GetMyUserAndPasswordByEmailQuery, TError, TData>(
     ['getMyUserAndPasswordByEmail', variables],
-    fetcher<GetMyUserAndPasswordByEmailQuery, GetMyUserAndPasswordByEmailQueryVariables>(
-      dataSource.endpoint,
-      dataSource.fetchParams || {},
-      GetMyUserAndPasswordByEmailDocument,
-      variables
-    ),
+    fetchData<
+      GetMyUserAndPasswordByEmailQuery,
+      GetMyUserAndPasswordByEmailQueryVariables
+    >(GetMyUserAndPasswordByEmailDocument, variables),
     options
   );
 
@@ -729,78 +682,14 @@ useGetMyUserAndPasswordByEmailQuery.getKey = (
   variables: GetMyUserAndPasswordByEmailQueryVariables
 ) => ['getMyUserAndPasswordByEmail', variables];
 useGetMyUserAndPasswordByEmailQuery.fetcher = (
-  dataSource: { endpoint: string; fetchParams?: RequestInit },
-  variables: GetMyUserAndPasswordByEmailQueryVariables
+  variables: GetMyUserAndPasswordByEmailQueryVariables,
+  options?: RequestInit['headers']
 ) =>
-  fetcher<GetMyUserAndPasswordByEmailQuery, GetMyUserAndPasswordByEmailQueryVariables>(
-    dataSource.endpoint,
-    dataSource.fetchParams || {},
+  fetchData<GetMyUserAndPasswordByEmailQuery, GetMyUserAndPasswordByEmailQueryVariables>(
     GetMyUserAndPasswordByEmailDocument,
-    variables
+    variables,
+    options
   );
-export const MyUserFieldsFragmentDoc = gql`
-  fragment MyUserFields on users {
-    email
-    emailVerified
-    id
-    image
-    name
-    password
-  }
-`;
-export const PasswordFieldsFragmentDoc = gql`
-  fragment PasswordFields on passwords {
-    attempts
-    hash
-    iterations
-    salt
-  }
-`;
-export const UserFieldsFragmentDoc = gql`
-  fragment UserFields on users {
-    email
-    emailVerified
-    id
-    image
-    name
-  }
-`;
-export const GetUserDocument = gql`
-  query getUser($id: String!) {
-    users(where: { id: { _eq: $id } }) {
-      ...UserFields
-    }
-  }
-  ${UserFieldsFragmentDoc}
-`;
-export const GetUserByEmailDocument = gql`
-  query getUserByEmail($email: String!) {
-    users(where: { email: { _eq: $email } }) {
-      ...UserFields
-    }
-  }
-  ${UserFieldsFragmentDoc}
-`;
-export const GetMyUserByEmailDocument = gql`
-  query getMyUserByEmail($email: String!) {
-    users(where: { email: { _eq: $email } }) {
-      ...MyUserFields
-    }
-  }
-  ${MyUserFieldsFragmentDoc}
-`;
-export const GetMyUserAndPasswordByEmailDocument = gql`
-  query getMyUserAndPasswordByEmail($email: String!) {
-    users(where: { email: { _eq: $email } }) {
-      ...MyUserFields
-      passwords {
-        ...PasswordFields
-      }
-    }
-  }
-  ${MyUserFieldsFragmentDoc}
-  ${PasswordFieldsFragmentDoc}
-`;
 
 export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
@@ -822,7 +711,7 @@ export function getSdk(
     ): Promise<GetUserQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetUserQuery>(GetUserDocument, variables, {
+          client.request<GetUserQuery>(Operations.GetUserDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
@@ -836,10 +725,11 @@ export function getSdk(
     ): Promise<GetUserByEmailQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetUserByEmailQuery>(GetUserByEmailDocument, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
+          client.request<GetUserByEmailQuery>(
+            Operations.GetUserByEmailDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
         'getUserByEmail',
         'query'
       );
@@ -850,10 +740,11 @@ export function getSdk(
     ): Promise<GetMyUserByEmailQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetMyUserByEmailQuery>(GetMyUserByEmailDocument, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
+          client.request<GetMyUserByEmailQuery>(
+            Operations.GetMyUserByEmailDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
         'getMyUserByEmail',
         'query'
       );
@@ -865,7 +756,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<GetMyUserAndPasswordByEmailQuery>(
-            GetMyUserAndPasswordByEmailDocument,
+            Operations.GetMyUserAndPasswordByEmailDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders }
           ),

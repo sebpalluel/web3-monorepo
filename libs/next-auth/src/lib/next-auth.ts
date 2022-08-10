@@ -6,7 +6,8 @@ import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-import { adapter, hasuraClaims, Roles } from '@governance/hasura';
+import { adapter } from '@governance/hasura-adapter';
+import { Roles } from '@governance/hasura-utils';
 import { fetchJSON } from '@governance/utils';
 import { logger } from '@governance/logger';
 
@@ -191,7 +192,7 @@ export const authOptions: NextAuthOptions = {
   jwt: jwtOptions,
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    // Add hasura claims and accessToken
+    // Add hasura data needed for claims_map + accessToken
     async jwt(args) {
       const {
         token,
@@ -221,13 +222,12 @@ export const authOptions: NextAuthOptions = {
           user,
           provider: account.provider,
           providerType: account.type,
-          ...hasuraClaims(token, Roles.user),
+          role: Roles.user,
         };
       } else {
-        Object.assign(
-          token,
-          hasuraClaims(token, token.user ? Roles.user : Roles.anonymous)
-        );
+        Object.assign(token, {
+          role: token.user ? Roles.user : Roles.anonymous,
+        });
       }
       logger.debug('jwt: ', token);
 

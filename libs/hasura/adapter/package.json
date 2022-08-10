@@ -1,5 +1,5 @@
 {
-  "name": "@governance/hasura",
+  "name": "@governance/hasura-adapter",
   "version": "0.0.1",
   "type": "commonjs"
 }
