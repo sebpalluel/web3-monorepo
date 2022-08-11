@@ -3,3 +3,10 @@ mutation DeleteAccount($id: String!) {
     id
   }
 }
+
+mutation LinkAccount($account: accounts_insert_input!) {
+  insert_accounts_one(object: $account) {
+    ...AccountFields
+    userId
+  }
+}

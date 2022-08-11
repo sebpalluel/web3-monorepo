@@ -1172,6 +1172,8 @@ type Sessions = {
   expires?: Maybe<Scalars['timestamp']>;
   id: Scalars['String'];
   sessionToken: Scalars['String'];
+  /** An object relationship */
+  user?: Maybe<Users>;
   userId: Scalars['String'];
 };
 
@@ -1218,6 +1220,7 @@ type Sessions_Bool_Exp = {
   expires?: InputMaybe<Timestamp_Comparison_Exp>;
   id?: InputMaybe<String_Comparison_Exp>;
   sessionToken?: InputMaybe<String_Comparison_Exp>;
+  user?: InputMaybe<Users_Bool_Exp>;
   userId?: InputMaybe<String_Comparison_Exp>;
 };
 
@@ -1232,6 +1235,7 @@ type Sessions_Insert_Input = {
   expires?: InputMaybe<Scalars['timestamp']>;
   id?: InputMaybe<Scalars['String']>;
   sessionToken?: InputMaybe<Scalars['String']>;
+  user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
   userId?: InputMaybe<Scalars['String']>;
 };
 
@@ -1290,6 +1294,7 @@ type Sessions_Order_By = {
   expires?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   sessionToken?: InputMaybe<Order_By>;
+  user?: InputMaybe<Users_Order_By>;
   userId?: InputMaybe<Order_By>;
 };
 
@@ -1648,6 +1653,13 @@ type Users_Mutation_Response = {
   returning: Array<Users>;
 };
 
+/** input type for inserting object relation for remote table "users" */
+type Users_Obj_Rel_Insert_Input = {
+  data: Users_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Users_On_Conflict>;
+};
+
 /** on_conflict condition type for table "users" */
 type Users_On_Conflict = {
   constraint: Users_Constraint;
@@ -1837,32 +1849,63 @@ type DeleteAccountMutation = {
   delete_accounts_by_pk?: { __typename?: 'accounts'; id: string } | null;
 };
 
+type LinkAccountMutationVariables = Exact<{
+  account: Accounts_Insert_Input;
+}>;
+
+type LinkAccountMutation = {
+  __typename?: 'mutation_root';
+  insert_accounts_one?: {
+    __typename?: 'accounts';
+    userId: string;
+    id: string;
+    provider: string;
+    providerAccountId: string;
+    type: string;
+  } | null;
+};
+
 type AccountFieldsFragment = {
   __typename?: 'accounts';
   id: string;
   provider: string;
+  providerAccountId: string;
   type: string;
 };
 
-type GetUsersAndAccountByEmailQueryVariables = Exact<{
-  email: Scalars['String'];
+type CreateSessionMutationVariables = Exact<{
+  session: Sessions_Insert_Input;
 }>;
 
-type GetUsersAndAccountByEmailQuery = {
-  __typename?: 'query_root';
-  users: Array<{
-    __typename?: 'users';
-    email?: string | null;
-    emailVerified?: any | null;
+type CreateSessionMutation = {
+  __typename?: 'mutation_root';
+  insert_sessions_one?: {
+    __typename?: 'sessions';
     id: string;
-    image?: string | null;
-    name?: string | null;
-    accounts: Array<{
-      __typename?: 'accounts';
+    userId: string;
+    expires?: any | null;
+    sessionToken: string;
+  } | null;
+};
+
+type GetSessionAndUserQueryVariables = Exact<{
+  sessionToken: Scalars['String'];
+}>;
+
+type GetSessionAndUserQuery = {
+  __typename?: 'query_root';
+  sessions: Array<{
+    __typename?: 'sessions';
+    sessionToken: string;
+    expires?: any | null;
+    user?: {
+      __typename?: 'users';
+      email?: string | null;
+      emailVerified?: any | null;
       id: string;
-      provider: string;
-      type: string;
-    }>;
+      image?: string | null;
+      name?: string | null;
+    } | null;
   }>;
 };
 
@@ -1910,16 +1953,105 @@ type GetUserByAccountQuery = {
   __typename?: 'query_root';
   users: Array<{
     __typename?: 'users';
-    id: string;
     email?: string | null;
     emailVerified?: any | null;
-    name?: string | null;
+    id: string;
     image?: string | null;
+    name?: string | null;
     accounts: Array<{
       __typename?: 'accounts';
+      id: string;
       provider: string;
       providerAccountId: string;
+      type: string;
     }>;
+  }>;
+};
+
+type CreateUserMutationVariables = Exact<{
+  user: Users_Insert_Input;
+}>;
+
+type CreateUserMutation = {
+  __typename?: 'mutation_root';
+  insert_users_one?: {
+    __typename?: 'users';
+    email?: string | null;
+    emailVerified?: any | null;
+    id: string;
+    image?: string | null;
+    name?: string | null;
+  } | null;
+};
+
+type GetUserQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+type GetUserQuery = {
+  __typename?: 'query_root';
+  users: Array<{
+    __typename?: 'users';
+    email?: string | null;
+    emailVerified?: any | null;
+    id: string;
+    image?: string | null;
+    name?: string | null;
+  }>;
+};
+
+type GetUserByEmailQueryVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+type GetUserByEmailQuery = {
+  __typename?: 'query_root';
+  users: Array<{
+    __typename?: 'users';
+    email?: string | null;
+    emailVerified?: any | null;
+    id: string;
+    image?: string | null;
+    name?: string | null;
+  }>;
+};
+
+type GetUsersAndAccountByEmailQueryVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+type GetUsersAndAccountByEmailQuery = {
+  __typename?: 'query_root';
+  users: Array<{
+    __typename?: 'users';
+    email?: string | null;
+    emailVerified?: any | null;
+    id: string;
+    image?: string | null;
+    name?: string | null;
+    accounts: Array<{
+      __typename?: 'accounts';
+      id: string;
+      provider: string;
+      providerAccountId: string;
+      type: string;
+    }>;
+  }>;
+};
+
+type UserAndAccountFieldsFragment = {
+  __typename?: 'users';
+  email?: string | null;
+  emailVerified?: any | null;
+  id: string;
+  image?: string | null;
+  name?: string | null;
+  accounts: Array<{
+    __typename?: 'accounts';
+    id: string;
+    provider: string;
+    providerAccountId: string;
+    type: string;
   }>;
 };
 
@@ -1932,13 +2064,46 @@ type UserFieldsFragment = {
   name?: string | null;
 };
 
-export const AccountFieldsFragmentDoc = `
-    fragment AccountFields on accounts {
-  id
-  provider
-  type
-}
-    `;
+type CreateVerificationTokenMutationVariables = Exact<{
+  verificationToken: VerificationTokens_Insert_Input;
+}>;
+
+type CreateVerificationTokenMutation = {
+  __typename?: 'mutation_root';
+  insert_verificationTokens_one?: {
+    __typename?: 'verificationTokens';
+    identifier: string;
+    expires: any;
+    token: string;
+  } | null;
+};
+
+type GetVerificationTokenQueryVariables = Exact<{
+  token: Scalars['String'];
+}>;
+
+type GetVerificationTokenQuery = {
+  __typename?: 'query_root';
+  verificationTokens: Array<{
+    __typename?: 'verificationTokens';
+    identifier: string;
+    expires: any;
+    token: string;
+  }>;
+};
+
+type DeleteVerificationTokenMutationVariables = Exact<{
+  token: Scalars['String'];
+}>;
+
+type DeleteVerificationTokenMutation = {
+  __typename?: 'mutation_root';
+  delete_verificationTokens?: {
+    __typename?: 'verificationTokens_mutation_response';
+    affected_rows: number;
+  } | null;
+};
+
 export const UserFieldsFragmentDoc = `
     fragment UserFields on users {
   email
@@ -1948,6 +2113,23 @@ export const UserFieldsFragmentDoc = `
   name
 }
     `;
+export const AccountFieldsFragmentDoc = `
+    fragment AccountFields on accounts {
+  id
+  provider
+  providerAccountId
+  type
+}
+    `;
+export const UserAndAccountFieldsFragmentDoc = `
+    fragment UserAndAccountFields on users {
+  ...UserFields
+  accounts {
+    ...AccountFields
+  }
+}
+    ${UserFieldsFragmentDoc}
+${AccountFieldsFragmentDoc}`;
 const DeleteAccountDocument = `
     mutation DeleteAccount($id: String!) {
   delete_accounts_by_pk(id: $id) {
@@ -1955,17 +2137,35 @@ const DeleteAccountDocument = `
   }
 }
     `;
-const GetUsersAndAccountByEmailDocument = `
-    query GetUsersAndAccountByEmail($email: String!) {
-  users(where: {email: {_eq: $email}}) {
-    accounts {
-      ...AccountFields
-    }
-    ...UserFields
+const LinkAccountDocument = `
+    mutation LinkAccount($account: accounts_insert_input!) {
+  insert_accounts_one(object: $account) {
+    ...AccountFields
+    userId
   }
 }
-    ${AccountFieldsFragmentDoc}
-${UserFieldsFragmentDoc}`;
+    ${AccountFieldsFragmentDoc}`;
+const CreateSessionDocument = `
+    mutation CreateSession($session: sessions_insert_input!) {
+  insert_sessions_one(object: $session) {
+    id
+    userId
+    expires
+    sessionToken
+  }
+}
+    `;
+const GetSessionAndUserDocument = `
+    query GetSessionAndUser($sessionToken: String!) {
+  sessions(where: {sessionToken: {_eq: $sessionToken}}) {
+    sessionToken
+    expires
+    user {
+      ...UserFields
+    }
+  }
+}
+    ${UserFieldsFragmentDoc}`;
 const CreateUserWithCredentialsDocument = `
     mutation CreateUserWithCredentials($password: passwords_insert_input!, $user: users_insert_input!) {
   insert_users_one(object: $user) {
@@ -1988,15 +2188,60 @@ const GetUserByAccountDocument = `
   users(
     where: {_and: {accounts: {provider: {_eq: $provider}, providerAccountId: {_eq: $providerAccountId}}}}
   ) {
-    id
-    email
-    emailVerified
-    name
-    image
-    accounts {
-      provider
-      providerAccountId
-    }
+    ...UserAndAccountFields
+  }
+}
+    ${UserAndAccountFieldsFragmentDoc}`;
+const CreateUserDocument = `
+    mutation CreateUser($user: users_insert_input!) {
+  insert_users_one(object: $user) {
+    ...UserFields
+  }
+}
+    ${UserFieldsFragmentDoc}`;
+const GetUserDocument = `
+    query GetUser($id: String!) {
+  users(where: {id: {_eq: $id}}) {
+    ...UserFields
+  }
+}
+    ${UserFieldsFragmentDoc}`;
+const GetUserByEmailDocument = `
+    query GetUserByEmail($email: String!) {
+  users(where: {email: {_eq: $email}}) {
+    ...UserFields
+  }
+}
+    ${UserFieldsFragmentDoc}`;
+const GetUsersAndAccountByEmailDocument = `
+    query GetUsersAndAccountByEmail($email: String!) {
+  users(where: {email: {_eq: $email}}) {
+    ...UserAndAccountFields
+  }
+}
+    ${UserAndAccountFieldsFragmentDoc}`;
+const CreateVerificationTokenDocument = `
+    mutation CreateVerificationToken($verificationToken: verificationTokens_insert_input!) {
+  insert_verificationTokens_one(object: $verificationToken) {
+    identifier
+    expires
+    token
+  }
+}
+    `;
+const GetVerificationTokenDocument = `
+    query GetVerificationToken($token: String!) {
+  verificationTokens(where: {token: {_eq: $token}}) {
+    identifier
+    expires
+    token
+  }
+}
+    `;
+const DeleteVerificationTokenDocument = `
+    mutation DeleteVerificationToken($token: String!) {
+  delete_verificationTokens(where: {token: {_eq: $token}}) {
+    affected_rows
   }
 }
     `;
@@ -2017,14 +2262,35 @@ export function getSdk<C, E>(requester: Requester<C, E>) {
         options
       );
     },
-    GetUsersAndAccountByEmail(
-      variables: GetUsersAndAccountByEmailQueryVariables,
+    LinkAccount(
+      variables: LinkAccountMutationVariables,
       options?: C
-    ): Promise<GetUsersAndAccountByEmailQuery> {
-      return requester<
-        GetUsersAndAccountByEmailQuery,
-        GetUsersAndAccountByEmailQueryVariables
-      >(GetUsersAndAccountByEmailDocument, variables, options);
+    ): Promise<LinkAccountMutation> {
+      return requester<LinkAccountMutation, LinkAccountMutationVariables>(
+        LinkAccountDocument,
+        variables,
+        options
+      );
+    },
+    CreateSession(
+      variables: CreateSessionMutationVariables,
+      options?: C
+    ): Promise<CreateSessionMutation> {
+      return requester<CreateSessionMutation, CreateSessionMutationVariables>(
+        CreateSessionDocument,
+        variables,
+        options
+      );
+    },
+    GetSessionAndUser(
+      variables: GetSessionAndUserQueryVariables,
+      options?: C
+    ): Promise<GetSessionAndUserQuery> {
+      return requester<GetSessionAndUserQuery, GetSessionAndUserQueryVariables>(
+        GetSessionAndUserDocument,
+        variables,
+        options
+      );
     },
     CreateUserWithCredentials(
       variables: CreateUserWithCredentialsMutationVariables,
@@ -2054,6 +2320,70 @@ export function getSdk<C, E>(requester: Requester<C, E>) {
         variables,
         options
       );
+    },
+    CreateUser(
+      variables: CreateUserMutationVariables,
+      options?: C
+    ): Promise<CreateUserMutation> {
+      return requester<CreateUserMutation, CreateUserMutationVariables>(
+        CreateUserDocument,
+        variables,
+        options
+      );
+    },
+    GetUser(variables: GetUserQueryVariables, options?: C): Promise<GetUserQuery> {
+      return requester<GetUserQuery, GetUserQueryVariables>(
+        GetUserDocument,
+        variables,
+        options
+      );
+    },
+    GetUserByEmail(
+      variables: GetUserByEmailQueryVariables,
+      options?: C
+    ): Promise<GetUserByEmailQuery> {
+      return requester<GetUserByEmailQuery, GetUserByEmailQueryVariables>(
+        GetUserByEmailDocument,
+        variables,
+        options
+      );
+    },
+    GetUsersAndAccountByEmail(
+      variables: GetUsersAndAccountByEmailQueryVariables,
+      options?: C
+    ): Promise<GetUsersAndAccountByEmailQuery> {
+      return requester<
+        GetUsersAndAccountByEmailQuery,
+        GetUsersAndAccountByEmailQueryVariables
+      >(GetUsersAndAccountByEmailDocument, variables, options);
+    },
+    CreateVerificationToken(
+      variables: CreateVerificationTokenMutationVariables,
+      options?: C
+    ): Promise<CreateVerificationTokenMutation> {
+      return requester<
+        CreateVerificationTokenMutation,
+        CreateVerificationTokenMutationVariables
+      >(CreateVerificationTokenDocument, variables, options);
+    },
+    GetVerificationToken(
+      variables: GetVerificationTokenQueryVariables,
+      options?: C
+    ): Promise<GetVerificationTokenQuery> {
+      return requester<GetVerificationTokenQuery, GetVerificationTokenQueryVariables>(
+        GetVerificationTokenDocument,
+        variables,
+        options
+      );
+    },
+    DeleteVerificationToken(
+      variables: DeleteVerificationTokenMutationVariables,
+      options?: C
+    ): Promise<DeleteVerificationTokenMutation> {
+      return requester<
+        DeleteVerificationTokenMutation,
+        DeleteVerificationTokenMutationVariables
+      >(DeleteVerificationTokenDocument, variables, options);
     },
   };
 }

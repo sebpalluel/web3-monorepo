@@ -1,0 +1,18 @@
+mutation CreateSession($session: sessions_insert_input!) {
+  insert_sessions_one(object: $session) {
+    id
+    userId
+    expires
+    sessionToken
+  }
+}
+
+query GetSessionAndUser($sessionToken: String!) {
+  sessions(where: { sessionToken: { _eq: $sessionToken } }) {
+    sessionToken
+    expires
+    user {
+      ...UserFields
+    }
+  }
+}

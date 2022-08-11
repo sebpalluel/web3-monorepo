@@ -1,11 +1,3 @@
-query GetUsersAndAccountByEmail($email: String!) {
-  users(where: { email: { _eq: $email } }) {
-    accounts {
-      ...AccountFields
-    }
-    ...UserFields
-  }
-}
 mutation CreateUserWithCredentials(
   $password: passwords_insert_input!
   $user: users_insert_input!
@@ -35,14 +27,30 @@ query GetUserByAccount($provider: String!, $providerAccountId: String!) {
       }
     }
   ) {
-    id
-    email
-    emailVerified
-    name
-    image
-    accounts {
-      provider
-      providerAccountId
-    }
+    ...UserAndAccountFields
+  }
+}
+
+mutation CreateUser($user: users_insert_input!) {
+  insert_users_one(object: $user) {
+    ...UserFields
+  }
+}
+
+query GetUser($id: String!) {
+  users(where: { id: { _eq: $id } }) {
+    ...UserFields
+  }
+}
+
+query GetUserByEmail($email: String!) {
+  users(where: { email: { _eq: $email } }) {
+    ...UserFields
+  }
+}
+
+query GetUsersAndAccountByEmail($email: String!) {
+  users(where: { email: { _eq: $email } }) {
+    ...UserAndAccountFields
   }
 }
