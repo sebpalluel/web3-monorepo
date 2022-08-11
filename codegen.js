@@ -10,28 +10,6 @@ const adminHeaders = {
   'x-hasura-admin-secret': process.env.HASURA_GRAPHQL_ADMIN_SECRET || 'password',
 };
 
-// const operationsConfig = {
-//   plugins: ['typescript', 'typescript-operations'],
-//   config: {
-//     preResolveTypes: true,
-//   },
-//   hooks: {
-//     afterOneFileWrite: ['nx affected:lint --fix --files', 'nx format:write --files'],
-//   },
-// };
-
-// const config = {
-//   plugins: ['typescript', 'typescript-react-query', 'typescript-graphql-request'],
-//   config: {
-//     exposeQueryKeys: true,
-//     exposeFetcher: true,
-//     documentMode: 'external',
-//   },
-//   hooks: {
-//     afterOneFileWrite: ['nx affected:lint --fix --files', 'nx format:write --files'],
-//   },
-// };
-
 const pluginsAndConfig = {
   plugins: [
     'typescript',
@@ -51,9 +29,6 @@ const pluginsAndConfig = {
       isReactHook: false,
     },
   },
-  // hooks: {
-  //   afterOneFileWrite: ['nx affected:lint --fix --files', 'nx format:write --files'],
-  // },
 };
 
 const adminPluginsAndConfig = {
@@ -65,9 +40,6 @@ const adminPluginsAndConfig = {
     export const adminSdk = getSdk(fetchDataAdmin());`,
     placement: 'append',
   },
-  // hooks: {
-  //   afterOneFileWrite: ['nx affected:lint --fix --files', 'nx format:write --files'],
-  // },
 };
 
 const hasuraSchema = (headers = userHeaders) => {

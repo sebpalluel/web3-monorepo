@@ -14,7 +14,7 @@ specifiers:
   '@graphql-codegen/introspection': ^2.2.0
   '@graphql-codegen/schema-ast': ^2.5.0
   '@graphql-codegen/typescript': 2.7.1
-  '@graphql-codegen/typescript-generic-sdk': ^3.0.0
+  '@graphql-codegen/typescript-generic-sdk': ^2.4.2
   '@graphql-codegen/typescript-graphql-request': ^4.5.2
   '@graphql-codegen/typescript-operations': 2.5.1
   '@graphql-codegen/typescript-react-query': ^3.6.2
@@ -42,7 +42,7 @@ specifiers:
   '@typescript-eslint/eslint-plugin': ^5.31.0
   '@typescript-eslint/parser': ^5.31.0
   babel-jest: 27.5.1
-  chalk: ^5.0.1
+  chalk: ^4.1.0
   core-js: ^3.24.0
   crypto: ^1.0.1
   crypto-js: ^4.1.1
@@ -103,7 +103,7 @@ dependencies:
   '@emotion/server': 11.4.0
   '@emotion/styled': 11.9.3_tzx2x55w3scl65w53cidtmjpsa
   '@nrwl/next': 14.4.3_stxpli4ht732wxk5rvdko6unxe
-  chalk: 5.0.1
+  chalk: 4.1.2
   core-js: 3.24.0
   crypto: 1.0.1
   crypto-js: 4.1.1
@@ -140,7 +140,7 @@ devDependencies:
   '@graphql-codegen/introspection': 2.2.0_graphql@16.5.0
   '@graphql-codegen/schema-ast': 2.5.0_graphql@16.5.0
   '@graphql-codegen/typescript': 2.7.1_graphql@16.5.0
-  '@graphql-codegen/typescript-generic-sdk': 3.0.0_ubrtutz2urcxyhwqr2zvlqjzha
+  '@graphql-codegen/typescript-generic-sdk': 2.5.1_ubrtutz2urcxyhwqr2zvlqjzha
   '@graphql-codegen/typescript-graphql-request': 4.5.2_omgwevvbyntsqorgwjvjoz6aaq
   '@graphql-codegen/typescript-operations': 2.5.1_graphql@16.5.0
   '@graphql-codegen/typescript-react-query': 3.6.2_graphql@16.5.0
@@ -3319,10 +3319,10 @@ packages:
       tslib: 2.4.0
     dev: true
 
-  /@graphql-codegen/typescript-generic-sdk/3.0.0_ubrtutz2urcxyhwqr2zvlqjzha:
+  /@graphql-codegen/typescript-generic-sdk/2.5.1_ubrtutz2urcxyhwqr2zvlqjzha:
     resolution:
       {
-        integrity: sha512-3pWMlXOcvQM2zUPLkZXvEFDm55mJc7s1MWBVb1wzdPAcR3Qx1qN4PiHUqu3KWy3+xLIIEGzdh3C0tS1Mx89CYQ==,
+        integrity: sha512-brze/42sJWbysR5KS3gzty2o1fAiqdhmthzRu5dhqhAnWNWO9nlQ/C1dRU5EhRIucRYoAkb7TUQub9Q61nfYUg==,
       }
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
@@ -7646,14 +7646,6 @@ packages:
     dependencies:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
-
-  /chalk/5.0.1:
-    resolution:
-      {
-        integrity: sha512-Fo07WOYGqMfCWHOzSXOt2CxDbC6skS/jO9ynEcmpANMoPrD+W1r1K6Vx7iNm+AQmETU1Xr2t+n8nzkV9t6xh3w==,
-      }
-    engines: { node: ^12.17.0 || ^14.13 || >=16.0.0 }
-    dev: false
 
   /change-case-all/1.0.14:
     resolution:

@@ -1,4 +1,3 @@
-/* eslint-disable */
 export default {
   displayName: 'hasura-adapter',
   preset: '../../../jest.preset.js',
@@ -12,4 +11,5 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../../coverage/libs/hasura/adapter',
+  // resolver: '../../../resolver.js',
 };

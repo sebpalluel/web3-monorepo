@@ -1,5 +1,6 @@
 import log from 'loglevel';
-import chalk, { ChalkInstance } from 'chalk';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const chalk = require('chalk');
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const prefix = require('loglevel-plugin-prefix');
 
@@ -21,7 +22,7 @@ prefix.reg(log);
 
 prefix.apply(log, {
   format(level: level, name: string, timestamp: string) {
-    const color = colors[level] as ChalkInstance;
+    const color = colors[level];
     return `${chalk.gray(`[${timestamp}]`)} ${color(level)} ${chalk.green(`${name}:`)}`;
   },
 });

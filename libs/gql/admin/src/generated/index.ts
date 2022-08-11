@@ -2299,7 +2299,7 @@ export type Requester<C = {}, E = unknown> = <R, V>(
   doc: string,
   vars?: V,
   options?: C
-) => Promise<R> | AsyncIterable<R>;
+) => Promise<R>;
 export function getSdk<C, E>(requester: Requester<C, E>) {
   return {
     DeleteAccount(
