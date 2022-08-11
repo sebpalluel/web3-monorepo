@@ -1,7 +1,6 @@
 import { randomBytes } from 'crypto';
 import type { Adapter, AdapterUser, AdapterSession } from 'next-auth/adapters';
 import { adminSdk } from '@governance/gql-admin';
-import { Account } from 'next-auth';
 
 export function adapter(): Adapter {
   return {
@@ -40,7 +39,7 @@ export function adapter(): Adapter {
           ...account,
         },
       });
-      return data?.insert_accounts_one as Account;
+      return data?.insert_accounts_one as any;
     },
     async unlinkAccount({ providerAccountId }) {
       await adminSdk.DeleteAccount({ id: providerAccountId });

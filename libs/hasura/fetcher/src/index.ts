@@ -66,11 +66,7 @@ export const fetchDataAdmin = () => {
         variables,
       }),
     });
-
     const json = await res.json();
-
-    logger.debug('fetchDataAdmin', { json });
-
     if (json.errors) {
       const { message } = json.errors[0] || 'Error..';
       logger.error(message);

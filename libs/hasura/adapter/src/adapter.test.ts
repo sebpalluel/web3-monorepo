@@ -1,20 +1,23 @@
-import { adminSdk } from '@governance/gql-admin';
-import { AdapterUser } from 'next-auth/adapters';
 import { getClient } from '@governance/test-utils-db';
+import { adapter as HasuraAdapter } from './index';
+import { Account } from 'next-auth';
 
 describe('hasura Next Auth Adapter', () => {
-  it('should create user', async () => {
-    const user = {
-      id: '76422e8490dda28b515ea63ad20cb30f113d658a595f6efe47d61b606cb94fcb',
-      emailVerified: null,
-      name: 'Asdasf',
-      image: null,
-      email: 'alpha_admin@governance.io',
-    };
-    const data = await adminSdk.CreateUser({ user });
-    const expectedUser = data?.insert_users_one as AdapterUser;
-    expect(user).toEqual(expectedUser);
-  });
+  const user = {
+    id: '',
+    emailVerified: null,
+    name: 'Alpha Admin',
+    image: null,
+    email: 'alpha_admin@governance.io',
+  };
+  const account: Account = {
+    id: '',
+    userId: '',
+    provider: 'github',
+    providerAccountId: '12345',
+    type: 'oauth',
+  };
+  const adapter = HasuraAdapter();
   beforeAll(async () => {
     const client = await getClient();
     // // ️️️✅ Best Practice: Clean-up resources after each run
@@ -24,5 +27,23 @@ describe('hasura Next Auth Adapter', () => {
     const client = await getClient();
     // // ️️️✅ Best Practice: Clean-up resources after each run
     client.query('TRUNCATE users CASCADE;');
+  });
+  it('should create user and assign an id', async () => {
+    const data = await adapter.createUser(user);
+    user.id = data.id;
+    expect(user).toEqual(data);
+  });
+  it('should get user with an id', async () => {
+    const data = await adapter.getUser(user.id);
+    expect(user).toEqual(data);
+  });
+  it('should get user by email', async () => {
+    const data = await adapter.getUserByEmail(user.email);
+    expect(user).toEqual(data);
+  });
+  it('should link account', async () => {
+    account.userId = user.id;
+    const data = await adapter.linkAccount(account);
+    expect(account).toEqual(data);
   });
 });
