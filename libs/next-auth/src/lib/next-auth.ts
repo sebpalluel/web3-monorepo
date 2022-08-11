@@ -229,8 +229,6 @@ export const authOptions: NextAuthOptions = {
           role: token.user ? Roles.user : Roles.anonymous,
         });
       }
-      logger.debug('jwt: ', token);
-
       // Return previous token if the access token has not expired yet
       if (Date.now() < (token.accessTokenExpires as number)) {
         return token;

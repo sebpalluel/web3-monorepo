@@ -1,11 +1,12 @@
 import { logger } from '@governance/logger';
+import { isJestRunning } from '@governance/test-utils-jest';
 
 export const endpointUrl = (): string =>
   typeof window !== 'undefined'
     ? (process.env.NEXT_PUBLIC_HASURA_URL as string)
     : (process.env.NEXT_PUBLIC_HASURA_SSR_URL as string);
 
-// This fetcher is used for fetching data from Hasura GraphQL API with an user authenticated.
+// // This fetcher is used for fetching data from Hasura GraphQL API with an user authenticated.
 export const fetchData = <TData, TVariables>(
   query: string,
   variables?: TVariables,
@@ -45,7 +46,8 @@ export const fetchDataAdmin = () => {
     doc: string,
     variables: TVariables
   ): Promise<TResult> => {
-    if (typeof window !== 'undefined')
+    // forbid calling on client side and allow if jest is running
+    if (typeof window !== 'undefined' && !isJestRunning())
       throw new Error('Admin access is only available on the server');
     if (!process.env.HASURA_GRAPHQL_ADMIN_SECRET)
       throw new Error('Admin secret env is missing');
@@ -53,7 +55,7 @@ export const fetchDataAdmin = () => {
       query: doc,
       variables,
     });
-    const res = await fetch(process.env.NEXT_PUBLIC_HASURA_SSR_URL as string, {
+    const res = await fetch(endpointUrl(), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

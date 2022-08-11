@@ -1,1 +1,3 @@
-export * from './lib/test-utils-jest';
+export function isJestRunning() {
+  return process.env.JEST_WORKER_ID !== undefined;
+}

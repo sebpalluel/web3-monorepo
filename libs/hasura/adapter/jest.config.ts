@@ -11,5 +11,5 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../../coverage/libs/hasura/adapter',
-  // resolver: '../../../resolver.js',
+  setupFiles: ['./jest.setup.ts'],
 };

@@ -2295,12 +2295,8 @@ const DeleteVerificationTokenDocument = `
   }
 }
     `;
-export type Requester<C = {}, E = unknown> = <R, V>(
-  doc: string,
-  vars?: V,
-  options?: C
-) => Promise<R>;
-export function getSdk<C, E>(requester: Requester<C, E>) {
+export type Requester<C = {}> = <R, V>(doc: string, vars?: V, options?: C) => Promise<R>;
+export function getSdk<C>(requester: Requester<C>) {
   return {
     DeleteAccount(
       variables: DeleteAccountMutationVariables,
