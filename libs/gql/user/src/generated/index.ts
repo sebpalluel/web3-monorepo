@@ -22,19 +22,6 @@ export type Scalars = {
   timestamp: any;
 };
 
-/** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
-export type Int_Comparison_Exp = {
-  _eq?: InputMaybe<Scalars['Int']>;
-  _gt?: InputMaybe<Scalars['Int']>;
-  _gte?: InputMaybe<Scalars['Int']>;
-  _in?: InputMaybe<Array<Scalars['Int']>>;
-  _is_null?: InputMaybe<Scalars['Boolean']>;
-  _lt?: InputMaybe<Scalars['Int']>;
-  _lte?: InputMaybe<Scalars['Int']>;
-  _neq?: InputMaybe<Scalars['Int']>;
-  _nin?: InputMaybe<Array<Scalars['Int']>>;
-};
-
 export type JwtToken = {
   __typename?: 'JwtToken';
   jwt: Scalars['String'];
@@ -130,148 +117,13 @@ export const enum Order_By {
   DescNullsLast = 'desc_nulls_last',
 }
 
-/** columns and relationships of "passwords" */
-export type Passwords = {
-  __typename?: 'passwords';
-  attempts: Scalars['Int'];
-  hash: Scalars['String'];
-  iterations: Scalars['Int'];
-  salt: Scalars['String'];
-};
-
-/** order by aggregate values of table "passwords" */
-export type Passwords_Aggregate_Order_By = {
-  avg?: InputMaybe<Passwords_Avg_Order_By>;
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<Passwords_Max_Order_By>;
-  min?: InputMaybe<Passwords_Min_Order_By>;
-  stddev?: InputMaybe<Passwords_Stddev_Order_By>;
-  stddev_pop?: InputMaybe<Passwords_Stddev_Pop_Order_By>;
-  stddev_samp?: InputMaybe<Passwords_Stddev_Samp_Order_By>;
-  sum?: InputMaybe<Passwords_Sum_Order_By>;
-  var_pop?: InputMaybe<Passwords_Var_Pop_Order_By>;
-  var_samp?: InputMaybe<Passwords_Var_Samp_Order_By>;
-  variance?: InputMaybe<Passwords_Variance_Order_By>;
-};
-
-/** order by avg() on columns of table "passwords" */
-export type Passwords_Avg_Order_By = {
-  attempts?: InputMaybe<Order_By>;
-  iterations?: InputMaybe<Order_By>;
-};
-
-/** Boolean expression to filter rows from the table "passwords". All fields are combined with a logical 'AND'. */
-export type Passwords_Bool_Exp = {
-  _and?: InputMaybe<Array<Passwords_Bool_Exp>>;
-  _not?: InputMaybe<Passwords_Bool_Exp>;
-  _or?: InputMaybe<Array<Passwords_Bool_Exp>>;
-  attempts?: InputMaybe<Int_Comparison_Exp>;
-  hash?: InputMaybe<String_Comparison_Exp>;
-  iterations?: InputMaybe<Int_Comparison_Exp>;
-  salt?: InputMaybe<String_Comparison_Exp>;
-};
-
-/** order by max() on columns of table "passwords" */
-export type Passwords_Max_Order_By = {
-  attempts?: InputMaybe<Order_By>;
-  hash?: InputMaybe<Order_By>;
-  iterations?: InputMaybe<Order_By>;
-  salt?: InputMaybe<Order_By>;
-};
-
-/** order by min() on columns of table "passwords" */
-export type Passwords_Min_Order_By = {
-  attempts?: InputMaybe<Order_By>;
-  hash?: InputMaybe<Order_By>;
-  iterations?: InputMaybe<Order_By>;
-  salt?: InputMaybe<Order_By>;
-};
-
-/** Ordering options when selecting data from "passwords". */
-export type Passwords_Order_By = {
-  attempts?: InputMaybe<Order_By>;
-  hash?: InputMaybe<Order_By>;
-  iterations?: InputMaybe<Order_By>;
-  salt?: InputMaybe<Order_By>;
-};
-
-/** select columns of table "passwords" */
-export const enum Passwords_Select_Column {
-  /** column name */
-  Attempts = 'attempts',
-  /** column name */
-  Hash = 'hash',
-  /** column name */
-  Iterations = 'iterations',
-  /** column name */
-  Salt = 'salt',
-}
-
-/** order by stddev() on columns of table "passwords" */
-export type Passwords_Stddev_Order_By = {
-  attempts?: InputMaybe<Order_By>;
-  iterations?: InputMaybe<Order_By>;
-};
-
-/** order by stddev_pop() on columns of table "passwords" */
-export type Passwords_Stddev_Pop_Order_By = {
-  attempts?: InputMaybe<Order_By>;
-  iterations?: InputMaybe<Order_By>;
-};
-
-/** order by stddev_samp() on columns of table "passwords" */
-export type Passwords_Stddev_Samp_Order_By = {
-  attempts?: InputMaybe<Order_By>;
-  iterations?: InputMaybe<Order_By>;
-};
-
-/** order by sum() on columns of table "passwords" */
-export type Passwords_Sum_Order_By = {
-  attempts?: InputMaybe<Order_By>;
-  iterations?: InputMaybe<Order_By>;
-};
-
-/** order by var_pop() on columns of table "passwords" */
-export type Passwords_Var_Pop_Order_By = {
-  attempts?: InputMaybe<Order_By>;
-  iterations?: InputMaybe<Order_By>;
-};
-
-/** order by var_samp() on columns of table "passwords" */
-export type Passwords_Var_Samp_Order_By = {
-  attempts?: InputMaybe<Order_By>;
-  iterations?: InputMaybe<Order_By>;
-};
-
-/** order by variance() on columns of table "passwords" */
-export type Passwords_Variance_Order_By = {
-  attempts?: InputMaybe<Order_By>;
-  iterations?: InputMaybe<Order_By>;
-};
-
 export type Query_Root = {
   __typename?: 'query_root';
-  /** An array relationship */
-  passwords: Array<Passwords>;
-  /** fetch data from the table: "passwords" using primary key columns */
-  passwords_by_pk?: Maybe<Passwords>;
   refreshJwtToken: JwtToken;
   /** fetch data from the table: "users" */
   users: Array<Users>;
   /** fetch data from the table: "users" using primary key columns */
   users_by_pk?: Maybe<Users>;
-};
-
-export type Query_RootPasswordsArgs = {
-  distinct_on?: InputMaybe<Array<Passwords_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Passwords_Order_By>>;
-  where?: InputMaybe<Passwords_Bool_Exp>;
-};
-
-export type Query_RootPasswords_By_PkArgs = {
-  hash: Scalars['String'];
 };
 
 export type Query_RootRefreshJwtTokenArgs = {
@@ -293,26 +145,10 @@ export type Query_RootUsers_By_PkArgs = {
 
 export type Subscription_Root = {
   __typename?: 'subscription_root';
-  /** An array relationship */
-  passwords: Array<Passwords>;
-  /** fetch data from the table: "passwords" using primary key columns */
-  passwords_by_pk?: Maybe<Passwords>;
   /** fetch data from the table: "users" */
   users: Array<Users>;
   /** fetch data from the table: "users" using primary key columns */
   users_by_pk?: Maybe<Users>;
-};
-
-export type Subscription_RootPasswordsArgs = {
-  distinct_on?: InputMaybe<Array<Passwords_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Passwords_Order_By>>;
-  where?: InputMaybe<Passwords_Bool_Exp>;
-};
-
-export type Subscription_RootPasswords_By_PkArgs = {
-  hash: Scalars['String'];
 };
 
 export type Subscription_RootUsersArgs = {
@@ -351,17 +187,6 @@ export type Users = {
   lastName?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
-  /** An array relationship */
-  passwords: Array<Passwords>;
-};
-
-/** columns and relationships of "users" */
-export type UsersPasswordsArgs = {
-  distinct_on?: InputMaybe<Array<Passwords_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Passwords_Order_By>>;
-  where?: InputMaybe<Passwords_Bool_Exp>;
 };
 
 /** Boolean expression to filter rows from the table "users". All fields are combined with a logical 'AND'. */
@@ -377,7 +202,6 @@ export type Users_Bool_Exp = {
   lastName?: InputMaybe<String_Comparison_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
   password?: InputMaybe<String_Comparison_Exp>;
-  passwords?: InputMaybe<Passwords_Bool_Exp>;
 };
 
 /** response of any mutation on the table "users" */
@@ -399,7 +223,6 @@ export type Users_Order_By = {
   lastName?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
   password?: InputMaybe<Order_By>;
-  passwords_aggregate?: InputMaybe<Passwords_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: users */
@@ -436,24 +259,6 @@ export type Users_Set_Input = {
   name?: InputMaybe<Scalars['String']>;
 };
 
-export type MyUserFieldsFragment = {
-  __typename?: 'users';
-  email?: string | null;
-  emailVerified?: any | null;
-  id: string;
-  image?: string | null;
-  name?: string | null;
-  password?: string | null;
-};
-
-export type PasswordFieldsFragment = {
-  __typename?: 'passwords';
-  attempts: number;
-  hash: string;
-  iterations: number;
-  salt: string;
-};
-
 export type GetUserQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
@@ -486,47 +291,6 @@ export type GetUserByEmailQuery = {
   }>;
 };
 
-export type GetMyUserByEmailQueryVariables = Exact<{
-  email: Scalars['String'];
-}>;
-
-export type GetMyUserByEmailQuery = {
-  __typename?: 'query_root';
-  users: Array<{
-    __typename?: 'users';
-    email?: string | null;
-    emailVerified?: any | null;
-    id: string;
-    image?: string | null;
-    name?: string | null;
-    password?: string | null;
-  }>;
-};
-
-export type GetMyUserAndPasswordByEmailQueryVariables = Exact<{
-  email: Scalars['String'];
-}>;
-
-export type GetMyUserAndPasswordByEmailQuery = {
-  __typename?: 'query_root';
-  users: Array<{
-    __typename?: 'users';
-    email?: string | null;
-    emailVerified?: any | null;
-    id: string;
-    image?: string | null;
-    name?: string | null;
-    password?: string | null;
-    passwords: Array<{
-      __typename?: 'passwords';
-      attempts: number;
-      hash: string;
-      iterations: number;
-      salt: string;
-    }>;
-  }>;
-};
-
 export type UserFieldsFragment = {
   __typename?: 'users';
   email?: string | null;
@@ -536,24 +300,6 @@ export type UserFieldsFragment = {
   name?: string | null;
 };
 
-export const MyUserFieldsFragmentDoc = `
-    fragment MyUserFields on users {
-  email
-  emailVerified
-  id
-  image
-  name
-  password
-}
-    `;
-export const PasswordFieldsFragmentDoc = `
-    fragment PasswordFields on passwords {
-  attempts
-  hash
-  iterations
-  salt
-}
-    `;
 export const UserFieldsFragmentDoc = `
     fragment UserFields on users {
   email
@@ -618,78 +364,6 @@ useGetUserByEmailQuery.fetcher = (
     variables,
     options
   );
-export const GetMyUserByEmailDocument = `
-    query getMyUserByEmail($email: String!) {
-  users(where: {email: {_eq: $email}}) {
-    ...MyUserFields
-  }
-}
-    ${MyUserFieldsFragmentDoc}`;
-export const useGetMyUserByEmailQuery = <TData = GetMyUserByEmailQuery, TError = unknown>(
-  variables: GetMyUserByEmailQueryVariables,
-  options?: UseQueryOptions<GetMyUserByEmailQuery, TError, TData>
-) =>
-  useQuery<GetMyUserByEmailQuery, TError, TData>(
-    ['getMyUserByEmail', variables],
-    fetchData<GetMyUserByEmailQuery, GetMyUserByEmailQueryVariables>(
-      GetMyUserByEmailDocument,
-      variables
-    ),
-    options
-  );
-
-useGetMyUserByEmailQuery.getKey = (variables: GetMyUserByEmailQueryVariables) => [
-  'getMyUserByEmail',
-  variables,
-];
-useGetMyUserByEmailQuery.fetcher = (
-  variables: GetMyUserByEmailQueryVariables,
-  options?: RequestInit['headers']
-) =>
-  fetchData<GetMyUserByEmailQuery, GetMyUserByEmailQueryVariables>(
-    GetMyUserByEmailDocument,
-    variables,
-    options
-  );
-export const GetMyUserAndPasswordByEmailDocument = `
-    query getMyUserAndPasswordByEmail($email: String!) {
-  users(where: {email: {_eq: $email}}) {
-    ...MyUserFields
-    passwords {
-      ...PasswordFields
-    }
-  }
-}
-    ${MyUserFieldsFragmentDoc}
-${PasswordFieldsFragmentDoc}`;
-export const useGetMyUserAndPasswordByEmailQuery = <
-  TData = GetMyUserAndPasswordByEmailQuery,
-  TError = unknown
->(
-  variables: GetMyUserAndPasswordByEmailQueryVariables,
-  options?: UseQueryOptions<GetMyUserAndPasswordByEmailQuery, TError, TData>
-) =>
-  useQuery<GetMyUserAndPasswordByEmailQuery, TError, TData>(
-    ['getMyUserAndPasswordByEmail', variables],
-    fetchData<
-      GetMyUserAndPasswordByEmailQuery,
-      GetMyUserAndPasswordByEmailQueryVariables
-    >(GetMyUserAndPasswordByEmailDocument, variables),
-    options
-  );
-
-useGetMyUserAndPasswordByEmailQuery.getKey = (
-  variables: GetMyUserAndPasswordByEmailQueryVariables
-) => ['getMyUserAndPasswordByEmail', variables];
-useGetMyUserAndPasswordByEmailQuery.fetcher = (
-  variables: GetMyUserAndPasswordByEmailQueryVariables,
-  options?: RequestInit['headers']
-) =>
-  fetchData<GetMyUserAndPasswordByEmailQuery, GetMyUserAndPasswordByEmailQueryVariables>(
-    GetMyUserAndPasswordByEmailDocument,
-    variables,
-    options
-  );
 
 export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
@@ -731,36 +405,6 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders }
           ),
         'getUserByEmail',
-        'query'
-      );
-    },
-    getMyUserByEmail(
-      variables: GetMyUserByEmailQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
-    ): Promise<GetMyUserByEmailQuery> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<GetMyUserByEmailQuery>(
-            Operations.GetMyUserByEmailDocument,
-            variables,
-            { ...requestHeaders, ...wrappedRequestHeaders }
-          ),
-        'getMyUserByEmail',
-        'query'
-      );
-    },
-    getMyUserAndPasswordByEmail(
-      variables: GetMyUserAndPasswordByEmailQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
-    ): Promise<GetMyUserAndPasswordByEmailQuery> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<GetMyUserAndPasswordByEmailQuery>(
-            Operations.GetMyUserAndPasswordByEmailDocument,
-            variables,
-            { ...requestHeaders, ...wrappedRequestHeaders }
-          ),
-        'getMyUserAndPasswordByEmail',
         'query'
       );
     },

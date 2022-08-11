@@ -54,3 +54,12 @@ query GetUsersAndAccountByEmail($email: String!) {
     ...UserAndAccountFields
   }
 }
+
+query GetUserAndPasswordByEmail($email: String!) {
+  users(where: { email: { _eq: $email } }) {
+    ...UserFields
+    passwords {
+      ...PasswordFields
+    }
+  }
+}

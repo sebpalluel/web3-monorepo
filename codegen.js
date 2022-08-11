@@ -51,9 +51,9 @@ const pluginsAndConfig = {
       isReactHook: false,
     },
   },
-  hooks: {
-    afterOneFileWrite: ['nx affected:lint --fix --files', 'nx format:write --files'],
-  },
+  // hooks: {
+  //   afterOneFileWrite: ['nx affected:lint --fix --files', 'nx format:write --files'],
+  // },
 };
 
 const adminPluginsAndConfig = {
@@ -65,9 +65,9 @@ const adminPluginsAndConfig = {
     export const adminSdk = getSdk(fetchDataAdmin());`,
     placement: 'append',
   },
-  hooks: {
-    afterOneFileWrite: ['nx affected:lint --fix --files', 'nx format:write --files'],
-  },
+  // hooks: {
+  //   afterOneFileWrite: ['nx affected:lint --fix --files', 'nx format:write --files'],
+  // },
 };
 
 const hasuraSchema = (headers = userHeaders) => {

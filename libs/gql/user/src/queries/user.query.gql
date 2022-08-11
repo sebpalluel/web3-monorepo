@@ -9,24 +9,3 @@ query getUserByEmail($email: String!) {
     ...UserFields
   }
 }
-
-query getMyUserByEmail($email: String!) {
-  users(where: { email: { _eq: $email } }) {
-    ...MyUserFields
-  }
-}
-
-query getMyUserAndPasswordByEmail($email: String!) {
-  users(where: { email: { _eq: $email } }) {
-    ...MyUserFields
-    passwords {
-      ...PasswordFields
-    }
-  }
-}
-
-# mutation createUser($input: users_set_input!) {
-#     insert_users_one(data: $input) {
-#         ...UserFields
-#     }
-# }

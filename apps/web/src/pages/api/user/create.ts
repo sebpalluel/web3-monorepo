@@ -4,14 +4,9 @@ import {
   withErrorHandling,
   withMethodsGuard,
 } from '../../../lib/middlewares';
-import { hasuraRequest } from '@governance/hasura-fetcher';
-import {
-  GetUsersAndAccountByEmailDocument,
-  CreateUserWithCredentialsDocument,
-} from '@governance/gql-admin';
+import { adminSdk } from '@governance/gql-admin';
 import cryptojs from 'crypto-js';
 import { randomBytes } from 'crypto';
-import { logger } from '@governance/logger';
 import { ApiError } from 'next/dist/server/api-utils';
 import type { Password } from '../../../lib/types/crypto';
 
@@ -34,7 +29,7 @@ const hashPasswordWithSalt = (password: string): Password => {
 };
 
 const isEmailValid = (email: string): boolean => {
-  // chek if email is valid and check if doesn't contain + character
+  // check if email is valid and check if doesn't contain + character
   const emailRegex =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return emailRegex.test(email) && !email.includes('+');
@@ -43,11 +38,7 @@ const isEmailValid = (email: string): boolean => {
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { email } = req.body;
   if (!isEmailValid(email)) throw new ApiError(400, 'Email format is invalid');
-  const data = await hasuraRequest({
-    query: GetUsersAndAccountByEmailDocument,
-    variables: { email },
-    admin: true,
-  });
+  const data = await adminSdk.GetUsersAndAccountByEmail({ email });
   const existingUser = data?.users[0];
   if (existingUser) {
     let errorMessage = `User with email ${email} already exists`;
@@ -57,24 +48,17 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     else errorMessage += '. Please login with this email and your password';
     throw new ApiError(400, errorMessage);
   } else {
-    const { password: secret } = req.body;
-    let { ...user } = req.body;
-    const password = hashPasswordWithSalt(secret);
+    const { password, ...user } = req.body;
+    const hashedPassword = hashPasswordWithSalt(password);
     const id = randomBytes(32).toString('hex');
-    user = { ...user, id };
-    logger.debug('creating user', {
-      user,
-      password,
+    const data = await adminSdk.CreateUserWithCredentials({
+      user: {
+        ...user,
+        id,
+      },
+      password: { ...hashedPassword, userId: id },
     });
-    const data = await hasuraRequest({
-      query: CreateUserWithCredentialsDocument,
-      variables: { user, password: { ...password, userId: id } },
-      admin: true,
-    });
-    logger.debug({ data: JSON.parse(JSON.stringify(data)) });
     const createdUser = data?.insert_users_one;
-    logger.debug('created user', createdUser);
-
     res.json(createdUser);
   }
 }

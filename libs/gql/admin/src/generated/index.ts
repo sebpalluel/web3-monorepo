@@ -1873,6 +1873,14 @@ type AccountFieldsFragment = {
   type: string;
 };
 
+type PasswordFieldsFragment = {
+  __typename?: 'passwords';
+  attempts: number;
+  hash: string;
+  iterations: number;
+  salt: string;
+};
+
 type CreateSessionMutationVariables = Exact<{
   session: Sessions_Insert_Input;
 }>;
@@ -2039,6 +2047,29 @@ type GetUsersAndAccountByEmailQuery = {
   }>;
 };
 
+type GetUserAndPasswordByEmailQueryVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+type GetUserAndPasswordByEmailQuery = {
+  __typename?: 'query_root';
+  users: Array<{
+    __typename?: 'users';
+    email?: string | null;
+    emailVerified?: any | null;
+    id: string;
+    image?: string | null;
+    name?: string | null;
+    passwords: Array<{
+      __typename?: 'passwords';
+      attempts: number;
+      hash: string;
+      iterations: number;
+      salt: string;
+    }>;
+  }>;
+};
+
 type UserAndAccountFieldsFragment = {
   __typename?: 'users';
   email?: string | null;
@@ -2104,6 +2135,14 @@ type DeleteVerificationTokenMutation = {
   } | null;
 };
 
+export const PasswordFieldsFragmentDoc = `
+    fragment PasswordFields on passwords {
+  attempts
+  hash
+  iterations
+  salt
+}
+    `;
 export const UserFieldsFragmentDoc = `
     fragment UserFields on users {
   email
@@ -2220,6 +2259,17 @@ const GetUsersAndAccountByEmailDocument = `
   }
 }
     ${UserAndAccountFieldsFragmentDoc}`;
+const GetUserAndPasswordByEmailDocument = `
+    query GetUserAndPasswordByEmail($email: String!) {
+  users(where: {email: {_eq: $email}}) {
+    ...UserFields
+    passwords {
+      ...PasswordFields
+    }
+  }
+}
+    ${UserFieldsFragmentDoc}
+${PasswordFieldsFragmentDoc}`;
 const CreateVerificationTokenDocument = `
     mutation CreateVerificationToken($verificationToken: verificationTokens_insert_input!) {
   insert_verificationTokens_one(object: $verificationToken) {
@@ -2356,6 +2406,15 @@ export function getSdk<C, E>(requester: Requester<C, E>) {
         GetUsersAndAccountByEmailQuery,
         GetUsersAndAccountByEmailQueryVariables
       >(GetUsersAndAccountByEmailDocument, variables, options);
+    },
+    GetUserAndPasswordByEmail(
+      variables: GetUserAndPasswordByEmailQueryVariables,
+      options?: C
+    ): Promise<GetUserAndPasswordByEmailQuery> {
+      return requester<
+        GetUserAndPasswordByEmailQuery,
+        GetUserAndPasswordByEmailQueryVariables
+      >(GetUserAndPasswordByEmailDocument, variables, options);
     },
     CreateVerificationToken(
       variables: CreateVerificationTokenMutationVariables,

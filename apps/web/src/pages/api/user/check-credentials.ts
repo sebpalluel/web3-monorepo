@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { hasuraRequest } from '@governance/hasura-fetcher';
-import { GetMyUserAndPasswordByEmailDocument } from '@governance/gql-user';
+import { adminSdk } from '@governance/gql-admin';
 import {
   withMiddlewares,
   withErrorHandling,
@@ -25,12 +24,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (!req.body) {
     throw new ApiError(400, 'Invalid credentials');
   }
-  logger.debug('geting user by email', req.body);
-  const data = await hasuraRequest({
-    query: GetMyUserAndPasswordByEmailDocument,
-    variables: { email: req.body.username },
-    admin: true,
-  });
+  const data = await adminSdk.GetUserAndPasswordByEmail({ email: req.body.username });
   const userPasswords = data?.users[0];
   if (userPasswords) {
     const { passwords, ...user } = userPasswords;

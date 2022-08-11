@@ -78,32 +78,3 @@ export const fetchDataAdmin = () => {
     return json.data;
   };
 };
-
-export const hasuraRequest = async ({
-  query = {},
-  variables = {},
-  token = null,
-  admin = false,
-}) => {
-  const url = endpointUrl();
-  logger.error({
-    query,
-    variables,
-  });
-  const response = await fetch(url, {
-    method: 'POST',
-    body: JSON.stringify({ query, variables }),
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Hasura-Admin-Secret': process.env.HASURA_GRAPHQL_ADMIN_SECRET,
-    },
-  });
-
-  const jsonResponse: any = await response.json();
-  if (jsonResponse?.errors) {
-    logger.error(jsonResponse.errors, headers);
-    const { message } = jsonResponse?.errors[0] || 'Error..';
-    throw new Error(message);
-  } else logger.error(jsonResponse, headers);
-  return jsonResponse?.data;
-};
