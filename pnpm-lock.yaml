@@ -10,6 +10,7 @@ specifiers:
   '@emotion/styled': ^11.9.3
   '@graphql-codegen/add': ^3.2.0
   '@graphql-codegen/cli': 2.8.0
+  '@graphql-codegen/hasura-allow-list': ^1.1.1
   '@graphql-codegen/introspection': ^2.2.0
   '@graphql-codegen/schema-ast': ^2.5.0
   '@graphql-codegen/typescript': 2.7.1
@@ -135,6 +136,7 @@ devDependencies:
   '@emotion/babel-plugin': 11.9.2_@babel+core@7.18.10
   '@graphql-codegen/add': 3.2.0_graphql@16.5.0
   '@graphql-codegen/cli': 2.8.0_coyzfjge32jlfb2chmficl5a2y
+  '@graphql-codegen/hasura-allow-list': 1.1.1_graphql@16.5.0
   '@graphql-codegen/introspection': 2.2.0_graphql@16.5.0
   '@graphql-codegen/schema-ast': 2.5.0_graphql@16.5.0
   '@graphql-codegen/typescript': 2.7.1_graphql@16.5.0
@@ -3236,6 +3238,20 @@ packages:
       '@graphql-tools/utils': 8.9.0_graphql@16.5.0
       graphql: 16.5.0
       tslib: 2.4.0
+    dev: true
+
+  /@graphql-codegen/hasura-allow-list/1.1.1_graphql@16.5.0:
+    resolution:
+      {
+        integrity: sha512-2kWUOjqQAP0UylhEWEtTLku8rK0N1ejbfarTszdt9f1FGNYEs3SNsrPBx3ECtqE/psKpAqrNF8r3GYRU+jLv9w==,
+      }
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+    dependencies:
+      '@graphql-codegen/plugin-helpers': 2.6.2_graphql@16.5.0
+      graphql: 16.5.0
+      tslib: 2.4.0
+      yaml: 1.10.2
     dev: true
 
   /@graphql-codegen/introspection/2.2.0_graphql@16.5.0:
