@@ -51,10 +51,6 @@ export const fetchDataAdmin = () => {
       throw new Error('Admin access is only available on the server');
     if (!process.env.HASURA_GRAPHQL_ADMIN_SECRET)
       throw new Error('Admin secret env is missing');
-    logger.error({
-      query: doc,
-      variables,
-    });
     const res = await fetch(endpointUrl(), {
       method: 'POST',
       headers: {

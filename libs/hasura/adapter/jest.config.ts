@@ -11,5 +11,8 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../../coverage/libs/hasura/adapter',
-  setupFiles: ['./jest.setup.ts'],
+  setupFiles: ['../../../tools/test/jest.setup.ts'],
+  globalSetup: '../../../tools/test/globalSetup.js',
+  globalTeardown: '../../../tools/test/globalTeardown.js',
+  allowJs: true,
 };

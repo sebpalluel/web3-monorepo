@@ -19,3 +19,5 @@ export async function fetchJSON(
     return res.json();
   });
 }
+
+export const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
