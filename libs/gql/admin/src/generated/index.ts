@@ -1966,13 +1966,6 @@ type GetUserByAccountQuery = {
     id: string;
     image?: string | null;
     name?: string | null;
-    accounts: Array<{
-      __typename?: 'accounts';
-      id: string;
-      provider: string;
-      providerAccountId: string;
-      type: string;
-    }>;
   }>;
 };
 
@@ -2227,10 +2220,10 @@ const GetUserByAccountDocument = `
   users(
     where: {_and: {accounts: {provider: {_eq: $provider}, providerAccountId: {_eq: $providerAccountId}}}}
   ) {
-    ...UserAndAccountFields
+    ...UserFields
   }
 }
-    ${UserAndAccountFieldsFragmentDoc}`;
+    ${UserFieldsFragmentDoc}`;
 const CreateUserDocument = `
     mutation CreateUser($user: users_insert_input!) {
   insert_users_one(object: $user) {

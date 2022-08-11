@@ -3,20 +3,15 @@ version: '3.9'
 services:
   test-db:
     image: postgres:12
-    command: postgres -c fsync=off -c synchronous_commit=off -c full_page_writes=off -c random_page_cost=1.0 -p ${POSTGRES_PORT}
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_DB=${POSTGRES_DB}
-      - POSTGRES_PASSWORD=${POSTGRES_PASS}
-      - POSTGRES_PORT=${POSTGRES_PORT}
+    command: postgres -c fsync=off -c synchronous_commit=off -c full_page_writes=off -c random_page_cost=1.0 -p 5454
     env_file:
       - .env.test
     container_name: 'postgres_test'
     ports:
-      - '${POSTGRES_PORT}:${POSTGRES_PORT}'
+      - '5454:5454'
     tmpfs: /var/lib/postgresql/data
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -p ${POSTGRES_PORT} -U ${POSTGRES_USER}']
+      test: ['CMD-SHELL', 'pg_isready -p 5454 -U ${POSTGRES_USER}']
       interval: 2s
       timeout: 2s
       retries: 10

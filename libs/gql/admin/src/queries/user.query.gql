@@ -27,7 +27,7 @@ query GetUserByAccount($provider: String!, $providerAccountId: String!) {
       }
     }
   ) {
-    ...UserAndAccountFields
+    ...UserFields
   }
 }
 

@@ -14,7 +14,7 @@ describe('hasura Next Auth Adapter', () => {
     id: '',
     userId: '',
     provider: 'github',
-    providerAccountId: '12345',
+    providerAccountId: '12345823',
     type: 'oauth',
   };
   const adapter = HasuraAdapter();
@@ -45,5 +45,9 @@ describe('hasura Next Auth Adapter', () => {
     account.userId = user.id;
     const data = await adapter.linkAccount(account);
     expect(account).toEqual(data);
+  });
+  it('should get user by account', async () => {
+    const data = await adapter.getUserByAccount(account);
+    expect(user).toEqual(data);
   });
 });
