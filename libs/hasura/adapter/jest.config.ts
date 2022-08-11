@@ -14,5 +14,4 @@ export default {
   setupFiles: ['../../../tools/test/jest.setup.ts'],
   globalSetup: '../../../tools/test/globalSetup.js',
   globalTeardown: '../../../tools/test/globalTeardown.js',
-  allowJs: true,
 };

@@ -2,7 +2,8 @@ import { Client } from 'pg';
 
 let connected = false;
 let dbName = '';
-const client = new Client(process.env.POSTGRES_CONNECTION);
+// TODO change localhost for 'test-db' when running on docker
+const client = new Client('postgres://postgres:password@localhost:5454/postgres');
 export const getClient = async (): Promise<Client> => {
   if (!connected) {
     await client.connect();
