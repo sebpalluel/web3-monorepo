@@ -1,8 +1,5 @@
 import { useQuery, UseQueryOptions } from 'react-query';
 import { fetchData } from '@governance/hasura-fetcher';
-import { GraphQLClient } from 'graphql-request';
-import * as Dom from 'graphql-request/dist/types.dom';
-import * as Operations from './index';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -325,12 +322,6 @@ export const useGetUserQuery = <TData = GetUserQuery, TError = unknown>(
     fetchData<GetUserQuery, GetUserQueryVariables>(GetUserDocument, variables),
     options
   );
-
-useGetUserQuery.getKey = (variables: GetUserQueryVariables) => ['getUser', variables];
-useGetUserQuery.fetcher = (
-  variables: GetUserQueryVariables,
-  options?: RequestInit['headers']
-) => fetchData<GetUserQuery, GetUserQueryVariables>(GetUserDocument, variables, options);
 export const GetUserByEmailDocument = `
     query getUserByEmail($email: String!) {
   users(where: {email: {_eq: $email}}) {
@@ -350,64 +341,3 @@ export const useGetUserByEmailQuery = <TData = GetUserByEmailQuery, TError = unk
     ),
     options
   );
-
-useGetUserByEmailQuery.getKey = (variables: GetUserByEmailQueryVariables) => [
-  'getUserByEmail',
-  variables,
-];
-useGetUserByEmailQuery.fetcher = (
-  variables: GetUserByEmailQueryVariables,
-  options?: RequestInit['headers']
-) =>
-  fetchData<GetUserByEmailQuery, GetUserByEmailQueryVariables>(
-    GetUserByEmailDocument,
-    variables,
-    options
-  );
-
-export type SdkFunctionWrapper = <T>(
-  action: (requestHeaders?: Record<string, string>) => Promise<T>,
-  operationName: string,
-  operationType?: string
-) => Promise<T>;
-
-const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationType) =>
-  action();
-
-export function getSdk(
-  client: GraphQLClient,
-  withWrapper: SdkFunctionWrapper = defaultWrapper
-) {
-  return {
-    getUser(
-      variables: GetUserQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
-    ): Promise<GetUserQuery> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<GetUserQuery>(Operations.GetUserDocument, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'getUser',
-        'query'
-      );
-    },
-    getUserByEmail(
-      variables: GetUserByEmailQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
-    ): Promise<GetUserByEmailQuery> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<GetUserByEmailQuery>(
-            Operations.GetUserByEmailDocument,
-            variables,
-            { ...requestHeaders, ...wrappedRequestHeaders }
-          ),
-        'getUserByEmail',
-        'query'
-      );
-    },
-  };
-}
-export type Sdk = ReturnType<typeof getSdk>;

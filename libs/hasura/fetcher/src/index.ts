@@ -10,7 +10,7 @@ export const endpointUrl = (): string => {
     : (process.env.NEXT_PUBLIC_HASURA_SSR_URL as string);
 };
 
-// // This fetcher is used for fetching data from Hasura GraphQL API with an user authenticated.
+// This fetcher is used for fetching data from Hasura GraphQL API with an user authenticated.
 export const fetchData = <TData, TVariables>(
   query: string,
   variables?: TVariables,

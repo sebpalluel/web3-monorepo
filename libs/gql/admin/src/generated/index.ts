@@ -1,12 +1,15 @@
-type Maybe<T> = T | null;
-type InputMaybe<T> = Maybe<T>;
-type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+import { fetchDataAdmin } from '@governance/hasura-fetcher';
+export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]?: Maybe<T[SubKey]>;
 };
-type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
 /** All built-in and custom scalars, mapped to their actual values */
-type Scalars = {
+export type Scalars = {
   ID: string;
   String: string;
   Boolean: boolean;
@@ -15,14 +18,14 @@ type Scalars = {
   timestamp: any;
 };
 
-type AccessTokens = {
+export type AccessTokens = {
   __typename?: 'AccessTokens';
   jwt: Scalars['String'];
   refreshToken: Scalars['String'];
 };
 
 /** Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'. */
-type Boolean_Comparison_Exp = {
+export type Boolean_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['Boolean']>;
   _gt?: InputMaybe<Scalars['Boolean']>;
   _gte?: InputMaybe<Scalars['Boolean']>;
@@ -35,7 +38,7 @@ type Boolean_Comparison_Exp = {
 };
 
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
-type Int_Comparison_Exp = {
+export type Int_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['Int']>;
   _gt?: InputMaybe<Scalars['Int']>;
   _gte?: InputMaybe<Scalars['Int']>;
@@ -47,28 +50,28 @@ type Int_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['Int']>>;
 };
 
-type JwtToken = {
+export type JwtToken = {
   __typename?: 'JwtToken';
   jwt: Scalars['String'];
 };
 
-type LoginInput = {
+export type LoginInput = {
   email: Scalars['String'];
   password: Scalars['String'];
 };
 
-type SignoutOutput = {
+export type SignoutOutput = {
   __typename?: 'SignoutOutput';
   ok: Scalars['Boolean'];
 };
 
-type SignupInput = {
+export type SignupInput = {
   email: Scalars['String'];
   password: Scalars['String'];
 };
 
 /** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
-type String_Comparison_Exp = {
+export type String_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['String']>;
   _gt?: InputMaybe<Scalars['String']>;
   _gte?: InputMaybe<Scalars['String']>;
@@ -101,7 +104,7 @@ type String_Comparison_Exp = {
 };
 
 /** columns and relationships of "accounts" */
-type Accounts = {
+export type Accounts = {
   __typename?: 'accounts';
   access_token?: Maybe<Scalars['String']>;
   expires_at?: Maybe<Scalars['Int']>;
@@ -118,14 +121,14 @@ type Accounts = {
 };
 
 /** aggregated selection of "accounts" */
-type Accounts_Aggregate = {
+export type Accounts_Aggregate = {
   __typename?: 'accounts_aggregate';
   aggregate?: Maybe<Accounts_Aggregate_Fields>;
   nodes: Array<Accounts>;
 };
 
 /** aggregate fields of "accounts" */
-type Accounts_Aggregate_Fields = {
+export type Accounts_Aggregate_Fields = {
   __typename?: 'accounts_aggregate_fields';
   avg?: Maybe<Accounts_Avg_Fields>;
   count: Scalars['Int'];
@@ -141,13 +144,13 @@ type Accounts_Aggregate_Fields = {
 };
 
 /** aggregate fields of "accounts" */
-type Accounts_Aggregate_FieldsCountArgs = {
+export type Accounts_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Accounts_Select_Column>>;
   distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** order by aggregate values of table "accounts" */
-type Accounts_Aggregate_Order_By = {
+export type Accounts_Aggregate_Order_By = {
   avg?: InputMaybe<Accounts_Avg_Order_By>;
   count?: InputMaybe<Order_By>;
   max?: InputMaybe<Accounts_Max_Order_By>;
@@ -162,25 +165,25 @@ type Accounts_Aggregate_Order_By = {
 };
 
 /** input type for inserting array relation for remote table "accounts" */
-type Accounts_Arr_Rel_Insert_Input = {
+export type Accounts_Arr_Rel_Insert_Input = {
   data: Array<Accounts_Insert_Input>;
   /** upsert condition */
   on_conflict?: InputMaybe<Accounts_On_Conflict>;
 };
 
 /** aggregate avg on columns */
-type Accounts_Avg_Fields = {
+export type Accounts_Avg_Fields = {
   __typename?: 'accounts_avg_fields';
   expires_at?: Maybe<Scalars['Float']>;
 };
 
 /** order by avg() on columns of table "accounts" */
-type Accounts_Avg_Order_By = {
+export type Accounts_Avg_Order_By = {
   expires_at?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to filter rows from the table "accounts". All fields are combined with a logical 'AND'. */
-type Accounts_Bool_Exp = {
+export type Accounts_Bool_Exp = {
   _and?: InputMaybe<Array<Accounts_Bool_Exp>>;
   _not?: InputMaybe<Accounts_Bool_Exp>;
   _or?: InputMaybe<Array<Accounts_Bool_Exp>>;
@@ -199,18 +202,18 @@ type Accounts_Bool_Exp = {
 };
 
 /** unique or primary key constraints on table "accounts" */
-enum Accounts_Constraint {
+export const enum Accounts_Constraint {
   /** unique or primary key constraint on columns "id" */
   AccountsPkey = 'accounts_pkey',
 }
 
 /** input type for incrementing numeric columns in table "accounts" */
-type Accounts_Inc_Input = {
+export type Accounts_Inc_Input = {
   expires_at?: InputMaybe<Scalars['Int']>;
 };
 
 /** input type for inserting data into table "accounts" */
-type Accounts_Insert_Input = {
+export type Accounts_Insert_Input = {
   access_token?: InputMaybe<Scalars['String']>;
   expires_at?: InputMaybe<Scalars['Int']>;
   id?: InputMaybe<Scalars['String']>;
@@ -226,7 +229,7 @@ type Accounts_Insert_Input = {
 };
 
 /** aggregate max on columns */
-type Accounts_Max_Fields = {
+export type Accounts_Max_Fields = {
   __typename?: 'accounts_max_fields';
   access_token?: Maybe<Scalars['String']>;
   expires_at?: Maybe<Scalars['Int']>;
@@ -243,7 +246,7 @@ type Accounts_Max_Fields = {
 };
 
 /** order by max() on columns of table "accounts" */
-type Accounts_Max_Order_By = {
+export type Accounts_Max_Order_By = {
   access_token?: InputMaybe<Order_By>;
   expires_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
@@ -259,7 +262,7 @@ type Accounts_Max_Order_By = {
 };
 
 /** aggregate min on columns */
-type Accounts_Min_Fields = {
+export type Accounts_Min_Fields = {
   __typename?: 'accounts_min_fields';
   access_token?: Maybe<Scalars['String']>;
   expires_at?: Maybe<Scalars['Int']>;
@@ -276,7 +279,7 @@ type Accounts_Min_Fields = {
 };
 
 /** order by min() on columns of table "accounts" */
-type Accounts_Min_Order_By = {
+export type Accounts_Min_Order_By = {
   access_token?: InputMaybe<Order_By>;
   expires_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
@@ -292,7 +295,7 @@ type Accounts_Min_Order_By = {
 };
 
 /** response of any mutation on the table "accounts" */
-type Accounts_Mutation_Response = {
+export type Accounts_Mutation_Response = {
   __typename?: 'accounts_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int'];
@@ -301,14 +304,14 @@ type Accounts_Mutation_Response = {
 };
 
 /** on_conflict condition type for table "accounts" */
-type Accounts_On_Conflict = {
+export type Accounts_On_Conflict = {
   constraint: Accounts_Constraint;
   update_columns?: Array<Accounts_Update_Column>;
   where?: InputMaybe<Accounts_Bool_Exp>;
 };
 
 /** Ordering options when selecting data from "accounts". */
-type Accounts_Order_By = {
+export type Accounts_Order_By = {
   access_token?: InputMaybe<Order_By>;
   expires_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
@@ -324,12 +327,12 @@ type Accounts_Order_By = {
 };
 
 /** primary key columns input for table: accounts */
-type Accounts_Pk_Columns_Input = {
+export type Accounts_Pk_Columns_Input = {
   id: Scalars['String'];
 };
 
 /** select columns of table "accounts" */
-enum Accounts_Select_Column {
+export const enum Accounts_Select_Column {
   /** column name */
   AccessToken = 'access_token',
   /** column name */
@@ -357,7 +360,7 @@ enum Accounts_Select_Column {
 }
 
 /** input type for updating data in table "accounts" */
-type Accounts_Set_Input = {
+export type Accounts_Set_Input = {
   access_token?: InputMaybe<Scalars['String']>;
   expires_at?: InputMaybe<Scalars['Int']>;
   id?: InputMaybe<Scalars['String']>;
@@ -373,51 +376,51 @@ type Accounts_Set_Input = {
 };
 
 /** aggregate stddev on columns */
-type Accounts_Stddev_Fields = {
+export type Accounts_Stddev_Fields = {
   __typename?: 'accounts_stddev_fields';
   expires_at?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev() on columns of table "accounts" */
-type Accounts_Stddev_Order_By = {
+export type Accounts_Stddev_Order_By = {
   expires_at?: InputMaybe<Order_By>;
 };
 
 /** aggregate stddev_pop on columns */
-type Accounts_Stddev_Pop_Fields = {
+export type Accounts_Stddev_Pop_Fields = {
   __typename?: 'accounts_stddev_pop_fields';
   expires_at?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev_pop() on columns of table "accounts" */
-type Accounts_Stddev_Pop_Order_By = {
+export type Accounts_Stddev_Pop_Order_By = {
   expires_at?: InputMaybe<Order_By>;
 };
 
 /** aggregate stddev_samp on columns */
-type Accounts_Stddev_Samp_Fields = {
+export type Accounts_Stddev_Samp_Fields = {
   __typename?: 'accounts_stddev_samp_fields';
   expires_at?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev_samp() on columns of table "accounts" */
-type Accounts_Stddev_Samp_Order_By = {
+export type Accounts_Stddev_Samp_Order_By = {
   expires_at?: InputMaybe<Order_By>;
 };
 
 /** aggregate sum on columns */
-type Accounts_Sum_Fields = {
+export type Accounts_Sum_Fields = {
   __typename?: 'accounts_sum_fields';
   expires_at?: Maybe<Scalars['Int']>;
 };
 
 /** order by sum() on columns of table "accounts" */
-type Accounts_Sum_Order_By = {
+export type Accounts_Sum_Order_By = {
   expires_at?: InputMaybe<Order_By>;
 };
 
 /** update columns of table "accounts" */
-enum Accounts_Update_Column {
+export const enum Accounts_Update_Column {
   /** column name */
   AccessToken = 'access_token',
   /** column name */
@@ -445,40 +448,40 @@ enum Accounts_Update_Column {
 }
 
 /** aggregate var_pop on columns */
-type Accounts_Var_Pop_Fields = {
+export type Accounts_Var_Pop_Fields = {
   __typename?: 'accounts_var_pop_fields';
   expires_at?: Maybe<Scalars['Float']>;
 };
 
 /** order by var_pop() on columns of table "accounts" */
-type Accounts_Var_Pop_Order_By = {
+export type Accounts_Var_Pop_Order_By = {
   expires_at?: InputMaybe<Order_By>;
 };
 
 /** aggregate var_samp on columns */
-type Accounts_Var_Samp_Fields = {
+export type Accounts_Var_Samp_Fields = {
   __typename?: 'accounts_var_samp_fields';
   expires_at?: Maybe<Scalars['Float']>;
 };
 
 /** order by var_samp() on columns of table "accounts" */
-type Accounts_Var_Samp_Order_By = {
+export type Accounts_Var_Samp_Order_By = {
   expires_at?: InputMaybe<Order_By>;
 };
 
 /** aggregate variance on columns */
-type Accounts_Variance_Fields = {
+export type Accounts_Variance_Fields = {
   __typename?: 'accounts_variance_fields';
   expires_at?: Maybe<Scalars['Float']>;
 };
 
 /** order by variance() on columns of table "accounts" */
-type Accounts_Variance_Order_By = {
+export type Accounts_Variance_Order_By = {
   expires_at?: InputMaybe<Order_By>;
 };
 
 /** mutation root */
-type Mutation_Root = {
+export type Mutation_Root = {
   __typename?: 'mutation_root';
   /** delete data from the table: "accounts" */
   delete_accounts?: Maybe<Accounts_Mutation_Response>;
@@ -541,173 +544,173 @@ type Mutation_Root = {
 };
 
 /** mutation root */
-type Mutation_RootDelete_AccountsArgs = {
+export type Mutation_RootDelete_AccountsArgs = {
   where: Accounts_Bool_Exp;
 };
 
 /** mutation root */
-type Mutation_RootDelete_Accounts_By_PkArgs = {
+export type Mutation_RootDelete_Accounts_By_PkArgs = {
   id: Scalars['String'];
 };
 
 /** mutation root */
-type Mutation_RootDelete_PasswordsArgs = {
+export type Mutation_RootDelete_PasswordsArgs = {
   where: Passwords_Bool_Exp;
 };
 
 /** mutation root */
-type Mutation_RootDelete_Passwords_By_PkArgs = {
+export type Mutation_RootDelete_Passwords_By_PkArgs = {
   hash: Scalars['String'];
 };
 
 /** mutation root */
-type Mutation_RootDelete_SessionsArgs = {
+export type Mutation_RootDelete_SessionsArgs = {
   where: Sessions_Bool_Exp;
 };
 
 /** mutation root */
-type Mutation_RootDelete_Sessions_By_PkArgs = {
+export type Mutation_RootDelete_Sessions_By_PkArgs = {
   id: Scalars['String'];
 };
 
 /** mutation root */
-type Mutation_RootDelete_UsersArgs = {
+export type Mutation_RootDelete_UsersArgs = {
   where: Users_Bool_Exp;
 };
 
 /** mutation root */
-type Mutation_RootDelete_Users_By_PkArgs = {
+export type Mutation_RootDelete_Users_By_PkArgs = {
   id: Scalars['String'];
 };
 
 /** mutation root */
-type Mutation_RootDelete_VerificationTokensArgs = {
+export type Mutation_RootDelete_VerificationTokensArgs = {
   where: VerificationTokens_Bool_Exp;
 };
 
 /** mutation root */
-type Mutation_RootInsert_AccountsArgs = {
+export type Mutation_RootInsert_AccountsArgs = {
   objects: Array<Accounts_Insert_Input>;
   on_conflict?: InputMaybe<Accounts_On_Conflict>;
 };
 
 /** mutation root */
-type Mutation_RootInsert_Accounts_OneArgs = {
+export type Mutation_RootInsert_Accounts_OneArgs = {
   object: Accounts_Insert_Input;
   on_conflict?: InputMaybe<Accounts_On_Conflict>;
 };
 
 /** mutation root */
-type Mutation_RootInsert_PasswordsArgs = {
+export type Mutation_RootInsert_PasswordsArgs = {
   objects: Array<Passwords_Insert_Input>;
   on_conflict?: InputMaybe<Passwords_On_Conflict>;
 };
 
 /** mutation root */
-type Mutation_RootInsert_Passwords_OneArgs = {
+export type Mutation_RootInsert_Passwords_OneArgs = {
   object: Passwords_Insert_Input;
   on_conflict?: InputMaybe<Passwords_On_Conflict>;
 };
 
 /** mutation root */
-type Mutation_RootInsert_SessionsArgs = {
+export type Mutation_RootInsert_SessionsArgs = {
   objects: Array<Sessions_Insert_Input>;
   on_conflict?: InputMaybe<Sessions_On_Conflict>;
 };
 
 /** mutation root */
-type Mutation_RootInsert_Sessions_OneArgs = {
+export type Mutation_RootInsert_Sessions_OneArgs = {
   object: Sessions_Insert_Input;
   on_conflict?: InputMaybe<Sessions_On_Conflict>;
 };
 
 /** mutation root */
-type Mutation_RootInsert_UsersArgs = {
+export type Mutation_RootInsert_UsersArgs = {
   objects: Array<Users_Insert_Input>;
   on_conflict?: InputMaybe<Users_On_Conflict>;
 };
 
 /** mutation root */
-type Mutation_RootInsert_Users_OneArgs = {
+export type Mutation_RootInsert_Users_OneArgs = {
   object: Users_Insert_Input;
   on_conflict?: InputMaybe<Users_On_Conflict>;
 };
 
 /** mutation root */
-type Mutation_RootInsert_VerificationTokensArgs = {
+export type Mutation_RootInsert_VerificationTokensArgs = {
   objects: Array<VerificationTokens_Insert_Input>;
 };
 
 /** mutation root */
-type Mutation_RootInsert_VerificationTokens_OneArgs = {
+export type Mutation_RootInsert_VerificationTokens_OneArgs = {
   object: VerificationTokens_Insert_Input;
 };
 
 /** mutation root */
-type Mutation_RootSignupArgs = {
+export type Mutation_RootSignupArgs = {
   params: SignupInput;
 };
 
 /** mutation root */
-type Mutation_RootUpdate_AccountsArgs = {
+export type Mutation_RootUpdate_AccountsArgs = {
   _inc?: InputMaybe<Accounts_Inc_Input>;
   _set?: InputMaybe<Accounts_Set_Input>;
   where: Accounts_Bool_Exp;
 };
 
 /** mutation root */
-type Mutation_RootUpdate_Accounts_By_PkArgs = {
+export type Mutation_RootUpdate_Accounts_By_PkArgs = {
   _inc?: InputMaybe<Accounts_Inc_Input>;
   _set?: InputMaybe<Accounts_Set_Input>;
   pk_columns: Accounts_Pk_Columns_Input;
 };
 
 /** mutation root */
-type Mutation_RootUpdate_PasswordsArgs = {
+export type Mutation_RootUpdate_PasswordsArgs = {
   _inc?: InputMaybe<Passwords_Inc_Input>;
   _set?: InputMaybe<Passwords_Set_Input>;
   where: Passwords_Bool_Exp;
 };
 
 /** mutation root */
-type Mutation_RootUpdate_Passwords_By_PkArgs = {
+export type Mutation_RootUpdate_Passwords_By_PkArgs = {
   _inc?: InputMaybe<Passwords_Inc_Input>;
   _set?: InputMaybe<Passwords_Set_Input>;
   pk_columns: Passwords_Pk_Columns_Input;
 };
 
 /** mutation root */
-type Mutation_RootUpdate_SessionsArgs = {
+export type Mutation_RootUpdate_SessionsArgs = {
   _set?: InputMaybe<Sessions_Set_Input>;
   where: Sessions_Bool_Exp;
 };
 
 /** mutation root */
-type Mutation_RootUpdate_Sessions_By_PkArgs = {
+export type Mutation_RootUpdate_Sessions_By_PkArgs = {
   _set?: InputMaybe<Sessions_Set_Input>;
   pk_columns: Sessions_Pk_Columns_Input;
 };
 
 /** mutation root */
-type Mutation_RootUpdate_UsersArgs = {
+export type Mutation_RootUpdate_UsersArgs = {
   _set?: InputMaybe<Users_Set_Input>;
   where: Users_Bool_Exp;
 };
 
 /** mutation root */
-type Mutation_RootUpdate_Users_By_PkArgs = {
+export type Mutation_RootUpdate_Users_By_PkArgs = {
   _set?: InputMaybe<Users_Set_Input>;
   pk_columns: Users_Pk_Columns_Input;
 };
 
 /** mutation root */
-type Mutation_RootUpdate_VerificationTokensArgs = {
+export type Mutation_RootUpdate_VerificationTokensArgs = {
   _set?: InputMaybe<VerificationTokens_Set_Input>;
   where: VerificationTokens_Bool_Exp;
 };
 
 /** column ordering options */
-enum Order_By {
+export const enum Order_By {
   /** in ascending order, nulls last */
   Asc = 'asc',
   /** in ascending order, nulls first */
@@ -723,7 +726,7 @@ enum Order_By {
 }
 
 /** columns and relationships of "passwords" */
-type Passwords = {
+export type Passwords = {
   __typename?: 'passwords';
   attempts: Scalars['Int'];
   hash: Scalars['String'];
@@ -733,14 +736,14 @@ type Passwords = {
 };
 
 /** aggregated selection of "passwords" */
-type Passwords_Aggregate = {
+export type Passwords_Aggregate = {
   __typename?: 'passwords_aggregate';
   aggregate?: Maybe<Passwords_Aggregate_Fields>;
   nodes: Array<Passwords>;
 };
 
 /** aggregate fields of "passwords" */
-type Passwords_Aggregate_Fields = {
+export type Passwords_Aggregate_Fields = {
   __typename?: 'passwords_aggregate_fields';
   avg?: Maybe<Passwords_Avg_Fields>;
   count: Scalars['Int'];
@@ -756,13 +759,13 @@ type Passwords_Aggregate_Fields = {
 };
 
 /** aggregate fields of "passwords" */
-type Passwords_Aggregate_FieldsCountArgs = {
+export type Passwords_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Passwords_Select_Column>>;
   distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** order by aggregate values of table "passwords" */
-type Passwords_Aggregate_Order_By = {
+export type Passwords_Aggregate_Order_By = {
   avg?: InputMaybe<Passwords_Avg_Order_By>;
   count?: InputMaybe<Order_By>;
   max?: InputMaybe<Passwords_Max_Order_By>;
@@ -777,27 +780,27 @@ type Passwords_Aggregate_Order_By = {
 };
 
 /** input type for inserting array relation for remote table "passwords" */
-type Passwords_Arr_Rel_Insert_Input = {
+export type Passwords_Arr_Rel_Insert_Input = {
   data: Array<Passwords_Insert_Input>;
   /** upsert condition */
   on_conflict?: InputMaybe<Passwords_On_Conflict>;
 };
 
 /** aggregate avg on columns */
-type Passwords_Avg_Fields = {
+export type Passwords_Avg_Fields = {
   __typename?: 'passwords_avg_fields';
   attempts?: Maybe<Scalars['Float']>;
   iterations?: Maybe<Scalars['Float']>;
 };
 
 /** order by avg() on columns of table "passwords" */
-type Passwords_Avg_Order_By = {
+export type Passwords_Avg_Order_By = {
   attempts?: InputMaybe<Order_By>;
   iterations?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to filter rows from the table "passwords". All fields are combined with a logical 'AND'. */
-type Passwords_Bool_Exp = {
+export type Passwords_Bool_Exp = {
   _and?: InputMaybe<Array<Passwords_Bool_Exp>>;
   _not?: InputMaybe<Passwords_Bool_Exp>;
   _or?: InputMaybe<Array<Passwords_Bool_Exp>>;
@@ -809,7 +812,7 @@ type Passwords_Bool_Exp = {
 };
 
 /** unique or primary key constraints on table "passwords" */
-enum Passwords_Constraint {
+export const enum Passwords_Constraint {
   /** unique or primary key constraint on columns "hash" */
   PasswordsPkey = 'passwords_pkey',
   /** unique or primary key constraint on columns "salt" */
@@ -817,13 +820,13 @@ enum Passwords_Constraint {
 }
 
 /** input type for incrementing numeric columns in table "passwords" */
-type Passwords_Inc_Input = {
+export type Passwords_Inc_Input = {
   attempts?: InputMaybe<Scalars['Int']>;
   iterations?: InputMaybe<Scalars['Int']>;
 };
 
 /** input type for inserting data into table "passwords" */
-type Passwords_Insert_Input = {
+export type Passwords_Insert_Input = {
   attempts?: InputMaybe<Scalars['Int']>;
   hash?: InputMaybe<Scalars['String']>;
   iterations?: InputMaybe<Scalars['Int']>;
@@ -832,7 +835,7 @@ type Passwords_Insert_Input = {
 };
 
 /** aggregate max on columns */
-type Passwords_Max_Fields = {
+export type Passwords_Max_Fields = {
   __typename?: 'passwords_max_fields';
   attempts?: Maybe<Scalars['Int']>;
   hash?: Maybe<Scalars['String']>;
@@ -842,7 +845,7 @@ type Passwords_Max_Fields = {
 };
 
 /** order by max() on columns of table "passwords" */
-type Passwords_Max_Order_By = {
+export type Passwords_Max_Order_By = {
   attempts?: InputMaybe<Order_By>;
   hash?: InputMaybe<Order_By>;
   iterations?: InputMaybe<Order_By>;
@@ -851,7 +854,7 @@ type Passwords_Max_Order_By = {
 };
 
 /** aggregate min on columns */
-type Passwords_Min_Fields = {
+export type Passwords_Min_Fields = {
   __typename?: 'passwords_min_fields';
   attempts?: Maybe<Scalars['Int']>;
   hash?: Maybe<Scalars['String']>;
@@ -861,7 +864,7 @@ type Passwords_Min_Fields = {
 };
 
 /** order by min() on columns of table "passwords" */
-type Passwords_Min_Order_By = {
+export type Passwords_Min_Order_By = {
   attempts?: InputMaybe<Order_By>;
   hash?: InputMaybe<Order_By>;
   iterations?: InputMaybe<Order_By>;
@@ -870,7 +873,7 @@ type Passwords_Min_Order_By = {
 };
 
 /** response of any mutation on the table "passwords" */
-type Passwords_Mutation_Response = {
+export type Passwords_Mutation_Response = {
   __typename?: 'passwords_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int'];
@@ -879,14 +882,14 @@ type Passwords_Mutation_Response = {
 };
 
 /** on_conflict condition type for table "passwords" */
-type Passwords_On_Conflict = {
+export type Passwords_On_Conflict = {
   constraint: Passwords_Constraint;
   update_columns?: Array<Passwords_Update_Column>;
   where?: InputMaybe<Passwords_Bool_Exp>;
 };
 
 /** Ordering options when selecting data from "passwords". */
-type Passwords_Order_By = {
+export type Passwords_Order_By = {
   attempts?: InputMaybe<Order_By>;
   hash?: InputMaybe<Order_By>;
   iterations?: InputMaybe<Order_By>;
@@ -895,12 +898,12 @@ type Passwords_Order_By = {
 };
 
 /** primary key columns input for table: passwords */
-type Passwords_Pk_Columns_Input = {
+export type Passwords_Pk_Columns_Input = {
   hash: Scalars['String'];
 };
 
 /** select columns of table "passwords" */
-enum Passwords_Select_Column {
+export const enum Passwords_Select_Column {
   /** column name */
   Attempts = 'attempts',
   /** column name */
@@ -914,7 +917,7 @@ enum Passwords_Select_Column {
 }
 
 /** input type for updating data in table "passwords" */
-type Passwords_Set_Input = {
+export type Passwords_Set_Input = {
   attempts?: InputMaybe<Scalars['Int']>;
   hash?: InputMaybe<Scalars['String']>;
   iterations?: InputMaybe<Scalars['Int']>;
@@ -923,59 +926,59 @@ type Passwords_Set_Input = {
 };
 
 /** aggregate stddev on columns */
-type Passwords_Stddev_Fields = {
+export type Passwords_Stddev_Fields = {
   __typename?: 'passwords_stddev_fields';
   attempts?: Maybe<Scalars['Float']>;
   iterations?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev() on columns of table "passwords" */
-type Passwords_Stddev_Order_By = {
+export type Passwords_Stddev_Order_By = {
   attempts?: InputMaybe<Order_By>;
   iterations?: InputMaybe<Order_By>;
 };
 
 /** aggregate stddev_pop on columns */
-type Passwords_Stddev_Pop_Fields = {
+export type Passwords_Stddev_Pop_Fields = {
   __typename?: 'passwords_stddev_pop_fields';
   attempts?: Maybe<Scalars['Float']>;
   iterations?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev_pop() on columns of table "passwords" */
-type Passwords_Stddev_Pop_Order_By = {
+export type Passwords_Stddev_Pop_Order_By = {
   attempts?: InputMaybe<Order_By>;
   iterations?: InputMaybe<Order_By>;
 };
 
 /** aggregate stddev_samp on columns */
-type Passwords_Stddev_Samp_Fields = {
+export type Passwords_Stddev_Samp_Fields = {
   __typename?: 'passwords_stddev_samp_fields';
   attempts?: Maybe<Scalars['Float']>;
   iterations?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev_samp() on columns of table "passwords" */
-type Passwords_Stddev_Samp_Order_By = {
+export type Passwords_Stddev_Samp_Order_By = {
   attempts?: InputMaybe<Order_By>;
   iterations?: InputMaybe<Order_By>;
 };
 
 /** aggregate sum on columns */
-type Passwords_Sum_Fields = {
+export type Passwords_Sum_Fields = {
   __typename?: 'passwords_sum_fields';
   attempts?: Maybe<Scalars['Int']>;
   iterations?: Maybe<Scalars['Int']>;
 };
 
 /** order by sum() on columns of table "passwords" */
-type Passwords_Sum_Order_By = {
+export type Passwords_Sum_Order_By = {
   attempts?: InputMaybe<Order_By>;
   iterations?: InputMaybe<Order_By>;
 };
 
 /** update columns of table "passwords" */
-enum Passwords_Update_Column {
+export const enum Passwords_Update_Column {
   /** column name */
   Attempts = 'attempts',
   /** column name */
@@ -989,45 +992,45 @@ enum Passwords_Update_Column {
 }
 
 /** aggregate var_pop on columns */
-type Passwords_Var_Pop_Fields = {
+export type Passwords_Var_Pop_Fields = {
   __typename?: 'passwords_var_pop_fields';
   attempts?: Maybe<Scalars['Float']>;
   iterations?: Maybe<Scalars['Float']>;
 };
 
 /** order by var_pop() on columns of table "passwords" */
-type Passwords_Var_Pop_Order_By = {
+export type Passwords_Var_Pop_Order_By = {
   attempts?: InputMaybe<Order_By>;
   iterations?: InputMaybe<Order_By>;
 };
 
 /** aggregate var_samp on columns */
-type Passwords_Var_Samp_Fields = {
+export type Passwords_Var_Samp_Fields = {
   __typename?: 'passwords_var_samp_fields';
   attempts?: Maybe<Scalars['Float']>;
   iterations?: Maybe<Scalars['Float']>;
 };
 
 /** order by var_samp() on columns of table "passwords" */
-type Passwords_Var_Samp_Order_By = {
+export type Passwords_Var_Samp_Order_By = {
   attempts?: InputMaybe<Order_By>;
   iterations?: InputMaybe<Order_By>;
 };
 
 /** aggregate variance on columns */
-type Passwords_Variance_Fields = {
+export type Passwords_Variance_Fields = {
   __typename?: 'passwords_variance_fields';
   attempts?: Maybe<Scalars['Float']>;
   iterations?: Maybe<Scalars['Float']>;
 };
 
 /** order by variance() on columns of table "passwords" */
-type Passwords_Variance_Order_By = {
+export type Passwords_Variance_Order_By = {
   attempts?: InputMaybe<Order_By>;
   iterations?: InputMaybe<Order_By>;
 };
 
-type Query_Root = {
+export type Query_Root = {
   __typename?: 'query_root';
   /** fetch data from the table: "accounts" */
   accounts: Array<Accounts>;
@@ -1061,7 +1064,7 @@ type Query_Root = {
   verificationTokens_aggregate: VerificationTokens_Aggregate;
 };
 
-type Query_RootAccountsArgs = {
+export type Query_RootAccountsArgs = {
   distinct_on?: InputMaybe<Array<Accounts_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1069,7 +1072,7 @@ type Query_RootAccountsArgs = {
   where?: InputMaybe<Accounts_Bool_Exp>;
 };
 
-type Query_RootAccounts_AggregateArgs = {
+export type Query_RootAccounts_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Accounts_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1077,15 +1080,15 @@ type Query_RootAccounts_AggregateArgs = {
   where?: InputMaybe<Accounts_Bool_Exp>;
 };
 
-type Query_RootAccounts_By_PkArgs = {
+export type Query_RootAccounts_By_PkArgs = {
   id: Scalars['String'];
 };
 
-type Query_RootLoginArgs = {
+export type Query_RootLoginArgs = {
   params: LoginInput;
 };
 
-type Query_RootPasswordsArgs = {
+export type Query_RootPasswordsArgs = {
   distinct_on?: InputMaybe<Array<Passwords_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1093,7 +1096,7 @@ type Query_RootPasswordsArgs = {
   where?: InputMaybe<Passwords_Bool_Exp>;
 };
 
-type Query_RootPasswords_AggregateArgs = {
+export type Query_RootPasswords_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Passwords_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1101,16 +1104,16 @@ type Query_RootPasswords_AggregateArgs = {
   where?: InputMaybe<Passwords_Bool_Exp>;
 };
 
-type Query_RootPasswords_By_PkArgs = {
+export type Query_RootPasswords_By_PkArgs = {
   hash: Scalars['String'];
 };
 
-type Query_RootRefreshJwtTokenArgs = {
+export type Query_RootRefreshJwtTokenArgs = {
   fingerprintHash: Scalars['String'];
   refreshToken: Scalars['String'];
 };
 
-type Query_RootSessionsArgs = {
+export type Query_RootSessionsArgs = {
   distinct_on?: InputMaybe<Array<Sessions_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1118,7 +1121,7 @@ type Query_RootSessionsArgs = {
   where?: InputMaybe<Sessions_Bool_Exp>;
 };
 
-type Query_RootSessions_AggregateArgs = {
+export type Query_RootSessions_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Sessions_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1126,11 +1129,11 @@ type Query_RootSessions_AggregateArgs = {
   where?: InputMaybe<Sessions_Bool_Exp>;
 };
 
-type Query_RootSessions_By_PkArgs = {
+export type Query_RootSessions_By_PkArgs = {
   id: Scalars['String'];
 };
 
-type Query_RootUsersArgs = {
+export type Query_RootUsersArgs = {
   distinct_on?: InputMaybe<Array<Users_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1138,7 +1141,7 @@ type Query_RootUsersArgs = {
   where?: InputMaybe<Users_Bool_Exp>;
 };
 
-type Query_RootUsers_AggregateArgs = {
+export type Query_RootUsers_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Users_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1146,11 +1149,11 @@ type Query_RootUsers_AggregateArgs = {
   where?: InputMaybe<Users_Bool_Exp>;
 };
 
-type Query_RootUsers_By_PkArgs = {
+export type Query_RootUsers_By_PkArgs = {
   id: Scalars['String'];
 };
 
-type Query_RootVerificationTokensArgs = {
+export type Query_RootVerificationTokensArgs = {
   distinct_on?: InputMaybe<Array<VerificationTokens_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1158,7 +1161,7 @@ type Query_RootVerificationTokensArgs = {
   where?: InputMaybe<VerificationTokens_Bool_Exp>;
 };
 
-type Query_RootVerificationTokens_AggregateArgs = {
+export type Query_RootVerificationTokens_AggregateArgs = {
   distinct_on?: InputMaybe<Array<VerificationTokens_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1167,7 +1170,7 @@ type Query_RootVerificationTokens_AggregateArgs = {
 };
 
 /** columns and relationships of "sessions" */
-type Sessions = {
+export type Sessions = {
   __typename?: 'sessions';
   expires?: Maybe<Scalars['timestamp']>;
   id: Scalars['String'];
@@ -1178,14 +1181,14 @@ type Sessions = {
 };
 
 /** aggregated selection of "sessions" */
-type Sessions_Aggregate = {
+export type Sessions_Aggregate = {
   __typename?: 'sessions_aggregate';
   aggregate?: Maybe<Sessions_Aggregate_Fields>;
   nodes: Array<Sessions>;
 };
 
 /** aggregate fields of "sessions" */
-type Sessions_Aggregate_Fields = {
+export type Sessions_Aggregate_Fields = {
   __typename?: 'sessions_aggregate_fields';
   count: Scalars['Int'];
   max?: Maybe<Sessions_Max_Fields>;
@@ -1193,27 +1196,27 @@ type Sessions_Aggregate_Fields = {
 };
 
 /** aggregate fields of "sessions" */
-type Sessions_Aggregate_FieldsCountArgs = {
+export type Sessions_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Sessions_Select_Column>>;
   distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** order by aggregate values of table "sessions" */
-type Sessions_Aggregate_Order_By = {
+export type Sessions_Aggregate_Order_By = {
   count?: InputMaybe<Order_By>;
   max?: InputMaybe<Sessions_Max_Order_By>;
   min?: InputMaybe<Sessions_Min_Order_By>;
 };
 
 /** input type for inserting array relation for remote table "sessions" */
-type Sessions_Arr_Rel_Insert_Input = {
+export type Sessions_Arr_Rel_Insert_Input = {
   data: Array<Sessions_Insert_Input>;
   /** upsert condition */
   on_conflict?: InputMaybe<Sessions_On_Conflict>;
 };
 
 /** Boolean expression to filter rows from the table "sessions". All fields are combined with a logical 'AND'. */
-type Sessions_Bool_Exp = {
+export type Sessions_Bool_Exp = {
   _and?: InputMaybe<Array<Sessions_Bool_Exp>>;
   _not?: InputMaybe<Sessions_Bool_Exp>;
   _or?: InputMaybe<Array<Sessions_Bool_Exp>>;
@@ -1225,13 +1228,13 @@ type Sessions_Bool_Exp = {
 };
 
 /** unique or primary key constraints on table "sessions" */
-enum Sessions_Constraint {
+export const enum Sessions_Constraint {
   /** unique or primary key constraint on columns "id" */
   SessionsPkey = 'sessions_pkey',
 }
 
 /** input type for inserting data into table "sessions" */
-type Sessions_Insert_Input = {
+export type Sessions_Insert_Input = {
   expires?: InputMaybe<Scalars['timestamp']>;
   id?: InputMaybe<Scalars['String']>;
   sessionToken?: InputMaybe<Scalars['String']>;
@@ -1240,7 +1243,7 @@ type Sessions_Insert_Input = {
 };
 
 /** aggregate max on columns */
-type Sessions_Max_Fields = {
+export type Sessions_Max_Fields = {
   __typename?: 'sessions_max_fields';
   expires?: Maybe<Scalars['timestamp']>;
   id?: Maybe<Scalars['String']>;
@@ -1249,7 +1252,7 @@ type Sessions_Max_Fields = {
 };
 
 /** order by max() on columns of table "sessions" */
-type Sessions_Max_Order_By = {
+export type Sessions_Max_Order_By = {
   expires?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   sessionToken?: InputMaybe<Order_By>;
@@ -1257,7 +1260,7 @@ type Sessions_Max_Order_By = {
 };
 
 /** aggregate min on columns */
-type Sessions_Min_Fields = {
+export type Sessions_Min_Fields = {
   __typename?: 'sessions_min_fields';
   expires?: Maybe<Scalars['timestamp']>;
   id?: Maybe<Scalars['String']>;
@@ -1266,7 +1269,7 @@ type Sessions_Min_Fields = {
 };
 
 /** order by min() on columns of table "sessions" */
-type Sessions_Min_Order_By = {
+export type Sessions_Min_Order_By = {
   expires?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   sessionToken?: InputMaybe<Order_By>;
@@ -1274,7 +1277,7 @@ type Sessions_Min_Order_By = {
 };
 
 /** response of any mutation on the table "sessions" */
-type Sessions_Mutation_Response = {
+export type Sessions_Mutation_Response = {
   __typename?: 'sessions_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int'];
@@ -1283,14 +1286,14 @@ type Sessions_Mutation_Response = {
 };
 
 /** on_conflict condition type for table "sessions" */
-type Sessions_On_Conflict = {
+export type Sessions_On_Conflict = {
   constraint: Sessions_Constraint;
   update_columns?: Array<Sessions_Update_Column>;
   where?: InputMaybe<Sessions_Bool_Exp>;
 };
 
 /** Ordering options when selecting data from "sessions". */
-type Sessions_Order_By = {
+export type Sessions_Order_By = {
   expires?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   sessionToken?: InputMaybe<Order_By>;
@@ -1299,12 +1302,12 @@ type Sessions_Order_By = {
 };
 
 /** primary key columns input for table: sessions */
-type Sessions_Pk_Columns_Input = {
+export type Sessions_Pk_Columns_Input = {
   id: Scalars['String'];
 };
 
 /** select columns of table "sessions" */
-enum Sessions_Select_Column {
+export const enum Sessions_Select_Column {
   /** column name */
   Expires = 'expires',
   /** column name */
@@ -1316,7 +1319,7 @@ enum Sessions_Select_Column {
 }
 
 /** input type for updating data in table "sessions" */
-type Sessions_Set_Input = {
+export type Sessions_Set_Input = {
   expires?: InputMaybe<Scalars['timestamp']>;
   id?: InputMaybe<Scalars['String']>;
   sessionToken?: InputMaybe<Scalars['String']>;
@@ -1324,7 +1327,7 @@ type Sessions_Set_Input = {
 };
 
 /** update columns of table "sessions" */
-enum Sessions_Update_Column {
+export const enum Sessions_Update_Column {
   /** column name */
   Expires = 'expires',
   /** column name */
@@ -1335,7 +1338,7 @@ enum Sessions_Update_Column {
   UserId = 'userId',
 }
 
-type Subscription_Root = {
+export type Subscription_Root = {
   __typename?: 'subscription_root';
   /** fetch data from the table: "accounts" */
   accounts: Array<Accounts>;
@@ -1367,7 +1370,7 @@ type Subscription_Root = {
   verificationTokens_aggregate: VerificationTokens_Aggregate;
 };
 
-type Subscription_RootAccountsArgs = {
+export type Subscription_RootAccountsArgs = {
   distinct_on?: InputMaybe<Array<Accounts_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1375,7 +1378,7 @@ type Subscription_RootAccountsArgs = {
   where?: InputMaybe<Accounts_Bool_Exp>;
 };
 
-type Subscription_RootAccounts_AggregateArgs = {
+export type Subscription_RootAccounts_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Accounts_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1383,11 +1386,11 @@ type Subscription_RootAccounts_AggregateArgs = {
   where?: InputMaybe<Accounts_Bool_Exp>;
 };
 
-type Subscription_RootAccounts_By_PkArgs = {
+export type Subscription_RootAccounts_By_PkArgs = {
   id: Scalars['String'];
 };
 
-type Subscription_RootPasswordsArgs = {
+export type Subscription_RootPasswordsArgs = {
   distinct_on?: InputMaybe<Array<Passwords_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1395,7 +1398,7 @@ type Subscription_RootPasswordsArgs = {
   where?: InputMaybe<Passwords_Bool_Exp>;
 };
 
-type Subscription_RootPasswords_AggregateArgs = {
+export type Subscription_RootPasswords_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Passwords_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1403,11 +1406,11 @@ type Subscription_RootPasswords_AggregateArgs = {
   where?: InputMaybe<Passwords_Bool_Exp>;
 };
 
-type Subscription_RootPasswords_By_PkArgs = {
+export type Subscription_RootPasswords_By_PkArgs = {
   hash: Scalars['String'];
 };
 
-type Subscription_RootSessionsArgs = {
+export type Subscription_RootSessionsArgs = {
   distinct_on?: InputMaybe<Array<Sessions_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1415,7 +1418,7 @@ type Subscription_RootSessionsArgs = {
   where?: InputMaybe<Sessions_Bool_Exp>;
 };
 
-type Subscription_RootSessions_AggregateArgs = {
+export type Subscription_RootSessions_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Sessions_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1423,11 +1426,11 @@ type Subscription_RootSessions_AggregateArgs = {
   where?: InputMaybe<Sessions_Bool_Exp>;
 };
 
-type Subscription_RootSessions_By_PkArgs = {
+export type Subscription_RootSessions_By_PkArgs = {
   id: Scalars['String'];
 };
 
-type Subscription_RootUsersArgs = {
+export type Subscription_RootUsersArgs = {
   distinct_on?: InputMaybe<Array<Users_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1435,7 +1438,7 @@ type Subscription_RootUsersArgs = {
   where?: InputMaybe<Users_Bool_Exp>;
 };
 
-type Subscription_RootUsers_AggregateArgs = {
+export type Subscription_RootUsers_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Users_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1443,11 +1446,11 @@ type Subscription_RootUsers_AggregateArgs = {
   where?: InputMaybe<Users_Bool_Exp>;
 };
 
-type Subscription_RootUsers_By_PkArgs = {
+export type Subscription_RootUsers_By_PkArgs = {
   id: Scalars['String'];
 };
 
-type Subscription_RootVerificationTokensArgs = {
+export type Subscription_RootVerificationTokensArgs = {
   distinct_on?: InputMaybe<Array<VerificationTokens_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1455,7 +1458,7 @@ type Subscription_RootVerificationTokensArgs = {
   where?: InputMaybe<VerificationTokens_Bool_Exp>;
 };
 
-type Subscription_RootVerificationTokens_AggregateArgs = {
+export type Subscription_RootVerificationTokens_AggregateArgs = {
   distinct_on?: InputMaybe<Array<VerificationTokens_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1464,7 +1467,7 @@ type Subscription_RootVerificationTokens_AggregateArgs = {
 };
 
 /** Boolean expression to compare columns of type "timestamp". All fields are combined with logical 'AND'. */
-type Timestamp_Comparison_Exp = {
+export type Timestamp_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['timestamp']>;
   _gt?: InputMaybe<Scalars['timestamp']>;
   _gte?: InputMaybe<Scalars['timestamp']>;
@@ -1477,7 +1480,7 @@ type Timestamp_Comparison_Exp = {
 };
 
 /** columns and relationships of "users" */
-type Users = {
+export type Users = {
   __typename?: 'users';
   /** fetch data from the table: "accounts" */
   accounts: Array<Accounts>;
@@ -1503,7 +1506,7 @@ type Users = {
 };
 
 /** columns and relationships of "users" */
-type UsersAccountsArgs = {
+export type UsersAccountsArgs = {
   distinct_on?: InputMaybe<Array<Accounts_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1512,7 +1515,7 @@ type UsersAccountsArgs = {
 };
 
 /** columns and relationships of "users" */
-type UsersAccounts_AggregateArgs = {
+export type UsersAccounts_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Accounts_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1521,7 +1524,7 @@ type UsersAccounts_AggregateArgs = {
 };
 
 /** columns and relationships of "users" */
-type UsersPasswordsArgs = {
+export type UsersPasswordsArgs = {
   distinct_on?: InputMaybe<Array<Passwords_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1530,7 +1533,7 @@ type UsersPasswordsArgs = {
 };
 
 /** columns and relationships of "users" */
-type UsersPasswords_AggregateArgs = {
+export type UsersPasswords_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Passwords_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1539,7 +1542,7 @@ type UsersPasswords_AggregateArgs = {
 };
 
 /** columns and relationships of "users" */
-type UsersSessionsArgs = {
+export type UsersSessionsArgs = {
   distinct_on?: InputMaybe<Array<Sessions_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1548,7 +1551,7 @@ type UsersSessionsArgs = {
 };
 
 /** columns and relationships of "users" */
-type UsersSessions_AggregateArgs = {
+export type UsersSessions_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Sessions_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1557,14 +1560,14 @@ type UsersSessions_AggregateArgs = {
 };
 
 /** aggregated selection of "users" */
-type Users_Aggregate = {
+export type Users_Aggregate = {
   __typename?: 'users_aggregate';
   aggregate?: Maybe<Users_Aggregate_Fields>;
   nodes: Array<Users>;
 };
 
 /** aggregate fields of "users" */
-type Users_Aggregate_Fields = {
+export type Users_Aggregate_Fields = {
   __typename?: 'users_aggregate_fields';
   count: Scalars['Int'];
   max?: Maybe<Users_Max_Fields>;
@@ -1572,13 +1575,13 @@ type Users_Aggregate_Fields = {
 };
 
 /** aggregate fields of "users" */
-type Users_Aggregate_FieldsCountArgs = {
+export type Users_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Users_Select_Column>>;
   distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Boolean expression to filter rows from the table "users". All fields are combined with a logical 'AND'. */
-type Users_Bool_Exp = {
+export type Users_Bool_Exp = {
   _and?: InputMaybe<Array<Users_Bool_Exp>>;
   _not?: InputMaybe<Users_Bool_Exp>;
   _or?: InputMaybe<Array<Users_Bool_Exp>>;
@@ -1597,13 +1600,13 @@ type Users_Bool_Exp = {
 };
 
 /** unique or primary key constraints on table "users" */
-enum Users_Constraint {
+export const enum Users_Constraint {
   /** unique or primary key constraint on columns "id" */
   UsersPkey = 'users_pkey',
 }
 
 /** input type for inserting data into table "users" */
-type Users_Insert_Input = {
+export type Users_Insert_Input = {
   accounts?: InputMaybe<Accounts_Arr_Rel_Insert_Input>;
   blocked?: InputMaybe<Scalars['Boolean']>;
   email?: InputMaybe<Scalars['String']>;
@@ -1619,7 +1622,7 @@ type Users_Insert_Input = {
 };
 
 /** aggregate max on columns */
-type Users_Max_Fields = {
+export type Users_Max_Fields = {
   __typename?: 'users_max_fields';
   email?: Maybe<Scalars['String']>;
   emailVerified?: Maybe<Scalars['timestamp']>;
@@ -1632,7 +1635,7 @@ type Users_Max_Fields = {
 };
 
 /** aggregate min on columns */
-type Users_Min_Fields = {
+export type Users_Min_Fields = {
   __typename?: 'users_min_fields';
   email?: Maybe<Scalars['String']>;
   emailVerified?: Maybe<Scalars['timestamp']>;
@@ -1645,7 +1648,7 @@ type Users_Min_Fields = {
 };
 
 /** response of any mutation on the table "users" */
-type Users_Mutation_Response = {
+export type Users_Mutation_Response = {
   __typename?: 'users_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int'];
@@ -1654,21 +1657,21 @@ type Users_Mutation_Response = {
 };
 
 /** input type for inserting object relation for remote table "users" */
-type Users_Obj_Rel_Insert_Input = {
+export type Users_Obj_Rel_Insert_Input = {
   data: Users_Insert_Input;
   /** upsert condition */
   on_conflict?: InputMaybe<Users_On_Conflict>;
 };
 
 /** on_conflict condition type for table "users" */
-type Users_On_Conflict = {
+export type Users_On_Conflict = {
   constraint: Users_Constraint;
   update_columns?: Array<Users_Update_Column>;
   where?: InputMaybe<Users_Bool_Exp>;
 };
 
 /** Ordering options when selecting data from "users". */
-type Users_Order_By = {
+export type Users_Order_By = {
   accounts_aggregate?: InputMaybe<Accounts_Aggregate_Order_By>;
   blocked?: InputMaybe<Order_By>;
   email?: InputMaybe<Order_By>;
@@ -1684,12 +1687,12 @@ type Users_Order_By = {
 };
 
 /** primary key columns input for table: users */
-type Users_Pk_Columns_Input = {
+export type Users_Pk_Columns_Input = {
   id: Scalars['String'];
 };
 
 /** select columns of table "users" */
-enum Users_Select_Column {
+export const enum Users_Select_Column {
   /** column name */
   Blocked = 'blocked',
   /** column name */
@@ -1711,7 +1714,7 @@ enum Users_Select_Column {
 }
 
 /** input type for updating data in table "users" */
-type Users_Set_Input = {
+export type Users_Set_Input = {
   blocked?: InputMaybe<Scalars['Boolean']>;
   email?: InputMaybe<Scalars['String']>;
   emailVerified?: InputMaybe<Scalars['timestamp']>;
@@ -1724,7 +1727,7 @@ type Users_Set_Input = {
 };
 
 /** update columns of table "users" */
-enum Users_Update_Column {
+export const enum Users_Update_Column {
   /** column name */
   Blocked = 'blocked',
   /** column name */
@@ -1746,7 +1749,7 @@ enum Users_Update_Column {
 }
 
 /** columns and relationships of "verificationTokens" */
-type VerificationTokens = {
+export type VerificationTokens = {
   __typename?: 'verificationTokens';
   expires: Scalars['timestamp'];
   identifier: Scalars['String'];
@@ -1754,14 +1757,14 @@ type VerificationTokens = {
 };
 
 /** aggregated selection of "verificationTokens" */
-type VerificationTokens_Aggregate = {
+export type VerificationTokens_Aggregate = {
   __typename?: 'verificationTokens_aggregate';
   aggregate?: Maybe<VerificationTokens_Aggregate_Fields>;
   nodes: Array<VerificationTokens>;
 };
 
 /** aggregate fields of "verificationTokens" */
-type VerificationTokens_Aggregate_Fields = {
+export type VerificationTokens_Aggregate_Fields = {
   __typename?: 'verificationTokens_aggregate_fields';
   count: Scalars['Int'];
   max?: Maybe<VerificationTokens_Max_Fields>;
@@ -1769,13 +1772,13 @@ type VerificationTokens_Aggregate_Fields = {
 };
 
 /** aggregate fields of "verificationTokens" */
-type VerificationTokens_Aggregate_FieldsCountArgs = {
+export type VerificationTokens_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<VerificationTokens_Select_Column>>;
   distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Boolean expression to filter rows from the table "verificationTokens". All fields are combined with a logical 'AND'. */
-type VerificationTokens_Bool_Exp = {
+export type VerificationTokens_Bool_Exp = {
   _and?: InputMaybe<Array<VerificationTokens_Bool_Exp>>;
   _not?: InputMaybe<VerificationTokens_Bool_Exp>;
   _or?: InputMaybe<Array<VerificationTokens_Bool_Exp>>;
@@ -1785,14 +1788,14 @@ type VerificationTokens_Bool_Exp = {
 };
 
 /** input type for inserting data into table "verificationTokens" */
-type VerificationTokens_Insert_Input = {
+export type VerificationTokens_Insert_Input = {
   expires?: InputMaybe<Scalars['timestamp']>;
   identifier?: InputMaybe<Scalars['String']>;
   token?: InputMaybe<Scalars['String']>;
 };
 
 /** aggregate max on columns */
-type VerificationTokens_Max_Fields = {
+export type VerificationTokens_Max_Fields = {
   __typename?: 'verificationTokens_max_fields';
   expires?: Maybe<Scalars['timestamp']>;
   identifier?: Maybe<Scalars['String']>;
@@ -1800,7 +1803,7 @@ type VerificationTokens_Max_Fields = {
 };
 
 /** aggregate min on columns */
-type VerificationTokens_Min_Fields = {
+export type VerificationTokens_Min_Fields = {
   __typename?: 'verificationTokens_min_fields';
   expires?: Maybe<Scalars['timestamp']>;
   identifier?: Maybe<Scalars['String']>;
@@ -1808,7 +1811,7 @@ type VerificationTokens_Min_Fields = {
 };
 
 /** response of any mutation on the table "verificationTokens" */
-type VerificationTokens_Mutation_Response = {
+export type VerificationTokens_Mutation_Response = {
   __typename?: 'verificationTokens_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int'];
@@ -1817,14 +1820,14 @@ type VerificationTokens_Mutation_Response = {
 };
 
 /** Ordering options when selecting data from "verificationTokens". */
-type VerificationTokens_Order_By = {
+export type VerificationTokens_Order_By = {
   expires?: InputMaybe<Order_By>;
   identifier?: InputMaybe<Order_By>;
   token?: InputMaybe<Order_By>;
 };
 
 /** select columns of table "verificationTokens" */
-enum VerificationTokens_Select_Column {
+export const enum VerificationTokens_Select_Column {
   /** column name */
   Expires = 'expires',
   /** column name */
@@ -1834,17 +1837,17 @@ enum VerificationTokens_Select_Column {
 }
 
 /** input type for updating data in table "verificationTokens" */
-type VerificationTokens_Set_Input = {
+export type VerificationTokens_Set_Input = {
   expires?: InputMaybe<Scalars['timestamp']>;
   identifier?: InputMaybe<Scalars['String']>;
   token?: InputMaybe<Scalars['String']>;
 };
 
-type DeleteAccountMutationVariables = Exact<{
+export type DeleteAccountMutationVariables = Exact<{
   providerAccountId: Scalars['String'];
 }>;
 
-type DeleteAccountMutation = {
+export type DeleteAccountMutation = {
   __typename?: 'mutation_root';
   delete_accounts?: {
     __typename?: 'accounts_mutation_response';
@@ -1852,11 +1855,11 @@ type DeleteAccountMutation = {
   } | null;
 };
 
-type LinkAccountMutationVariables = Exact<{
+export type LinkAccountMutationVariables = Exact<{
   account: Accounts_Insert_Input;
 }>;
 
-type LinkAccountMutation = {
+export type LinkAccountMutation = {
   __typename?: 'mutation_root';
   insert_accounts_one?: {
     __typename?: 'accounts';
@@ -1868,7 +1871,7 @@ type LinkAccountMutation = {
   } | null;
 };
 
-type AccountFieldsFragment = {
+export type AccountFieldsFragment = {
   __typename?: 'accounts';
   id: string;
   provider: string;
@@ -1876,7 +1879,7 @@ type AccountFieldsFragment = {
   type: string;
 };
 
-type PasswordFieldsFragment = {
+export type PasswordFieldsFragment = {
   __typename?: 'passwords';
   attempts: number;
   hash: string;
@@ -1884,11 +1887,11 @@ type PasswordFieldsFragment = {
   salt: string;
 };
 
-type CreateSessionMutationVariables = Exact<{
+export type CreateSessionMutationVariables = Exact<{
   session: Sessions_Insert_Input;
 }>;
 
-type CreateSessionMutation = {
+export type CreateSessionMutation = {
   __typename?: 'mutation_root';
   insert_sessions_one?: {
     __typename?: 'sessions';
@@ -1899,11 +1902,11 @@ type CreateSessionMutation = {
   } | null;
 };
 
-type GetSessionAndUserQueryVariables = Exact<{
+export type GetSessionAndUserQueryVariables = Exact<{
   sessionToken: Scalars['String'];
 }>;
 
-type GetSessionAndUserQuery = {
+export type GetSessionAndUserQuery = {
   __typename?: 'query_root';
   sessions: Array<{
     __typename?: 'sessions';
@@ -1920,12 +1923,12 @@ type GetSessionAndUserQuery = {
   }>;
 };
 
-type CreateUserWithCredentialsMutationVariables = Exact<{
+export type CreateUserWithCredentialsMutationVariables = Exact<{
   password: Passwords_Insert_Input;
   user: Users_Insert_Input;
 }>;
 
-type CreateUserWithCredentialsMutation = {
+export type CreateUserWithCredentialsMutation = {
   __typename?: 'mutation_root';
   insert_users_one?: {
     __typename?: 'users';
@@ -1938,12 +1941,12 @@ type CreateUserWithCredentialsMutation = {
   insert_passwords_one?: { __typename?: 'passwords'; hash: string } | null;
 };
 
-type UpdateUserMutationVariables = Exact<{
+export type UpdateUserMutationVariables = Exact<{
   id: Scalars['String'];
   user: Users_Set_Input;
 }>;
 
-type UpdateUserMutation = {
+export type UpdateUserMutation = {
   __typename?: 'mutation_root';
   update_users_by_pk?: {
     __typename?: 'users';
@@ -1955,12 +1958,12 @@ type UpdateUserMutation = {
   } | null;
 };
 
-type GetUserByAccountQueryVariables = Exact<{
+export type GetUserByAccountQueryVariables = Exact<{
   provider: Scalars['String'];
   providerAccountId: Scalars['String'];
 }>;
 
-type GetUserByAccountQuery = {
+export type GetUserByAccountQuery = {
   __typename?: 'query_root';
   users: Array<{
     __typename?: 'users';
@@ -1972,11 +1975,11 @@ type GetUserByAccountQuery = {
   }>;
 };
 
-type CreateUserMutationVariables = Exact<{
+export type CreateUserMutationVariables = Exact<{
   user: Users_Insert_Input;
 }>;
 
-type CreateUserMutation = {
+export type CreateUserMutation = {
   __typename?: 'mutation_root';
   insert_users_one?: {
     __typename?: 'users';
@@ -1988,11 +1991,11 @@ type CreateUserMutation = {
   } | null;
 };
 
-type GetUserQueryVariables = Exact<{
+export type GetUserQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
-type GetUserQuery = {
+export type GetUserQuery = {
   __typename?: 'query_root';
   users: Array<{
     __typename?: 'users';
@@ -2004,11 +2007,11 @@ type GetUserQuery = {
   }>;
 };
 
-type GetUserByEmailQueryVariables = Exact<{
+export type GetUserByEmailQueryVariables = Exact<{
   email: Scalars['String'];
 }>;
 
-type GetUserByEmailQuery = {
+export type GetUserByEmailQuery = {
   __typename?: 'query_root';
   users: Array<{
     __typename?: 'users';
@@ -2020,11 +2023,11 @@ type GetUserByEmailQuery = {
   }>;
 };
 
-type GetUsersAndAccountByEmailQueryVariables = Exact<{
+export type GetUsersAndAccountByEmailQueryVariables = Exact<{
   email: Scalars['String'];
 }>;
 
-type GetUsersAndAccountByEmailQuery = {
+export type GetUsersAndAccountByEmailQuery = {
   __typename?: 'query_root';
   users: Array<{
     __typename?: 'users';
@@ -2043,11 +2046,11 @@ type GetUsersAndAccountByEmailQuery = {
   }>;
 };
 
-type GetUserAndPasswordByEmailQueryVariables = Exact<{
+export type GetUserAndPasswordByEmailQueryVariables = Exact<{
   email: Scalars['String'];
 }>;
 
-type GetUserAndPasswordByEmailQuery = {
+export type GetUserAndPasswordByEmailQuery = {
   __typename?: 'query_root';
   users: Array<{
     __typename?: 'users';
@@ -2066,7 +2069,7 @@ type GetUserAndPasswordByEmailQuery = {
   }>;
 };
 
-type UserAndAccountFieldsFragment = {
+export type UserAndAccountFieldsFragment = {
   __typename?: 'users';
   email?: string | null;
   emailVerified?: any | null;
@@ -2082,7 +2085,7 @@ type UserAndAccountFieldsFragment = {
   }>;
 };
 
-type UserFieldsFragment = {
+export type UserFieldsFragment = {
   __typename?: 'users';
   email?: string | null;
   emailVerified?: any | null;
@@ -2091,11 +2094,11 @@ type UserFieldsFragment = {
   name?: string | null;
 };
 
-type CreateVerificationTokenMutationVariables = Exact<{
+export type CreateVerificationTokenMutationVariables = Exact<{
   verificationToken: VerificationTokens_Insert_Input;
 }>;
 
-type CreateVerificationTokenMutation = {
+export type CreateVerificationTokenMutation = {
   __typename?: 'mutation_root';
   insert_verificationTokens_one?: {
     __typename?: 'verificationTokens';
@@ -2105,11 +2108,11 @@ type CreateVerificationTokenMutation = {
   } | null;
 };
 
-type GetVerificationTokenQueryVariables = Exact<{
+export type GetVerificationTokenQueryVariables = Exact<{
   token: Scalars['String'];
 }>;
 
-type GetVerificationTokenQuery = {
+export type GetVerificationTokenQuery = {
   __typename?: 'query_root';
   verificationTokens: Array<{
     __typename?: 'verificationTokens';
@@ -2119,11 +2122,11 @@ type GetVerificationTokenQuery = {
   }>;
 };
 
-type DeleteVerificationTokenMutationVariables = Exact<{
+export type DeleteVerificationTokenMutationVariables = Exact<{
   token: Scalars['String'];
 }>;
 
-type DeleteVerificationTokenMutation = {
+export type DeleteVerificationTokenMutation = {
   __typename?: 'mutation_root';
   delete_verificationTokens?: {
     __typename?: 'verificationTokens_mutation_response';
@@ -2439,6 +2442,4 @@ export function getSdk<C>(requester: Requester<C>) {
   };
 }
 export type Sdk = ReturnType<typeof getSdk>;
-import { fetchDataAdmin } from '@governance/hasura-fetcher';
-
 export const adminSdk = getSdk(fetchDataAdmin());

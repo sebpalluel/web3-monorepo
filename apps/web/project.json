@@ -64,7 +64,7 @@
       "options": {
         "commands": [
           {
-            "command": "npx graphql-codegen --config codegen.js"
+            "command": "npx graphql-codegen --config codegen.yml -r dotenv/config -e .env.local "
           }
         ]
       }

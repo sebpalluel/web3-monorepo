@@ -78,7 +78,7 @@ module.exports = {
       documents: ['libs/gql/admin/src/queries/**/*.{graphql,gql}'],
       ...adminPluginsAndConfig,
     },
-    // doesn't support yet separated fragments so it faile
+    // doesn't support yet separated fragments so it fail
     // TODO: follow up on this issue https://github.com/dotansimha/graphql-code-generator/issues/7700
     // ref: https://www.graphql-code-generator.com/plugins/other/hasura-allow-list
     // 'hasura-console/app/metadata/query_collections.yaml': {
