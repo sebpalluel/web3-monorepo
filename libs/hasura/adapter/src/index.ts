@@ -42,7 +42,7 @@ export function adapter(): Adapter {
       return data?.insert_accounts_one as any;
     },
     async unlinkAccount({ providerAccountId }) {
-      await adminSdk.DeleteAccount({ id: providerAccountId });
+      await adminSdk.DeleteAccount({ providerAccountId });
     },
     async createSession(data) {
       const session: AdapterSession = {

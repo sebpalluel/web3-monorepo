@@ -1841,12 +1841,15 @@ type VerificationTokens_Set_Input = {
 };
 
 type DeleteAccountMutationVariables = Exact<{
-  id: Scalars['String'];
+  providerAccountId: Scalars['String'];
 }>;
 
 type DeleteAccountMutation = {
   __typename?: 'mutation_root';
-  delete_accounts_by_pk?: { __typename?: 'accounts'; id: string } | null;
+  delete_accounts?: {
+    __typename?: 'accounts_mutation_response';
+    affected_rows: number;
+  } | null;
 };
 
 type LinkAccountMutationVariables = Exact<{
@@ -2163,9 +2166,9 @@ export const UserAndAccountFieldsFragmentDoc = `
     ${UserFieldsFragmentDoc}
 ${AccountFieldsFragmentDoc}`;
 const DeleteAccountDocument = `
-    mutation DeleteAccount($id: String!) {
-  delete_accounts_by_pk(id: $id) {
-    id
+    mutation DeleteAccount($providerAccountId: String!) {
+  delete_accounts(where: {providerAccountId: {_eq: $providerAccountId}}) {
+    affected_rows
   }
 }
     `;

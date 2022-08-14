@@ -1,6 +1,6 @@
-mutation DeleteAccount($id: String!) {
-  delete_accounts_by_pk(id: $id) {
-    id
+mutation DeleteAccount($providerAccountId: String!) {
+  delete_accounts(where: { providerAccountId: { _eq: $providerAccountId } }) {
+    affected_rows
   }
 }
 

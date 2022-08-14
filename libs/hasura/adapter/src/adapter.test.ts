@@ -1,6 +1,7 @@
 import { getClient } from '@governance/test-utils-db';
 import { adapter as HasuraAdapter } from './index';
 import { Account } from 'next-auth';
+import { logger } from '@governance/logger';
 
 describe('hasura Next Auth Adapter', () => {
   const user = {
@@ -41,6 +42,14 @@ describe('hasura Next Auth Adapter', () => {
     const data = await adapter.getUserByEmail(user.email);
     expect(user).toEqual(data);
   });
+  it('should update user', async () => {
+    const updatedName = 'Alpha Admin Updated';
+    user.name = updatedName;
+    const data = await adapter.updateUser(user);
+    expect(user).toEqual(data);
+    const fetchedUser = await adapter.getUserByEmail(user.email);
+    expect(user).toEqual(fetchedUser);
+  });
   it('should link account', async () => {
     account.userId = user.id;
     const data = await adapter.linkAccount(account);
@@ -49,5 +58,10 @@ describe('hasura Next Auth Adapter', () => {
   it('should get user by account', async () => {
     const data = await adapter.getUserByAccount(account);
     expect(user).toEqual(data);
+  });
+  it('should unlink account', async () => {
+    await adapter.unlinkAccount?.(account);
+    const data = await adapter.getUserByAccount(account);
+    expect(data).toBeUndefined();
   });
 });
