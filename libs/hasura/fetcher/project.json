@@ -1,0 +1,33 @@
+{
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/hasura/fetcher/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/hasura/fetcher",
+        "main": "libs/hasura/fetcher/src/index.ts",
+        "tsConfig": "libs/hasura/fetcher/tsconfig.lib.json",
+        "assets": ["libs/hasura/fetcher/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/hasura/fetcher/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/hasura/fetcher"],
+      "options": {
+        "jestConfig": "libs/hasura/fetcher/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["data-access"]
+}

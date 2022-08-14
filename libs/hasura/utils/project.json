@@ -1,0 +1,33 @@
+{
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/hasura/utils/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/hasura/utils",
+        "main": "libs/hasura/utils/src/index.ts",
+        "tsConfig": "libs/hasura/utils/tsconfig.lib.json",
+        "assets": ["libs/hasura/utils/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/hasura/utils/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/hasura/utils"],
+      "options": {
+        "jestConfig": "libs/hasura/utils/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["utility"]
+}

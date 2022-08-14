@@ -1,0 +1,75 @@
+overwrite: true
+watch: true
+schema:
+  - ${NEXT_PUBLIC_HASURA_URL:http://localhost:8080/v1/graphql}:
+      headers:
+        'x-hasura-admin-secret': ${HASURA_GRAPHQL_ADMIN_SECRET:password}
+        'x-hasura-default-role': 'admin'
+        'x-hasura-role': 'admin'
+
+generates:
+  # user
+  libs/gql/user/src/generated/schema.json:
+    plugins:
+      - 'introspection'
+    schema:
+      - &userSchema
+        ${NEXT_PUBLIC_HASURA_URL:http://localhost:8080/v1/graphql}:
+          headers:
+            'x-hasura-admin-secret': ${HASURA_GRAPHQL_ADMIN_SECRET:password}
+            'x-hasura-default-role': 'user'
+            'x-hasura-role': 'user'
+  libs/gql/user/src/generated/schema.graphql:
+    plugins:
+      - 'schema-ast'
+    schema:
+      - *userSchema
+  libs/gql/user/src/generated/index.ts:
+    schema:
+      - *userSchema
+    documents: './libs/gql/user/src/queries/**/*.{graphql,gql}'
+    plugins:
+      - 'typescript':
+          constEnums: true
+      - 'typescript-operations':
+          preResolveTypes: true
+      - 'typescript-react-query':
+          fetcher:
+            func: '@governance/hasura-fetcher#fetchData'
+            isReactHook: false
+
+  # admin
+  libs/gql/admin/src/generated/schema.json:
+    plugins:
+      - 'introspection'
+  libs/gql/admin/src/generated/schema.graphql:
+    plugins:
+      - 'schema-ast'
+  libs/gql/admin/src/generated/index.ts:
+    documents: './libs/gql/admin/src/queries/**/*.{graphql,gql}'
+    plugins:
+      - 'typescript':
+          constEnums: true
+      - 'typescript-operations':
+          preResolveTypes: true
+      - 'typescript-generic-sdk':
+          noExport: true
+          documentMode: 'string'
+      - 'add':
+          content: 'import { fetchDataAdmin } from "@governance/hasura-fetcher";'
+          placement: 'prepend'
+      - 'add':
+          content: 'export const adminSdk = getSdk(fetchDataAdmin());'
+          placement: 'append'
+
+    # ## hasura
+    # #  doesn't support yet separated fragments so it fail
+    # #  TODO: follow up on this issue https://github.com/dotansimha/graphql-code-generator/issues/7700
+    # #  ref: https://www.graphql-code-generator.com/plugins/other/hasura-allow-list
+    # hasura-console/app/metadata/query_collections.yaml:
+    #   documents: './libs/gql/*/src/queries/**/*.{graphql,gql}'
+    #   plugins:
+    #     - 'hasura-allow-list'
+    #   hooks:
+    #     afterOneFileWrite:
+    #       - make restart-hasura

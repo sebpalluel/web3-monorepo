@@ -1766,6 +1766,11 @@ type sessions {
   expires: timestamp
   id: String!
   sessionToken: String!
+
+  """
+  An object relationship
+  """
+  user: users
   userId: String!
 }
 
@@ -1817,6 +1822,7 @@ input sessions_bool_exp {
   expires: timestamp_comparison_exp
   id: String_comparison_exp
   sessionToken: String_comparison_exp
+  user: users_bool_exp
   userId: String_comparison_exp
 }
 
@@ -1837,6 +1843,7 @@ input sessions_insert_input {
   expires: timestamp
   id: String
   sessionToken: String
+  user: users_obj_rel_insert_input
   userId: String
 }
 
@@ -1911,6 +1918,7 @@ input sessions_order_by {
   expires: order_by
   id: order_by
   sessionToken: order_by
+  user: users_order_by
   userId: order_by
 }
 
@@ -2621,6 +2629,18 @@ type users_mutation_response {
   data from the rows affected by the mutation
   """
   returning: [users!]!
+}
+
+"""
+input type for inserting object relation for remote table "users"
+"""
+input users_obj_rel_insert_input {
+  data: users_insert_input!
+
+  """
+  upsert condition
+  """
+  on_conflict: users_on_conflict
 }
 
 """

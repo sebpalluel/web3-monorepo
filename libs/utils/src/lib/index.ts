@@ -11,7 +11,7 @@ export async function fetchJSON(
     ...headers,
     'Content-Type': headers?.['Content-Type'] || 'application/json',
   };
-  Object.assign(options, { headers: defaultHeaders });
+  Object.assign(options, { headers: defaultHeaders, credentials: 'include' });
   return fetch(url, options).then(async (res) => {
     if (!res.ok) {
       throw await res.json();
@@ -19,3 +19,5 @@ export async function fetchJSON(
     return res.json();
   });
 }
+
+export const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));

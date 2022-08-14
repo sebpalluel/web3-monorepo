@@ -20,7 +20,7 @@ module.exports = {
       extensions: {
         endpoints: {
           default: {
-            url: process.env.HASURA_URL,
+            url: process.env.NEXT_PUBLIC_HASURA_URL,
             headers: adminHeaders,
           },
         },
@@ -32,7 +32,7 @@ module.exports = {
       extensions: {
         endpoints: {
           default: {
-            url: process.env.HASURA_URL,
+            url: process.env.NEXT_PUBLIC_HASURA_URL,
             headers: userHeaders,
           },
         },

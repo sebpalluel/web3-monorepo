@@ -1,5 +1,12 @@
-mutation DeleteAccount($id: String!) {
-  delete_accounts_by_pk(id: $id) {
-    id
+mutation DeleteAccount($providerAccountId: String!) {
+  delete_accounts(where: { providerAccountId: { _eq: $providerAccountId } }) {
+    affected_rows
+  }
+}
+
+mutation LinkAccount($account: accounts_insert_input!) {
+  insert_accounts_one(object: $account) {
+    ...AccountFields
+    userId
   }
 }

@@ -1,0 +1,25 @@
+{
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/test-utils/jest/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/test-utils/jest",
+        "main": "libs/test-utils/jest/src/index.ts",
+        "tsConfig": "libs/test-utils/jest/tsconfig.lib.json",
+        "assets": ["libs/test-utils/jest/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/test-utils/jest/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

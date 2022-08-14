@@ -1,7 +1,9 @@
 import { useSession } from 'next-auth/react';
+import { useGetUserQuery } from '@governance/gql-user';
 
 export default function MePage() {
   const { data } = useSession();
+  const { data: userData } = useGetUserQuery({ id: data?.user?.id });
 
-  return <pre>{JSON.stringify(data, null, 2)}</pre>;
+  return <pre>{JSON.stringify(userData, null, 2)}</pre>;
 }

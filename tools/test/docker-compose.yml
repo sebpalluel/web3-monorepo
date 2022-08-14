@@ -1,0 +1,33 @@
+# https://github.com/testjavascript/nodejs-integration-tests-best-practices#section-1-infrastructure-and-database-setup
+version: '3.9'
+services:
+  test-db:
+    image: postgres:12
+    command: postgres -c fsync=off -c synchronous_commit=off -c full_page_writes=off -c random_page_cost=1.0 -p 5454
+    env_file:
+      - .env.test
+    container_name: 'postgres_test'
+    ports:
+      - '5454:5454'
+    tmpfs: /var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -p 5454 -U ${POSTGRES_USER}']
+      interval: 2s
+      timeout: 2s
+      retries: 10
+  hasura-engine:
+    image: 'hasura/graphql-engine:${HASURA_VERSION}.cli-migrations-v3'
+    # command: 'graphql-engine --database-url $HASURA_GRAPHQL_DATABASE_URL serve --server-port $HASURA_GRAPHQL_SERVER_PORT'
+    container_name: 'hasura_test'
+    depends_on:
+      test-db:
+        condition: service_healthy
+    env_file:
+      - .env.test
+    environment:
+      HASURA_GRAPHQL_NO_OF_RETRIES: '10'
+    ports:
+      - '${HASURA_GRAPHQL_SERVER_PORT}:${HASURA_GRAPHQL_SERVER_PORT}'
+    volumes:
+      - ../../hasura-console/app/migrations:/hasura-migrations
+      - ../../hasura-console/app/metadata:/hasura-metadata

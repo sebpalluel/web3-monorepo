@@ -1,4 +1,4 @@
-import { useMutation, useQuery, UseMutationOptions, UseQueryOptions } from 'react-query';
+import { fetchDataAdmin } from '@governance/hasura-fetcher';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -8,31 +8,6 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>;
 };
-
-function fetcher<TData, TVariables>(
-  endpoint: string,
-  requestInit: RequestInit,
-  query: string,
-  variables?: TVariables
-) {
-  return async (): Promise<TData> => {
-    const res = await fetch(endpoint, {
-      method: 'POST',
-      ...requestInit,
-      body: JSON.stringify({ query, variables }),
-    });
-
-    const json = await res.json();
-
-    if (json.errors) {
-      const { message } = json.errors[0];
-
-      throw new Error(message);
-    }
-
-    return json.data;
-  };
-}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -1200,6 +1175,8 @@ export type Sessions = {
   expires?: Maybe<Scalars['timestamp']>;
   id: Scalars['String'];
   sessionToken: Scalars['String'];
+  /** An object relationship */
+  user?: Maybe<Users>;
   userId: Scalars['String'];
 };
 
@@ -1246,6 +1223,7 @@ export type Sessions_Bool_Exp = {
   expires?: InputMaybe<Timestamp_Comparison_Exp>;
   id?: InputMaybe<String_Comparison_Exp>;
   sessionToken?: InputMaybe<String_Comparison_Exp>;
+  user?: InputMaybe<Users_Bool_Exp>;
   userId?: InputMaybe<String_Comparison_Exp>;
 };
 
@@ -1260,6 +1238,7 @@ export type Sessions_Insert_Input = {
   expires?: InputMaybe<Scalars['timestamp']>;
   id?: InputMaybe<Scalars['String']>;
   sessionToken?: InputMaybe<Scalars['String']>;
+  user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
   userId?: InputMaybe<Scalars['String']>;
 };
 
@@ -1318,6 +1297,7 @@ export type Sessions_Order_By = {
   expires?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   sessionToken?: InputMaybe<Order_By>;
+  user?: InputMaybe<Users_Order_By>;
   userId?: InputMaybe<Order_By>;
 };
 
@@ -1676,6 +1656,13 @@ export type Users_Mutation_Response = {
   returning: Array<Users>;
 };
 
+/** input type for inserting object relation for remote table "users" */
+export type Users_Obj_Rel_Insert_Input = {
+  data: Users_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Users_On_Conflict>;
+};
+
 /** on_conflict condition type for table "users" */
 export type Users_On_Conflict = {
   constraint: Users_Constraint;
@@ -1857,40 +1844,82 @@ export type VerificationTokens_Set_Input = {
 };
 
 export type DeleteAccountMutationVariables = Exact<{
-  id: Scalars['String'];
+  providerAccountId: Scalars['String'];
 }>;
 
 export type DeleteAccountMutation = {
   __typename?: 'mutation_root';
-  delete_accounts_by_pk?: { __typename?: 'accounts'; id: string } | null;
+  delete_accounts?: {
+    __typename?: 'accounts_mutation_response';
+    affected_rows: number;
+  } | null;
+};
+
+export type LinkAccountMutationVariables = Exact<{
+  account: Accounts_Insert_Input;
+}>;
+
+export type LinkAccountMutation = {
+  __typename?: 'mutation_root';
+  insert_accounts_one?: {
+    __typename?: 'accounts';
+    userId: string;
+    id: string;
+    provider: string;
+    providerAccountId: string;
+    type: string;
+  } | null;
 };
 
 export type AccountFieldsFragment = {
   __typename?: 'accounts';
   id: string;
   provider: string;
+  providerAccountId: string;
   type: string;
 };
 
-export type GetUsersAndAccountByEmailQueryVariables = Exact<{
-  email: Scalars['String'];
+export type PasswordFieldsFragment = {
+  __typename?: 'passwords';
+  attempts: number;
+  hash: string;
+  iterations: number;
+  salt: string;
+};
+
+export type CreateSessionMutationVariables = Exact<{
+  session: Sessions_Insert_Input;
 }>;
 
-export type GetUsersAndAccountByEmailQuery = {
-  __typename?: 'query_root';
-  users: Array<{
-    __typename?: 'users';
-    email?: string | null;
-    emailVerified?: any | null;
+export type CreateSessionMutation = {
+  __typename?: 'mutation_root';
+  insert_sessions_one?: {
+    __typename?: 'sessions';
     id: string;
-    image?: string | null;
-    name?: string | null;
-    accounts: Array<{
-      __typename?: 'accounts';
+    userId: string;
+    expires?: any | null;
+    sessionToken: string;
+  } | null;
+};
+
+export type GetSessionAndUserQueryVariables = Exact<{
+  sessionToken: Scalars['String'];
+}>;
+
+export type GetSessionAndUserQuery = {
+  __typename?: 'query_root';
+  sessions: Array<{
+    __typename?: 'sessions';
+    sessionToken: string;
+    expires?: any | null;
+    user?: {
+      __typename?: 'users';
+      email?: string | null;
+      emailVerified?: any | null;
       id: string;
-      provider: string;
-      type: string;
-    }>;
+      image?: string | null;
+      name?: string | null;
+    } | null;
   }>;
 };
 
@@ -1929,6 +1958,133 @@ export type UpdateUserMutation = {
   } | null;
 };
 
+export type GetUserByAccountQueryVariables = Exact<{
+  provider: Scalars['String'];
+  providerAccountId: Scalars['String'];
+}>;
+
+export type GetUserByAccountQuery = {
+  __typename?: 'query_root';
+  users: Array<{
+    __typename?: 'users';
+    email?: string | null;
+    emailVerified?: any | null;
+    id: string;
+    image?: string | null;
+    name?: string | null;
+  }>;
+};
+
+export type CreateUserMutationVariables = Exact<{
+  user: Users_Insert_Input;
+}>;
+
+export type CreateUserMutation = {
+  __typename?: 'mutation_root';
+  insert_users_one?: {
+    __typename?: 'users';
+    email?: string | null;
+    emailVerified?: any | null;
+    id: string;
+    image?: string | null;
+    name?: string | null;
+  } | null;
+};
+
+export type GetUserQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+export type GetUserQuery = {
+  __typename?: 'query_root';
+  users: Array<{
+    __typename?: 'users';
+    email?: string | null;
+    emailVerified?: any | null;
+    id: string;
+    image?: string | null;
+    name?: string | null;
+  }>;
+};
+
+export type GetUserByEmailQueryVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+export type GetUserByEmailQuery = {
+  __typename?: 'query_root';
+  users: Array<{
+    __typename?: 'users';
+    email?: string | null;
+    emailVerified?: any | null;
+    id: string;
+    image?: string | null;
+    name?: string | null;
+  }>;
+};
+
+export type GetUsersAndAccountByEmailQueryVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+export type GetUsersAndAccountByEmailQuery = {
+  __typename?: 'query_root';
+  users: Array<{
+    __typename?: 'users';
+    email?: string | null;
+    emailVerified?: any | null;
+    id: string;
+    image?: string | null;
+    name?: string | null;
+    accounts: Array<{
+      __typename?: 'accounts';
+      id: string;
+      provider: string;
+      providerAccountId: string;
+      type: string;
+    }>;
+  }>;
+};
+
+export type GetUserAndPasswordByEmailQueryVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+export type GetUserAndPasswordByEmailQuery = {
+  __typename?: 'query_root';
+  users: Array<{
+    __typename?: 'users';
+    email?: string | null;
+    emailVerified?: any | null;
+    id: string;
+    image?: string | null;
+    name?: string | null;
+    passwords: Array<{
+      __typename?: 'passwords';
+      attempts: number;
+      hash: string;
+      iterations: number;
+      salt: string;
+    }>;
+  }>;
+};
+
+export type UserAndAccountFieldsFragment = {
+  __typename?: 'users';
+  email?: string | null;
+  emailVerified?: any | null;
+  id: string;
+  image?: string | null;
+  name?: string | null;
+  accounts: Array<{
+    __typename?: 'accounts';
+    id: string;
+    provider: string;
+    providerAccountId: string;
+    type: string;
+  }>;
+};
+
 export type UserFieldsFragment = {
   __typename?: 'users';
   email?: string | null;
@@ -1938,11 +2094,52 @@ export type UserFieldsFragment = {
   name?: string | null;
 };
 
-export const AccountFieldsFragmentDoc = `
-    fragment AccountFields on accounts {
-  id
-  provider
-  type
+export type CreateVerificationTokenMutationVariables = Exact<{
+  verificationToken: VerificationTokens_Insert_Input;
+}>;
+
+export type CreateVerificationTokenMutation = {
+  __typename?: 'mutation_root';
+  insert_verificationTokens_one?: {
+    __typename?: 'verificationTokens';
+    identifier: string;
+    expires: any;
+    token: string;
+  } | null;
+};
+
+export type GetVerificationTokenQueryVariables = Exact<{
+  token: Scalars['String'];
+}>;
+
+export type GetVerificationTokenQuery = {
+  __typename?: 'query_root';
+  verificationTokens: Array<{
+    __typename?: 'verificationTokens';
+    identifier: string;
+    expires: any;
+    token: string;
+  }>;
+};
+
+export type DeleteVerificationTokenMutationVariables = Exact<{
+  token: Scalars['String'];
+}>;
+
+export type DeleteVerificationTokenMutation = {
+  __typename?: 'mutation_root';
+  delete_verificationTokens?: {
+    __typename?: 'verificationTokens_mutation_response';
+    affected_rows: number;
+  } | null;
+};
+
+export const PasswordFieldsFragmentDoc = `
+    fragment PasswordFields on passwords {
+  attempts
+  hash
+  iterations
+  salt
 }
     `;
 export const UserFieldsFragmentDoc = `
@@ -1954,87 +2151,60 @@ export const UserFieldsFragmentDoc = `
   name
 }
     `;
-export const DeleteAccountDocument = `
-    mutation DeleteAccount($id: String!) {
-  delete_accounts_by_pk(id: $id) {
-    id
+export const AccountFieldsFragmentDoc = `
+    fragment AccountFields on accounts {
+  id
+  provider
+  providerAccountId
+  type
+}
+    `;
+export const UserAndAccountFieldsFragmentDoc = `
+    fragment UserAndAccountFields on users {
+  ...UserFields
+  accounts {
+    ...AccountFields
+  }
+}
+    ${UserFieldsFragmentDoc}
+${AccountFieldsFragmentDoc}`;
+const DeleteAccountDocument = `
+    mutation DeleteAccount($providerAccountId: String!) {
+  delete_accounts(where: {providerAccountId: {_eq: $providerAccountId}}) {
+    affected_rows
   }
 }
     `;
-export const useDeleteAccountMutation = <TError = unknown, TContext = unknown>(
-  dataSource: { endpoint: string; fetchParams?: RequestInit },
-  options?: UseMutationOptions<
-    DeleteAccountMutation,
-    TError,
-    DeleteAccountMutationVariables,
-    TContext
-  >
-) =>
-  useMutation<DeleteAccountMutation, TError, DeleteAccountMutationVariables, TContext>(
-    ['DeleteAccount'],
-    (variables?: DeleteAccountMutationVariables) =>
-      fetcher<DeleteAccountMutation, DeleteAccountMutationVariables>(
-        dataSource.endpoint,
-        dataSource.fetchParams || {},
-        DeleteAccountDocument,
-        variables
-      )(),
-    options
-  );
-useDeleteAccountMutation.fetcher = (
-  dataSource: { endpoint: string; fetchParams?: RequestInit },
-  variables: DeleteAccountMutationVariables
-) =>
-  fetcher<DeleteAccountMutation, DeleteAccountMutationVariables>(
-    dataSource.endpoint,
-    dataSource.fetchParams || {},
-    DeleteAccountDocument,
-    variables
-  );
-export const GetUsersAndAccountByEmailDocument = `
-    query GetUsersAndAccountByEmail($email: String!) {
-  users(where: {email: {_eq: $email}}) {
-    accounts {
-      ...AccountFields
-    }
-    ...UserFields
+const LinkAccountDocument = `
+    mutation LinkAccount($account: accounts_insert_input!) {
+  insert_accounts_one(object: $account) {
+    ...AccountFields
+    userId
   }
 }
-    ${AccountFieldsFragmentDoc}
-${UserFieldsFragmentDoc}`;
-export const useGetUsersAndAccountByEmailQuery = <
-  TData = GetUsersAndAccountByEmailQuery,
-  TError = unknown
->(
-  dataSource: { endpoint: string; fetchParams?: RequestInit },
-  variables: GetUsersAndAccountByEmailQueryVariables,
-  options?: UseQueryOptions<GetUsersAndAccountByEmailQuery, TError, TData>
-) =>
-  useQuery<GetUsersAndAccountByEmailQuery, TError, TData>(
-    ['GetUsersAndAccountByEmail', variables],
-    fetcher<GetUsersAndAccountByEmailQuery, GetUsersAndAccountByEmailQueryVariables>(
-      dataSource.endpoint,
-      dataSource.fetchParams || {},
-      GetUsersAndAccountByEmailDocument,
-      variables
-    ),
-    options
-  );
-
-useGetUsersAndAccountByEmailQuery.getKey = (
-  variables: GetUsersAndAccountByEmailQueryVariables
-) => ['GetUsersAndAccountByEmail', variables];
-useGetUsersAndAccountByEmailQuery.fetcher = (
-  dataSource: { endpoint: string; fetchParams?: RequestInit },
-  variables: GetUsersAndAccountByEmailQueryVariables
-) =>
-  fetcher<GetUsersAndAccountByEmailQuery, GetUsersAndAccountByEmailQueryVariables>(
-    dataSource.endpoint,
-    dataSource.fetchParams || {},
-    GetUsersAndAccountByEmailDocument,
-    variables
-  );
-export const CreateUserWithCredentialsDocument = `
+    ${AccountFieldsFragmentDoc}`;
+const CreateSessionDocument = `
+    mutation CreateSession($session: sessions_insert_input!) {
+  insert_sessions_one(object: $session) {
+    id
+    userId
+    expires
+    sessionToken
+  }
+}
+    `;
+const GetSessionAndUserDocument = `
+    query GetSessionAndUser($sessionToken: String!) {
+  sessions(where: {sessionToken: {_eq: $sessionToken}}) {
+    sessionToken
+    expires
+    user {
+      ...UserFields
+    }
+  }
+}
+    ${UserFieldsFragmentDoc}`;
+const CreateUserWithCredentialsDocument = `
     mutation CreateUserWithCredentials($password: passwords_insert_input!, $user: users_insert_input!) {
   insert_users_one(object: $user) {
     ...UserFields
@@ -2044,81 +2214,232 @@ export const CreateUserWithCredentialsDocument = `
   }
 }
     ${UserFieldsFragmentDoc}`;
-export const useCreateUserWithCredentialsMutation = <
-  TError = unknown,
-  TContext = unknown
->(
-  dataSource: { endpoint: string; fetchParams?: RequestInit },
-  options?: UseMutationOptions<
-    CreateUserWithCredentialsMutation,
-    TError,
-    CreateUserWithCredentialsMutationVariables,
-    TContext
-  >
-) =>
-  useMutation<
-    CreateUserWithCredentialsMutation,
-    TError,
-    CreateUserWithCredentialsMutationVariables,
-    TContext
-  >(
-    ['CreateUserWithCredentials'],
-    (variables?: CreateUserWithCredentialsMutationVariables) =>
-      fetcher<
-        CreateUserWithCredentialsMutation,
-        CreateUserWithCredentialsMutationVariables
-      >(
-        dataSource.endpoint,
-        dataSource.fetchParams || {},
-        CreateUserWithCredentialsDocument,
-        variables
-      )(),
-    options
-  );
-useCreateUserWithCredentialsMutation.fetcher = (
-  dataSource: { endpoint: string; fetchParams?: RequestInit },
-  variables: CreateUserWithCredentialsMutationVariables
-) =>
-  fetcher<CreateUserWithCredentialsMutation, CreateUserWithCredentialsMutationVariables>(
-    dataSource.endpoint,
-    dataSource.fetchParams || {},
-    CreateUserWithCredentialsDocument,
-    variables
-  );
-export const UpdateUserDocument = `
+const UpdateUserDocument = `
     mutation UpdateUser($id: String!, $user: users_set_input!) {
   update_users_by_pk(_set: $user, pk_columns: {id: $id}) {
     ...UserFields
   }
 }
     ${UserFieldsFragmentDoc}`;
-export const useUpdateUserMutation = <TError = unknown, TContext = unknown>(
-  dataSource: { endpoint: string; fetchParams?: RequestInit },
-  options?: UseMutationOptions<
-    UpdateUserMutation,
-    TError,
-    UpdateUserMutationVariables,
-    TContext
-  >
-) =>
-  useMutation<UpdateUserMutation, TError, UpdateUserMutationVariables, TContext>(
-    ['UpdateUser'],
-    (variables?: UpdateUserMutationVariables) =>
-      fetcher<UpdateUserMutation, UpdateUserMutationVariables>(
-        dataSource.endpoint,
-        dataSource.fetchParams || {},
+const GetUserByAccountDocument = `
+    query GetUserByAccount($provider: String!, $providerAccountId: String!) {
+  users(
+    where: {_and: {accounts: {provider: {_eq: $provider}, providerAccountId: {_eq: $providerAccountId}}}}
+  ) {
+    ...UserFields
+  }
+}
+    ${UserFieldsFragmentDoc}`;
+const CreateUserDocument = `
+    mutation CreateUser($user: users_insert_input!) {
+  insert_users_one(object: $user) {
+    ...UserFields
+  }
+}
+    ${UserFieldsFragmentDoc}`;
+const GetUserDocument = `
+    query GetUser($id: String!) {
+  users(where: {id: {_eq: $id}}) {
+    ...UserFields
+  }
+}
+    ${UserFieldsFragmentDoc}`;
+const GetUserByEmailDocument = `
+    query GetUserByEmail($email: String!) {
+  users(where: {email: {_eq: $email}}) {
+    ...UserFields
+  }
+}
+    ${UserFieldsFragmentDoc}`;
+const GetUsersAndAccountByEmailDocument = `
+    query GetUsersAndAccountByEmail($email: String!) {
+  users(where: {email: {_eq: $email}}) {
+    ...UserAndAccountFields
+  }
+}
+    ${UserAndAccountFieldsFragmentDoc}`;
+const GetUserAndPasswordByEmailDocument = `
+    query GetUserAndPasswordByEmail($email: String!) {
+  users(where: {email: {_eq: $email}}) {
+    ...UserFields
+    passwords {
+      ...PasswordFields
+    }
+  }
+}
+    ${UserFieldsFragmentDoc}
+${PasswordFieldsFragmentDoc}`;
+const CreateVerificationTokenDocument = `
+    mutation CreateVerificationToken($verificationToken: verificationTokens_insert_input!) {
+  insert_verificationTokens_one(object: $verificationToken) {
+    identifier
+    expires
+    token
+  }
+}
+    `;
+const GetVerificationTokenDocument = `
+    query GetVerificationToken($token: String!) {
+  verificationTokens(where: {token: {_eq: $token}}) {
+    identifier
+    expires
+    token
+  }
+}
+    `;
+const DeleteVerificationTokenDocument = `
+    mutation DeleteVerificationToken($token: String!) {
+  delete_verificationTokens(where: {token: {_eq: $token}}) {
+    affected_rows
+  }
+}
+    `;
+export type Requester<C = {}> = <R, V>(doc: string, vars?: V, options?: C) => Promise<R>;
+export function getSdk<C>(requester: Requester<C>) {
+  return {
+    DeleteAccount(
+      variables: DeleteAccountMutationVariables,
+      options?: C
+    ): Promise<DeleteAccountMutation> {
+      return requester<DeleteAccountMutation, DeleteAccountMutationVariables>(
+        DeleteAccountDocument,
+        variables,
+        options
+      );
+    },
+    LinkAccount(
+      variables: LinkAccountMutationVariables,
+      options?: C
+    ): Promise<LinkAccountMutation> {
+      return requester<LinkAccountMutation, LinkAccountMutationVariables>(
+        LinkAccountDocument,
+        variables,
+        options
+      );
+    },
+    CreateSession(
+      variables: CreateSessionMutationVariables,
+      options?: C
+    ): Promise<CreateSessionMutation> {
+      return requester<CreateSessionMutation, CreateSessionMutationVariables>(
+        CreateSessionDocument,
+        variables,
+        options
+      );
+    },
+    GetSessionAndUser(
+      variables: GetSessionAndUserQueryVariables,
+      options?: C
+    ): Promise<GetSessionAndUserQuery> {
+      return requester<GetSessionAndUserQuery, GetSessionAndUserQueryVariables>(
+        GetSessionAndUserDocument,
+        variables,
+        options
+      );
+    },
+    CreateUserWithCredentials(
+      variables: CreateUserWithCredentialsMutationVariables,
+      options?: C
+    ): Promise<CreateUserWithCredentialsMutation> {
+      return requester<
+        CreateUserWithCredentialsMutation,
+        CreateUserWithCredentialsMutationVariables
+      >(CreateUserWithCredentialsDocument, variables, options);
+    },
+    UpdateUser(
+      variables: UpdateUserMutationVariables,
+      options?: C
+    ): Promise<UpdateUserMutation> {
+      return requester<UpdateUserMutation, UpdateUserMutationVariables>(
         UpdateUserDocument,
-        variables
-      )(),
-    options
-  );
-useUpdateUserMutation.fetcher = (
-  dataSource: { endpoint: string; fetchParams?: RequestInit },
-  variables: UpdateUserMutationVariables
-) =>
-  fetcher<UpdateUserMutation, UpdateUserMutationVariables>(
-    dataSource.endpoint,
-    dataSource.fetchParams || {},
-    UpdateUserDocument,
-    variables
-  );
+        variables,
+        options
+      );
+    },
+    GetUserByAccount(
+      variables: GetUserByAccountQueryVariables,
+      options?: C
+    ): Promise<GetUserByAccountQuery> {
+      return requester<GetUserByAccountQuery, GetUserByAccountQueryVariables>(
+        GetUserByAccountDocument,
+        variables,
+        options
+      );
+    },
+    CreateUser(
+      variables: CreateUserMutationVariables,
+      options?: C
+    ): Promise<CreateUserMutation> {
+      return requester<CreateUserMutation, CreateUserMutationVariables>(
+        CreateUserDocument,
+        variables,
+        options
+      );
+    },
+    GetUser(variables: GetUserQueryVariables, options?: C): Promise<GetUserQuery> {
+      return requester<GetUserQuery, GetUserQueryVariables>(
+        GetUserDocument,
+        variables,
+        options
+      );
+    },
+    GetUserByEmail(
+      variables: GetUserByEmailQueryVariables,
+      options?: C
+    ): Promise<GetUserByEmailQuery> {
+      return requester<GetUserByEmailQuery, GetUserByEmailQueryVariables>(
+        GetUserByEmailDocument,
+        variables,
+        options
+      );
+    },
+    GetUsersAndAccountByEmail(
+      variables: GetUsersAndAccountByEmailQueryVariables,
+      options?: C
+    ): Promise<GetUsersAndAccountByEmailQuery> {
+      return requester<
+        GetUsersAndAccountByEmailQuery,
+        GetUsersAndAccountByEmailQueryVariables
+      >(GetUsersAndAccountByEmailDocument, variables, options);
+    },
+    GetUserAndPasswordByEmail(
+      variables: GetUserAndPasswordByEmailQueryVariables,
+      options?: C
+    ): Promise<GetUserAndPasswordByEmailQuery> {
+      return requester<
+        GetUserAndPasswordByEmailQuery,
+        GetUserAndPasswordByEmailQueryVariables
+      >(GetUserAndPasswordByEmailDocument, variables, options);
+    },
+    CreateVerificationToken(
+      variables: CreateVerificationTokenMutationVariables,
+      options?: C
+    ): Promise<CreateVerificationTokenMutation> {
+      return requester<
+        CreateVerificationTokenMutation,
+        CreateVerificationTokenMutationVariables
+      >(CreateVerificationTokenDocument, variables, options);
+    },
+    GetVerificationToken(
+      variables: GetVerificationTokenQueryVariables,
+      options?: C
+    ): Promise<GetVerificationTokenQuery> {
+      return requester<GetVerificationTokenQuery, GetVerificationTokenQueryVariables>(
+        GetVerificationTokenDocument,
+        variables,
+        options
+      );
+    },
+    DeleteVerificationToken(
+      variables: DeleteVerificationTokenMutationVariables,
+      options?: C
+    ): Promise<DeleteVerificationTokenMutation> {
+      return requester<
+        DeleteVerificationTokenMutation,
+        DeleteVerificationTokenMutationVariables
+      >(DeleteVerificationTokenDocument, variables, options);
+    },
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;
+export const adminSdk = getSdk(fetchDataAdmin());

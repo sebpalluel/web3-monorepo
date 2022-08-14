@@ -4,9 +4,13 @@
   "projects": {
     "gql-admin": "libs/gql/admin",
     "gql-user": "libs/gql/user",
-    "hasura": "libs/hasura",
+    "hasura-adapter": "libs/hasura/adapter",
+    "hasura-fetcher": "libs/hasura/fetcher",
+    "hasura-utils": "libs/hasura/utils",
     "logger": "libs/logger",
     "next-auth": "libs/next-auth",
+    "test-utils-db": "libs/test-utils/db",
+    "test-utils-jest": "libs/test-utils/jest",
     "utils": "libs/utils",
     "web": "apps/web",
     "web-e2e": "apps/web-e2e"

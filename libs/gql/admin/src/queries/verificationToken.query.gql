@@ -1,0 +1,20 @@
+mutation CreateVerificationToken($verificationToken: verificationTokens_insert_input!) {
+  insert_verificationTokens_one(object: $verificationToken) {
+    identifier
+    expires
+    token
+  }
+}
+query GetVerificationToken($token: String!) {
+  verificationTokens(where: { token: { _eq: $token } }) {
+    identifier
+    expires
+    token
+  }
+}
+
+mutation DeleteVerificationToken($token: String!) {
+  delete_verificationTokens(where: { token: { _eq: $token } }) {
+    affected_rows
+  }
+}

@@ -11,18 +11,40 @@ const adminHeaders = {
 };
 
 const pluginsAndConfig = {
-  plugins: ['typescript', 'typescript-operations', 'typescript-react-query'],
+  plugins: [
+    'typescript',
+    'typescript-operations',
+    'typescript-react-query',
+    'typescript-graphql-request',
+  ],
   config: {
     preResolveTypes: true,
     constEnums: true,
     exposeQueryKeys: true,
     exposeFetcher: true,
+    documentMode: 'external',
+    importDocumentNodeExternallyFrom: './index',
+    fetcher: {
+      func: '@governance/hasura-fetcher#fetchData',
+      isReactHook: false,
+    },
+  },
+};
+
+const adminPluginsAndConfig = {
+  plugins: ['typescript', 'typescript-operations', 'typescript-generic-sdk', 'add'],
+  config: {
+    noExport: true,
+    documentMode: 'string',
+    content: `import { fetchDataAdmin } from "@governance/hasura-fetcher";\n
+    export const adminSdk = getSdk(fetchDataAdmin());`,
+    placement: 'append',
   },
 };
 
 const hasuraSchema = (headers = userHeaders) => {
   let schema = {};
-  schema[process.env.HASURA_URL] = { headers };
+  schema[process.env.NEXT_PUBLIC_HASURA_URL] = { headers };
   return schema;
 };
 
@@ -54,7 +76,18 @@ module.exports = {
     'libs/gql/admin/src/generated/index.ts': {
       schema: [hasuraSchema(adminHeaders)],
       documents: ['libs/gql/admin/src/queries/**/*.{graphql,gql}'],
-      ...pluginsAndConfig,
+      ...adminPluginsAndConfig,
     },
+    // doesn't support yet separated fragments so it fail
+    // TODO: follow up on this issue https://github.com/dotansimha/graphql-code-generator/issues/7700
+    // ref: https://www.graphql-code-generator.com/plugins/other/hasura-allow-list
+    // 'hasura-console/app/metadata/query_collections.yaml': {
+    //   schema: [hasuraSchema(adminHeaders)],
+    //   documents: ['libs/gql/{admin,user,anonymous}/src/queries/**/*.{graphql,gql}'],
+    //   plugins: ['hasura-allow-list'],
+    //   hooks: {
+    //     afterOneFileWrite: ['make restart-hasura'],
+    //   },
+    // },
   },
 };

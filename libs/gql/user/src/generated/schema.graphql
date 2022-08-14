@@ -19,21 +19,6 @@ directive @cached(
   ttl: Int! = 60
 ) on QUERY
 
-"""
-Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'.
-"""
-input Int_comparison_exp {
-  _eq: Int
-  _gt: Int
-  _gte: Int
-  _in: [Int!]
-  _is_null: Boolean
-  _lt: Int
-  _lte: Int
-  _neq: Int
-  _nin: [Int!]
-}
-
 type JwtToken {
   jwt: String!
 }
@@ -189,200 +174,7 @@ enum order_by {
   desc_nulls_last
 }
 
-"""
-columns and relationships of "passwords"
-"""
-type passwords {
-  attempts: Int!
-  hash: String!
-  iterations: Int!
-  salt: String!
-}
-
-"""
-order by aggregate values of table "passwords"
-"""
-input passwords_aggregate_order_by {
-  avg: passwords_avg_order_by
-  count: order_by
-  max: passwords_max_order_by
-  min: passwords_min_order_by
-  stddev: passwords_stddev_order_by
-  stddev_pop: passwords_stddev_pop_order_by
-  stddev_samp: passwords_stddev_samp_order_by
-  sum: passwords_sum_order_by
-  var_pop: passwords_var_pop_order_by
-  var_samp: passwords_var_samp_order_by
-  variance: passwords_variance_order_by
-}
-
-"""
-order by avg() on columns of table "passwords"
-"""
-input passwords_avg_order_by {
-  attempts: order_by
-  iterations: order_by
-}
-
-"""
-Boolean expression to filter rows from the table "passwords". All fields are combined with a logical 'AND'.
-"""
-input passwords_bool_exp {
-  _and: [passwords_bool_exp!]
-  _not: passwords_bool_exp
-  _or: [passwords_bool_exp!]
-  attempts: Int_comparison_exp
-  hash: String_comparison_exp
-  iterations: Int_comparison_exp
-  salt: String_comparison_exp
-}
-
-"""
-order by max() on columns of table "passwords"
-"""
-input passwords_max_order_by {
-  attempts: order_by
-  hash: order_by
-  iterations: order_by
-  salt: order_by
-}
-
-"""
-order by min() on columns of table "passwords"
-"""
-input passwords_min_order_by {
-  attempts: order_by
-  hash: order_by
-  iterations: order_by
-  salt: order_by
-}
-
-"""
-Ordering options when selecting data from "passwords".
-"""
-input passwords_order_by {
-  attempts: order_by
-  hash: order_by
-  iterations: order_by
-  salt: order_by
-}
-
-"""
-select columns of table "passwords"
-"""
-enum passwords_select_column {
-  """
-  column name
-  """
-  attempts
-
-  """
-  column name
-  """
-  hash
-
-  """
-  column name
-  """
-  iterations
-
-  """
-  column name
-  """
-  salt
-}
-
-"""
-order by stddev() on columns of table "passwords"
-"""
-input passwords_stddev_order_by {
-  attempts: order_by
-  iterations: order_by
-}
-
-"""
-order by stddev_pop() on columns of table "passwords"
-"""
-input passwords_stddev_pop_order_by {
-  attempts: order_by
-  iterations: order_by
-}
-
-"""
-order by stddev_samp() on columns of table "passwords"
-"""
-input passwords_stddev_samp_order_by {
-  attempts: order_by
-  iterations: order_by
-}
-
-"""
-order by sum() on columns of table "passwords"
-"""
-input passwords_sum_order_by {
-  attempts: order_by
-  iterations: order_by
-}
-
-"""
-order by var_pop() on columns of table "passwords"
-"""
-input passwords_var_pop_order_by {
-  attempts: order_by
-  iterations: order_by
-}
-
-"""
-order by var_samp() on columns of table "passwords"
-"""
-input passwords_var_samp_order_by {
-  attempts: order_by
-  iterations: order_by
-}
-
-"""
-order by variance() on columns of table "passwords"
-"""
-input passwords_variance_order_by {
-  attempts: order_by
-  iterations: order_by
-}
-
 type query_root {
-  """
-  An array relationship
-  """
-  passwords(
-    """
-    distinct select on columns
-    """
-    distinct_on: [passwords_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [passwords_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: passwords_bool_exp
-  ): [passwords!]!
-
-  """
-  fetch data from the table: "passwords" using primary key columns
-  """
-  passwords_by_pk(hash: String!): passwords
   refreshJwtToken(fingerprintHash: String!, refreshToken: String!): JwtToken!
 
   """
@@ -422,41 +214,6 @@ type query_root {
 }
 
 type subscription_root {
-  """
-  An array relationship
-  """
-  passwords(
-    """
-    distinct select on columns
-    """
-    distinct_on: [passwords_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [passwords_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: passwords_bool_exp
-  ): [passwords!]!
-
-  """
-  fetch data from the table: "passwords" using primary key columns
-  """
-  passwords_by_pk(hash: String!): passwords
-
   """
   fetch data from the table: "users"
   """
@@ -522,36 +279,6 @@ type users {
   lastName: String
   name: String
   password: String
-
-  """
-  An array relationship
-  """
-  passwords(
-    """
-    distinct select on columns
-    """
-    distinct_on: [passwords_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [passwords_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: passwords_bool_exp
-  ): [passwords!]!
 }
 
 """
@@ -569,7 +296,6 @@ input users_bool_exp {
   lastName: String_comparison_exp
   name: String_comparison_exp
   password: String_comparison_exp
-  passwords: passwords_bool_exp
 }
 
 """
@@ -599,7 +325,6 @@ input users_order_by {
   lastName: order_by
   name: order_by
   password: order_by
-  passwords_aggregate: passwords_aggregate_order_by
 }
 
 """
