@@ -23,7 +23,7 @@ describe('user access security tests', () => {
     const data = await alphaAdmin.getUser({ id: alphaAdmin.me.id });
     expect(data.users[0]).toEqual(alphaAdmin.me);
   });
-  it("user beta can't retrieve alpha's informations", async () => {
+  it("user beta can't retrieve alpha's information", async () => {
     const data = await betaAdmin.getUser({ id: alphaAdmin.me.id });
     expect(data.users[0]).toBeUndefined();
   });
