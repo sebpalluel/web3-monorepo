@@ -14,12 +14,6 @@ export const dbClient = async (): Promise<Client> => {
   return client;
 };
 
-export const closeConnection = async () => {
-  if (connected) {
-    await client.end();
-  }
-};
-
 export const createDb = async () => {
   const client = await dbClient();
   dbName = 'test-' + Math.random().toString(36).substring(7);

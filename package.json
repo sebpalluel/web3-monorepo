@@ -64,13 +64,13 @@
     "react-icons": "^4.4.0",
     "react-query": "^3.39.2",
     "regenerator-runtime": "0.13.7",
-    "tslib": "^2.4.0",
+    "tslib": "^2.4.0"
+  },
+  "devDependencies": {
     "graphql": "^16.5.0",
     "graphql-config": "^4.3.3",
     "graphql-request": "^4.3.0",
-    "graphql-tag": "^2.12.6"
-  },
-  "devDependencies": {
+    "graphql-tag": "^2.12.6",
     "@emotion/babel-plugin": "11.9.2",
     "@graphql-codegen/add": "^3.2.0",
     "@graphql-codegen/cli": "2.8.0",
@@ -94,7 +94,6 @@
     "@nrwl/workspace": "14.4.3",
     "@nxext/vitest": "^14.0.2",
     "@testing-library/react": "13.3.0",
-    "@types/graphql": "^14.5.0",
     "@types/jest": "27.4.1",
     "@types/jsonwebtoken": "^8.5.8",
     "@types/node": "16.11.7",
