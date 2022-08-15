@@ -4,4 +4,6 @@ fragment UserFields on users {
   id
   image
   name
+  firstName
+  lastName
 }

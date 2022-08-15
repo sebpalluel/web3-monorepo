@@ -267,6 +267,8 @@ export type GetUserQuery = {
     id: string;
     image?: string | null;
     name?: string | null;
+    firstName?: string | null;
+    lastName?: string | null;
   }>;
 };
 
@@ -283,6 +285,8 @@ export type GetUserByEmailQuery = {
     id: string;
     image?: string | null;
     name?: string | null;
+    firstName?: string | null;
+    lastName?: string | null;
   }>;
 };
 
@@ -293,6 +297,8 @@ export type UserFieldsFragment = {
   id: string;
   image?: string | null;
   name?: string | null;
+  firstName?: string | null;
+  lastName?: string | null;
 };
 
 export const UserFieldsFragmentDoc = `
@@ -302,6 +308,8 @@ export const UserFieldsFragmentDoc = `
   id
   image
   name
+  firstName
+  lastName
 }
     `;
 export const GetUserDocument = `

@@ -1,49 +1,75 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { GraphQLClient } from 'graphql-request';
-import { getSdk as userSdk } from '@governance/gql-user';
+import { users } from '../../../../tools/test/data/users';
 const jwt = require('jsonwebtoken');
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { getSdk as userSdk, Users } from '@governance/gql-user';
 
 // setup env variables
 require('dotenv').config({ path: './tools/test/.env.test' });
 
-// parse the key out of the HASURA_GRAPHQL_JWT_SECRET environment variable
-let secret = '';
-try {
-  secret = JSON.parse(process.env.HASURA_GRAPHQL_JWT_SECRET!).key;
-} catch (e) {
-  console.error('HASURA_GRAPHQL_JWT_SECRET must be parsable json and have property key');
-  process.exit(1);
-}
-
 type UserOptions = {
-  role?: string;
-  user: {
-    id: string;
-    name: string;
-  };
-  clientId?: string;
+  allowedRoles?: string[];
+  defaultRole: string;
+  userId: string;
+  username: string;
 };
+
 // generate a JWT that includes roles, userId, and username
 const generateJwt = (options: UserOptions): string =>
-  jwt.sign(JSON.stringify(options), secret);
+  jwt.sign(
+    JSON.stringify({
+      roles: options.allowedRoles,
+      userId: options.userId,
+      username: options.username,
+    }),
+    '3EK6FD+o0+c7tzBNVfjpMkNDi2yARAAKzQlk8O2IKoxQu4nF7EdAh8s3TwpHwrdWT6R'
+  );
 
 // configure the client
-export const userClient = (options: UserOptions): ReturnType<typeof userSdk> => {
-  if (!process.env.GRAPHQL_ENDPOINT) {
-    throw new Error('GRAPHQL_ENDPOINT is not defined');
+export const sdkClient = (options: UserOptions): ReturnType<typeof userSdk> => {
+  // if we do not provide allowedRoles for the client we assume that the defaultRole is an allowed role
+  if ('defaultRole' in options && !options.allowedRoles) {
+    options.allowedRoles = [options.defaultRole];
   }
-  if (!process.env.HASURA_GRAPHQL_ADMIN_SECRET) {
-    throw new Error('HASURA_GRAPHQL_ADMIN_SECRET is not defined');
-  }
-  const { user } = options;
-  const role = options.role || 'user';
-  const clientId = options.clientId || 'test';
-  const jwt = generateJwt({ role, user, clientId });
-  const client = new GraphQLClient(process.env.GRAPHQL_ENDPOINT, {
+  const jwt = generateJwt(options);
+  const client = new GraphQLClient('http://localhost:9696/v1/graphql', {
     headers: {
       Authorization: `Bearer ${jwt}`,
     },
   });
-
   return userSdk(client);
+};
+
+export const alphaAdminClient = (): ReturnType<typeof userSdk> & { me: Users } => {
+  return {
+    ...sdkClient({
+      defaultRole: 'user',
+      userId: users.alpha_admin.id,
+      username: users.alpha_admin.name,
+    }),
+    me: users.alpha_admin,
+  };
+};
+
+export const betaAdminClient = (): ReturnType<typeof userSdk> & { me: Users } => {
+  return {
+    ...sdkClient({
+      defaultRole: 'user',
+      userId: users.beta_admin.id,
+      username: users.beta_admin.name,
+    }),
+    me: users.beta_admin,
+  };
+};
+
+export const sebGoogleClient = (): ReturnType<typeof userSdk> & { me: Users } => {
+  return {
+    ...sdkClient({
+      defaultRole: 'user',
+      userId: users.seb_google.id,
+      username: users.seb_google.name,
+    }),
+    me: users.seb_google,
+  };
 };

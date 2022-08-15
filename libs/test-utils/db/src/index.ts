@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { Client } from 'pg';
+const fs = require('fs');
 
 let connected = false;
 let dbName = '';
@@ -18,7 +20,7 @@ export const closeConnection = async () => {
   }
 };
 
-export const creatDb = async () => {
+export const createDb = async () => {
   const client = await dbClient();
   dbName = 'test-' + Math.random().toString(36).substring(7);
   await client.query(`
@@ -30,3 +32,25 @@ export const clearDb = async () => {
   const client = await dbClient();
   await client.query('TRUNCATE TABLE users, tokens, refresh_tokens, sessions CASCADE;');
 };
+
+export const deleteUsers = async () => {
+  const client = await dbClient();
+  await client.query('TRUNCATE users CASCADE;');
+};
+
+export const seedDb = async (filePath: string) => {
+  const client = await dbClient();
+  const dataSql = fs.readFileSync(filePath).toString();
+  await client.query(dataSql);
+};
+
+export const queryDb = async (sql: string) => {
+  const client = await dbClient();
+  await client.query(sql);
+};
+
+// export const deleteSeedDb = async (filePath: string) => {
+//   const client = await dbClient();
+//   const dataSql = fs.readFileSync(filePath).toString();
+
+// }

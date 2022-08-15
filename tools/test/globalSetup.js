@@ -2,7 +2,7 @@
 const isPortReachable = require('is-port-reachable');
 const path = require('path');
 const dockerCompose = require('docker-compose');
-const { execSync } = require('child_process');
+// const { execSync } = require('child_process');
 const { logger } = require('../../libs/logger/src');
 const fetch = require('node-fetch');
 
