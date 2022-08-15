@@ -4,7 +4,7 @@ let connected = false;
 let dbName = '';
 // TODO change localhost for 'test-db' when running on docker
 const client = new Client('postgres://postgres:password@localhost:5454/postgres');
-export const getClient = async (): Promise<Client> => {
+export const dbClient = async (): Promise<Client> => {
   if (!connected) {
     await client.connect();
     connected = true;
@@ -19,7 +19,7 @@ export const closeConnection = async () => {
 };
 
 export const creatDb = async () => {
-  const client = await getClient();
+  const client = await dbClient();
   dbName = 'test-' + Math.random().toString(36).substring(7);
   await client.query(`
     CREATE DATABASE ${dbName}
@@ -27,6 +27,6 @@ export const creatDb = async () => {
 };
 
 export const clearDb = async () => {
-  const client = await getClient();
+  const client = await dbClient();
   await client.query('TRUNCATE TABLE users, tokens, refresh_tokens, sessions CASCADE;');
 };

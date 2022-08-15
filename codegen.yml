@@ -37,6 +37,15 @@ generates:
           fetcher:
             func: '@governance/hasura-fetcher#fetchData'
             isReactHook: false
+      - 'typescript-graphql-request':
+          documentMode: 'external'
+          importDocumentNodeExternallyFrom: './index.ts'
+      # - 'add':
+      #     content: 'import { fetchData } from "@governance/hasura-fetcher";'
+      #     placement: 'prepend'
+      # - 'add':
+      #     content: 'export const adminSdk = getSdk(fetchData());'
+      #     placement: 'append'
 
   # admin
   libs/gql/admin/src/generated/schema.json:

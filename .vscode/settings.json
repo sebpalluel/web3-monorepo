@@ -23,5 +23,8 @@
   ],
   "files.associations": {
     "*.gql": "graphql"
+  },
+  "[sql]": {
+    "editor.defaultFormatter": "adpyke.vscode-sql-formatter"
   }
 }
