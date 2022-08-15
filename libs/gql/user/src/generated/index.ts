@@ -186,7 +186,6 @@ export type Users = {
   image?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
-  password?: Maybe<Scalars['String']>;
 };
 
 /** Boolean expression to filter rows from the table "users". All fields are combined with a logical 'AND'. */
@@ -201,7 +200,6 @@ export type Users_Bool_Exp = {
   image?: InputMaybe<String_Comparison_Exp>;
   lastName?: InputMaybe<String_Comparison_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
-  password?: InputMaybe<String_Comparison_Exp>;
 };
 
 /** response of any mutation on the table "users" */
@@ -222,7 +220,6 @@ export type Users_Order_By = {
   image?: InputMaybe<Order_By>;
   lastName?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
-  password?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: users */
@@ -246,8 +243,6 @@ export const enum Users_Select_Column {
   LastName = 'lastName',
   /** column name */
   Name = 'name',
-  /** column name */
-  Password = 'password',
 }
 
 /** input type for updating data in table "users" */

@@ -2399,7 +2399,6 @@ type users {
   image: String
   lastName: String
   name: String
-  password: String
 
   """
   An array relationship
@@ -2555,7 +2554,6 @@ input users_bool_exp {
   image: String_comparison_exp
   lastName: String_comparison_exp
   name: String_comparison_exp
-  password: String_comparison_exp
   passwords: passwords_bool_exp
   sessions: sessions_bool_exp
 }
@@ -2583,7 +2581,6 @@ input users_insert_input {
   image: String
   lastName: String
   name: String
-  password: String
   passwords: passwords_arr_rel_insert_input
   sessions: sessions_arr_rel_insert_input
 }
@@ -2599,7 +2596,6 @@ type users_max_fields {
   image: String
   lastName: String
   name: String
-  password: String
 }
 
 """
@@ -2613,7 +2609,6 @@ type users_min_fields {
   image: String
   lastName: String
   name: String
-  password: String
 }
 
 """
@@ -2665,7 +2660,6 @@ input users_order_by {
   image: order_by
   lastName: order_by
   name: order_by
-  password: order_by
   passwords_aggregate: passwords_aggregate_order_by
   sessions_aggregate: sessions_aggregate_order_by
 }
@@ -2720,11 +2714,6 @@ enum users_select_column {
   column name
   """
   name
-
-  """
-  column name
-  """
-  password
 }
 
 """
@@ -2739,7 +2728,6 @@ input users_set_input {
   image: String
   lastName: String
   name: String
-  password: String
 }
 
 """
@@ -2785,11 +2773,6 @@ enum users_update_column {
   column name
   """
   name
-
-  """
-  column name
-  """
-  password
 }
 
 """

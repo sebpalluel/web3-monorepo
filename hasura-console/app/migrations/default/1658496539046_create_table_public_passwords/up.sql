@@ -1,1 +1,0 @@
-CREATE TABLE "public"."passwords" ("hash" text NOT NULL, "salt" text NOT NULL, "iterations" integer NOT NULL DEFAULT 0, "attempts" integer NOT NULL DEFAULT 0, PRIMARY KEY ("hash") , UNIQUE ("hash"), UNIQUE ("salt"));
