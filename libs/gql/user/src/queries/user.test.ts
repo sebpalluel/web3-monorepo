@@ -4,7 +4,6 @@ import {
   betaAdminClient,
   sebGoogleClient,
 } from '@governance/test-utils-gql';
-import { getSdk } from '../generated';
 import { deleteUsers, seedDb } from '@governance/test-utils-db';
 
 describe('user access security tests', () => {
@@ -14,7 +13,7 @@ describe('user access security tests', () => {
   beforeAll(async () => {
     // // ️️️✅ Best Practice: Clean-up resources after each run
     await deleteUsers();
-    // seed the database with three users alpha, beta and seb google
+    // seed the database with three users alpha, beta and seb
     await seedDb('./tools/test/data/users.sql');
   });
   afterAll(async () => {
@@ -26,6 +25,14 @@ describe('user access security tests', () => {
   });
   it("user beta can't retrieve alpha's informations", async () => {
     const data = await betaAdmin.getUser({ id: alphaAdmin.me.id });
+    expect(data.users[0]).toBeUndefined();
+  });
+  it('user beta can retrieve his information by email', async () => {
+    const data = await betaAdmin.getUserByEmail({ email: betaAdmin.me.email as string });
+    expect(data.users[0]).toEqual(betaAdmin.me);
+  });
+  it("user seb can't retrieve beta's information by email", async () => {
+    const data = await sebGoogle.getUserByEmail({ email: betaAdmin.me.email as string });
     expect(data.users[0]).toBeUndefined();
   });
 });
