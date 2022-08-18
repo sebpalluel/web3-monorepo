@@ -2,9 +2,8 @@
 const isPortReachable = require('is-port-reachable');
 const path = require('path');
 const dockerCompose = require('docker-compose');
-// const { execSync } = require('child_process');
 const { logger } = require('../../libs/logger/src');
-const fetch = require('node-fetch');
+global.fetch = require('node-fetch');
 
 module.exports = async () => {
   console.time('global-setup');
@@ -29,6 +28,7 @@ module.exports = async () => {
     while (!hasuraReady) {
       try {
         const res = await fetch(hasuraUrl);
+        logger.debug(`Hasura status: ${res.status}`);
         if (res.status === 200) {
           hasuraReady = true;
           if (res.statusText === 'OK') {
@@ -37,7 +37,7 @@ module.exports = async () => {
         }
       } catch (e) {
         // wait 5sec for hasura to be ready
-        await new Promise((r) => setTimeout(() => r(), 5000));
+        await new Promise((resolve) => setTimeout(resolve, 5000));
       }
     }
   }

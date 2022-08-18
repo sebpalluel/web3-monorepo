@@ -12,7 +12,4 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../../coverage/libs/gql/user',
-  setupFiles: ['../../../tools/test/jest.setup.ts'],
-  globalSetup: '../../../tools/test/globalSetup.js',
-  globalTeardown: '../../../tools/test/globalTeardown.js',
 };

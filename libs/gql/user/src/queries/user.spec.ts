@@ -10,7 +10,7 @@ describe('user access security tests', () => {
   const betaAdmin = betaAdminClient();
   const sebGoogle = sebGoogleClient();
   beforeAll(async () => {
-    // // ️️️✅ Best Practice: Clean-up resources after each run
+    // ️️️✅ Best Practice: Clean-up resources after each run
     await deleteUsers();
     // seed the database with three users alpha, beta and seb
     await seedDb('./tools/test/data/users.sql');
