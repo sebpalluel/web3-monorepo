@@ -20,12 +20,12 @@ describe('hasura Next Auth Adapter', () => {
   const adapter = HasuraAdapter();
   beforeAll(async () => {
     const client = await dbClient();
-    // // ️️️✅ Best Practice: Clean-up resources after each run
+    // ️️️✅ Best Practice: Clean-up resources after each run
     client.query('TRUNCATE users CASCADE;');
   });
   afterAll(async () => {
     const client = await dbClient();
-    // ️✅ Best Practice: Clean-up resources after each run
+    // //  //////️✅ Best Practice: Clean-up resources after each run
     client.query('TRUNCATE users CASCADE;');
   });
   it('should create user and assign an id', async () => {
@@ -41,6 +41,7 @@ describe('hasura Next Auth Adapter', () => {
     const data = await adapter.getUserByEmail(user.email);
     expect(user).toEqual(data);
   });
+
   it('should update user', async () => {
     const updatedName = 'Alpha Admin Updated';
     user.name = updatedName;
@@ -54,10 +55,12 @@ describe('hasura Next Auth Adapter', () => {
     const data = await adapter.linkAccount(account);
     expect(account).toEqual(data);
   });
+
   it('should get user by account', async () => {
     const data = await adapter.getUserByAccount(account);
     expect(user).toEqual(data);
   });
+
   it('should unlink account', async () => {
     await adapter.unlinkAccount?.(account);
     const data = await adapter.getUserByAccount(account);

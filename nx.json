@@ -23,7 +23,6 @@
         "cacheableOperations": [
           "dev",
           "serve",
-          "start",
           "build",
           "postbuild",
           "lint",
@@ -32,23 +31,27 @@
           "up",
           "up-latest",
           "push-release",
-          "graphql-codegen",
+          "gql",
           "prebuild",
           "format",
           "test",
-          "test:watch",
-          "test:cov",
-          "test:debug",
-          "test:e2e",
+          "e2e",
           "clean"
         ],
         "accessToken": "ZmMwYzlkZTktYjUzOS00ZTc5LTljMDAtOGNhMTg3NGQxOTEzfHJlYWQtd3JpdGU="
       }
     }
   },
+  "namedInputs": {
+    "noMarkdown": ["!{projectRoot}/**/*.md"]
+  },
   "targetDefaults": {
     "build": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build"],
+      "inputs": ["noMarkdown", "^noMarkdown"]
+    },
+    "test": {
+      "inputs": ["noMarkdown", "^noMarkdown"]
     }
   },
   "generators": {

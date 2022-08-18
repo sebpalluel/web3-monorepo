@@ -1,11 +1,16 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+import { isJestRunning } from '@governance/test-utils-common';
 import { Client } from 'pg';
+
 const fs = require('fs');
 
 let connected = false;
 let dbName = '';
-// TODO change localhost for 'test-db' when running on docker
-const client = new Client('postgres://postgres:password@localhost:5454/postgres');
+// TODO change localhost for 'test-db' or 'db' when running on docker
+// assigning the right port depending of if jest or cypress is running
+const client = new Client(
+  `postgres://postgres:password@localhost:${isJestRunning() ? '5454' : '5432'}/postgres`
+);
 export const dbClient = async (): Promise<Client> => {
   if (!connected) {
     await client.connect();
@@ -30,6 +35,15 @@ export const clearDb = async () => {
 export const deleteUsers = async () => {
   const client = await dbClient();
   await client.query('TRUNCATE users CASCADE;');
+};
+
+export const deleteUser = async (email: string) => {
+  const client = await dbClient();
+  // sql delete user from users table cascade delete all tokens and sessions
+  await client.query(`
+    DELETE FROM users CASCADE
+    WHERE email = '${email}'
+  `);
 };
 
 export const seedDb = async (filePath: string) => {

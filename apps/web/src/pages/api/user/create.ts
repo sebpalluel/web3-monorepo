@@ -6,7 +6,7 @@ import {
 } from '../../../lib/middlewares';
 import { adminSdk } from '@governance/gql-admin';
 import cryptojs from 'crypto-js';
-import { randomBytes } from 'crypto';
+import { v4 as uuidv4 } from 'uuid';
 import { ApiError } from 'next/dist/server/api-utils';
 import type { Password } from '../../../lib/types/crypto';
 
@@ -50,7 +50,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   } else {
     const { password, ...user } = req.body;
     const hashedPassword = hashPasswordWithSalt(password);
-    const id = randomBytes(32).toString('hex');
+    const id = uuidv4();
     const data = await adminSdk.CreateUserWithCredentials({
       user: {
         ...user,

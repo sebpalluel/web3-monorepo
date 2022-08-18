@@ -30,16 +30,16 @@ services:
 
   hasura-engine:
     container_name: hasura-engine
-    image: hasura/graphql-engine:${HASURA_VERSION}
+    image: hasura/graphql-engine:v2.10.1
     ports:
-      - '${HASURA_PORT}:${HASURA_PORT}'
+      - '${HASURA_GRAPHQL_SERVER_PORT}:${HASURA_GRAPHQL_SERVER_PORT}'
     depends_on:
       db:
         condition: service_healthy
     env_file:
       - .env.local
     environment:
-      HASURA_GRAPHQL_SERVER_PORT: ${HASURA_PORT}
+      HASURA_GRAPHQL_SERVER_PORT: ${HASURA_GRAPHQL_SERVER_PORT}
       HASURA_GRAPHQL_DATABASE_URL: ${DATABASE_URL}
       HASURA_GRAPHQL_ENABLE_CONSOLE: 'false'
       HASURA_GRAPHQL_DEV_MODE: 'true'
@@ -58,7 +58,7 @@ services:
       test:
         [
           'CMD-SHELL',
-          'apt-get update -y && apt-get install -y curl && curl --fail http://localhost:${HASURA_PORT}/healthz || exit 1',
+          'apt-get update -y && apt-get install -y curl && curl --fail http://localhost:${HASURA_GRAPHQL_SERVER_PORT}/healthz || exit 1',
         ]
       interval: 5s
       timeout: 3s
@@ -78,7 +78,7 @@ services:
       HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET}
       HASURA_GRAPHQL_ADDRESS: 127.0.0.1
       HASURA_RUN_CONSOLE: 'true'
-      HASURA_PORT: ${HASURA_PORT}
+      HASURA_GRAPHQL_SERVER_PORT: ${HASURA_GRAPHQL_SERVER_PORT}
       HASURA_CONSOLE_PORT: ${HASURA_CONSOLE_PORT}
     ports:
       - '${HASURA_CONSOLE_PORT}:${HASURA_CONSOLE_PORT}'
@@ -93,6 +93,15 @@ services:
       - 'traefik.docker.network=web'
       - 'traefik.http.services.hasura-console.loadbalancer.server.port=${HASURA_CONSOLE_PORT}'
       - 'traefik.http.routers.hasura-console.rule=Host(`hasura-console.${POSTGRES_DB}.test`)'
+    healthcheck:
+      test:
+        [
+          'CMD-SHELL',
+          'apt-get update -y && apt-get install -y curl && curl --fail http://localhost:${HASURA_CONSOLE_PORT}/console || exit 1',
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
     depends_on:
       hasura-engine:
         condition: service_healthy

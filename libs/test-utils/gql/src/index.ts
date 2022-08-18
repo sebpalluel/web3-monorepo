@@ -5,7 +5,7 @@ import type { Users, Sdk } from './generated/test-user';
 import { fetchData } from '@governance/hasura-fetcher';
 
 // setup env variables
-require('dotenv').config({ path: './tools/test/.env.test' });
+require('dotenv').config({ path: './tools/test/.env.test.jest' });
 
 export const users = {
   seb_google: {

@@ -1,13 +1,13 @@
-import { randomBytes } from 'crypto';
 import type { Adapter, AdapterUser, AdapterSession } from 'next-auth/adapters';
 import { adminSdk } from '@governance/gql-admin';
+import { v4 as uuidv4 } from 'uuid';
 
 export function adapter(): Adapter {
   return {
     async createUser(data) {
       const user: AdapterUser = {
         ...(data as any),
-        id: randomBytes(32).toString('hex'),
+        id: uuidv4(),
       };
       await adminSdk.CreateUser({ user });
       return user;
@@ -35,7 +35,7 @@ export function adapter(): Adapter {
     async linkAccount(account) {
       const data = await adminSdk.LinkAccount({
         account: {
-          id: randomBytes(32).toString('hex'),
+          id: uuidv4(),
           ...account,
         },
       });
@@ -47,7 +47,7 @@ export function adapter(): Adapter {
     async createSession(data) {
       const session: AdapterSession = {
         ...(data as any),
-        id: randomBytes(32).toString('hex'),
+        id: uuidv4(),
       };
       await adminSdk.CreateSession({
         session,

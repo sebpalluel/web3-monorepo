@@ -4,4 +4,4 @@ metadata_directory: metadata
 admin_secret: password
 actions:
   kind: synchronous
-  handler_webhook_baseurl: http://localhost:3000
+  handler_webhook_baseurl: http://localhost:${CLIENT_PORT}

@@ -22,9 +22,10 @@
       "@governance/hasura-utils": ["libs/hasura/utils/src/index.ts"],
       "@governance/logger": ["libs/logger/src/index.ts"],
       "@governance/next-auth": ["libs/next-auth/src/index.ts"],
+      "@governance/test-utils-common": ["libs/test-utils/common/src/index.ts"],
+      "@governance/test-utils-cypress": ["libs/test-utils/cypress/src/index.ts"],
       "@governance/test-utils-db": ["libs/test-utils/db/src/index.ts"],
       "@governance/test-utils-gql": ["libs/test-utils/gql/src/index.ts"],
-      "@governance/test-utils-jest": ["libs/test-utils/jest/src/index.ts"],
       "@governance/utils": ["libs/utils/src/index.ts"],
       "@web/*": ["apps/web/src/*"]
     }
