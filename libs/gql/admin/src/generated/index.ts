@@ -1,4 +1,4 @@
-import { fetchDataAdmin } from '@governance/hasura-fetcher';
+import { fetchData } from '@governance/hasura-fetcher';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -2431,4 +2431,4 @@ export function getSdk<C>(requester: Requester<C>) {
   };
 }
 export type Sdk = ReturnType<typeof getSdk>;
-export const adminSdk = getSdk(fetchDataAdmin());
+export const adminSdk = getSdk(fetchData({ admin: true }));

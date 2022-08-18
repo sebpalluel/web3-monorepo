@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-import { GraphQLClient } from 'graphql-request';
 const jwt = require('jsonwebtoken');
-import { getSdk as userSdk, Users } from '@governance/gql-user';
+import { getSdk as userSdk } from './generated/test-user';
+import type { Users, Sdk } from './generated/test-user';
+import { fetchData } from '@governance/hasura-fetcher';
 
 // setup env variables
 require('dotenv').config({ path: './tools/test/.env.test' });
@@ -56,21 +57,16 @@ const generateJwt = (options: UserOptions): string =>
   );
 
 // configure the client
-export const sdkClient = (options: UserOptions): ReturnType<typeof userSdk> => {
+export const sdkClient = (options: UserOptions): Sdk => {
   // if we do not provide allowedRoles for the client we assume that the defaultRole is an allowed role
   if ('defaultRole' in options && !options.allowedRoles) {
     options.allowedRoles = [options.defaultRole];
   }
   const jwt = generateJwt(options);
-  const client = new GraphQLClient('http://localhost:9696/v1/graphql', {
-    headers: {
-      Authorization: `Bearer ${jwt}`,
-    },
-  });
-  return userSdk(client);
+  return userSdk(fetchData({ jwt }));
 };
 
-export const alphaAdminClient = (): ReturnType<typeof userSdk> & { me: Users } => {
+export const alphaAdminClient = (): Sdk & { me: Users } => {
   return {
     ...sdkClient({
       defaultRole: 'user',
@@ -81,7 +77,7 @@ export const alphaAdminClient = (): ReturnType<typeof userSdk> & { me: Users } =
   };
 };
 
-export const betaAdminClient = (): ReturnType<typeof userSdk> & { me: Users } => {
+export const betaAdminClient = (): Sdk & { me: Users } => {
   return {
     ...sdkClient({
       defaultRole: 'user',
@@ -92,7 +88,7 @@ export const betaAdminClient = (): ReturnType<typeof userSdk> & { me: Users } =>
   };
 };
 
-export const sebGoogleClient = (): ReturnType<typeof userSdk> & { me: Users } => {
+export const sebGoogleClient = (): Sdk & { me: Users } => {
   return {
     ...sdkClient({
       defaultRole: 'user',
