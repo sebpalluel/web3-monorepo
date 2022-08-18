@@ -5,7 +5,7 @@ const docker = require('docker-compose');
 module.exports = async () => {
   if (isCI) {
     // ️️️✅ Best Practice: Leave the DB up in dev environment
-    docker.down();
+    await docker.down();
   } else {
     // ✅ Best Practice: Clean the database occasionally
     if (Math.ceil(Math.random() * 10) === 10) {

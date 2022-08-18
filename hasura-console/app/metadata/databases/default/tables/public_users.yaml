@@ -36,7 +36,6 @@ select_permissions:
         - image
         - lastName
         - name
-        - password
       filter:
         id:
           _eq: X-Hasura-User-Id

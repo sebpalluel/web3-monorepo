@@ -35,9 +35,20 @@ generates:
           preResolveTypes: true
       - 'typescript-react-query':
           fetcher:
-            func: '@governance/hasura-fetcher#fetchData'
+            func: '@governance/hasura-fetcher#fetchDataReactQuery'
             isReactHook: false
-
+  libs/test-utils/gql/src/generated/test-user.ts:
+    schema:
+      - *userSchema
+    documents: './libs/gql/user/src/queries/**/*.{graphql,gql}'
+    plugins:
+      - 'typescript':
+          constEnums: true
+      - 'typescript-operations':
+          preResolveTypes: true
+      - 'typescript-generic-sdk':
+          noExport: true
+          documentMode: 'string'
   # admin
   libs/gql/admin/src/generated/schema.json:
     plugins:
@@ -56,10 +67,10 @@ generates:
           noExport: true
           documentMode: 'string'
       - 'add':
-          content: 'import { fetchDataAdmin } from "@governance/hasura-fetcher";'
+          content: 'import { fetchData } from "@governance/hasura-fetcher";'
           placement: 'prepend'
       - 'add':
-          content: 'export const adminSdk = getSdk(fetchDataAdmin());'
+          content: 'export const adminSdk = getSdk(fetchData({admin:true}));'
           placement: 'append'
 
     # ## hasura

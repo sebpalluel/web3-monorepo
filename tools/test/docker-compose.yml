@@ -2,7 +2,7 @@
 version: '3.9'
 services:
   test-db:
-    image: postgres:12
+    image: postgres:13
     command: postgres -c fsync=off -c synchronous_commit=off -c full_page_writes=off -c random_page_cost=1.0 -p 5454
     env_file:
       - .env.test
@@ -26,6 +26,9 @@ services:
       - .env.test
     environment:
       HASURA_GRAPHQL_NO_OF_RETRIES: '10'
+      HASURA_GRAPHQL_DEV_MODE: 'true'
+      ## important ! here we use headers with encrypted json instead of cookie for testing purposes
+      HASURA_GRAPHQL_JWT_SECRET: '{"type":"HS256", "key": "3EK6FD+o0+c7tzBNVfjpMkNDi2yARAAKzQlk8O2IKoxQu4nF7EdAh8s3TwpHwrdWT6R", "claims_map": { "x-hasura-allowed-roles": { "path": "$$.roles" }, "x-hasura-default-role": { "path": "$$.roles[0]" }, "x-hasura-client-id": { "path": "$$.clientId", "default": "" }, "x-hasura-user-id": { "path": "$$.userId", "default": "" }, "x-hasura-username": { "path": "$$.username", "default": "" } }}'
     ports:
       - '${HASURA_GRAPHQL_SERVER_PORT}:${HASURA_GRAPHQL_SERVER_PORT}'
     volumes:

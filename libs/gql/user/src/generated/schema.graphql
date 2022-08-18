@@ -278,7 +278,6 @@ type users {
   image: String
   lastName: String
   name: String
-  password: String
 }
 
 """
@@ -295,7 +294,6 @@ input users_bool_exp {
   image: String_comparison_exp
   lastName: String_comparison_exp
   name: String_comparison_exp
-  password: String_comparison_exp
 }
 
 """
@@ -324,7 +322,6 @@ input users_order_by {
   image: order_by
   lastName: order_by
   name: order_by
-  password: order_by
 }
 
 """
@@ -372,11 +369,6 @@ enum users_select_column {
   column name
   """
   name
-
-  """
-  column name
-  """
-  password
 }
 
 """

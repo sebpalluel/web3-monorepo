@@ -1,5 +1,3 @@
-import { useQuery, UseQueryOptions } from 'react-query';
-import { fetchDataReactQuery } from '@governance/hasura-fetcher';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -309,38 +307,40 @@ export const UserFieldsFragmentDoc = `
   lastName
 }
     `;
-export const GetUserDocument = `
+const GetUserDocument = `
     query getUser($id: String!) {
   users(where: {id: {_eq: $id}}) {
     ...UserFields
   }
 }
     ${UserFieldsFragmentDoc}`;
-export const useGetUserQuery = <TData = GetUserQuery, TError = unknown>(
-  variables: GetUserQueryVariables,
-  options?: UseQueryOptions<GetUserQuery, TError, TData>
-) =>
-  useQuery<GetUserQuery, TError, TData>(
-    ['getUser', variables],
-    fetchDataReactQuery<GetUserQuery, GetUserQueryVariables>(GetUserDocument, variables),
-    options
-  );
-export const GetUserByEmailDocument = `
+const GetUserByEmailDocument = `
     query getUserByEmail($email: String!) {
   users(where: {email: {_eq: $email}}) {
     ...UserFields
   }
 }
     ${UserFieldsFragmentDoc}`;
-export const useGetUserByEmailQuery = <TData = GetUserByEmailQuery, TError = unknown>(
-  variables: GetUserByEmailQueryVariables,
-  options?: UseQueryOptions<GetUserByEmailQuery, TError, TData>
-) =>
-  useQuery<GetUserByEmailQuery, TError, TData>(
-    ['getUserByEmail', variables],
-    fetchDataReactQuery<GetUserByEmailQuery, GetUserByEmailQueryVariables>(
-      GetUserByEmailDocument,
-      variables
-    ),
-    options
-  );
+export type Requester<C = {}> = <R, V>(doc: string, vars?: V, options?: C) => Promise<R>;
+export function getSdk<C>(requester: Requester<C>) {
+  return {
+    getUser(variables: GetUserQueryVariables, options?: C): Promise<GetUserQuery> {
+      return requester<GetUserQuery, GetUserQueryVariables>(
+        GetUserDocument,
+        variables,
+        options
+      );
+    },
+    getUserByEmail(
+      variables: GetUserByEmailQueryVariables,
+      options?: C
+    ): Promise<GetUserByEmailQuery> {
+      return requester<GetUserByEmailQuery, GetUserByEmailQueryVariables>(
+        GetUserByEmailDocument,
+        variables,
+        options
+      );
+    },
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;

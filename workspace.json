@@ -10,6 +10,7 @@
     "logger": "libs/logger",
     "next-auth": "libs/next-auth",
     "test-utils-db": "libs/test-utils/db",
+    "test-utils-gql": "libs/test-utils/gql",
     "test-utils-jest": "libs/test-utils/jest",
     "utils": "libs/utils",
     "web": "apps/web",

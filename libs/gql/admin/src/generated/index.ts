@@ -1,4 +1,4 @@
-import { fetchDataAdmin } from '@governance/hasura-fetcher';
+import { fetchData } from '@governance/hasura-fetcher';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -1494,7 +1494,6 @@ export type Users = {
   image?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
-  password?: Maybe<Scalars['String']>;
   /** An array relationship */
   passwords: Array<Passwords>;
   /** An aggregate relationship */
@@ -1594,7 +1593,6 @@ export type Users_Bool_Exp = {
   image?: InputMaybe<String_Comparison_Exp>;
   lastName?: InputMaybe<String_Comparison_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
-  password?: InputMaybe<String_Comparison_Exp>;
   passwords?: InputMaybe<Passwords_Bool_Exp>;
   sessions?: InputMaybe<Sessions_Bool_Exp>;
 };
@@ -1616,7 +1614,6 @@ export type Users_Insert_Input = {
   image?: InputMaybe<Scalars['String']>;
   lastName?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
-  password?: InputMaybe<Scalars['String']>;
   passwords?: InputMaybe<Passwords_Arr_Rel_Insert_Input>;
   sessions?: InputMaybe<Sessions_Arr_Rel_Insert_Input>;
 };
@@ -1631,7 +1628,6 @@ export type Users_Max_Fields = {
   image?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
-  password?: Maybe<Scalars['String']>;
 };
 
 /** aggregate min on columns */
@@ -1644,7 +1640,6 @@ export type Users_Min_Fields = {
   image?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
-  password?: Maybe<Scalars['String']>;
 };
 
 /** response of any mutation on the table "users" */
@@ -1681,7 +1676,6 @@ export type Users_Order_By = {
   image?: InputMaybe<Order_By>;
   lastName?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
-  password?: InputMaybe<Order_By>;
   passwords_aggregate?: InputMaybe<Passwords_Aggregate_Order_By>;
   sessions_aggregate?: InputMaybe<Sessions_Aggregate_Order_By>;
 };
@@ -1709,8 +1703,6 @@ export const enum Users_Select_Column {
   LastName = 'lastName',
   /** column name */
   Name = 'name',
-  /** column name */
-  Password = 'password',
 }
 
 /** input type for updating data in table "users" */
@@ -1723,7 +1715,6 @@ export type Users_Set_Input = {
   image?: InputMaybe<Scalars['String']>;
   lastName?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
-  password?: InputMaybe<Scalars['String']>;
 };
 
 /** update columns of table "users" */
@@ -1744,8 +1735,6 @@ export const enum Users_Update_Column {
   LastName = 'lastName',
   /** column name */
   Name = 'name',
-  /** column name */
-  Password = 'password',
 }
 
 /** columns and relationships of "verificationTokens" */
@@ -2442,4 +2431,4 @@ export function getSdk<C>(requester: Requester<C>) {
   };
 }
 export type Sdk = ReturnType<typeof getSdk>;
-export const adminSdk = getSdk(fetchDataAdmin());
+export const adminSdk = getSdk(fetchData({ admin: true }));
