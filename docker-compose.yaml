@@ -116,7 +116,7 @@ services:
 
   db:
     container_name: db
-    image: postgres:12
+    image: postgres:13
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_DB=${POSTGRES_DB}
