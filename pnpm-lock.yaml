@@ -42,7 +42,6 @@ specifiers:
   '@typescript-eslint/parser': ^5.31.0
   babel-jest: 27.5.1
   chalk: 4.1.0
-  child_process: ^1.0.2
   core-js: ^3.24.0
   crypto: ^1.0.1
   crypto-js: ^4.1.1
@@ -149,7 +148,7 @@ devDependencies:
   '@nrwl/eslint-plugin-nx': 14.4.3_6ylxfjfzhhdxf6tsagicno3vwy
   '@nrwl/jest': 14.4.3_yi4yd3arhmqimh2vkjiighnlby
   '@nrwl/linter': 14.4.3_hjwsk7t4rtenhyzw3vpfwjmwy4
-  '@nrwl/nx-cloud': 14.3.0
+  '@nrwl/nx-cloud': 14.4.1
   '@nrwl/react': 14.4.3_jry64c73obf3drq22pna5zudz4
   '@nrwl/web': 14.4.3_qw3po6eivcdw5nkdxrhzlamfwe
   '@nrwl/workspace': 14.4.3_p4mi2smrdlimk4bbxlu4b6wavm
@@ -165,7 +164,6 @@ devDependencies:
   '@typescript-eslint/eslint-plugin': 5.31.0_5tck6ikb2mwjuz56o2rwek4l2m
   '@typescript-eslint/parser': 5.31.0_4hx5bygx4rxgd7xwyndf6ymwce
   babel-jest: 27.5.1_@babel+core@7.18.10
-  child_process: 1.0.2
   cypress: 9.7.0
   docker-compose: 0.23.17
   dotenv: 16.0.1
@@ -4748,18 +4746,20 @@ packages:
       - webpack-plugin-serve
     dev: false
 
-  /@nrwl/nx-cloud/14.3.0:
+  /@nrwl/nx-cloud/14.4.1:
     resolution:
       {
-        integrity: sha512-aByHe8Gp1/IT9CtQYlGLIYBgU+ZtrgEwblBX8kcoBNRPf1OOdouahjyasAjQ9zi1cznve8AzTTcLt2eSCHWfrw==,
+        integrity: sha512-vlWpBmIGfYvB9XMAdDZWOihOTFPE2VV9CDeZzBbSMF32KxDqUkhfaLf3dg6puIeUPkPbj5k+V57xjAl7g9k+Xw==,
       }
     hasBin: true
     dependencies:
       axios: 0.21.4
       chalk: 4.1.0
+      dotenv: 10.0.0
       node-machine-id: 1.1.12
       strip-json-comments: 3.1.1
       tar: 6.1.11
+      yargs-parser: 21.0.1
     transitivePeerDependencies:
       - debug
     dev: true
@@ -7722,13 +7722,6 @@ packages:
         integrity: sha512-Pj779qHxV2tuapviy1bSZNEL1maXr13bPYpsvSDB68HlYcYuhlDrmGd63i0JHMCLKzc7rUSNIrpdJlhVlNwrxA==,
       }
     engines: { node: '>= 0.8.0' }
-
-  /child_process/1.0.2:
-    resolution:
-      {
-        integrity: sha512-Wmza/JzL0SiWz7kl6MhIKT5ceIlnFPJX+lwUGj7Clhy5MMldsSoJR0+uvRzOS5Kv45Mq7t1PoE8TsOA9bzvb6g==,
-      }
-    dev: true
 
   /chokidar/3.5.3:
     resolution:
