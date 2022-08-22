@@ -33,7 +33,7 @@ services:
       test:
         [
           'CMD-SHELL',
-          'apt-get update -y && apt-get install -y curl && curl --fail http://localhost:9696/healthz || exit 1',
+          'apt-get install -y curl && curl --fail http://localhost:9696/healthz || exit 1',
         ]
       interval: 5s
       timeout: 3s

@@ -58,7 +58,7 @@ services:
       test:
         [
           'CMD-SHELL',
-          'apt-get update -y && apt-get install -y curl && curl --fail http://localhost:${HASURA_GRAPHQL_SERVER_PORT}/healthz || exit 1',
+          'apt-get install -y curl && curl --fail http://localhost:${HASURA_GRAPHQL_SERVER_PORT}/healthz || exit 1',
         ]
       interval: 5s
       timeout: 3s
@@ -97,7 +97,7 @@ services:
       test:
         [
           'CMD-SHELL',
-          'apt-get update -y && apt-get install -y curl && curl --fail http://localhost:${HASURA_CONSOLE_PORT}/console || exit 1',
+          'apt-get install -y curl && curl --fail http://localhost:${HASURA_CONSOLE_PORT}/console || exit 1',
         ]
       interval: 5s
       timeout: 3s
