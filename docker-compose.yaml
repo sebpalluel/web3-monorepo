@@ -90,11 +90,7 @@ services:
       - 'traefik.http.services.hasura-console.loadbalancer.server.port=9695'
       - 'traefik.http.routers.hasura-console.rule=Host(`hasura-console.postgres.test`)'
     healthcheck:
-      test:
-        [
-          'CMD-SHELL',
-          'apt-get install -y curl && curl --fail http://localhost:9695/console || exit 1',
-        ]
+      test: ['CMD-SHELL', 'curl --fail http://localhost:9695/console || exit 1']
       interval: 7s
       timeout: 3s
       retries: 25

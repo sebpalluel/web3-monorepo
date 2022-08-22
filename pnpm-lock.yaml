@@ -50,7 +50,6 @@ specifiers:
   cypress: ^10.2.0
   docker-compose: ^0.23.17
   dotenv: ^16.0.1
-  dotenv-cli: ^6.0.0
   eslint: ~8.15.0
   eslint-config-next: 12.2.2
   eslint-config-prettier: 8.1.0
@@ -172,7 +171,6 @@ devDependencies:
   cypress: 10.6.0
   docker-compose: 0.23.17
   dotenv: 16.0.1
-  dotenv-cli: 6.0.0
   eslint: 8.15.0
   eslint-config-next: 12.2.2_4hx5bygx4rxgd7xwyndf6ymwce
   eslint-config-prettier: 8.1.0_eslint@8.15.0
@@ -7154,21 +7152,6 @@ packages:
     dependencies:
       no-case: 3.0.4
       tslib: 2.4.0
-    dev: true
-
-  /dotenv-cli/6.0.0:
-    resolution: {integrity: sha512-qXlCOi3UMDhCWFKe0yq5sg3X+pJAz+RQDiFN38AMSbUrnY3uZshSfDJUAge951OS7J9gwLZGfsBlWRSOYz/TRg==}
-    hasBin: true
-    dependencies:
-      cross-spawn: 7.0.3
-      dotenv: 16.0.1
-      dotenv-expand: 8.0.3
-      minimist: 1.2.6
-    dev: true
-
-  /dotenv-expand/8.0.3:
-    resolution: {integrity: sha512-SErOMvge0ZUyWd5B0NXMQlDkN+8r+HhVUsxgOO7IoPDOdDRD2JjExpN6y3KnFR66jsJMwSn1pqIivhU5rcJiNg==}
-    engines: {node: '>=12'}
     dev: true
 
   /dotenv/10.0.0:
