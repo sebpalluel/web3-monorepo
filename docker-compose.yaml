@@ -99,9 +99,9 @@ services:
           'CMD-SHELL',
           'apt-get install -y curl && curl --fail http://localhost:${HASURA_CONSOLE_PORT}/console || exit 1',
         ]
-      interval: 5s
+      interval: 7s
       timeout: 3s
-      retries: 20
+      retries: 25
     depends_on:
       hasura-engine:
         condition: service_healthy
