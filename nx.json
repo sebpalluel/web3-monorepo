@@ -38,7 +38,10 @@
           "e2e",
           "clean"
         ],
-        "accessToken": "ZmMwYzlkZTktYjUzOS00ZTc5LTljMDAtOGNhMTg3NGQxOTEzfHJlYWQtd3JpdGU="
+        "parallel": true,
+        "accessToken": "ZmMwYzlkZTktYjUzOS00ZTc5LTljMDAtOGNhMTg3NGQxOTEzfHJlYWQtd3JpdGU=",
+        "canTrackAnalytics": true,
+        "showUsageWarning": true
       }
     }
   },
