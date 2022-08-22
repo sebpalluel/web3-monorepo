@@ -12,7 +12,7 @@ describe('user access security tests', () => {
   beforeAll(async () => {
     // ️️️/✅ Best Practice: Clean-up resources after each run
     await deleteUsers();
-    // //////seed the database with three users alpha, beta and seb
+    // ///////seed the database with three users alpha, beta and seb
     await seedDb('./tools/test/seeds//users.sql');
   });
 

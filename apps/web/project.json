@@ -40,13 +40,6 @@
         }
       }
     },
-    "launch-docker-services": {
-      "executor": "@nrwl/workspace:run-commands",
-      "options": {
-        "commands": ["docker-compose --env-file .env.local up -d"],
-        "readyWhen": "Container hasura-console  Healthy"
-      }
-    },
     "is-services-and-app-launched": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
