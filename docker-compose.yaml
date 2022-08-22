@@ -30,7 +30,7 @@ services:
 
   hasura-engine:
     container_name: hasura-engine
-    image: hasura/graphql-engine:v2.10.1
+    image: hasura/graphql-engine:v2.10.1.cli-migrations-v3
     ports:
       - '8080:8080'
     depends_on:
@@ -89,11 +89,11 @@ services:
       - 'traefik.docker.network=web'
       - 'traefik.http.services.hasura-console.loadbalancer.server.port=9695'
       - 'traefik.http.routers.hasura-console.rule=Host(`hasura-console.postgres.test`)'
-    healthcheck:
-      test: ['CMD-SHELL', 'curl --fail http://localhost:9695/console || exit 1']
-      interval: 7s
-      timeout: 3s
-      retries: 25
+    # healthcheck:
+    #   test: ['CMD-SHELL', 'curl --fail http://localhost:9695/console || exit 1']
+    #   interval: 7s
+    #   timeout: 3s
+    #   retries: 25
     depends_on:
       hasura-engine:
         condition: service_healthy

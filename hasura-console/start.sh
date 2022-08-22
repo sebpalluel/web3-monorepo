@@ -12,11 +12,11 @@ socat TCP-LISTEN:$HASURA_GRAPHQL_SERVER_PORT,fork TCP:hasura-engine:$HASURA_GRAP
 socat TCP-LISTEN:$HASURA_CONSOLE_PORT,fork,reuseaddr,bind=hasura-console TCP:127.0.0.1:$HASURA_CONSOLE_PORT &
 socat TCP-LISTEN:9693,fork,reuseaddr,bind=hasura-console TCP:127.0.0.1:9693 &
 {
-    # Apply migrations
-    $HASURA_PATH migrate apply --database-name=default || exit 1
+    # # Apply migrations
+    # $HASURA_PATH migrate apply --database-name=default || exit 1
 
-    # Apply metadata changes
-    $HASURA_PATH metadata apply || exit 1
+    # # Apply metadata changes
+    # $HASURA_PATH metadata apply || exit 1
 
     # Run console if specified
     if [[ -v HASURA_RUN_CONSOLE ]]; then
