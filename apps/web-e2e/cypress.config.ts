@@ -13,6 +13,7 @@ const cypressJsonConfig = {
   supportFile: 'src/support/e2e.ts',
   baseUrl: `http://localhost:${process.env.CLIENT_PORT}`,
   experimentalSessionAndOrigin: true,
+  defaultCommandTimeout: 15000,
 };
 export default defineConfig({
   e2e: {
