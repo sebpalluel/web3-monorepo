@@ -37,7 +37,7 @@ services:
         ]
       interval: 5s
       timeout: 3s
-      retries: 5
+      retries: 20
     ports:
       - '9696:9696'
     volumes:

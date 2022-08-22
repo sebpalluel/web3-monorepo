@@ -62,7 +62,7 @@ services:
         ]
       interval: 5s
       timeout: 3s
-      retries: 5
+      retries: 20
     extra_hosts:
       - 'host.docker.internal:host-gateway'
 
@@ -101,7 +101,7 @@ services:
         ]
       interval: 5s
       timeout: 3s
-      retries: 5
+      retries: 20
     depends_on:
       hasura-engine:
         condition: service_healthy
