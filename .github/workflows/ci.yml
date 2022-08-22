@@ -15,11 +15,14 @@ jobs:
       parallel-commands: |
         pnpm exec nx-cloud record -- pnpm exec nx workspace-lint
         pnpm exec nx-cloud record -- pnpm format:check
+        pnpm affected:test --ci
+        pnpm affected:e2e --ci
+
       parallel-commands-on-agents: |
         pnpm affected:lint --parallel=3
         pnpm affected:build --parallel=3
-        pnpm affected:test --parallel --max-parallel=6 --ci
-        pnpm affected:e2e --parallel --max-parallel=6 --ci
+  # pnpm affected:test --parallel --max-parallel=6 --ci
+  # pnpm affected:e2e --parallel --max-parallel=6 --ci
 
   agents:
     name: Nx Cloud - Agents
