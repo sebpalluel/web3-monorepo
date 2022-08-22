@@ -14,7 +14,7 @@ jobs:
       number-of-agents: 3
       parallel-commands: |
         pnpm exec nx-cloud record -- pnpm exec nx workspace-lint
-        pnpm exec nx-cloud record -- pnpm affected:format:check
+        pnpm exec nx-cloud record -- pnpm format:check
         pnpm exec nx-cloud record -- pnpm affected:e2e --parallel=1 --ci --code-coverage
         pnpm exec nx-cloud record -- pnpm affected:test --parallel=1 --ci --code-coverage
       parallel-commands-on-agents: |

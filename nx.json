@@ -39,7 +39,6 @@
           "format",
           "format:check",
           "format:write",
-          "affected:format:check",
           "test",
           "affected:test",
           "e2e",

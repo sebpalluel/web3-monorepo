@@ -48,6 +48,7 @@ describe('Authentication tests', () => {
   it.skip('return an error on weak passwords', function () {
     // TODO: implement this test and feature
     //
+    //
   });
   it('new user is able to register and login to his account', function () {
     const newUser = {

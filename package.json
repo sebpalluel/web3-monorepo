@@ -21,7 +21,6 @@
     "affected:e2e": "nx affected:e2e",
     "affected:test": "pnpm docker:test && nx affected:test",
     "affected:lint": "nx affected:lint",
-    "affected:format": "nx affected:format:check",
     "affected:dep-graph": "nx affected:dep-graph",
     "docker:services": "nx launch-docker-services",
     "docker:test": "docker-compose -f tools/test/docker-compose.yml --env-file tools/test/.env.test.jest up --detach",
