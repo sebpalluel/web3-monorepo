@@ -25,7 +25,7 @@ const isServicesAndAppLaunched = async () => {
         if (res.status === 200) {
           hasuraReady = true;
           if (res.statusText === 'OK') {
-            console.info('Hasura is ready');
+            console.info('Hasura is ready at: ', hasuraUrl);
           } else console.error(`Hasura healthz: ${res.statusText}`);
         }
       } catch (e) {
