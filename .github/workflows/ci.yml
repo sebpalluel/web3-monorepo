@@ -15,7 +15,6 @@ jobs:
     name: Nx Cloud - Main Job
     uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.5
     with:
-      number-of-agents: 3
       init-commands: |
         pnpm exec nx-cloud record -- pnpm docker:test & pnpm docker:services
       parallel-commands: |
@@ -26,7 +25,7 @@ jobs:
       parallel-commands-on-agents: |
         pnpm affected:lint --parallel=3
         pnpm affected:build --parallel=3
-        pnpm exec nx affected:test --parallel=3
+        pnpm exec nx affected:test --parallel=3 --ci
   agents:
     name: Nx Cloud - Agents
     uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.5
