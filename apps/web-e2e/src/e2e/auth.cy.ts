@@ -50,6 +50,8 @@ describe('Authentication tests', () => {
     //
     //
     //
+    //
+    //
   });
   it('new user is able to register and login to his account', function () {
     const newUser = {

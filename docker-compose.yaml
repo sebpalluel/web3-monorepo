@@ -30,7 +30,7 @@ services:
 
   hasura-engine:
     container_name: hasura-engine
-    image: hasura/graphql-engine:v2.10.1.cli-migrations-v3
+    image: hasura/graphql-engine:v2.10.1
     ports:
       - '8080:8080'
     depends_on:
@@ -60,7 +60,7 @@ services:
         ]
       interval: 5s
       timeout: 3s
-      retries: 20
+      retries: 35
     extra_hosts:
       - 'host.docker.internal:host-gateway'
 
