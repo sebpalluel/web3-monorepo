@@ -5,7 +5,7 @@ import { deleteUser, deleteUsers, seedDb, queryDb } from '@governance/test-utils
 const cypressJsonConfig = {
   fileServerFolder: '.',
   fixturesFolder: './src/fixtures',
-  video: process.env.CYPRESS_VIDEO, //
+  video: false, // Disable for now in local + CI
   videosFolder: '../../dist/cypress/apps/web-e2e/videos',
   screenshotsFolder: '../../dist/cypress/apps/web-e2e/screenshots',
   chromeWebSecurity: false,
