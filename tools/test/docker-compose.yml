@@ -2,11 +2,11 @@
 version: '3.9'
 services:
   test-db:
+    container_name: test_db
     image: postgres:13
     command: postgres -c fsync=off -c synchronous_commit=off -c full_page_writes=off -c random_page_cost=1.0 -p 5454
     env_file:
-      - .env.test
-    container_name: 'postgres_test'
+      - .env.test.jest
     ports:
       - '5454:5454'
     tmpfs: /var/lib/postgresql/data
@@ -16,21 +16,30 @@ services:
       timeout: 2s
       retries: 10
   hasura-engine:
-    image: 'hasura/graphql-engine:${HASURA_VERSION}.cli-migrations-v3'
+    image: 'hasura/graphql-engine:v2.10.1.cli-migrations-v3'
     # command: 'graphql-engine --database-url $HASURA_GRAPHQL_DATABASE_URL serve --server-port $HASURA_GRAPHQL_SERVER_PORT'
-    container_name: 'hasura_test'
+    container_name: hasura_test
     depends_on:
       test-db:
         condition: service_healthy
     env_file:
-      - .env.test
+      - .env.test.jest
     environment:
       HASURA_GRAPHQL_NO_OF_RETRIES: '10'
       HASURA_GRAPHQL_DEV_MODE: 'true'
       ## important ! here we use headers with encrypted json instead of cookie for testing purposes
       HASURA_GRAPHQL_JWT_SECRET: '{"type":"HS256", "key": "3EK6FD+o0+c7tzBNVfjpMkNDi2yARAAKzQlk8O2IKoxQu4nF7EdAh8s3TwpHwrdWT6R", "claims_map": { "x-hasura-allowed-roles": { "path": "$$.roles" }, "x-hasura-default-role": { "path": "$$.roles[0]" }, "x-hasura-client-id": { "path": "$$.clientId", "default": "" }, "x-hasura-user-id": { "path": "$$.userId", "default": "" }, "x-hasura-username": { "path": "$$.username", "default": "" } }}'
+    healthcheck:
+      test:
+        [
+          'CMD-SHELL',
+          'apt-get update -y && apt-get install -y curl && curl --fail http://localhost:9696/healthz || exit 1',
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 20
     ports:
-      - '${HASURA_GRAPHQL_SERVER_PORT}:${HASURA_GRAPHQL_SERVER_PORT}'
+      - '9696:9696'
     volumes:
       - ../../hasura-console/app/migrations:/hasura-migrations
       - ../../hasura-console/app/metadata:/hasura-metadata

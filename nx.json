@@ -23,32 +23,45 @@
         "cacheableOperations": [
           "dev",
           "serve",
-          "start",
           "build",
+          "affected:build",
           "postbuild",
           "lint",
           "lint:fix",
+          "affected:lint",
+          "workspace-lint",
           "type-check",
           "up",
           "up-latest",
           "push-release",
-          "graphql-codegen",
+          "gql",
           "prebuild",
           "format",
+          "format:check",
+          "format:write",
           "test",
-          "test:watch",
-          "test:cov",
-          "test:debug",
-          "test:e2e",
+          "affected:test",
+          "e2e",
+          "affected:e2e",
           "clean"
         ],
-        "accessToken": "ZmMwYzlkZTktYjUzOS00ZTc5LTljMDAtOGNhMTg3NGQxOTEzfHJlYWQtd3JpdGU="
+        "parallel": true,
+        "accessToken": "ZmMwYzlkZTktYjUzOS00ZTc5LTljMDAtOGNhMTg3NGQxOTEzfHJlYWQtd3JpdGU=",
+        "canTrackAnalytics": true,
+        "showUsageWarning": true
       }
     }
   },
+  "namedInputs": {
+    "noMarkdown": ["!{projectRoot}/**/*.md"]
+  },
   "targetDefaults": {
     "build": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build"],
+      "inputs": ["noMarkdown", "^noMarkdown"]
+    },
+    "test": {
+      "inputs": ["noMarkdown", "^noMarkdown"]
     }
   },
   "generators": {

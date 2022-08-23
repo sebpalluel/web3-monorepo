@@ -15,7 +15,9 @@
         "development": {
           "outputPath": "tmp/apps/web"
         },
-        "production": {}
+        "test": {
+          "outputPath": "tmp/apps/web-test"
+        }
       }
     },
     "serve": {
@@ -36,6 +38,20 @@
           "buildTarget": "web:build:production",
           "dev": false
         }
+      }
+    },
+    "is-services-and-app-launched": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": ["node tools/test/isServicesAndAppLaunched.js"],
+        "readyWhen": "Services and App ready"
+      }
+    },
+    "serve-e2e": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": ["nx is-services-and-app-launched web", "nx serve web"],
+        "readyWhen": "Services and App ready"
       }
     },
     "export": {

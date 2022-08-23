@@ -63,14 +63,13 @@ export default function SimpleCard() {
   async function onSubmit(values: any) {
     try {
       const body = { ...defaultBody, ...values };
-      // console.log(`POSTing ${JSON.stringify(body, null, 2)}`)
       const res = await signIn('credentials', {
         ...body,
         callbackUrl: router.query.callbackUrl,
         redirect: false,
       });
-      logger.debug(`signing:onsubmit:res`, res);
-      if (res?.ok) router.push(res.url || '/');
+      if (res?.ok)
+        router.push(res.url && !res.url.includes('auth/signin') ? res.url : '/');
       else router.push({ query: { error: 'CredientialsInvalid' } });
     } catch (error) {
       logger.error(error);

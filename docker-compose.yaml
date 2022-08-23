@@ -30,17 +30,15 @@ services:
 
   hasura-engine:
     container_name: hasura-engine
-    image: hasura/graphql-engine:${HASURA_VERSION}
+    image: hasura/graphql-engine:v2.10.1
     ports:
-      - '${HASURA_PORT}:${HASURA_PORT}'
+      - '8080:8080'
     depends_on:
       db:
         condition: service_healthy
     env_file:
       - .env.local
     environment:
-      HASURA_GRAPHQL_SERVER_PORT: ${HASURA_PORT}
-      HASURA_GRAPHQL_DATABASE_URL: ${DATABASE_URL}
       HASURA_GRAPHQL_ENABLE_CONSOLE: 'false'
       HASURA_GRAPHQL_DEV_MODE: 'true'
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
@@ -51,37 +49,36 @@ services:
     labels:
       - 'traefik.enable=true'
       - 'traefik.docker.network=web'
-      - 'traefik.http.routers.hasura-engine.rule=Host(`hasura-engine.${POSTGRES_DB}.test`)'
+      - 'traefik.http.routers.hasura-engine.rule=Host(`hasura-engine.postgres.test`)'
     tty: true
     restart: unless-stopped
-    healthcheck:
-      test:
-        [
-          'CMD-SHELL',
-          'apt-get update -y && apt-get install -y curl && curl --fail http://localhost:${HASURA_PORT}/healthz || exit 1',
-        ]
-      interval: 5s
-      timeout: 3s
-      retries: 5
+    # healthcheck:
+    #   test:
+    #     [
+    #       'CMD-SHELL',
+    #       'apt-get update -y && apt-get install -y curl && curl --fail http://localhost:8080/healthz || exit 1',
+    #     ]
+    #   interval: 5s
+    #   timeout: 3s
+    #   retries: 35
     extra_hosts:
       - 'host.docker.internal:host-gateway'
 
   hasura-console:
     container_name: hasura-console
-    build:
-      context: ./hasura-console
-      dockerfile: Dockerfile.hasura-console.local
+    image: sebpalluel/hasura_cli_with_socat_and_curl:latest
+    # build:
+    #   context: ./hasura-console
+    #   dockerfile: Dockerfile.hasura-console.local
     volumes:
       - ./hasura-console:/usr/src/hasura
+    env_file:
+      - .env.local
     environment:
-      HASURA_GRAPHQL_DATABASE_URL: ${DATABASE_URL}
-      HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET}
       HASURA_GRAPHQL_ADDRESS: 127.0.0.1
       HASURA_RUN_CONSOLE: 'true'
-      HASURA_PORT: ${HASURA_PORT}
-      HASURA_CONSOLE_PORT: ${HASURA_CONSOLE_PORT}
     ports:
-      - '${HASURA_CONSOLE_PORT}:${HASURA_CONSOLE_PORT}'
+      - '9695:9695'
       - '9693:9693'
     extra_hosts:
       - 'host.docker.internal:host-gateway'
@@ -91,11 +88,12 @@ services:
     labels:
       - 'traefik.enable=true'
       - 'traefik.docker.network=web'
-      - 'traefik.http.services.hasura-console.loadbalancer.server.port=${HASURA_CONSOLE_PORT}'
-      - 'traefik.http.routers.hasura-console.rule=Host(`hasura-console.${POSTGRES_DB}.test`)'
+      - 'traefik.http.services.hasura-console.loadbalancer.server.port=9695'
+      - 'traefik.http.routers.hasura-console.rule=Host(`hasura-console.postgres.test`)'
     depends_on:
-      hasura-engine:
+      db:
         condition: service_healthy
+    command: './start.sh'
     restart: unless-stopped
 
   mailhog:
@@ -104,8 +102,8 @@ services:
     logging:
       driver: 'none' # disable saving logs
     ports:
-      - '${EMAIL_SERVER_PORT}:${EMAIL_SERVER_PORT}' # smtp server
-      - '${EMAIL_WEB_UI}:${EMAIL_WEB_UI}' # mailcatcher web interface
+      - '1025:1025' # smtp server
+      - '8025:8025' # mailcatcher web interface
     networks:
       - web
     extra_hosts:
@@ -117,17 +115,15 @@ services:
   db:
     container_name: db
     image: postgres:13
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_DB=${POSTGRES_DB}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
       - db_data:/var/lib/postgresql/data
     ports:
-      - '${POSTGRES_PORT}:${POSTGRES_PORT}'
+      - '5432:5432'
     networks:
       - db
     restart: unless-stopped
+    env_file:
+      - .env.local
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready -U postgres']
       interval: 2s

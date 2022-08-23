@@ -1,6 +1,9 @@
 # Add files here to ignore them from prettier formatting
+tmp
 dist
 coverage
 build
 node_modules
 hasura-console/app/**
+*lock.json
+*lock.yaml

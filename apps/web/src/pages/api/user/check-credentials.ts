@@ -6,7 +6,6 @@ import {
   withMethodsGuard,
 } from '../../../lib/middlewares';
 import cryptojs from 'crypto-js';
-import { logger } from '@governance/logger';
 import { ApiError } from 'next/dist/server/api-utils';
 import type { PasswordWithAttempt } from '../../../lib/types/crypto';
 
@@ -29,7 +28,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (userPasswords) {
     const { passwords, ...user } = userPasswords;
     const lastPassword = passwords[passwords.length - 1];
-    logger.debug({ user, passwords });
     if (isPasswordCorrect(req.body.password, lastPassword)) {
       // on success, if attempt > 0, update with attempt to 0
       res.json(user);

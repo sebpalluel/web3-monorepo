@@ -6,22 +6,41 @@ on:
       - main
   pull_request:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   main:
     name: Nx Cloud - Main Job
     uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.5
     with:
-      number-of-agents: 3
+      init-commands: |
+        pnpm exec nx-cloud record -- pnpm docker:test & pnpm docker:services
       parallel-commands: |
         pnpm exec nx-cloud record -- pnpm exec nx workspace-lint
-        pnpm exec nx-cloud record -- pnpm exec nx format:check
+        pnpm exec nx-cloud record -- pnpm format:check
+        pnpm exec nx-cloud record -- pnpm affected:e2e
+      # pnpm exec nx-cloud record -- pnpm affected:test
       parallel-commands-on-agents: |
-        pnpm exec nx affected --target=lint --parallel=3
-        pnpm exec nx affected --target=test --parallel=3 --ci --code-coverage
-        pnpm exec nx affected --target=build --parallel=3
-
+        pnpm affected:lint --parallel=3
+        pnpm affected:build --parallel=3
+        pnpm exec nx affected:test --parallel=3 --ci
   agents:
     name: Nx Cloud - Agents
     uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.5
     with:
       number-of-agents: 3
+
+  # # Otherwise check for https://github.com/codecov/codecov-action
+  # coverage:
+  #   name: Nx Cloud - Coverage
+  #   uses: dkhunt27/action-nx-code-coverage@v0.9.0
+  #   with:
+  #     github-token: ${{ secrets.GITHUB_TOKEN }}
+  #     coverage-folder: ./coverage
+  #     no-coverage-ran: false
+  #     gist-token: ${{ secrets.GIST_SECRET }}
+  #     gist-id: fedc545f07c5e969231f66df5c7e82a5
+  #     color: green
+  #     named-logo: jest

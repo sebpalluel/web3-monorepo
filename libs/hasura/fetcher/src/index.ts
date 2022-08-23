@@ -1,5 +1,5 @@
 import { logger } from '@governance/logger';
-import { isJestRunning } from '@governance/test-utils-jest';
+import { isJestRunning } from '@governance/test-utils-common';
 
 export const endpointUrl = (): string => {
   if (isJestRunning()) {
