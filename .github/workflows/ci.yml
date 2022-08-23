@@ -15,10 +15,8 @@ jobs:
       parallel-commands: |
         pnpm exec nx-cloud record -- pnpm exec nx workspace-lint
         pnpm exec nx-cloud record -- pnpm format:check
-        pnpm exec nx-cloud record -- pnpm docker:services
-        pnpm exec nx-cloud record -- pnpm docker:test
-        pnpm exec nx affected:e2e
-        pnpm exec nx affected:test
+        pnpm exec nx-cloud record -- pnpm affected:test
+        pnpm exec nx-cloud record -- pnpm affected:e2e
       parallel-commands-on-agents: |
         pnpm affected:lint --parallel=3
         pnpm affected:build --parallel=3
