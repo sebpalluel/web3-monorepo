@@ -66,9 +66,10 @@ services:
 
   hasura-console:
     container_name: hasura-console
-    build:
-      context: ./hasura-console
-      dockerfile: Dockerfile.hasura-console.local
+    image: sebpalluel/hasura_cli_with_socat_and_curl:latest
+    # build:
+    #   context: ./hasura-console
+    #   dockerfile: Dockerfile.hasura-console.local
     volumes:
       - ./hasura-console:/usr/src/hasura
     env_file:
@@ -92,6 +93,7 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    command: './start.sh'
     restart: unless-stopped
 
   mailhog:
