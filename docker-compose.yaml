@@ -52,15 +52,15 @@ services:
       - 'traefik.http.routers.hasura-engine.rule=Host(`hasura-engine.postgres.test`)'
     tty: true
     restart: unless-stopped
-    healthcheck:
-      test:
-        [
-          'CMD-SHELL',
-          'apt-get update -y && apt-get install -y curl && curl --fail http://localhost:8080/healthz || exit 1',
-        ]
-      interval: 5s
-      timeout: 3s
-      retries: 35
+    # healthcheck:
+    #   test:
+    #     [
+    #       'CMD-SHELL',
+    #       'apt-get update -y && apt-get install -y curl && curl --fail http://localhost:8080/healthz || exit 1',
+    #     ]
+    #   interval: 5s
+    #   timeout: 3s
+    #   retries: 35
     extra_hosts:
       - 'host.docker.internal:host-gateway'
 
@@ -89,14 +89,9 @@ services:
       - 'traefik.docker.network=web'
       - 'traefik.http.services.hasura-console.loadbalancer.server.port=9695'
       - 'traefik.http.routers.hasura-console.rule=Host(`hasura-console.postgres.test`)'
-    # healthcheck:
-    #   test: ['CMD-SHELL', 'curl --fail http://localhost:9695/console || exit 1']
-    #   interval: 7s
-    #   timeout: 3s
-    #   retries: 25
-    # depends_on:
-    #   hasura-engine:
-    #     condition: service_healthy
+    depends_on:
+      db:
+        condition: service_healthy
     restart: unless-stopped
 
   mailhog:
