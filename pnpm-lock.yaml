@@ -48,7 +48,6 @@ specifiers:
   core-js: ^3.24.0
   crypto-js: ^4.1.1
   cypress: ^10.2.0
-  docker-compose: ^0.23.17
   dotenv: ^16.0.1
   eslint: ~8.15.0
   eslint-config-next: 12.2.2
@@ -64,11 +63,9 @@ specifiers:
   framer-motion: ^6.5.1
   graphql: ^16.6.0
   graphql-config: ^4.3.3
-  hasura-cli: ^2.9.0
   http-status-codes: ^2.2.0
   husky: ^8.0.1
   is-ci: ^3.0.1
-  is-port-reachable: ^3.0.0
   jest: 27.5.1
   jsonwebtoken: ^8.5.1
   lint-staged: ^13.0.3
@@ -169,7 +166,6 @@ devDependencies:
   '@typescript-eslint/parser': 5.31.0_4hx5bygx4rxgd7xwyndf6ymwce
   babel-jest: 27.5.1_@babel+core@7.18.10
   cypress: 10.6.0
-  docker-compose: 0.23.17
   dotenv: 16.0.1
   eslint: 8.15.0
   eslint-config-next: 12.2.2_4hx5bygx4rxgd7xwyndf6ymwce
@@ -184,10 +180,8 @@ devDependencies:
   eslint-plugin-react-hooks: 4.6.0_eslint@8.15.0
   graphql: 16.6.0
   graphql-config: 4.3.3_6hdllbhmbfwocsq3oo26my255m
-  hasura-cli: 2.9.0
   husky: 8.0.1
   is-ci: 3.0.1
-  is-port-reachable: 3.1.0
   jest: 27.5.1_ts-node@10.8.2
   jsonwebtoken: 8.5.1
   lint-staged: 13.0.3
@@ -7095,13 +7089,6 @@ packages:
     dependencies:
       '@leichtgewicht/ip-codec': 2.0.4
 
-  /docker-compose/0.23.17:
-    resolution: {integrity: sha512-YJV18YoYIcxOdJKeFcCFihE6F4M2NExWM/d4S1ITcS9samHKnNUihz9kjggr0dNtsrbpFNc7/Yzd19DWs+m1xg==}
-    engines: {node: '>= 6.0.0'}
-    dependencies:
-      yaml: 1.10.2
-    dev: true
-
   /doctrine/2.1.0:
     resolution: {integrity: sha512-35mSku4ZXK0vfCuHEDAwt55dg2jNajHZ1odvF+8SSr82EsZY4QmXfuWso8oEd8zRhVObSN18aM0CjSdoBX7zIw==}
     engines: {node: '>=0.10.0'}
@@ -8603,18 +8590,6 @@ packages:
       type-fest: 0.8.1
     dev: true
 
-  /hasura-cli/2.9.0:
-    resolution: {integrity: sha512-TWVnG2HS0Q/QrwHelUmwW3LlwQLjRZpssBNcA7vEmx8ZBz/DA4ZuwqQbi+EtRoW2dt783SbqJq5G2u80/91RZg==}
-    engines: {node: '>=8'}
-    hasBin: true
-    requiresBuild: true
-    dependencies:
-      axios: 0.21.4
-      chalk: 2.4.2
-    transitivePeerDependencies:
-      - debug
-    dev: true
-
   /he/1.2.0:
     resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
     hasBin: true
@@ -9146,11 +9121,6 @@ packages:
   /is-plain-object/3.0.1:
     resolution: {integrity: sha512-Xnpx182SBMrr/aBik8y+GuR4U1L9FqMSojwDQwPMmxyC6bvEqly9UBCxhauBF5vNh2gwWJNX6oDV7O+OM4z34g==}
     engines: {node: '>=0.10.0'}
-
-  /is-port-reachable/3.1.0:
-    resolution: {integrity: sha512-vjc0SSRNZ32s9SbZBzGaiP6YVB+xglLShhgZD/FHMZUXBvQWaV9CtzgeVhjccFJrI6RAMV+LX7NYxueW/A8W5A==}
-    engines: {node: '>=8'}
-    dev: true
 
   /is-potential-custom-element-name/1.0.1:
     resolution: {integrity: sha512-bCYeRA2rVibKZd+s2625gGnGF/t7DSqDs4dP7CrLA1m7jKWz6pps0LpYLJN8Q64HtmPKJ1hrN3nzPNKFEKOUiQ==}

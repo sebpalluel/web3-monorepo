@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const isPortReachable = require('is-port-reachable');
-const path = require('path');
-const dockerCompose = require('docker-compose');
+// const isPortReachable = require('is-port-reachable');
+// const path = require('path');
+// const dockerCompose = require('docker-compose');
 const { logger } = require('../../libs/logger/src');
 global.fetch = require('node-fetch');
 

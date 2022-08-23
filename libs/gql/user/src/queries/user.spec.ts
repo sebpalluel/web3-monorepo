@@ -10,9 +10,9 @@ describe('user access security tests', () => {
   const betaAdmin = betaAdminClient();
   const sebGoogle = sebGoogleClient();
   beforeAll(async () => {
-    // ️️️/✅ Best Practice: Clean-up resources after each run
+    // ️️️✅ Best Practice: Clean-up resources after each run
     await deleteUsers();
-    // /////////seed the database with three users alpha, beta and seb
+    // seed the database with three users alpha, beta and seb
     await seedDb('./tools/test/seeds//users.sql');
   });
 
@@ -23,7 +23,6 @@ describe('user access security tests', () => {
     const data = await alphaAdmin.getUser({ id: alphaAdmin.me.id });
     expect(data.users[0]).toEqual(alphaAdmin.me);
   });
-
   it("user beta can't retrieve alpha's information", async () => {
     const data = await betaAdmin.getUser({ id: alphaAdmin.me.id });
     expect(data.users[0]).toBeUndefined();

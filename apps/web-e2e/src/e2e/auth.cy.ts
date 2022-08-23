@@ -17,11 +17,6 @@ describe('Authentication tests', () => {
     // our auth cookie should be present
     cy.getCookie('next-auth.session-token').should('exist');
     // UI should reflect this user being logged in
-    //
-    //
-    //
-    //
-    //
     cy.findAllByText(email).should('be.visible');
   }
 
@@ -52,11 +47,6 @@ describe('Authentication tests', () => {
   });
   it.skip('return an error on weak passwords', function () {
     // TODO: implement this test and feature
-    //
-    //
-    //
-    //
-    //
   });
   it('new user is able to register and login to his account', function () {
     const newUser = {

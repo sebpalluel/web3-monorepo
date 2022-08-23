@@ -1,8 +1,8 @@
 /* eslint-disable no-async-promise-executor */
 /* eslint-disable @typescript-eslint/no-var-requires */
-const portReachable = require('is-port-reachable');
+// const portReachable = require('is-port-reachable');
 global.fetch = require('node-fetch');
-const dockerCompose = require('docker-compose');
+// const dockerCompose = require('docker-compose');
 
 const isHasuraConsoleReady = () => {
   return new Promise(async function (resolve, reject) {
