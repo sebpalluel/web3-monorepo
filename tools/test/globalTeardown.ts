@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const isCI = require('is-ci');
 // const docker = require('docker-compose');
-const getPath = require('path');
+// const getPath = require('path');
 
 module.exports = async () => {
   if (isCI) {
