@@ -94,9 +94,9 @@ services:
     #   interval: 7s
     #   timeout: 3s
     #   retries: 25
-    depends_on:
-      hasura-engine:
-        condition: service_healthy
+    # depends_on:
+    #   hasura-engine:
+    #     condition: service_healthy
     restart: unless-stopped
 
   mailhog:

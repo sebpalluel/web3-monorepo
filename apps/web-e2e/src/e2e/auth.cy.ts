@@ -17,6 +17,9 @@ describe('Authentication tests', () => {
     // our auth cookie should be present
     cy.getCookie('next-auth.session-token').should('exist');
     // UI should reflect this user being logged in
+    //
+    //
+    //
     cy.findAllByText(email).should('be.visible');
   }
 
