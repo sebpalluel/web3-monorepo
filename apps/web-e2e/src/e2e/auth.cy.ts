@@ -20,6 +20,7 @@ describe('Authentication tests', () => {
     //
     //
     //
+    //
     cy.findAllByText(email).should('be.visible');
   }
 
