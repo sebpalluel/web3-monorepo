@@ -57,14 +57,50 @@ To shutdown all running containers:
 pnpm docker:stop
 ```
 
+The command to run all the services and containers in this repo is
+
+```sh
+pnpm start
+```
+
 ### Utilities
 
-This Turborepo has some additional tools already setup for you:
+This repo has some additional tools already setup for you:
 
 - [TypeScript](https://www.typescriptlang.org/) for static type checking
 - [ESLint](https://eslint.org/) for code linting
 - [Jest](https://jestjs.io) test runner for all things JavaScript
 - [Prettier](https://prettier.io) for code formatting
+
+# Waltid idpkit
+
+The config and RSA keys for the idpkit service are located in the folder waltid-idpkit and copied to the container idpkit
+
+## Configure Hasura and Next Auth with same RSA key
+
+First you need to configure hasura and next auth to have the same signing key than idpkit, located in the `waltid-idpkit/data/OIDC/keystore/keys/{key_alias}` folder.
+
+https://hasura.io/blog/next-js-jwt-authentication-with-next-auth-and-integration-with-hasura/
+
+- Copy the public key in a single line format:
+
+```sh
+awk -v ORS='\\n' '1' enc-pubkey | pbcopy
+```
+
+- Now paste this value in your clipboard to `HASURA_GRAPHQL_JWT_SECRET` env in the format
+
+```sh
+{ "type": "RS256", "key": "<insert-your-public-key-here>"}
+```
+
+- Transform private key into a single line to copy to your clipboard to `NEXTAUTH_SECRET` env
+
+```sh
+awk -v ORS='\\n' '1' enc-privkey | pbcopy
+```
+
+## Register the OIDC client on idpkit
 
 <!--  -->
 

@@ -53,6 +53,7 @@ const generateJwt = (options: UserOptions): string =>
       userId: options.userId,
       username: options.username,
     }),
+    // private key provided on docker-compose for test
     '3EK6FD+o0+c7tzBNVfjpMkNDi2yARAAKzQlk8O2IKoxQu4nF7EdAh8s3TwpHwrdWT6R'
   );
 

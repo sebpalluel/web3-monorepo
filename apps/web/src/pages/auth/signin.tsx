@@ -121,6 +121,16 @@ export default function SimpleCard() {
               >
                 Github
               </Button>
+              <Button
+                w="full"
+                onClick={() =>
+                  signIn('identityserver', {
+                    callbackUrl: router.query.callbackUrl?.toString() || '',
+                  })
+                }
+              >
+                Identity Server
+              </Button>
               <Button w="full" leftIcon={<BiLockAlt />} onClick={onToggleCollapse}>
                 User & password
               </Button>

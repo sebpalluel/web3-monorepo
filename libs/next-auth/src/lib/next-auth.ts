@@ -6,7 +6,7 @@ import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-import { adapter } from '@governance/hasura-adapter';
+import { adapter, IdentityServer } from '@governance/hasura-adapter';
 import { Roles } from '@governance/hasura-utils';
 import { fetchJSON } from '@governance/utils';
 import { logger } from '@governance/logger';
@@ -78,15 +78,15 @@ const refreshAccessToken = async (token: JWT) => {
 export const jwtOptions: JWTOptions = {
   secret: process.env.NEXTAUTH_SECRET as string,
   maxAge: parseInt(process.env.TOKEN_LIFE_TIME as string) || 30 * 24 * 60 * 60, // 30 days
-
   encode: async ({ secret, token: payload }) => {
-    return jsonwebtoken.sign(payload!, secret, {
-      algorithm: 'HS256',
+    const signedToken = jsonwebtoken.sign(payload!, secret, {
+      algorithm: 'RS256',
     });
+    return signedToken;
   },
   decode: async ({ secret, token }) => {
     const decodedToken = jsonwebtoken.verify(token!, secret, {
-      algorithms: ['HS256'],
+      algorithms: ['RS256'],
     });
     // run some checks on the returned payload, perhaps you expect some specific values
 
@@ -128,6 +128,11 @@ export const authOptions: NextAuthOptions = {
     //     },
     //     from: process.env.EMAIL_FROM
     // }),
+    IdentityServer({
+      issuer: 'http://localhost:9080/api/oidc',
+      clientId: 'test-client',
+      clientSecret: 'test-secret',
+    }),
     CredentialsProvider({
       // The name to display on the sign in form (e.g. 'Sign in with...')
       id: 'credentials',
