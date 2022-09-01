@@ -41,7 +41,6 @@ export async function getServerSideProps() {
 export function ProvidersBtns({ providers, router, onToggleCollapse }) {
   return (
     <>
-      {/* <FormPasswordlessEmail /> */}
       {providers.includes('google') ? (
         <Button
           w="full"

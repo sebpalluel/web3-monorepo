@@ -31,10 +31,10 @@ services:
     container_name: hasura-console
     image: sebpalluel/hasura_cli_with_socat_and_curl:latest
     # build:
-    #   context: ./hasura-console
+    #   context: ./hasura
     #   dockerfile: Dockerfile
     volumes:
-      - ./hasura-console:/usr/src/hasura
+      - ./hasura:/usr/src/hasura
     env_file:
       - .env.local
     environment:

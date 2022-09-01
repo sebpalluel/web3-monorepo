@@ -13,7 +13,6 @@
     "all:test": "pnpm docker:test && nx run-many --target=test --all",
     "all:e2e": "nx run-many --target=e2e --all",
     "update": "nx migrate latest",
-    "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
     "graphql-codegen": "nx run web:gql",

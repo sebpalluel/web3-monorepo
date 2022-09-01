@@ -1,7 +1,5 @@
 import type { NextPageContext } from 'next';
 import { getSession, useSession } from 'next-auth/react';
-import { useGetUserQuery } from '@governance/gql-user';
-import React, { useState } from 'react';
 
 export default function ServerSidePage() {
   // As this page uses Server Side Rendering, the `session` will be already
@@ -11,9 +9,6 @@ export default function ServerSidePage() {
   // const loading = status === 'loading'
 
   const { data, status } = useSession();
-  const [showPassword, setShowPassword] = useState(false);
-  // const { status, data, error, isFetching } = useGetUserQuery(,{})
-  console.log({ session: data, loading: status });
   return (
     <div>
       <h1>Server Side Rendering</h1>

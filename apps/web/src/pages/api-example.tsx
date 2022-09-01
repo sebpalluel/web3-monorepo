@@ -9,10 +9,6 @@ export default function ApiExamplePage() {
       <h2>Session</h2>
       <p>/api/examples/session</p>
       <iframe src="/api/examples/session" />
-      <h2>JSON Web Token</h2>
-      <p>/api/examples/jwt</p>
-      <iframe src="/api/examples/jwt" />
-      <summary>Hasura call</summary>
       <h2>Hasura call</h2>
       <p>/api/examples/hasura</p>
       <iframe src="/api/examples/hasura" />

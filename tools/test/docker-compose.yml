@@ -41,5 +41,5 @@ services:
     ports:
       - '9696:9696'
     volumes:
-      - ../../hasura-console/app/migrations:/hasura-migrations
-      - ../../hasura-console/app/metadata:/hasura-metadata
+      - ../../hasura/app/migrations:/hasura-migrations
+      - ../../hasura/app/metadata:/hasura-metadata

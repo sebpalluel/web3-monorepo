@@ -6,4 +6,4 @@ generated
 *lock.json
 *lock.yaml
 .babelrc
-hasura-console/app/**
+hasura/app/**
