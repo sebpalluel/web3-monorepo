@@ -1,6 +1,9 @@
 # Web monorepo boilerplate
 
-[![CodeFactor]https://www.codefactor.io/repository/github/sebpalluel/boilerplate/badge](https://www.codefactor.io/repository/github/sebpalluel/boilerplate)
+[![CodeFactor](https://www.codefactor.io/repository/github/sebpalluel/web-monorepo-boilerplate/badge)](https://www.codefactor.io/repository/github/sebpalluel/web-monorepo-boilerplate)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web-monorepo-boilerplate&metric=alert_status)](https://sonarcloud.io/dashboard?id=sebpalluel_web-monorepo-boilerplate) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web-monorepo-boilerplate&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=sebpalluel_web-monorepo-boilerplate) [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web-monorepo-boilerplate&metric=bugs)](https://sonarcloud.io/dashboard?id=sebpalluel_web-monorepo-boilerplate) [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web-monorepo-boilerplate&metric=code_smells)](https://sonarcloud.io/dashboard?id=sebpalluel_web-monorepo-boilerplate) [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web-monorepo-boilerplate&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=sebpalluel_web-monorepo-boilerplate)
+
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 ## Project structure
 
