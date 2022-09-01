@@ -36,7 +36,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       // if attempt > process.env.PSWD_MAX_ATTEMPTS, block user and ask to reset password
       throw new ApiError(400, 'Invalid credentials');
     }
-  }
+  } else throw new ApiError(400, 'Invalid credentials');
 }
 
 export default async function checkCredentials(

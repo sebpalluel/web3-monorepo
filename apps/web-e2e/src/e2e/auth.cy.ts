@@ -35,6 +35,17 @@ describe('Authentication tests', () => {
     cy.findByText('Invalid email or password').should('be.visible');
   });
 
+  it("return an error on account that doesn't exist", () => {
+    cy.visit('/auth/signin');
+    cy.findByRole('button', { name: /password/i }).click();
+    cy.findByLabelText(/Email/i).type('anyvalidemail@test.io');
+    cy.findByLabelText(/Password/i).type('Qwerty12345#1');
+    cy.findByRole('button', { name: /Sign in/i }).click();
+    cy.url().should('include', '/auth/signin');
+    cy.getCookie('next-auth.session-token').should('not.exist');
+    cy.findByText('Invalid email or password').should('be.visible');
+  });
+
   it('return an error when try to register with existing email', function () {
     cy.visit('/auth/signup');
     cy.findByLabelText(/name/i).type(users.alpha_admin.name);
