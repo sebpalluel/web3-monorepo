@@ -8,7 +8,7 @@ describe('hasura Next Auth Adapter', () => {
     emailVerified: null,
     name: 'Alpha Admin',
     image: null,
-    email: 'alpha_admin@governance.io',
+    email: 'alpha_admin@test.io',
   };
   const account: Account = {
     id: '',

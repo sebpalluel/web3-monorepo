@@ -1,33 +1,5 @@
 version: '3.9'
 services:
-  # web:
-  #   container_name: web
-  #   build:
-  #     context: ../
-  #     dockerfile: ./apps/web/Dockerfile.web.local
-  #   ports:
-  #     - "${CLIENT_PORT}:${CLIENT_PORT}"
-  #   command: >
-  #     sh -c "cd apps/web/ && yarn dev &
-  #           yarn graphql-codegen"
-  #   environment:
-  #     PORT: ${CLIENT_PORT}
-  #     HOST: ${CLIENT_HOST}
-  #   env_file:
-  #     - .env.local
-  #   volumes:
-  #     - ./apps/web:/web
-  #     - web_node_modules:/app/node_modules
-  #     - web_next:/frontend/.next
-  #   networks:
-  #     - web
-  #   extra_hosts:
-  #     - "host.docker.internal:host-gateway"
-  #   restart: unless-stopped
-  #   depends_on:
-  #     hasura-engine:
-  #       condition: service_healthy
-
   hasura-engine:
     container_name: hasura-engine
     image: hasura/graphql-engine:v2.10.1
@@ -52,15 +24,6 @@ services:
       - 'traefik.http.routers.hasura-engine.rule=Host(`hasura-engine.postgres.test`)'
     tty: true
     restart: unless-stopped
-    # healthcheck:
-    #   test:
-    #     [
-    #       'CMD-SHELL',
-    #       'apt-get update -y && apt-get install -y curl && curl --fail http://localhost:8080/healthz || exit 1',
-    #     ]
-    #   interval: 5s
-    #   timeout: 3s
-    #   retries: 35
     extra_hosts:
       - 'host.docker.internal:host-gateway'
 
@@ -69,7 +32,7 @@ services:
     image: sebpalluel/hasura_cli_with_socat_and_curl:latest
     # build:
     #   context: ./hasura-console
-    #   dockerfile: Dockerfile.hasura-console.local
+    #   dockerfile: Dockerfile
     volumes:
       - ./hasura-console:/usr/src/hasura
     env_file:
