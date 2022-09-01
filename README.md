@@ -1,5 +1,7 @@
 # Web monorepo boilerplate
 
+[![CodeFactor]https://www.codefactor.io/repository/github/sebpalluel/boilerplate/badge](https://www.codefactor.io/repository/github/sebpalluel/boilerplate)
+
 ## Project structure
 
 - [**Hasura console**](http://localhost:9695/console)
@@ -10,16 +12,25 @@ The console is used as a backoffice to handle the graphQL server and to innerlin
 
 This is the main web app client used to access the whole array of services.
 
+- [**Mailhog**](http://localhost:8025/)
+
+This is the mail-catcher where all the mail are going in dev environment.
+
 ### What's inside?
 
 This repo uses [PNPM](https://pnpm.io/) as a package manager. It includes the following apps and libs:
 
 #### Apps and Libs
 
-- `web`: a [Next.js](https://nextjs.org) app
-- `ui`: ui: a React component library
-- `gql`: gql: a library containing all the GraphQL queries and mutations and the generated schemas to be used on the web app. It is divided on 3 folders: `user`, `admin` and `anonymous` depending of the role of the user.
-- `logger`: Isomorphic logger (a small wrapper around console.log)
+- `apps/web`: a [Next.js](https://nextjs.org) app
+- `apps/web-e2e`: Cypress e2e test for the web app
+- `hasura`: contain the config / metadata / migrations / seeds for the [Hasura](https://hasura.io/) service
+- `libs/gql`: a library containing all the GraphQL queries and mutations and the generated schemas to be used on the web app. It is divided on 3 folders: `user`, `admin` and `anonymous` depending of the role of the user.
+- `libs/hasura`: Utilities to interact with hasura.
+- `libs/logger`: Isomorphic logger (a small wrapper around console.log)
+- `libs/next-auth`: Contain all the configs for [Next-Auth](https://next-auth.js.org/)
+- `libs/test-utils`: All the utilities used for test with jest/cypress to interact easily with the db and hasura through graphql
+- `libs/ui`: React component library
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
@@ -37,25 +48,31 @@ In order to secure your JWT authentication provided by [Next Auth](https://next-
 
 ### NX Cloud access tokens
 
-As refered in the [section about access token in the nx doc,](https://nx.dev/nx-cloud/account/access-tokens) you have different strategies to setup your access to [Nx Cloud](https://nx.app/). In order to beneficiate from local and remote cacheables operations, you can populate `NX_CLOUD_ACCESS_TOKEN` in the file `nx-cloud.env`with an access token allowing <mark>read-write</mark> access.
+As refered in the [section about access token in the nx doc,](https://nx.dev/nx-cloud/account/access-tokens) you have different strategies to setup your access to [Nx Cloud](https://nx.app/). In order to beneficiate from local and remote cacheables operations, you can populate use this command to generate an access token allowing <mark>read-write</mark> access:
+
+```shell
+pnpx nx g @nrwl/nx-cloud:init
+```
+
+After that, you are going to need to [setup your workspace on the nx cloud](https://cloud.nx.app/orgs/workspace-setup) after registering an account.
 
 ## How to run the project ?
 
 First you need to install pnpm in your machine.
 
-```sh
+```shell
 npm install -g pnpm
 ```
 
 Install all the dependencies
 
-```sh
+```shell
 pnpm install
 ```
 
 Then you can run the project.
 
-```sh
+```shell
 pnpm start
 ```
 
@@ -63,20 +80,32 @@ pnpm start
 
 This repo is configured to be built with Docker, and Docker compose. To build all apps in this repo:
 
-```sh
+```shell
 pnpm docker:build
 ```
 
 To shutdown all running containers:
 
-```sh
+```shell
 pnpm docker:stop
+```
+
+To launch all the services containers:
+
+```shell
+pnpm docker:services
 ```
 
 The command to run all the services and containers in this repo is
 
-```sh
+```shell
 pnpm start
+```
+
+The command to run all the containers for unit and integration test is
+
+```shell
+pnpm docker:test
 ```
 
 ### Utilities
@@ -85,15 +114,16 @@ This repo has some additional tools already setup for you:
 
 - [TypeScript](https://www.typescriptlang.org/) for static type checking
 - [ESLint](https://eslint.org/) for code linting
-- [Jest](https://jestjs.io) test runner for all things JavaScript
-- [Cypress]](<https://www.cypress.io/>) test runner for E2E and components test
 - [Prettier](https://prettier.io) for code formatting
+- [Jest](https://jestjs.io) test runner for all things JavaScript
+- [Cypress](https://www.cypress.io/) test runner for E2E and components test
+- [Graphql Code Generator]([Home – GraphQL Code Generator](https://www.the-guild.dev/graphql/codegen/)) a generator for the graphql schemas and a client builders with provided queries.
 
 ### Configure Hasura and Next Auth with same RSA key
 
 You need to configure hasura and next auth to have the same asymmetric key. One is provided by default but you can generate your own RSA 256 key using those commands:
 
-```sh
+```shell
 # Don't add passphrase
 ssh-keygen -t rsa -P "" -b 4096 -m PEM -f jwtRS256.key
 ssh-keygen -e -m PEM -f jwtRS256.key > jwtRS256.key.pub
@@ -103,27 +133,112 @@ ssh-keygen -e -m PEM -f jwtRS256.key > jwtRS256.key.pub
 
 - Copy the public key in a single line format:
 
-```sh
+```shell
 awk -v ORS='\\n' '1' jwtRS256.key.pub | pbcopy
 ```
 
 - Now paste this value in your clipboard to `HASURA_GRAPHQL_JWT_SECRET` env in the format
 
-```sh
+```shell
 { "type": "RS256", "key": "<insert-your-public-key-here>"}
 ```
 
 - Transform private key into a single line to copy to your clipboard to `NEXTAUTH_SECRET` env
 
-```sh
+```shell
 awk -v ORS='\\n' '1' jwtRS256.key | pbcopy
 ```
 
 Don't forget to add double quotes "" arround so that `\n` are interpreted correctly
 
-<!-- -->
+## Test
 
-<!-- TODO: Correct the following doc with only the tools used -->
+### Jest
+
+Jest is the test-runner used for unit and integration tests.
+
+To run all the jest test on affected code, you can use the command:
+
+```shell
+pnpm affected:test
+```
+
+The global settings for jest are located in `tools/test`
+
+You can find inside a `docker-compose` and an env file to launch specific services used for the integration test:
+
+- test-db: db for test running on memory to speed up execution.
+- hasura-engine: used to interact with the test-db and services, it uses all the metada and migrations from the one we used in dev
+
+`jest.preset.js` is referencing all the needed setup to launch the test. It check that the hasura-console is running and is healthy.
+
+Coverage for all the libs is created in the root of the workspace. In order to maintain code quality, you can uncommit this section with the minimum coverage before the test report a failure on CI:
+
+```js
+{
+  // global: {
+  //   branches: 80,
+  //   functions: 80,
+  //   lines: 80,
+  //   statements: 80,
+  // },
+}
+```
+
+In order to facilitate the integration test, you have access to 3 clients with corresponding users: <u>Alpha Admin</u> / <u>Beta Admin</u> / <u>Seb Google</u>
+
+Those clients located in `test-utils-gql`library offer you GraphQL instances with all the availables queries for an user.
+
+You can check the test on <mark>users.spec.ts</mark> and <mark>adapter.spec.ts</mark> for example usages of thoses utilities.
+
+### Cypress
+
+Cypress is the test runner used for e2e test and component test.
+
+The test for the web app are located in `apps/web-e2e`
+
+Before running the test, be sure that all the services containers are running with
+
+```shell
+pnpm docker:services
+```
+
+The test command will wait for all the necessary services to be reachable before launching cypress.
+
+To run all the cypress test on affected code, you can use the command:
+
+```shell
+pnpm affected:e2e
+```
+
+Additionnaly to cypress core functionnalities, we use the popular library [Cypress Testing Library](https://testing-library.com/docs/cypress-testing-library/intro/) in order to target elements of the page as close as the user would do to interact with the UI.
+
+In order to speed up the e2e test, we provide the users: <u>Alpha Admin</u> / <u>Beta Admin</u> / <u>Seb Google</u> whose account can be accessed directly with the `login` command located in `apps/web-e2e/commands.ts`.
+
+We provide the session object used by `Next-Auth` and inject a correct authentication cookie for each one of them.
+
+With a new RSA private/public key, you will need to changes the values here:
+
+```js
+const sessions = {
+  alpha_admin:
+    'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NUb2tlbkV4cGlyZXMiOm51bGwsInVzZXIiOnsiZW1haWwiOiJhbHBoYV9hZG1pbkB0ZXN0LmlvIiwiZW1haWxWZXJpZmllZCI6bnVsbCwiaWQiOiI0YzJhYTAzYTdkY2IwNmFiN2FjMmJhMDc4M2QyZTQ2NmE1MjVlMWU1Nzk0YTQyYjJhMGZhOWY2MWZhN2EyOTY1IiwiaW1hZ2UiOm51bGwsIm5hbWUiOiJBbHBoYSBBZG1pbiJ9LCJwcm92aWRlciI6ImNyZWRlbnRpYWxzIiwicHJvdmlkZXJUeXBlIjoiY3JlZGVudGlhbHMiLCJyb2xlIjoidXNlciIsImlhdCI6MTY2MjA0NjMzMn0.AS0usjntlpL4RGeDQfAnDbv8YtFseQYo7TmlyeAFXcdeiB3vN6cIq-1o7Y0Qfp8qFKDdaFL-L1C76H4MQiI2tngxk2No7quCUkBPOSq9S6b_a5xUQ5LcpJyQ8QDTdnYJzfhqCXZ6pSuKyFa8B4YkSNC6HsIT3LmlwRl3TFrp6fG8iCUpWasTzhPrryJDh072PTBmfmw4qN6z0vcSId1ez1ihWRpRYAt0q_BkGdYM8d15534oKXxMRoY8Q-OGLGa515LZAefIoRxATF2_Huk6cq-15YGGsuSvcOzFw6Ef0P9v3U0SR4yge2z7jx_9t5QUgx9E1zOF627n4UptisE3Bg',
+  beta_admin:
+    'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NUb2tlbkV4cGlyZXMiOm51bGwsInVzZXIiOnsiZW1haWwiOiJiZXRhX2FkbWluQHRlc3QuaW8iLCJlbWFpbFZlcmlmaWVkIjpudWxsLCJpZCI6IjFkNmRlYWQ0ZTY5OGRkZmQ0YTkyY2QxOWFmZDA3NTYxMWZlYWVkZmQxNDllZGQ3NDYyYjgwZjcxOGUzYjIxODMiLCJpbWFnZSI6bnVsbCwibmFtZSI6IkJldGEgQWRtaW4ifSwicHJvdmlkZXIiOiJjcmVkZW50aWFscyIsInByb3ZpZGVyVHlwZSI6ImNyZWRlbnRpYWxzIiwicm9sZSI6InVzZXIiLCJpYXQiOjE2NjIwNDcwMTZ9.EW_NweTJPZtGYe1KTlWRwaPiPezdC7fp5qjyfe_V2Y9X2s_ZlbzRA1FVY29ckaiciATxqRb1kgn4xzBCncYhUhQ6P-m7pyewNcTeFEMpT2pvCC_8Mc6PS6A8Ef-9P9eRpBTSQuLTGVilf8DDOYC6bEeURplkMeLIvSjl5oRAvsO-AJaPDtZ146parjLS8b5esivgWrztU5sNIPQsw6gTe60PecXjZHqFNIa7z74IgYoB19BrIXR4IapKoGxzUpno2mJi8OzzRaYTXXW-xdnYgv5gwMYeKJJ0XsVKNhsV6NLJDrKH7IFlRwys1VS9mdyY7XnzOhklba43d2ftGfMOfg',
+  seb_google:
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NUb2tlbiI6InlhMjkuQTBBVkE5eTFzeHBuc1pMZHA2RUxUSlZiMnZkWUpUUzZIZnRTa1FhcXM3RlZGZHpYRG1nbnJqdFhnVEJwUFdybUZDVGgzd0NjWm5EcnJCbUQ1cVlpdGlrcFg0QWMzbWRLU1p1ZUxLY0FtS0R2bi14dnFaZl95bm52QzBaYXF6NG9WZklpU2lqVldZMEFPSHdxeXY1T0FXc3lwM3RwY1ZhQ2dZS0FUQVNBVEFTRlFFNjVkcjhHVERTLWhLN3V2N0h1NE9sd3JUWVVRMDE2MyIsImFjY2Vzc1Rva2VuRXhwaXJlcyI6MzMyMTg0NzM1NDA0NCwicmVmcmVzaFRva2VuIjoiMS8vMDNqb09Xc0ZXMkdMTUNnWUlBUkFBR0FNU053Ri1MOUlydXZwWjBTYjllU3Z5b1dBQUNrZUxBNFhYSW55TG5LbFAtMnNIYjN0TW9CM3pITnYtQ01TN25xd0g2U2xtT0x2QjJtbyIsInVzZXIiOnsiZW1haWwiOiJzZWJwYWxsdWVsQGdtYWlsLmNvbSIsImVtYWlsVmVyaWZpZWQiOm51bGwsImlkIjoiMjBjMGJjOTFlMTI1NDQ0NWQ0NTlmYzZhYzk3MjA2ZjZiYjkyMjNlNzFjNzY0YzQ5YTc3OGY4Yjg0ZDNmYzU3ZiIsImltYWdlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FGZFp1Y3B1VmlQeFYxQWhpSG1tMUNhbG1CeUduSEFKZW1SSDZNb0NhZVBNRWYwPXM5Ni1jIiwibmFtZSI6IlPDqWJhc3RpZW4gUGFsbHVlbCJ9LCJwcm92aWRlciI6Imdvb2dsZSIsInByb3ZpZGVyVHlwZSI6Im9hdXRoIiwicm9sZSI6InVzZXIiLCJpYXQiOjE2NjA5MjE4Nzh9.bQba06n_LYuMaVt2ZMyPx1CtoDQeozsuImZQD4V4elU',
+};
+```
+
+**To proceed, simply copy the value of the cookie `next-auth.session-token` once you login and paste the value for each users**
+
+The corresponding logins are:
+
+- alpha_admin@test.io / Qwerty12345#
+- beta_admin@test.io / Qwerty12345#
+- sebpalluel@gmail.com **(change it with your own google account globally in the workspace)**
+
+You can check the tests on <mark>auth.cy.ts</mark> for example usages of thoses utilities.
 
 ## NX
 
