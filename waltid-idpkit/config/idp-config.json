@@ -1,7 +1,7 @@
 {
   "externalUrl": "http://localhost:9080",
   "keyId": "c047f4e42cf54b66ad154d8ce51e03ef",
-  "openClientRegistration": false,
+  "openClientRegistration": true,
   "fallbackAuthorizationMode": "SIOP",
   "claimConfig": {
     "vc_mappings": [

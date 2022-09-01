@@ -2,7 +2,6 @@ import type { Adapter, AdapterUser, AdapterSession } from 'next-auth/adapters';
 import type { OAuthUserConfig, OAuthConfig } from 'next-auth/providers';
 import { adminSdk } from '@governance/gql-admin';
 import { v4 as uuidv4 } from 'uuid';
-import { TokenSet } from 'next-auth';
 
 export function adapter(): Adapter {
   return {
@@ -103,7 +102,7 @@ export function IdentityServer<P extends Record<string, any> = IdentityServerPro
     name: 'IdentityServer',
     type: 'oauth',
     wellKnown: `${options.issuer}/.well-known/openid-configuration`,
-    checks: ['pkce', 'state'],
+    // checks: ['pkce', 'state'],
     idToken: true,
     userinfo: {
       async request({ tokens, client }) {

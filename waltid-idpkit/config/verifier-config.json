@@ -1,6 +1,11 @@
 {
   "verifierUiUrl": "http://localhost:9080",
   "verifierApiUrl": "http://localhost:9080/api/siop",
+  "additionalPolicies": [
+    {
+      "policy": "JsonSchemaPolicy"
+    }
+  ],
   "wallets": {
     "walt.id": {
       "id": "walt.id",
