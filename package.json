@@ -40,6 +40,7 @@
     "chalk": "4.1.0",
     "core-js": "^3.24.0",
     "crypto-js": "^4.1.1",
+    "ethers": "^5.7.0",
     "framer-motion": "^6.5.1",
     "http-status-codes": "^2.2.0",
     "lodash": "^4.17.21",

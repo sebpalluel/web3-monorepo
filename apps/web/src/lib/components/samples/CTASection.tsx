@@ -1,7 +1,7 @@
 import { Box, Button, Code, Flex, Image, Link } from '@chakra-ui/react';
 import { AiFillGithub } from 'react-icons/ai';
 
-const repoLink = 'https://github.com/sebpalluel/web-monorepo-boilerplate';
+const repoLink = 'https://github.com/sebpalluel/web-monorepo-governance';
 
 const CTASection = () => {
   return (
@@ -11,7 +11,7 @@ const CTASection = () => {
           aria-label="Deploy to Vercel"
           isExternal
           rel="noopener noreferrer"
-          href="https://vercel.com/import/git?s=https://github.com/sebpalluel/web-monorepo-boilerplate"
+          href="https://vercel.com/import/git?s=https://github.com/sebpalluel/web-monorepo-governance"
         >
           <Image src="https://vercel.com/button" alt="Vercel deploy button" />
         </Link>
@@ -20,7 +20,7 @@ const CTASection = () => {
           aria-label="Deploy to Netlify"
           isExternal
           rel="noopener noreferrer"
-          href="https://app.netlify.com/start/deploy?repository=https://github.com/sebpalluel/web-monorepo-boilerplate"
+          href="https://app.netlify.com/start/deploy?repository=https://github.com/sebpalluel/web-monorepo-governance"
         >
           <Image
             src="https://www.netlify.com/img/deploy/button.svg"
@@ -30,13 +30,13 @@ const CTASection = () => {
       </Flex>
 
       <Box marginY={2}>
-        <Code>npx degit sebpalluel/web-monorepo-boilerplate {'<YOUR_APP_NAME>'}</Code>
+        <Code>npx degit sebpalluel/web-monorepo-governance {'<YOUR_APP_NAME>'}</Code>
         <br />
 
         <Button
           marginTop={2}
           as="a"
-          href="https://github.com/sebpalluel/web-monorepo-boilerplate/generate"
+          href="https://github.com/sebpalluel/web-monorepo-governance/generate"
           target="_blank"
           size="sm"
         >
@@ -61,7 +61,7 @@ const CTASection = () => {
         <Link href={repoLink} isExternal rel="noopener noreferrer">
           <Image
             align="center"
-            src="https://img.shields.io/github/stars/sebpalluel/web-monorepo-boilerplate?style=social"
+            src="https://img.shields.io/github/stars/sebpalluel/web-monorepo-governance?style=social"
             alt="github stars"
           />
         </Link>
