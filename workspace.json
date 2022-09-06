@@ -9,6 +9,7 @@
     "hasura-utils": "libs/hasura/utils",
     "logger": "libs/logger",
     "next-auth": "libs/next-auth",
+    "service-did": "libs/service/did",
     "test-utils-common": "libs/test-utils/common",
     "test-utils-db": "libs/test-utils/db",
     "test-utils-gql": "libs/test-utils/gql",
