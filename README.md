@@ -19,11 +19,17 @@ This is the main web app client used to access the whole array of services.
 
 This is the mail-catcher where all the mail are going in dev environment.
 
+- [**Walt.id IDP KIT**](http://localhost:9080/api/swagger)
+
+This is the toolkit server stack to access all the [DID](https://www.w3.org/TR/did-core/) functionnalities from walt.id: SSI, Wallet and NFT.
+
+You can [check the doc here](https://docs.walt.id/v/idpkit/idpkit/readme) for more information regarding the API.
+
 ### What's inside?
 
 This repo uses [PNPM](https://pnpm.io/) as a package manager. It includes the following apps and libs:
 
-#### **Apps and Libs**
+#### Apps and Libs
 
 - `apps/web`: a [Next.js](https://nextjs.org) app
 - `apps/web-e2e`: Cypress e2e test for the web app
@@ -34,6 +40,8 @@ This repo uses [PNPM](https://pnpm.io/) as a package manager. It includes the fo
 - `libs/next-auth`: Contain all the configs for [Next-Auth](https://next-auth.js.org/)
 - `libs/test-utils`: All the utilities used for test with jest/cypress to interact easily with the db and hasura through graphql
 - `libs/ui`: React component library
+- `tools`: Set of tools to to be used for DX (Developer Experience) and testing purposes.
+- `waltid-idpkit`: Contain the config files, the encryption keys for the DID server and the registered OIDC client.
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
@@ -44,6 +52,12 @@ This project use Next-Auth to offer different way of authentication.
 You can offer login with OAuth2 providers from Google and Github by providing the corresponding env variables.
 
 Aditionnally, the boilerplate offer a way to authenticate through email + password credentials with the adapter to handle the request with Hasura. You can find this adapter in `libs/hasura/adapter`
+
+#### Waltid-idpkit
+
+This project use the IDP kit in order to offer web3 signin:
+
+TODO: Expose different way of signin method
 
 #### **GraphQL code generator**
 
@@ -71,7 +85,22 @@ Once retrieved your <mark>client id</mark> and <mark>client secret</mark> assign
 
 ### JWT secret keys
 
-In order to secure your JWT authentication provided by [Next Auth](https://next-auth.js.org/) you are going to need to generate your own RSA-256 keys. Please refer to the section [Configure Hasura and Next Auth with same RSA key](#configure-hasura-and-next-auth-with-same-rsa-key)
+In order to secure your JWT authentication provided by [Next Auth](https://next-auth.js.org/) you are going to need to generate your own RSA-256 keys.
+
+<mark>Important !</mark> For testing purpose, public and private keys are provided on this folder `waltid-idpkit/data/OIDC/keystore/keys/c047f4e42cf54b66ad154d8ce51e03ef`. You are going to need to generate your own. For that, please refer to the section [Configure Hasura and Next Auth with same RSA key](#configure-hasura-and-next-auth-with-same-rsa-key). The keys provided to the idpkit container will need to be the same in order for the authentication process to work.
+
+### Configure your own OIDC client on the IDPKIT server
+
+1. Register a client with the IDP Kits CLI or the API exposed:
+
+```shell
+make idpkit-register-client
+```
+
+2. Update the `IDPKIT_CLIENT_ID` and `IDPKIT_CLIENT_SECRET` environment variables based on the response received from the client
+   registration
+
+For more informations to register your own client, [please check this documentation]([Client registration - Docs](https://docs.walt.id/v/idpkit/configuration-and-setup/oidc-manager-configuration/client-registration#register-new-client)).
 
 ### NX Cloud access tokens
 
