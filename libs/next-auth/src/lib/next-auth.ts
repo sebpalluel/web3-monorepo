@@ -6,7 +6,8 @@ import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-import { adapter, IdentityServer } from '@governance/hasura-adapter';
+import { adapter } from '@governance/hasura-adapter';
+import { IdentityProvider } from '@governance/dlt/identity-provider';
 import { Roles } from '@governance/hasura-utils';
 import { fetchJSON } from '@governance/utils';
 import { logger } from '@governance/logger';
@@ -150,10 +151,10 @@ const providers: Array<Provider> = [
       }
     },
   }),
-  IdentityServer({
-    issuer: 'http://localhost:9080/api/oidc',
-    clientId: 'test-client',
-    clientSecret: 'test-secret',
+  IdentityProvider({
+    identityProviderURL: 'http://localhost:9080',
+    clientId: process.env.IDPKIT_CLIENT_ID as string,
+    clientSecret: process.env.IDPKIT_CLIENT_SECRET as string,
   }),
 ];
 

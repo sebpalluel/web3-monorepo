@@ -1,5 +1,4 @@
 import type { Adapter, AdapterUser, AdapterSession } from 'next-auth/adapters';
-import type { OAuthUserConfig, OAuthConfig } from 'next-auth/providers';
 import { adminSdk } from '@governance/gql-admin';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -83,42 +82,5 @@ export function adapter(): Adapter {
       }
       return verifToken;
     },
-  };
-}
-
-export interface IdentityServerProfile {
-  sub: string;
-  email: string;
-  given_name: string;
-  family_name: string;
-  picture: string;
-}
-
-export function IdentityServer<P extends Record<string, any> = IdentityServerProfile>(
-  options: OAuthUserConfig<P>
-): OAuthConfig<P> {
-  return {
-    id: 'identityserver',
-    name: 'IdentityServer',
-    type: 'oauth',
-    wellKnown: `${options.issuer}/.well-known/openid-configuration`,
-    // checks: ['pkce', 'state'],
-    idToken: true,
-    userinfo: {
-      async request({ tokens, client }) {
-        const access_token = tokens?.access_token;
-        return await client.userinfo(access_token as string);
-      },
-    },
-    async profile(profile, tokens) {
-      console.log(profile, tokens);
-      return {
-        id: profile.sub,
-        name: `${profile.given_name} ${profile.family_name}`,
-        email: profile.email,
-        image: profile.picture,
-      };
-    },
-    options,
   };
 }

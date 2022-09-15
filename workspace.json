@@ -2,6 +2,8 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "dlt-identity-provider": "libs/dlt/identity-provider",
+    "dlt-types": "libs/dlt/types",
     "gql-admin": "libs/gql/admin",
     "gql-user": "libs/gql/user",
     "hasura-adapter": "libs/hasura/adapter",

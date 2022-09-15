@@ -24,6 +24,7 @@ specifiers:
   '@nrwl/cypress': ^14.5.7
   '@nrwl/eslint-plugin-nx': ^14.5.7
   '@nrwl/jest': ^14.5.7
+  '@nrwl/js': 14.5.7
   '@nrwl/linter': ^14.5.7
   '@nrwl/next': ^14.5.7
   '@nrwl/nx-cloud': latest
@@ -83,6 +84,7 @@ specifiers:
   nodemailer: ^6.7.7
   npm-run-all: ^4.1.5
   nx: ^14.5.7
+  openid-client: ^5.1.9
   pg: ^8.7.3
   prettier: ^2.7.1
   react: 18.2.0
@@ -124,6 +126,7 @@ dependencies:
   next-sitemap: 3.1.16_tdegcdwimlm7hhb6on5blpsmpa
   node-fetch: 2.6.7
   nodemailer: 6.7.7
+  openid-client: 5.1.9
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-hook-form: 7.33.1_react@18.2.0
@@ -152,8 +155,9 @@ devDependencies:
   '@nrwl/cypress': 14.5.7_badnvtqgdmaw5mtwivzi47mowm
   '@nrwl/eslint-plugin-nx': 14.5.7_yakfebqcvqezpm66wwh2x5fnmq
   '@nrwl/jest': 14.5.7_cudyvc3no74mrv7nv5nlu44h5u
+  '@nrwl/js': 14.5.7_fjfdd6nhgssz4hiv2jjogbz37i
   '@nrwl/linter': 14.5.7_hjwsk7t4rtenhyzw3vpfwjmwy4
-  '@nrwl/nx-cloud': 14.6.1
+  '@nrwl/nx-cloud': 14.6.2
   '@nrwl/react': 14.5.7_b44ugfjle7euxssb3yqb3g4nzm
   '@nrwl/web': 14.5.7_7qgexxtkbttt2t3sqtv5hjntxq
   '@nrwl/workspace': 14.5.7_p4mi2smrdlimk4bbxlu4b6wavm
@@ -4288,8 +4292,8 @@ packages:
       - webpack-plugin-serve
     dev: false
 
-  /@nrwl/nx-cloud/14.6.1:
-    resolution: {integrity: sha512-ffmt4BlfO9s8fJmXnnKIStmeq6960Ux825kBqz7Jq2y9BYm1DLopNfx54RJHZT6JCDDEt5hMSYTSJk7rV6ROng==}
+  /@nrwl/nx-cloud/14.6.2:
+    resolution: {integrity: sha512-w8ujbFMOxE7lJg52O3JjnpTGlBKc+/vovxVTplIfGU9TYgEgAo/v4HS9svztzGd9Era7qmNaoYOmxm6Ebtbo5g==}
     hasBin: true
     dependencies:
       axios: 0.21.4
@@ -11055,7 +11059,7 @@ packages:
       jose: 4.8.3
       nodemailer: 6.7.7
       oauth: 0.9.15
-      openid-client: 5.1.8
+      openid-client: 5.1.9
       preact: 10.10.0
       preact-render-to-string: 5.2.1_preact@10.10.0
       react: 18.2.0
@@ -11483,8 +11487,8 @@ packages:
     resolution: {integrity: sha512-ur5UIdyw5Y7yEj9wLzhqXiy6GZ3Mwx0yGI+5sMn2r0N0v3cKJvUmFH5yPP+WXh9e0xfyzyJX95D8l088DNFj7A==}
     hasBin: true
 
-  /openid-client/5.1.8:
-    resolution: {integrity: sha512-EPxJY6bT7YIYQEXSGxRC5flQ3GUhLy98ufdto6+BVBrFGPmwjUpy4xBcYuU/Wt9nPkO/3EgljBrr6Ezx4lp1RQ==}
+  /openid-client/5.1.9:
+    resolution: {integrity: sha512-o/11Xos2fRPpK1zQrPfSIhIusFrAkqGSPwkD0UlUB+CCuRzd7zrrBJwIjgnVv3VUSif9ZGXh2d3GSJNH2Koh5g==}
     engines: {node: ^12.19.0 || ^14.15.0 || ^16.13.0}
     dependencies:
       jose: 4.8.3

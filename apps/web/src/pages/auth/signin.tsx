@@ -71,12 +71,12 @@ export function ProvidersBtns({ providers, router, onToggleCollapse }) {
         <Button
           w="full"
           onClick={() =>
-            signIn('identityserver', {
+            signIn('identity-provider', {
               callbackUrl: router.query.callbackUrl?.toString() || '',
             })
           }
         >
-          Identity Server
+          Identity Provider
         </Button>
       ) : null}
       {providers.includes('credentials') ? (
