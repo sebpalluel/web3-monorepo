@@ -1,26 +1,27 @@
 import { createContext, useContext, PropsWithChildren } from 'react';
-import ethers, { Signer } from 'ethers';
-import { createMachine, assign } from 'xstate';
 import { useMachine } from '@xstate/react';
-import { logger } from '@governance/logger';
+import { didMachine } from './machine';
 
 interface ServiceDidProps {
   api: string;
   domain: string;
   origin: string;
-  ethProvider: ethers.providers.Web3Provider;
-  ethSigner: Signer;
-  signInWithEth(): null;
+  connectWallet(): null;
   signOut(): null;
 }
 
-// interface ServiceDidContext {
-//   blockchain: ;
-// }
+export function useDidConnect() {
+  const [state] = useMachine(didMachine);
+
+  return {
+    state,
+    error: state.context.error,
+  };
+}
 
 const DidContext = createContext<ServiceDidProps | null>(null);
 
-const signInWithEth = () => {
+const connectWallet = () => {
   return null;
 };
 
@@ -29,20 +30,9 @@ const signOut = () => {
 };
 
 export const DidProvider = (props: PropsWithChildren<ServiceDidProps>) => {
-  try {
-    if (!props.ethProvider) {
-      props.ethProvider = new ethers.providers.Web3Provider((window as any).ethereum);
-      props.ethSigner = props.ethProvider.getSigner();
-    }
-  } catch (e) {
-    logger.debug({ e });
-    //TODO maybe avoid displaying alert and remove option to signInWithEth
-    alert('Please install a web3 wallet e.g. MetaMask');
-    throw new Error('Stopping execution as no web3 wallet was found.');
-  }
   const value = {
     ...props,
-    signInWithEth: props.signInWithEth || signInWithEth,
+    connectWallet: props.connectWallet || connectWallet,
     signOut: props.signOut || signOut,
     domain: props.domain || window.location.hostname,
     origin: props.origin || window.location.origin,

@@ -1,6 +1,6 @@
 {
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/service/did/src",
+  "sourceRoot": "libs/services/did/src",
   "projectType": "library",
   "tags": [],
   "targets": {
@@ -8,16 +8,16 @@
       "executor": "@nrwl/web:rollup",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/libs/service/did",
-        "tsConfig": "libs/service/did/tsconfig.lib.json",
-        "project": "libs/service/did/package.json",
-        "entryFile": "libs/service/did/src/index.ts",
+        "outputPath": "dist/libs/services/did",
+        "tsConfig": "libs/services/did/tsconfig.lib.json",
+        "project": "libs/services/did/package.json",
+        "entryFile": "libs/services/did/src/index.ts",
         "external": ["react/jsx-runtime"],
         "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
         "compiler": "babel",
         "assets": [
           {
-            "glob": "libs/service/did/README.md",
+            "glob": "libs/services/did/README.md",
             "input": ".",
             "output": "."
           }
@@ -28,14 +28,14 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/service/did/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["libs/services/did/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/service/did"],
+      "outputs": ["coverage/libs/services/did"],
       "options": {
-        "jestConfig": "libs/service/did/jest.config.ts",
+        "jestConfig": "libs/services/did/jest.config.ts",
         "passWithNoTests": true
       }
     }
