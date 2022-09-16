@@ -16,8 +16,8 @@ jobs:
     uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.5
     with:
       init-commands: |
-        pnpm exec nx-cloud record -- pnpm docker:test & pnpm docker:services
-        nx affected:e2e
+        pnpm exec nx-cloud record -- pnpm docker:test
+        pnpm exec nx-cloud record -- pnpm affected:e2e
       parallel-commands: |
         pnpm exec nx-cloud record -- pnpm exec nx workspace-lint
         pnpm exec nx-cloud record -- pnpm format:check
