@@ -50,29 +50,29 @@ const isHasuraReady = () => {
   });
 };
 
-const isAppReady = () => {
-  return new Promise(async function (resolve, reject) {
-    let appReady = false;
-    const appUrl = `http://localhost:${process.env.CLIENT_PORT}/`;
-    while (!appReady) {
-      try {
-        const res = await fetch(appUrl);
-        if (res.status === 200) {
-          appReady = true;
-          console.info('Web app is ready at: ', appUrl);
-        }
-        resolve();
-      } catch (e) {
-        // wait 2sec for hasura to be ready
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-      }
-    }
-  });
-};
+// const isAppReady = () => {
+//   return new Promise(async function (resolve, reject) {
+//     let appReady = false;
+//     const appUrl = `http://localhost:${process.env.CLIENT_PORT}/`;
+//     while (!appReady) {
+//       try {
+//         const res = await fetch(appUrl);
+//         if (res.status === 200) {
+//           appReady = true;
+//           console.info('Web app is ready at: ', appUrl);
+//         }
+//         resolve();
+//       } catch (e) {
+//         // wait 2sec for hasura to be ready
+//         await new Promise((resolve) => setTimeout(resolve, 2000));
+//       }
+//     }
+//   });
+// };
 
-const isServicesAndAppLaunched = async () => {
+const isServicesLaunched = async () => {
   console.time('setup docker services and check for web app availability');
-  await Promise.allSettled([isAppReady(), isHasuraReady(), isHasuraConsoleReady()]);
+  await Promise.allSettled([isHasuraReady(), isHasuraConsoleReady()]);
 
   // // ️️️✅ Best Practice: Speed up during development, if already live then do nothing
   // let isAppReachable = await portReachable(process.env.CLIENT_PORT);
@@ -108,6 +108,6 @@ const isServicesAndAppLaunched = async () => {
   // }
   // 👍🏼 We're ready
   console.timeEnd('setup docker services and check for web app availability');
-  console.log('Services and App ready');
+  console.log('Services ready');
 };
-isServicesAndAppLaunched();
+isServicesLaunched();
