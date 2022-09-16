@@ -66,6 +66,7 @@ describe('Authentication tests', () => {
       password: 'Qwerty12345#',
     };
     cy.visit('/');
+
     cy.visit('/auth/signin');
     cy.findByRole('button', { name: /password/i }).click();
     cy.findByText(/register/i).click();
