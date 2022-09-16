@@ -2,7 +2,7 @@ version: '3.9'
 services:
   hasura-engine:
     container_name: hasura-engine
-    image: hasura/graphql-engine:v2.10.1
+    image: hasura/graphql-engine:v2.11.2
     ports:
       - '8080:8080'
     depends_on:

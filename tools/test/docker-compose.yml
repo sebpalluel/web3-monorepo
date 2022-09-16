@@ -16,7 +16,7 @@ services:
       timeout: 2s
       retries: 10
   hasura-engine:
-    image: 'hasura/graphql-engine:v2.10.1.cli-migrations-v3'
+    image: 'hasura/graphql-engine:v2.11.2.cli-migrations-v3'
     # command: 'graphql-engine --database-url $HASURA_GRAPHQL_DATABASE_URL serve --server-port $HASURA_GRAPHQL_SERVER_PORT'
     container_name: hasura_test
     depends_on:
