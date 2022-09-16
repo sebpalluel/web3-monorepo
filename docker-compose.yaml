@@ -19,11 +19,11 @@ services:
       test:
         [
           'CMD-SHELL',
-          'apt-get update -y && apt-get install -y curl && curl --fail http://localhost:${HASURA_GRAPHQL_SERVER_PORT}/healthz || exit 1',
+          'apt-get update -y && apt-get install -y curl && curl --fail http://localhost:8080/healthz || exit 1',
         ]
       interval: 5s
       timeout: 3s
-      retries: 5
+      retries: 30
     networks:
       - web
       - db
