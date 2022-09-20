@@ -25,6 +25,8 @@
     "docker:test": "docker-compose -f tools/test/docker-compose.yml --env-file tools/test/.env.test.jest up --detach",
     "docker:build": "docker-compose --env-file .env.local build",
     "docker:stop": "docker-compose --env-file .env.local stop",
+    "docker:services-hasura-engine-logs": "npm-run-all --parallel docker:services docker:hasura-engine-logs",
+    "docker:hasura-engine-logs": "docker-compose -f docker-compose.yaml --env-file .env.local logs -f hasura-engine",
     "prepare": "husky install",
     "cypress": "cypress"
   },
