@@ -7,7 +7,7 @@ global.fetch = require('node-fetch');
 const isHasuraConsoleReady = () => {
   return new Promise(async function (resolve, reject) {
     // executor (the producing code, "singer")
-    const hasuraUrl = `http://localhost:${process.env.HASURA_CONSOLE_PORT}/healthz`;
+    const hasuraUrl = `http://localhost:${process.env.HASURA_CONSOLE_PORT}/console`;
     let hasuraReady = false;
     while (!hasuraReady) {
       try {
