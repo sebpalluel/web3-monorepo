@@ -63,7 +63,7 @@ services:
       - 'traefik.http.services.hasura-console.loadbalancer.server.port=9695'
       - 'traefik.http.routers.hasura-console.rule=Host(`hasura-console.postgres.test`)'
     depends_on:
-      hasura-engine:
+      db:
         condition: service_healthy
     command: './start.sh'
     restart: unless-stopped
