@@ -16,7 +16,9 @@ jobs:
     uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.5
     with:
       init-commands: |
-        pnpm exec nx-cloud record -- pnpm docker:test & pnpm docker:services-hasura-engine-logs
+        pnpm exec nx-cloud record -- pnpm docker:test
+        pnpm exec nx-cloud record -- pnpm docker:services
+        pnpm exec nx-cloud record -- pnpm docker:hasura-engine-logs
         NX_CLOUD_DISTRIBUTED_EXECUTION=false pnpm nx is-services-launched
         pnpm exec nx-cloud record -- pnpm nx affected:e2e
       parallel-commands: |
