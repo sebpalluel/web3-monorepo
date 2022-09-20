@@ -65,7 +65,7 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    command: 'sh ./start.sh'
+    command: './start.sh'
     restart: unless-stopped
 
   idpkit:
