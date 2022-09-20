@@ -66,6 +66,7 @@ services:
       db:
         condition: service_healthy
     command: './start.sh'
+    # tty: true
     restart: unless-stopped
 
   idpkit:

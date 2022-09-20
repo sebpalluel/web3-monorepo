@@ -1,7 +1,7 @@
 #!/bin/bash
 
 HASURA_FOLDER=/usr/src/hasura/app
-HASURA_PATH=$HOME/bin/hasura
+HASURA_PATH=/usr/local/bin/hasura
 cd $HASURA_FOLDER || {
     echo "Hasura folder '$HASURA_FOLDER' not found"
     exit 1
