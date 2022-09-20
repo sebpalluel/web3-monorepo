@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 HASURA_FOLDER=/usr/src/hasura/app
 HASURA_PATH=$HOME/bin/hasura
