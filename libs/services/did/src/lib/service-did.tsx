@@ -1,6 +1,6 @@
 import { createContext, useContext, PropsWithChildren } from 'react';
 import { useMachine } from '@xstate/react';
-import { didMachine } from './machine';
+import didMachine from './machine';
 
 interface ServiceDidProps {
   api: string;

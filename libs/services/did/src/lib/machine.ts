@@ -1,6 +1,5 @@
-import { createMachine, assign, EventObject } from 'xstate';
-import { logger } from '@governance/logger';
-import type { TDlt, TWallet, TProvider, TSigner } from '@governance/dlt/types';
+import { createMachine, assign } from 'xstate';
+import type { TDlt, TWallet, TProvider, TSigner } from '@boilerplate/dlt/types';
 import ethers, { Signer } from 'ethers';
 
 interface ServiceDidContext {
@@ -27,7 +26,7 @@ function getWeb3WalletService() {
   };
 }
 
-export const didMachine = createMachine<ServiceDidContext>(
+const machine: any = createMachine<ServiceDidContext>(
   {
     id: 'did',
     context: {
@@ -91,3 +90,4 @@ export const didMachine = createMachine<ServiceDidContext>(
     services: { getWeb3WalletService },
   }
 );
+export default machine;
