@@ -18,9 +18,9 @@ import {
 import { useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { useForm } from 'react-hook-form';
-import { logger } from '@governance/logger';
+import { logger } from '@boilerplate/logger';
 import { useRouter } from 'next/router';
-import { fetchJSON } from '@governance/utils';
+import { fetchJSON } from '@boilerplate/utils';
 
 export default function SignupCard() {
   const router = useRouter();

@@ -1,6 +1,6 @@
 import { unstable_getServerSession } from 'next-auth/next';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { authOptions } from '@governance/next-auth';
+import { authOptions } from '@boilerplate/next-auth';
 
 export async function withSession(req: NextApiRequest, res: NextApiResponse) {
   const { method } = req;

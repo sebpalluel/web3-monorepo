@@ -1,5 +1,5 @@
 import type { Adapter, AdapterUser, AdapterSession } from 'next-auth/adapters';
-import { adminSdk } from '@governance/gql-admin';
+import { adminSdk } from '@boilerplate/gql-admin';
 import { v4 as uuidv4 } from 'uuid';
 
 export function adapter(): Adapter {

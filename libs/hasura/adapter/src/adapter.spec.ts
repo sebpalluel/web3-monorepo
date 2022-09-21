@@ -1,4 +1,4 @@
-import { dbClient } from '@governance/test-utils-db';
+import { dbClient } from '@boilerplate/test-utils-db';
 import { adapter as HasuraAdapter } from './index';
 import { Account } from 'next-auth';
 

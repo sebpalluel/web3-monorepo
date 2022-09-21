@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
 import { ApiError } from 'next/dist/server/api-utils';
 import { StatusCodes } from 'http-status-codes';
-import { logger } from '@governance/logger';
+import { logger } from '@boilerplate/logger';
 
 // https://giancarlobuomprisco.com/next/handling-api-errors-in-nextjs
 

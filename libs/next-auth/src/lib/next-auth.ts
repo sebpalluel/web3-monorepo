@@ -6,11 +6,11 @@ import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-import { adapter } from '@governance/hasura-adapter';
-import { IdentityProvider } from '@governance/dlt/identity-provider';
-import { Roles } from '@governance/hasura-utils';
-import { fetchJSON } from '@governance/utils';
-import { logger } from '@governance/logger';
+import { adapter } from '@boilerplate/hasura-adapter';
+import { IdentityProvider } from '@boilerplate/dlt/identity-provider';
+import { Roles } from '@boilerplate/hasura-utils';
+import { fetchJSON } from '@boilerplate/utils';
+import { logger } from '@boilerplate/logger';
 import { Provider } from 'next-auth/providers';
 
 // For more information on each option (and a full list of options) go to

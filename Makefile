@@ -46,7 +46,7 @@ clean:	prune
 
 db-clean:
 	@docker-compose -f docker-compose.yaml down
-	@docker volume rm governance_db_data
+	@docker volume rm boilerplate_db_data
 	@docker-compose -f docker-compose.yaml --env-file .env.local up
 
 # db-migrate:

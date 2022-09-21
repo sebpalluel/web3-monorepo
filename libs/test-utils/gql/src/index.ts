@@ -2,7 +2,7 @@
 const jwt = require('jsonwebtoken');
 import { getSdk as userSdk } from './generated/test-user';
 import type { Users, Sdk } from './generated/test-user';
-import { fetchData } from '@governance/hasura-fetcher';
+import { fetchData } from '@boilerplate/hasura-fetcher';
 
 // setup env variables
 require('dotenv').config({ path: './tools/test/.env.test.jest' });

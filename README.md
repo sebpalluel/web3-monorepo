@@ -1,4 +1,4 @@
-# Web monorepo boilerplate
+# Web3 monorepo boilerplate
 
 [![CodeFactor](https://www.codefactor.io/repository/github/sebpalluel/web-monorepo-boilerplate/badge)](https://www.codefactor.io/repository/github/sebpalluel/web-monorepo-boilerplate)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web-monorepo-boilerplate&metric=alert_status)](https://sonarcloud.io/dashboard?id=sebpalluel_web-monorepo-boilerplate) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web-monorepo-boilerplate&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=sebpalluel_web-monorepo-boilerplate) [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web-monorepo-boilerplate&metric=bugs)](https://sonarcloud.io/dashboard?id=sebpalluel_web-monorepo-boilerplate) [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web-monorepo-boilerplate&metric=code_smells)](https://sonarcloud.io/dashboard?id=sebpalluel_web-monorepo-boilerplate) [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web-monorepo-boilerplate&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=sebpalluel_web-monorepo-boilerplate)
@@ -21,7 +21,7 @@ This is the mail-catcher where all the mail are going in dev environment.
 
 - [**Walt.id IDP KIT**](http://localhost:9080/api/swagger)
 
-This is the toolkit server stack to access all the [DID](https://www.w3.org/TR/did-core/) functionnalities from walt.id: SSI, Wallet and NFT.
+This is the toolkit server stack to access all the [DID](https://www.w3.org/TR/did-core/) functionalities from walt.id: SSI, Wallet and NFT.
 
 You can [check the doc here](https://docs.walt.id/v/idpkit/idpkit/readme) for more information regarding the API.
 
@@ -51,13 +51,13 @@ This project use Next-Auth to offer different way of authentication.
 
 You can offer login with OAuth2 providers from Google and Github by providing the corresponding env variables.
 
-Aditionnally, the boilerplate offer a way to authenticate through email + password credentials with the adapter to handle the request with Hasura. You can find this adapter in `libs/hasura/adapter`
+Additionally, the boilerplate offer a way to authenticate through email + password credentials with the adapter to handle the request with Hasura. You can find this adapter in `libs/hasura/adapter`
 
 #### Waltid-idpkit
 
-This project use the IDP kit in order to offer web3 signin:
+This project use the IDP kit in order to offer web3 sign in:
 
-TODO: Expose different way of signin method
+TODO: Expose different way of sign in method
 
 #### **GraphQL code generator**
 

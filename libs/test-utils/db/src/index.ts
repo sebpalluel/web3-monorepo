@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-import { isJestRunning } from '@governance/test-utils-common';
+import { isJestRunning } from '@boilerplate/test-utils-common';
 import { Client } from 'pg';
 
 const fs = require('fs');
 
 let connected = false;
 let dbName = '';
-// TODO change localhost for 'test-db' or 'db' when running on docker
 // assigning the right port depending of if jest or cypress is running
+// localhost here because has to be working both in local or on nx cloud. work thanks to extra_hosts on db container
 const client = new Client(
   `postgres://postgres:password@localhost:${isJestRunning() ? '5454' : '5432'}/postgres`
 );

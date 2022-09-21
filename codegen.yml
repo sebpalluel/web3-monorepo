@@ -35,7 +35,7 @@ generates:
           preResolveTypes: true
       - 'typescript-react-query':
           fetcher:
-            func: '@governance/hasura-fetcher#fetchDataReactQuery'
+            func: '@boilerplate/hasura-fetcher#fetchDataReactQuery'
             isReactHook: false
   libs/test-utils/gql/src/generated/test-user.ts:
     schema:
@@ -67,7 +67,7 @@ generates:
           noExport: true
           documentMode: 'string'
       - 'add':
-          content: 'import { fetchData } from "@governance/hasura-fetcher";'
+          content: 'import { fetchData } from "@boilerplate/hasura-fetcher";'
           placement: 'prepend'
       - 'add':
           content: 'export const adminSdk = getSdk(fetchData({admin:true}));'
