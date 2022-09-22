@@ -1,5 +1,5 @@
 {
-  "name": "governance",
+  "name": "boilerplate",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -13,7 +13,6 @@
     "all:test": "pnpm docker:test && nx run-many --target=test --all",
     "all:e2e": "nx run-many --target=e2e --all",
     "update": "nx migrate latest",
-    "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
     "graphql-codegen": "nx run web:gql",
@@ -26,6 +25,8 @@
     "docker:test": "docker-compose -f tools/test/docker-compose.yml --env-file tools/test/.env.test.jest up --detach",
     "docker:build": "docker-compose --env-file .env.local build",
     "docker:stop": "docker-compose --env-file .env.local stop",
+    "docker:hasura-engine-logs": "docker-compose -f docker-compose.yaml --env-file .env.local logs -f hasura-engine",
+    "docker:hasura-console-logs": "docker-compose -f docker-compose.yaml --env-file .env.local logs -f hasura-console",
     "prepare": "husky install",
     "cypress": "cypress"
   },
@@ -38,9 +39,11 @@
     "@emotion/server": "11.4.0",
     "@emotion/styled": "^11.9.3",
     "@nrwl/next": "^14.5.7",
+    "@xstate/react": "^3.0.1",
     "chalk": "4.1.0",
     "core-js": "^3.24.0",
     "crypto-js": "^4.1.1",
+    "ethers": "^5.7.0",
     "framer-motion": "^6.5.1",
     "http-status-codes": "^2.2.0",
     "lodash": "^4.17.21",
@@ -53,6 +56,7 @@
     "next-sitemap": "^3.1.16",
     "node-fetch": "^2.6.7",
     "nodemailer": "^6.7.7",
+    "openid-client": "^5.1.9",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.33.1",
@@ -60,7 +64,8 @@
     "react-query": "^3.39.2",
     "regenerator-runtime": "0.13.7",
     "tslib": "^2.4.0",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "xstate": "^4.33.5"
   },
   "devDependencies": {
     "@cypress/code-coverage": "^3.10.0",
@@ -80,6 +85,7 @@
     "@nrwl/cypress": "^14.5.7",
     "@nrwl/eslint-plugin-nx": "^14.5.7",
     "@nrwl/jest": "^14.5.7",
+    "@nrwl/js": "14.5.7",
     "@nrwl/linter": "^14.5.7",
     "@nrwl/nx-cloud": "latest",
     "@nrwl/react": "^14.5.7",

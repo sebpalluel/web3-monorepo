@@ -2,7 +2,7 @@
 const jwt = require('jsonwebtoken');
 import { getSdk as userSdk } from './generated/test-user';
 import type { Users, Sdk } from './generated/test-user';
-import { fetchData } from '@governance/hasura-fetcher';
+import { fetchData } from '@boilerplate/hasura-fetcher';
 
 // setup env variables
 require('dotenv').config({ path: './tools/test/.env.test.jest' });
@@ -19,7 +19,7 @@ export const users = {
     emailVerified: null,
   },
   alpha_admin: {
-    email: 'alpha_admin@governance.io',
+    email: 'alpha_admin@test.io',
     firstName: null,
     id: '4c2aa03a7dcb06ab7ac2ba0783d2e466a525e1e5794a42b2a0fa9f61fa7a2965',
     image: null,
@@ -28,7 +28,7 @@ export const users = {
     emailVerified: null,
   },
   beta_admin: {
-    email: 'beta_admin@governance.io',
+    email: 'beta_admin@test.io',
     firstName: null,
     id: '1d6dead4e698ddfd4a92cd19afd075611feaedfd149edd7462b80f718e3b2183',
     image: null,
@@ -53,6 +53,7 @@ const generateJwt = (options: UserOptions): string =>
       userId: options.userId,
       username: options.username,
     }),
+    // private key provided on docker-compose for test
     '3EK6FD+o0+c7tzBNVfjpMkNDi2yARAAKzQlk8O2IKoxQu4nF7EdAh8s3TwpHwrdWT6R'
   );
 

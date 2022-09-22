@@ -1,0 +1,88 @@
+{
+  "externalUrl": "http://localhost:9080",
+  "keyId": "c047f4e42cf54b66ad154d8ce51e03ef",
+  "openClientRegistration": true,
+  "fallbackAuthorizationMode": "SIOP",
+  "claimConfig": {
+    "vc_mappings": [
+      {
+        "scope": ["profile"],
+        "claim": "name",
+        "credentialType": "VerifiableId",
+        "valuePath": "$.credentialSubject.firstName $.credentialSubject.familyName"
+      },
+      {
+        "scope": ["profile"],
+        "claim": "family_name",
+        "credentialType": "VerifiableId",
+        "valuePath": "$.credentialSubject.familyName"
+      },
+      {
+        "scope": ["profile"],
+        "claim": "given_name",
+        "credentialType": "VerifiableId",
+        "valuePath": "$.credentialSubject.firstName"
+      },
+      {
+        "scope": ["profile"],
+        "claim": "gender",
+        "credentialType": "VerifiableId",
+        "valuePath": "$.credentialSubject.gender"
+      },
+      {
+        "scope": ["profile"],
+        "claim": "birthdate",
+        "credentialType": "VerifiableId",
+        "valuePath": "$.credentialSubject.dateOfBirth"
+      },
+      {
+        "scope": ["address"],
+        "claim": "address",
+        "credentialType": "VerifiableId",
+        "valuePath": "$.credentialSubject.currentAddress[0]"
+      }
+    ],
+    "nft_mappings": [
+      {
+        "scope": ["award"],
+        "claim": "awd",
+        "chain": "POLYGON",
+        "smartContractAddress": "0x9bc4d80c7b77ecc7107eac3961cb1dd98930f2b2",
+        "trait": "award"
+      }
+    ],
+    "default_nft_token_claim": {
+      "chain": "POLYGON",
+      "smartContractAddress": "0x21dd9b1913d84ab295fdf19834b0b6824a5912ca"
+    },
+    "default_vp_token_claim": {
+      "presentation_definition": {
+        "id": "1",
+        "input_descriptors": [
+          {
+            "id": "1",
+            "constraints": {
+              "fields": [
+                {
+                  "id": "1",
+                  "path": ["$.type"],
+                  "filter": { "const": "VerifiableId" }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "default_nft_policy": {
+      "withPolicyVerification": false,
+      "policy": "",
+      "query": "data.app.datanft.allow",
+      "inputs": {
+        "type": "T1",
+        "model": "M1",
+        "reference": "R1"
+      }
+    }
+  }
+}

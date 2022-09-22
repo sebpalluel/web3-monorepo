@@ -1,4 +1,4 @@
-import { dbClient } from '@governance/test-utils-db';
+import { dbClient } from '@boilerplate/test-utils-db';
 import { adapter as HasuraAdapter } from './index';
 import { Account } from 'next-auth';
 
@@ -8,7 +8,7 @@ describe('hasura Next Auth Adapter', () => {
     emailVerified: null,
     name: 'Alpha Admin',
     image: null,
-    email: 'alpha_admin@governance.io',
+    email: 'alpha_admin@test.io',
   };
   const account: Account = {
     id: '',

@@ -6,10 +6,12 @@ import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-import { adapter } from '@governance/hasura-adapter';
-import { Roles } from '@governance/hasura-utils';
-import { fetchJSON } from '@governance/utils';
-import { logger } from '@governance/logger';
+import { adapter } from '@boilerplate/hasura-adapter';
+import { IdentityProvider } from '@boilerplate/dlt/identity-provider';
+import { Roles } from '@boilerplate/hasura-utils';
+import { fetchJSON } from '@boilerplate/utils';
+import { logger } from '@boilerplate/logger';
+import { Provider } from 'next-auth/providers';
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
@@ -78,15 +80,15 @@ const refreshAccessToken = async (token: JWT) => {
 export const jwtOptions: JWTOptions = {
   secret: process.env.NEXTAUTH_SECRET as string,
   maxAge: parseInt(process.env.TOKEN_LIFE_TIME as string) || 30 * 24 * 60 * 60, // 30 days
-
   encode: async ({ secret, token: payload }) => {
-    return jsonwebtoken.sign(payload!, secret, {
-      algorithm: 'HS256',
+    const signedToken = jsonwebtoken.sign(payload!, secret, {
+      algorithm: 'RS256',
     });
+    return signedToken;
   },
   decode: async ({ secret, token }) => {
     const decodedToken = jsonwebtoken.verify(token!, secret, {
-      algorithms: ['HS256'],
+      algorithms: ['RS256'],
     });
     // run some checks on the returned payload, perhaps you expect some specific values
 
@@ -103,76 +105,79 @@ const GOOGLE_AUTHORIZATION_URL =
     response_type: 'code',
   });
 
-export const authOptions: NextAuthOptions = {
-  debug: true,
-  // https://next-auth.js.org/configuration/providers/oauth
-  providers: [
+const providers: Array<Provider> = [
+  CredentialsProvider({
+    // The name to display on the sign in form (e.g. 'Sign in with...')
+    id: 'credentials',
+    name: 'credentials',
+    // The credentials is used to generate a suitable form on the sign in page.
+    // You can specify whatever fields you are expecting to be submitted.
+    // e.g. domain, username, password, 2FA token, etc.
+    // You can pass any HTML attribute to the <input> tag through the object.
+    credentials: {
+      username: {
+        label: 'Username',
+        type: 'text',
+        placeholder: 'myemail@domain.com',
+      },
+      password: { label: 'Password', type: 'password' },
+    },
+    authorize: async (credentials) => {
+      try {
+        const user = await fetchJSON(
+          `${process.env.NEXTAUTH_URL}/api/user/check-credentials`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+              accept: 'application/json',
+            },
+            body: Object.entries({
+              username: credentials?.username,
+              password: credentials?.password,
+            })
+              .map((e) => e.join('='))
+              .join('&'),
+          }
+        );
+        logger.debug(user);
+        if (user) {
+          return user;
+        } else {
+          return null;
+        }
+      } catch (e) {
+        return null;
+      }
+    },
+  }),
+  IdentityProvider({
+    identityProviderURL: 'http://localhost:9080',
+    clientId: process.env.IDPKIT_CLIENT_ID as string,
+    clientSecret: process.env.IDPKIT_CLIENT_SECRET as string,
+  }),
+];
+
+if (process.env.GITHUB_ID && process.env.GITHUB_SECRET)
+  providers.push(
     GithubProvider({
       clientId: process.env.GITHUB_ID as string,
       clientSecret: process.env.GITHUB_SECRET as string,
-    }),
+    })
+  );
+if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET)
+  providers.push(
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
       authorization: GOOGLE_AUTHORIZATION_URL,
-    }),
-    // https://next-auth.js.org/configuration/providers/email
-    // EmailProvider({
-    //     server: {
-    //         host: process.env.EMAIL_SERVER_HOST,
-    //         port: process.env.EMAIL_SERVER_PORT,
-    //         auth: {
-    //             user: process.env.EMAIL_SERVER_USER,
-    //             pass: process.env.EMAIL_SERVER_PASSWORD
-    //         }
-    //     },
-    //     from: process.env.EMAIL_FROM
-    // }),
-    CredentialsProvider({
-      // The name to display on the sign in form (e.g. 'Sign in with...')
-      id: 'credentials',
-      name: 'credentials',
-      // The credentials is used to generate a suitable form on the sign in page.
-      // You can specify whatever fields you are expecting to be submitted.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
-      credentials: {
-        username: {
-          label: 'Username',
-          type: 'text',
-          placeholder: 'jsmith',
-        },
-        password: { label: 'Password', type: 'password' },
-      },
-      authorize: async (credentials) => {
-        try {
-          const user = await fetchJSON(
-            `${process.env.NEXTAUTH_URL}/api/user/check-credentials`,
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                accept: 'application/json',
-              },
-              body: Object.entries({
-                username: credentials?.username,
-                password: credentials?.password,
-              })
-                .map((e) => e.join('='))
-                .join('&'),
-            }
-          );
-          if (user) {
-            return user;
-          } else {
-            return null;
-          }
-        } catch (e) {
-          return null;
-        }
-      },
-    }),
-  ],
+    })
+  );
+
+export const authOptions: NextAuthOptions = {
+  debug: true,
+  // https://next-auth.js.org/configuration/providers/oauth
+  providers,
   adapter: adapter(),
   pages: {
     signIn: '/auth/signin',

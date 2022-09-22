@@ -1,6 +1,6 @@
 import { defineConfig } from 'cypress';
 import { nxE2EPreset } from '@nrwl/cypress/plugins/cypress-preset';
-import { deleteUser, deleteUsers, seedDb, queryDb } from '@governance/test-utils-db';
+import { deleteUser, deleteUsers, seedDb, queryDb } from '@boilerplate/test-utils-db';
 
 const cypressJsonConfig = {
   fileServerFolder: '.',

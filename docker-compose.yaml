@@ -1,36 +1,8 @@
 version: '3.9'
 services:
-  # web:
-  #   container_name: web
-  #   build:
-  #     context: ../
-  #     dockerfile: ./apps/web/Dockerfile.web.local
-  #   ports:
-  #     - "${CLIENT_PORT}:${CLIENT_PORT}"
-  #   command: >
-  #     sh -c "cd apps/web/ && yarn dev &
-  #           yarn graphql-codegen"
-  #   environment:
-  #     PORT: ${CLIENT_PORT}
-  #     HOST: ${CLIENT_HOST}
-  #   env_file:
-  #     - .env.local
-  #   volumes:
-  #     - ./apps/web:/web
-  #     - web_node_modules:/app/node_modules
-  #     - web_next:/frontend/.next
-  #   networks:
-  #     - web
-  #   extra_hosts:
-  #     - "host.docker.internal:host-gateway"
-  #   restart: unless-stopped
-  #   depends_on:
-  #     hasura-engine:
-  #       condition: service_healthy
-
   hasura-engine:
     container_name: hasura-engine
-    image: hasura/graphql-engine:v2.10.1
+    image: hasura/graphql-engine:v2.11.2
     ports:
       - '8080:8080'
     depends_on:
@@ -43,6 +15,15 @@ services:
       HASURA_GRAPHQL_DEV_MODE: 'true'
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
       HASURA_GRAPHQL_ENABLE_TELEMETRY: 'false'
+    healthcheck:
+      test:
+        [
+          'CMD-SHELL',
+          'apt-get update -y && apt-get install -y curl && curl --fail http://localhost:8080/healthz || exit 1',
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 30
     networks:
       - web
       - db
@@ -50,17 +31,8 @@ services:
       - 'traefik.enable=true'
       - 'traefik.docker.network=web'
       - 'traefik.http.routers.hasura-engine.rule=Host(`hasura-engine.postgres.test`)'
-    tty: true
+    # tty: true
     restart: unless-stopped
-    # healthcheck:
-    #   test:
-    #     [
-    #       'CMD-SHELL',
-    #       'apt-get update -y && apt-get install -y curl && curl --fail http://localhost:8080/healthz || exit 1',
-    #     ]
-    #   interval: 5s
-    #   timeout: 3s
-    #   retries: 35
     extra_hosts:
       - 'host.docker.internal:host-gateway'
 
@@ -68,10 +40,10 @@ services:
     container_name: hasura-console
     image: sebpalluel/hasura_cli_with_socat_and_curl:latest
     # build:
-    #   context: ./hasura-console
-    #   dockerfile: Dockerfile.hasura-console.local
+    #   context: ./hasura
+    #   dockerfile: Dockerfile
     volumes:
-      - ./hasura-console:/usr/src/hasura
+      - ./hasura:/usr/src/hasura
     env_file:
       - .env.local
     environment:
@@ -94,7 +66,26 @@ services:
       db:
         condition: service_healthy
     command: './start.sh'
+    # tty: true
     restart: unless-stopped
+
+  idpkit:
+    container_name: idpkit
+    image: waltid/idpkit:latest # backend docker image
+    command:
+      - run
+    env_file:
+      - .env.local
+    environment:
+      WALTID_WALLET_BACKEND_BIND_ADDRESS: 0.0.0.0
+      WALTID_WALLET_BACKEND_PORT: 9080
+    volumes:
+      - ./waltid-idpkit/config:/waltid-idpkit/data-root/config # import config files for idp, nft, verifier.
+      - ./waltid-idpkit/data/OIDC:/waltid-idpkit/data-root/data/OIDC # import pub/sec RSA-256 key for OIDC + registered OIDC client
+    ports:
+      - '9080:9080'
+    extra_hosts:
+      - 'localhost:host-gateway'
 
   mailhog:
     container_name: mailhog
@@ -129,6 +120,9 @@ services:
       interval: 2s
       timeout: 2s
       retries: 10
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+      - 'localhost:host-gateway'
 
 volumes:
   db_data:

@@ -40,18 +40,18 @@
         }
       }
     },
-    "is-services-and-app-launched": {
+    "is-services-launched": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "commands": ["node tools/test/isServicesAndAppLaunched.js"],
-        "readyWhen": "Services and App ready"
+        "commands": ["node tools/test/isServicesLaunched.js"],
+        "readyWhen": "Services ready"
       }
     },
     "serve-e2e": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "commands": ["nx is-services-and-app-launched web", "nx serve web"],
-        "readyWhen": "Services and App ready"
+        "commands": ["nx is-services-launched web", "nx serve web"],
+        "readyWhen": "Services ready"
       }
     },
     "export": {

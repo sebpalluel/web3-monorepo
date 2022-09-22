@@ -1,5 +1,5 @@
 import { useSession } from 'next-auth/react';
-import { useGetUserQuery } from '@governance/gql-user';
+import { useGetUserQuery } from '@boilerplate/gql-user';
 
 export default function MePage() {
   const { data } = useSession();

@@ -2,9 +2,8 @@
   "user": {
     "name": "Alpha Admin",
     "id": "4c2aa03a7dcb06ab7ac2ba0783d2e466a525e1e5794a42b2a0fa9f61fa7a2965",
-    "email": "alpha_admin@governance.io",
+    "email": "alpha_admin@test.io",
     "image": ""
   },
-  "expires": "3000-01-01T00:00:00.000Z",
-  "accessToken": "abcdefghijklmnopqrst"
+  "expires": "3000-01-01T00:00:00.000Z"
 }

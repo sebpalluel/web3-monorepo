@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { adminSdk } from '@governance/gql-admin';
+import { adminSdk } from '@boilerplate/gql-admin';
 import {
   withMiddlewares,
   withErrorHandling,
   withMethodsGuard,
   withSession,
 } from '../../../lib/middlewares';
-import { logger } from '@governance/logger';
+import { logger } from '@boilerplate/logger';
 import { ApiError } from 'next/dist/server/api-utils';
 
 // TODO: implement refesh access token for credentials

@@ -2,6 +2,8 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "dlt-identity-provider": "libs/dlt/identity-provider",
+    "dlt-types": "libs/dlt/types",
     "gql-admin": "libs/gql/admin",
     "gql-user": "libs/gql/user",
     "hasura-adapter": "libs/hasura/adapter",
@@ -9,6 +11,7 @@
     "hasura-utils": "libs/hasura/utils",
     "logger": "libs/logger",
     "next-auth": "libs/next-auth",
+    "services-did": "libs/services/did",
     "test-utils-common": "libs/test-utils/common",
     "test-utils-db": "libs/test-utils/db",
     "test-utils-gql": "libs/test-utils/gql",

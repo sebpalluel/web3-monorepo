@@ -4,6 +4,6 @@ dist
 coverage
 build
 node_modules
-hasura-console/app/**
+hasura/app/**
 *lock.json
 *lock.yaml
