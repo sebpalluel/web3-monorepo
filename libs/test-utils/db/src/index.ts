@@ -9,7 +9,9 @@ let dbName = '';
 // assigning the right port depending of if jest or cypress is running
 // localhost here because has to be working both in local or on nx cloud. work thanks to extra_hosts on db container
 const client = new Client(
-  `postgres://postgres:password@127.0.0.1:${isJestRunning() ? '5454' : '5432'}/postgres`
+  `postgres://postgres:password@172.17.0.0/16:${
+    isJestRunning() ? '5454' : '5432'
+  }/postgres`
 );
 export const dbClient = async (): Promise<Client> => {
   if (!connected) {
