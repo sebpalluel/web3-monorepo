@@ -19,8 +19,8 @@ jobs:
         pnpm exec nx-cloud record -- pnpm docker:test & pnpm docker:services
         # pnpm exec nx-cloud record -- pnpm docker:hasura-console-logs
         NX_CLOUD_DISTRIBUTED_EXECUTION=false pnpm nx is-services-launched
-        pnpm exec nx-cloud record -- pnpm nx affected:e2e
       parallel-commands: |
+        pnpm exec nx-cloud record -- pnpm nx affected:e2e
         pnpm exec nx-cloud record -- pnpm exec nx workspace-lint
         pnpm exec nx-cloud record -- pnpm format:check
       parallel-commands-on-agents: |
