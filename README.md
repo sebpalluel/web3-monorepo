@@ -7,6 +7,8 @@
 
 ## Project structure
 
+**View in [NX Graph ](https://sebpalluel.github.io/web3-monorepo-boilerplate.github.io/?groupByFolder=true&select=all)** <p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="48"></p>
+
 - [**Hasura console**](http://localhost:9695/console)
 
 The console is used as a backoffice to handle the graphQL server and to innerlink all the microservices.
@@ -304,7 +306,7 @@ You can check the tests on <mark>auth.cy.ts</mark> for example usages of thoses 
 
 This project was generated using [Nx](https://nx.dev).
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="48"></p>
 
 🔎 **Smart, Fast and Extensible Build System**
 
