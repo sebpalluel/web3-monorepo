@@ -122,7 +122,6 @@ services:
       retries: 10
     extra_hosts:
       - 'host.docker.internal:host-gateway'
-      - 'localhost:host-gateway'
 
 volumes:
   db_data:
