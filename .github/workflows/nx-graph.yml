@@ -1,4 +1,4 @@
-name: Pages
+name: Nx Graph
 
 on:
   # Runs on pushes targeting the default branch
@@ -16,7 +16,7 @@ permissions:
 
 # Allow one concurrent deployment
 concurrency:
-  group: 'pages'
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -25,24 +25,15 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
-      # Runs pnpm install and then builds it using tsc (typescript compiler)
+      # Generate nx graph static site
       - uses: creepinson/pnpm-action@master
         with:
           arguments: '["nx-graph-static"]'
-  deploy:
-    needs: generate-static-site
-    environment:
-      name: Nx Graph Page
-      url: https://sebpalluel.github.io/web3-monorepo-boilerplate.github.io/nx-graph/
-    runs-on: ubuntu-latest
-    steps:
       - name: Setup Nx Graph Page
         uses: actions/configure-pages@v2
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          # Upload entire repository
           path: './static/nx-graph'
       - name: Deploy to GitHub Pages
         id: deployment
