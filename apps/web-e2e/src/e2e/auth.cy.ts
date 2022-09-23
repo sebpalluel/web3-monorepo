@@ -14,9 +14,9 @@ describe('Authentication tests', () => {
     cy.findByLabelText(/Password/i).type(password);
     cy.findByRole('button', { name: /Sign in/i }).click();
     cy.url().should('not.include', '/auth');
-    // our auth cookie should be present
+    //   our auth cookie should be present
     cy.getCookie('next-auth.session-token').should('exist');
-    // UI should reflect this user being logged in
+    //   UI should reflect this user being logged in
     cy.findAllByText(email).should('be.visible');
   }
 
