@@ -31,6 +31,7 @@ jobs:
         with:
           arguments: '["nx-graph-static"]'
   deploy:
+    needs: generate-static-site
     environment:
       name: Nx Graph Page
       url: https://sebpalluel.github.io/web3-monorepo-boilerplate.github.io/nx-graph/
