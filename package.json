@@ -14,6 +14,7 @@
     "all:e2e": "nx run-many --target=e2e --all",
     "update": "nx migrate latest",
     "dep-graph": "nx dep-graph",
+    "nx-graph-static": "nx graph --file=static/nx-graph/index.html",
     "help": "nx help",
     "graphql-codegen": "nx run web:gql",
     "affected:build": "nx affected:build",
