@@ -19,14 +19,15 @@ jobs:
         pnpm exec nx-cloud record -- pnpm docker:test & pnpm docker:services
         # pnpm exec nx-cloud record -- pnpm docker:hasura-console-logs
         NX_CLOUD_DISTRIBUTED_EXECUTION=false pnpm nx is-services-launched
+        pnpm exec nx affected:test
+        # pnpm exec nx affected:test --parallel=3 --ci
       parallel-commands: |
-        pnpm exec nx-cloud record -- pnpm nx affected:e2e
         pnpm exec nx-cloud record -- pnpm exec nx workspace-lint
         pnpm exec nx-cloud record -- pnpm format:check
+        pnpm exec nx-cloud record -- pnpm nx affected:e2e
       parallel-commands-on-agents: |
         pnpm affected:lint --parallel=3
         pnpm affected:build --parallel=3
-        pnpm exec nx affected:test --parallel=3 --ci
   agents:
     name: Nx Cloud - Agents
     uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.5
