@@ -20,7 +20,7 @@ describe('hasura Next Auth Adapter', () => {
   const adapter = HasuraAdapter();
   beforeAll(async () => {
     const client = await dbClient();
-    // ️✅ Best Practice: Clean-up resources after each run
+    //  ️✅ Best Practice: Clean-up resources after each run
     client.query('TRUNCATE users CASCADE;');
   });
   afterAll(async () => {
