@@ -7,7 +7,7 @@
 
 ## Project structure
 
-**View in [NX Graph ](https://sebpalluel.github.io/web3-monorepo-boilerplate.github.io/?groupByFolder=true&select=all)** <p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="48"></p>
+**View in [NX Graph ](https://sebpalluel.github.io/web3-monorepo-boilerplate/?groupByFolder=true&select=all)** <p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="48"></p>
 
 - [**Hasura console**](http://localhost:9695/console)
 
