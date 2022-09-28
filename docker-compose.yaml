@@ -124,18 +124,11 @@ services:
       - 'host.docker.internal:host-gateway'
 
   keycloak:
+    container_name: keycloak
     image: quay.io/keycloak/keycloak:${KEYCLOAK_VERSION}
+    env_file:
+      - .env.local
     environment:
-      DB_VENDOR: postgres
-      DB_ADDR: postgres
-      DB_DATABASE: postgres
-      DB_USER: postgres
-      DB_SCHEMA: public
-      DB_PASSWORD: password
-      KEYCLOAK_USER: admin
-      KEYCLOAK_PASSWORD: Pa55w0rd
-      # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
-      #JDBC_PARAMS: "ssl=true"
       KC_FEATURES: authorization
         token-exchange
         docker
@@ -146,22 +139,30 @@ services:
         client-policies
         dynamic-scopes
     # volumes:
+    #   - ./backup:/tmp/export
+    # volumes:
     #   - ./keycloak_data/keycloak.local+1.pem:/opt/keycloak/conf/server.crt.pem
     #   - ./keycloak_data/keycloak.local+1-key.pem:/opt/keycloak/conf/server.key.pem
     ports:
-      - 8100:8100
+      - ${KEYCLOAK_PORT}:${KEYCLOAK_PORT}
       - 8443:8443
-    env_file:
-      - .env.local
     depends_on:
       db:
         condition: service_healthy
+    ## Not working, I don't know why
+    # healthcheck:
+    #   test: ['CMD', 'curl', '-f', 'http://localhost:8100/auth/realms/master']
+    #   interval: 5s
+    #   timeout: 2s
+    #   retries: 15
     networks:
       - web
       - db
     restart: unless-stopped
-    command: ['start-dev', '--http-port=8100']
+    command: ['start-dev', '--http-port=${KEYCLOAK_PORT}']
     # tty: true
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
 
 volumes:
   db_data:
