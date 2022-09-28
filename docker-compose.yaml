@@ -123,6 +123,46 @@ services:
     extra_hosts:
       - 'host.docker.internal:host-gateway'
 
+  keycloak:
+    image: quay.io/keycloak/keycloak:${KEYCLOAK_VERSION}
+    environment:
+      DB_VENDOR: postgres
+      DB_ADDR: postgres
+      DB_DATABASE: postgres
+      DB_USER: postgres
+      DB_SCHEMA: public
+      DB_PASSWORD: password
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: Pa55w0rd
+      # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
+      #JDBC_PARAMS: "ssl=true"
+      KC_FEATURES: authorization
+        token-exchange
+        docker
+        impersonation
+        scripts
+        upload-scripts
+        web-authn
+        client-policies
+        dynamic-scopes
+    # volumes:
+    #   - ./keycloak_data/keycloak.local+1.pem:/opt/keycloak/conf/server.crt.pem
+    #   - ./keycloak_data/keycloak.local+1-key.pem:/opt/keycloak/conf/server.key.pem
+    ports:
+      - 8100:8100
+      - 8443:8443
+    env_file:
+      - .env.local
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - web
+      - db
+    restart: unless-stopped
+    command: ['start-dev', '--http-port=8100']
+    # tty: true
+
 volumes:
   db_data:
   web_node_modules:
