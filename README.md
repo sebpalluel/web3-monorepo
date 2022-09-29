@@ -69,7 +69,9 @@ TODO: Expose different way of sign in method
 
 #### Keycloak
 
-We use Keycloak as the main provider to authenticate with credentials or federated sign in with google. The IDP kit server is linked through with OpenID Connect protocol.
+We use Keycloak as the main provider to authenticate with credentials or federated sign in with google. The IDP kit server is linked through with OpenID Connect protocol. Keycloak is then used as a provider by Next Auth to handle all the authentication process on the web application.
+
+1. Add IDPKit to Keycloak as a OpenID Connect provider
 
 Check [this tutorial](https://docs.walt.id/v/idpkit/concepts/iam-keycloak-integration) for more information of how to register your own instance of IDP kit on the realm.
 To register your client as described in the tutorial you can use the following command:
@@ -80,6 +82,12 @@ make idpkit-register-client -r http://localhost:8100/auth/realms/master/broker/o
 
 Be sure to copy the id and secret from the output in order to register it on keycloak.
 As you are running both keycloak and idpkit from docker, the resulting address in `Discovery endpoint` should be `http://idpkit:9080/api/oidc/.well-known/openid-configuration`
+
+2. Get the client ID and secret from keycloak
+
+Here we are using the Broker client that is given by default. [Refer to this page in the admin console if you want to generate a new client secret](http://localhost:8100/auth/admin/master/console/#/master/clients). When accessing to the `broker` page you will be able to generate a client secret. For convenience purpose we have populated the "secret" field in `realm-exports.json` with our own. Don't forget to update it if you override this file.
+
+**For any operation you do regarding the settings of keycloak, don't forget to export and replace the file in `keycloak/realm-exports.json` with the new one.** Otherwise your settings will not be persisted if you reset your containers or on the CI env.
 
 #### **GraphQL code generator**
 
