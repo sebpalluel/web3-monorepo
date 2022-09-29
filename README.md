@@ -81,7 +81,7 @@ You will need to follow this steps to provide Keycloak with your own environment
 
 1. Create a new Client with confidential Access Type
 
-- Go to the [Clients section](<(http://localhost:8100/auth/admin/master/console/#/master/clients)>) and add a new client.
+- Go to the [Clients section](http://localhost:8100/auth/admin/master/console/#/master/clients) and add a new client.
 - Choose a client id, for instance `myApp`.
 - Select the Client Authentication option on the next page
 - On the settings page, set the Home URL, Valid redirect URIs, Web origins according to your app URL.
@@ -95,7 +95,7 @@ Check [this tutorial](https://docs.walt.id/v/idpkit/concepts/iam-keycloak-integr
 To register your client as described in the tutorial you can use the following command:
 
 ```shell
-make idpkit-register-client -r http://localhost:8100/auth/realms/master/myApp/oidc/endpoint
+make idpkit-register-client -r http://localhost:8100/auth/realms/master/broker/oidc/endpoint
 ```
 
 Be sure to copy the id and secret from the output in order to register it on keycloak.
