@@ -29,8 +29,8 @@ You can [check the doc here](https://docs.walt.id/v/idpkit/idpkit/readme) for mo
 
 - [**Keycloak IAM server**](http://localhost:8100/auth/)
 
-Keycloak Identity and Access Management server is used as a provider for Next Auth. The IDP Kit from walt.id is used with the OpenID Connect protocol to create a wallet for each user while using web2 auth from keycloak.
-The login to access the [**administration console**](http://localhost:8100/auth/admin/master/console/#/master) is admin/password
+[Keycloak Identity and Access Management server](https://www.keycloak.org) is used as a provider for Next Auth. The IDP Kit from walt.id is used with the OpenID Connect protocol to create a wallet for each user while using web2 auth from keycloak.
+The login to access the [**administration console**](http://localhost:8100/auth/admin/master/console/#/master) is **admin@boilerplate.com/password**
 
 ### What's inside?
 
@@ -49,6 +49,7 @@ This repo uses [PNPM](https://pnpm.io/) as a package manager. It includes the fo
 - `libs/ui`: React component library
 - `tools`: Set of tools to to be used for DX (Developer Experience) and testing purposes.
 - `waltid-idpkit`: Contain the config files, the encryption keys for the DID server and the registered OIDC client.
+- `keycloak`: Contain all the realm settings loaded by the keycloak container
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
@@ -65,6 +66,20 @@ Additionally, the boilerplate offer a way to authenticate through email + passwo
 This project use the IDP kit in order to offer web3 sign in:
 
 TODO: Expose different way of sign in method
+
+#### Keycloak
+
+We use Keycloak as the main provider to authenticate with credentials or federated sign in with google. The IDP kit server is linked through with OpenID Connect protocol.
+
+Check [this tutorial](https://docs.walt.id/v/idpkit/concepts/iam-keycloak-integration) for more information of how to register your own instance of IDP kit on the realm.
+To register your client as described in the tutorial you can use the following command:
+
+```shell
+make idpkit-register-client -r http://localhost:8100/auth/realms/master/broker/oidc/endpoint
+```
+
+Be sure to copy the id and secret from the output in order to register it on keycloak.
+As you are running both keycloak and idpkit from docker, the resulting address in `Discovery endpoint` should be `http://idpkit:9080/api/oidc/.well-known/openid-configuration`
 
 #### **GraphQL code generator**
 
@@ -101,7 +116,7 @@ In order to secure your JWT authentication provided by [Next Auth](https://next-
 1. Register a client with the IDP Kits CLI or the API exposed:
 
 ```shell
-make idpkit-register-client
+make idpkit-register-client -n "MyApp" --all-redirect-uris
 ```
 
 2. Update the `IDPKIT_CLIENT_ID` and `IDPKIT_CLIENT_SECRET` environment variables based on the response received from the client

@@ -76,6 +76,8 @@ services:
       - run
     env_file:
       - .env.local
+    networks:
+      - web
     environment:
       WALTID_WALLET_BACKEND_BIND_ADDRESS: 0.0.0.0
       WALTID_WALLET_BACKEND_PORT: 9080
@@ -138,14 +140,14 @@ services:
         web-authn
         client-policies
         dynamic-scopes
-    # volumes:
-    #   - ./backup:/tmp/export
+    volumes:
+      - ./keycloak/realm-export.json:/tmp/realm-export.json
     # volumes:
     #   - ./keycloak_data/keycloak.local+1.pem:/opt/keycloak/conf/server.crt.pem
     #   - ./keycloak_data/keycloak.local+1-key.pem:/opt/keycloak/conf/server.key.pem
     ports:
       - ${KEYCLOAK_PORT}:${KEYCLOAK_PORT}
-      - 8443:8443
+      - '8443:8443'
     depends_on:
       db:
         condition: service_healthy
