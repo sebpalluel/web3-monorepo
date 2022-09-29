@@ -1,1 +1,11 @@
-{"client_secret_expires_at":0,"all_redirect_uris":true,"registration_client_uri":"http://localhost:9080/api/oidc/clients/XhrvfegKTShqebLALESL5hhDjY9c04_V5flnIBDAa1Y","redirect_uris":[],"client_id_issued_at":1662563600,"client_secret":"VCR-2udsxV6JcqPBGUWT3DAVhWcfT1tGnl5MMppRgt4","client_name":"MyApp","registration_access_token":"eyJraWQiOiJjMDQ3ZjRlNDJjZjU0YjY2YWQxNTRkOGNlNTFlMDNlZiIsInR5cCI6IkpXVCIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJYaHJ2ZmVnS1RTaHFlYkxBTEVTTDVoaERqWTljMDRfVjVmbG5JQkRBYTFZIn0.NN4gxfK_nPLgStlg-LttUtDsyKbJykbVb4ngHJi91xct7jmJjRntk31SKeGS2VQFh6yk11Rpum_0Rfs6kOofx1RDrxPXuGGD8UYGWEcaQFtWT4W5JIMkHTUexXetDGvMPHIi67hAGVfB8kKhxK2cWh7lNf1vz06yEMXHxJH7VqHdzABovS6Pj9tLQXlHFnIP1XsTa9VVVpJuCmg4IoAXbbpvHGkrxUX7QTDi4N6SKEw1BzF9VO-WLcJKacSIEQ-vdmau7njd-LzemfKYBwsKrDJIwMf9gKaJSLytPvYVSp2NvmquLGuWQFKpmz6DvjsayRIZkaU2N3_Py11f-DtT_g","client_id":"XhrvfegKTShqebLALESL5hhDjY9c04_V5flnIBDAa1Y"}
+{
+  "client_secret_expires_at": 0,
+  "all_redirect_uris": true,
+  "registration_client_uri": "http://localhost:9080/api/oidc/clients/XhrvfegKTShqebLALESL5hhDjY9c04_V5flnIBDAa1Y",
+  "redirect_uris": [],
+  "client_id_issued_at": 1662563600,
+  "client_secret": "VCR-2udsxV6JcqPBGUWT3DAVhWcfT1tGnl5MMppRgt4",
+  "client_name": "MyApp",
+  "registration_access_token": "eyJraWQiOiJjMDQ3ZjRlNDJjZjU0YjY2YWQxNTRkOGNlNTFlMDNlZiIsInR5cCI6IkpXVCIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJYaHJ2ZmVnS1RTaHFlYkxBTEVTTDVoaERqWTljMDRfVjVmbG5JQkRBYTFZIn0.NN4gxfK_nPLgStlg-LttUtDsyKbJykbVb4ngHJi91xct7jmJjRntk31SKeGS2VQFh6yk11Rpum_0Rfs6kOofx1RDrxPXuGGD8UYGWEcaQFtWT4W5JIMkHTUexXetDGvMPHIi67hAGVfB8kKhxK2cWh7lNf1vz06yEMXHxJH7VqHdzABovS6Pj9tLQXlHFnIP1XsTa9VVVpJuCmg4IoAXbbpvHGkrxUX7QTDi4N6SKEw1BzF9VO-WLcJKacSIEQ-vdmau7njd-LzemfKYBwsKrDJIwMf9gKaJSLytPvYVSp2NvmquLGuWQFKpmz6DvjsayRIZkaU2N3_Py11f-DtT_g",
+  "client_id": "XhrvfegKTShqebLALESL5hhDjY9c04_V5flnIBDAa1Y"
+}
