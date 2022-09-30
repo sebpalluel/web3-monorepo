@@ -32,11 +32,11 @@ You can [check the doc here](https://docs.walt.id/v/idpkit/idpkit/readme) for mo
 [Keycloak Identity and Access Management server](https://www.keycloak.org) is used as a provider for Next Auth. The IDP Kit from walt.id is used with the OpenID Connect protocol to create a wallet for each user while using web2 auth from keycloak.
 The login to access the [**administration console**](http://localhost:8100/auth/admin/master/console/#/master) is **admin@boilerplate.com/password**
 
-### What's inside?
+## What's inside?
 
 This repo uses [PNPM](https://pnpm.io/) as a package manager. It includes the following apps and libs:
 
-#### Apps and Libs
+### Apps and Libs
 
 - `apps/web`: a [Next.js](https://nextjs.org) app
 - `apps/web-e2e`: Cypress e2e test for the web app
@@ -53,7 +53,7 @@ This repo uses [PNPM](https://pnpm.io/) as a package manager. It includes the fo
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
-#### **Next Auth**
+### **Next Auth**
 
 This project use Next-Auth to offer different way of authentication.
 
@@ -61,13 +61,13 @@ You can offer login with OAuth2 providers from Google and Github by providing th
 
 Additionally, the boilerplate offer a way to authenticate through email + password credentials with the adapter to handle the request with Hasura. You can find this adapter in `libs/hasura/adapter`
 
-#### Waltid-idpkit
+### Waltid-idpkit
 
 This project use the IDP kit in order to offer web3 sign in:
 
 TODO: Expose different way of sign in method
 
-#### Keycloak
+### Keycloak
 
 We use Keycloak as the main provider to authenticate with credentials or federated sign in with google. The IDP kit server is linked through with OpenID Connect protocol. Keycloak is then used as a provider by Next Auth to handle all the authentication process on the web application.
 
@@ -101,7 +101,7 @@ make idpkit-register-client -r http://localhost:8100/auth/realms/master/broker/o
 Be sure to copy the id and secret from the output in order to register it on keycloak.
 As you are running both keycloak and idpkit from docker, the resulting address in `Discovery endpoint` should be `http://idpkit:9080/api/oidc/.well-known/openid-configuration`
 
-#### **GraphQL code generator**
+### **GraphQL code generator**
 
 The command `pnpm start` will launch the `graphql-codegen`script. All the codegen definitions are written in the file `codegen.yml`.
 
