@@ -76,7 +76,7 @@ export function ProvidersBtns({ providers, router, onToggleCollapse }) {
             })
           }
         >
-          Identity Provider
+          Walt.id IDPKit
         </Button>
       ) : null}
       {providers.includes('keycloak') ? (
