@@ -71,12 +71,13 @@ TODO: Expose different way of sign in method
 
 We use Keycloak as the main provider to authenticate with credentials or federated sign in with google. The IDP kit server is linked through with OpenID Connect protocol. Keycloak is then used as a provider by Next Auth to handle all the authentication process on the web application.
 
-**For any operation you do regarding the settings of keycloak, don't forget to export and replace the file in `keycloak/realm-exports.json` with the new one.** Otherwise your settings will not be persisted if you reset your containers or on the CI env.
+**For any operation you do regarding the settings of keycloak, don't forget to export, rename the file to `master-realm.json` and replace the existing file in the `keycloak` folder.** Otherwise your settings will not be persisted if you reset your containers or on the CI env.
 **Also, for each exports, your secret will be erased from the config file**
 `"secret": "**********"`, `"clientSecret": "**********"`.
 You will have to set the secrets with the one you saved but make sure to not do that on production environment.
 
-For convenience purpose everything is set correctly on real,-exports.json in order to use Keycloak directly with your app.
+For convenience purpose everything is set correctly on `master-realm.json` in order to use Keycloak directly with your app.
+
 You will need to follow this steps to provide Keycloak with your own environment.
 
 1. Create a new Client with confidential Access Type
@@ -84,7 +85,7 @@ You will need to follow this steps to provide Keycloak with your own environment
 - Go to the [Clients section](http://localhost:8100/auth/admin/master/console/#/master/clients) and add a new client.
 - Choose a client id, for instance `myApp`.
 - Select the Client Authentication option on the next page
-- On the settings page, set the Home URL, Valid redirect URIs, Web origins according to your app URL.
+- On the settings page, set the Home URL, Valid redirect URIs, Web origins according to your app URL. In our case that would be `http://localhost:3000/*`
 - Click on the Credentials tab to reveal and copy the client secret.
 
 You now have the id and secret of the client to populate in `KEYCLOAK_ID` and `KEYCLOAK_SECRET`
