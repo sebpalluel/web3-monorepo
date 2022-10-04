@@ -125,6 +125,27 @@ services:
     extra_hosts:
       - 'host.docker.internal:host-gateway'
 
+  keycloak-db:
+    container_name: keycloak-db
+    image: postgres:13
+    command: postgres -p $KEYCLOAK_DB_PORT
+    volumes:
+      - keycloak_db_data:/var/lib/postgresql/data
+    ports:
+      - '$KEYCLOAK_DB_PORT:$KEYCLOAK_DB_PORT'
+    networks:
+      - db
+    restart: unless-stopped
+    env_file:
+      - .env.local
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -p $KEYCLOAK_DB_PORT -U postgres']
+      interval: 2s
+      timeout: 2s
+      retries: 10
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+
   # https://github.com/eabykov/keycloak-compose
   keycloak:
     container_name: keycloak
@@ -173,6 +194,7 @@ services:
 
 volumes:
   db_data:
+  keycloak_db_data:
 
 networks:
   web:
