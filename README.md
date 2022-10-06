@@ -474,3 +474,7 @@ Be sure to have activated the buildx module first by following [this article](ht
 ```shell
 cd hasura && docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t <username>/<image>:latest --push .
 ```
+
+## Credits
+
+This project is based on the [nextstarter-chakra](https://github.com/sozonome/nextarter-chakra) template
