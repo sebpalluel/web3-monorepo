@@ -93,6 +93,21 @@ input String_comparison_exp {
 }
 
 """
+ordering argument of a cursor
+"""
+enum cursor_ordering {
+  """
+  ascending ordering of the cursor
+  """
+  ASC
+
+  """
+  descending ordering of the cursor
+  """
+  DESC
+}
+
+"""
 mutation root
 """
 type mutation_root {
@@ -137,6 +152,16 @@ type mutation_root {
     _set: users_set_input
     pk_columns: users_pk_columns_input!
   ): users
+
+  """
+  update multiples rows of table: "users"
+  """
+  update_users_many(
+    """
+    updates to execute, in order
+    """
+    updates: [users_updates!]!
+  ): [users_mutation_response]
 }
 
 """
@@ -248,6 +273,26 @@ type subscription_root {
   fetch data from the table: "users" using primary key columns
   """
   users_by_pk(id: String!): users
+
+  """
+  fetch data from the table in a streaming manner : "users"
+  """
+  users_stream(
+    """
+    maximum number of rows returned in a single batch
+    """
+    batch_size: Int!
+
+    """
+    cursor to stream the results returned by the query
+    """
+    cursor: [users_stream_cursor_input]!
+
+    """
+    filter the rows returned
+    """
+    where: users_bool_exp
+  ): [users!]!
 }
 
 scalar timestamp
@@ -380,4 +425,40 @@ input users_set_input {
   id: String
   image: String
   name: String
+}
+
+"""
+Streaming cursor of the table "users"
+"""
+input users_stream_cursor_input {
+  """
+  Stream column input with initial value
+  """
+  initial_value: users_stream_cursor_value_input!
+
+  """
+  cursor ordering
+  """
+  ordering: cursor_ordering
+}
+
+"""
+Initial value of the column from where the streaming should start
+"""
+input users_stream_cursor_value_input {
+  email: String
+  emailVerified: timestamp
+  firstName: String
+  id: String
+  image: String
+  lastName: String
+  name: String
+}
+
+input users_updates {
+  """
+  sets the columns of the filtered rows to the given values
+  """
+  _set: users_set_input
+  where: users_bool_exp!
 }
