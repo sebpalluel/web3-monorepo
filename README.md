@@ -63,9 +63,26 @@ Additionally, the boilerplate offer a way to authenticate through email + passwo
 
 ### Waltid-idpkit
 
-This project use the IDP kit in order to offer web3 sign in:
+This project use the IDP kit in order to offer web3 sign in.
+In order to test it, you will need to follow this steps:
 
-TODO: Expose different way of sign in method
+1. Access the [sign in page](http://localhost:3000/auth/signin) and click on the `Walt.id IDPKit` button
+2. Login a new account on the walt.id web wallet by entering any credentials or by connecting your wallet
+3. Go to the menu and select `Credentials`
+4. Click on 'Request Credential'
+5. Choose 'walt.id Issuer Portal' and 'VerifiableID', click on 'Fetch Credentials'
+   ![Screenshot 20221004 at 18 57 06](https://user-images.githubusercontent.com/11297176/193880640-b5156924-4d53-4ce8-bdd2-75c35e0caf1a.png)
+6. Put any credentials to go through the fake login page of the 'Demo Issuer Portal'
+   ![Screenshot 20221004 at 19 00 19](https://user-images.githubusercontent.com/11297176/193881286-a743233a-105d-452d-8161-302ed346f745.png)
+7. Select the 'Verifiable ID document' option and Confirm.
+   <img width="937" alt="Screenshot 2022-10-04 at 19 01 21" src="https://user-images.githubusercontent.com/11297176/193881461-04195fee-3664-4f45-962f-5445108cf701.png">
+   10 Accept the received credentials
+   <img width="935" alt="Screenshot 2022-10-04 at 19 01 53" src="https://user-images.githubusercontent.com/11297176/193881578-29980b8f-6718-4ebc-8697-bd437a7e2d13.png">
+
+8. After that you will have to come back manually to the login page on http://localhost:3000/auth/signin to click on the 'Walt.id IDPKit' button
+   ![Screenshot 20221004 at 19 03 35](https://user-images.githubusercontent.com/11297176/193881887-26f29efa-0cc2-44be-8e92-4b9cf6e931d2.png)
+9. Accept the 'Presentation request' of 'Verifiable ID document' by clicking on 'Share'![Screenshot 20221004 at 19 05 15](https://user-images.githubusercontent.com/11297176/193882204-47112a2e-5abd-4a77-a732-3aa15d10b097.png)
+10. The user is logged in effectively and created on the DB through Hasura (Next Auth do it automatically for a new account)
 
 ### Keycloak
 
