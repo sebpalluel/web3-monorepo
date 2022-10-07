@@ -12,6 +12,14 @@ describe('hasura Next Auth Adapter', () => {
   };
   const account: Account = {
     id: '',
+    access_token: '',
+    expires_at: 12312424,
+    id_token: 'dummy',
+    refresh_expires_in: null,
+    refresh_token: 'dummy',
+    scope: 'openid',
+    session_state: 'dummy',
+    token_type: 'Bearer',
     userId: '',
     provider: 'github',
     providerAccountId: '12345823',
@@ -75,7 +83,6 @@ describe('hasura Next Auth Adapter', () => {
     token_type: 'Bearer',
     id_token:
       'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJRNnlPbjAydXE3Z280MU9abVktczY0YlpUN2IxanJHclpOeFJHZUEyQ29VIn0.eyJleHAiOjE2NjUwNjcxMDcsImlhdCI6MTY2NTA2NzA0NywiYXV0aF90aW1lIjoxNjY1MDY3MDQ3LCJqdGkiOiIyYzU5ZjJlNy02Zjc4LTQxNTYtYjAwMC00N2JmNzc1OTY5YjIiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgxMDAvYXV0aC9yZWFsbXMvbWFzdGVyIiwiYXVkIjoiYXBwIiwic3ViIjoiZjg5MjRhOTItMDRlZS00ZDYxLTk4NjgtYTgyNTgyMjBjNjZlIiwidHlwIjoiSUQiLCJhenAiOiJhcHAiLCJzZXNzaW9uX3N0YXRlIjoiNjYwMDdiMjgtMTc4Yy00Mzk1LThiNzctNDE1ZTA1Mzk4Yzg3IiwiYXRfaGFzaCI6IjNndTFfd3BVa3h3TzJHc21lemx0b0EiLCJhY3IiOiIxIiwic2lkIjoiNjYwMDdiMjgtMTc4Yy00Mzk1LThiNzctNDE1ZTA1Mzk4Yzg3IiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiSmFuZSBET0UiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJkaWQ6a2V5Ono2bWtxZTdnd2JxNDVlcXZpaXk2cHg2eDVucDJsczNtdm12ZWdqNWdpcHg4YmJmcCIsImdpdmVuX25hbWUiOiJKYW5lIiwiZmFtaWx5X25hbWUiOiJET0UiLCJlbWFpbCI6InNlYkB0ZXN0LmNvbSJ9.n-4ABj5a2Jy78iEWZ6xL9gtpPcj9zj0jut8Qs-jM9Nb-7vr44VtiQ3srYUmrr_VL4b1MXJxYDjbOx8Ep5sEdDf8j4ct4J3H-NeK0J9rQO5kkNr9fLPCzFt0r7c_bgQdE9Xn9gfWrdtfFNxn4srnnurwfVoyVOZ_pCuz3FFM5b6wqWeTgylhSWRqKFQaWKtq_88eow8nEUHst5utBAVri2aRuxWffTK9SeivnB9OWuvQxLi6x8bS8J-aKq1rmabuS-gS1O6MfyfpITLTsMehK3ty-H7tMiMZeQO-J7J2q9xFafkIR-OK5cWpU2Pda4lI2elQUjPX00fJrrugdv2Z7-g',
-    'not-before-policy': 0,
     session_state: '66007b28-178c-4395-8b77-415e05398c87',
     scope: 'openid profile email',
     userId: 'beabb5d1-008a-4b9f-9937-240308cb93cb',
@@ -85,6 +92,7 @@ describe('hasura Next Auth Adapter', () => {
     userKeycloak.id = userCreated.id;
     accountKeycloak.userId = userKeycloak.id;
     const data = await adapter.linkAccount(accountKeycloak);
+    accountKeycloak.id = data?.id;
     expect(accountKeycloak).toEqual(data);
   });
   it('should get user by account', async () => {

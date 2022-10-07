@@ -2094,6 +2094,14 @@ export type LinkAccountMutation = {
   __typename?: 'mutation_root';
   insert_accounts_one?: {
     __typename?: 'accounts';
+    access_token?: string | null;
+    expires_at?: number | null;
+    refresh_expires_in?: number | null;
+    refresh_token?: string | null;
+    token_type?: string | null;
+    id_token?: string | null;
+    session_state?: string | null;
+    scope?: string | null;
     userId: string;
     id: string;
     provider: string;
@@ -2410,6 +2418,14 @@ const LinkAccountDocument = `
     mutation LinkAccount($account: accounts_insert_input!) {
   insert_accounts_one(object: $account) {
     ...AccountFields
+    access_token
+    expires_at
+    refresh_expires_in
+    refresh_token
+    token_type
+    id_token
+    session_state
+    scope
     userId
   }
 }
