@@ -35,6 +35,14 @@ export const fetchDataReactQuery = <TData, TVariables>(
     const json = await res.json();
 
     if (json.errors) {
+      logger.error(
+        '\n\nerror:\n',
+        json.errors,
+        '\n\nquery:\n',
+        query,
+        '\n\nvariables\n:',
+        variables
+      );
       const { message } = json.errors[0] || 'Error..';
       throw new Error(message);
     }
@@ -82,8 +90,15 @@ export const fetchData = (opts: Opts = { admin: false, jwt: '' }) => {
     });
     const json = await res.json();
     if (json.errors) {
+      logger.error(
+        '\n\nerror:\n',
+        json.errors,
+        '\n\nquery:\n',
+        doc,
+        '\n\nvariables\n:',
+        variables
+      );
       const { message } = json.errors[0] || 'Error..';
-      logger.error(message);
       throw new Error(message);
     }
 
