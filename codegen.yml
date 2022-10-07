@@ -8,30 +8,6 @@ schema:
         'x-hasura-role': 'admin'
 
 generates:
-  # admin
-  libs/gql/admin/src/generated/schema.json:
-    plugins:
-      - 'introspection'
-  libs/gql/admin/src/generated/schema.graphql:
-    plugins:
-      - 'schema-ast'
-  libs/gql/admin/src/generated/index.ts:
-    documents: './libs/gql/admin/src/queries/**/*.{graphql,gql}'
-    plugins:
-      - 'typescript':
-          constEnums: true
-      - 'typescript-operations':
-          preResolveTypes: true
-      - 'typescript-generic-sdk':
-          noExport: true
-          documentMode: 'string'
-      - 'add':
-          content: 'import { fetchData } from "@boilerplate/hasura-fetcher";'
-          placement: 'prepend'
-      - 'add':
-          content: 'export const adminSdk = getSdk(fetchData({admin:true}));'
-          placement: 'append'
-
   # user
   libs/gql/user/src/generated/schema.json:
     plugins:
@@ -61,6 +37,7 @@ generates:
           fetcher:
             func: '@boilerplate/hasura-fetcher#fetchDataReactQuery'
             isReactHook: false
+  # test user
   libs/test-utils/gql/src/generated/test-user.ts:
     schema:
       - *userSchema
@@ -73,6 +50,30 @@ generates:
       - 'typescript-generic-sdk':
           noExport: true
           documentMode: 'string'
+  # admin
+  libs/gql/admin/src/generated/schema.json:
+    plugins:
+      - 'introspection'
+  libs/gql/admin/src/generated/schema.graphql:
+    plugins:
+      - 'schema-ast'
+  libs/gql/admin/src/generated/index.ts:
+    documents: './libs/gql/admin/src/queries/**/*.{graphql,gql}'
+    plugins:
+      - 'typescript':
+          constEnums: true
+      - 'typescript-operations':
+          preResolveTypes: true
+      - 'typescript-generic-sdk':
+          noExport: true
+          documentMode: 'string'
+      - 'add':
+          content: 'import { fetchData } from "@boilerplate/hasura-fetcher";'
+          placement: 'prepend'
+      - 'add':
+          content: 'export const adminSdk = getSdk(fetchData({admin:true}));'
+          placement: 'append'
+
     # ## hasura
     # #  doesn't support yet separated fragments so it fail
     # #  TODO: follow up on this issue https://github.com/dotansimha/graphql-code-generator/issues/7700

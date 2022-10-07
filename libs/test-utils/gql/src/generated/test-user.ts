@@ -369,15 +369,19 @@ const GetUserByEmailDocument = `
   }
 }
     ${UserFieldsFragmentDoc}`;
-export type Requester<C = {}> = <R, V>(doc: string, vars?: V, options?: C) => Promise<R>;
-export function getSdk<C>(requester: Requester<C>) {
+export type Requester<C = {}, E = unknown> = <R, V>(
+  doc: string,
+  vars?: V,
+  options?: C
+) => Promise<R> | AsyncIterable<R>;
+export function getSdk<C, E>(requester: Requester<C, E>) {
   return {
     getUser(variables: GetUserQueryVariables, options?: C): Promise<GetUserQuery> {
       return requester<GetUserQuery, GetUserQueryVariables>(
         GetUserDocument,
         variables,
         options
-      );
+      ) as Promise<GetUserQuery>;
     },
     getUserByEmail(
       variables: GetUserByEmailQueryVariables,
@@ -387,7 +391,7 @@ export function getSdk<C>(requester: Requester<C>) {
         GetUserByEmailDocument,
         variables,
         options
-      );
+      ) as Promise<GetUserByEmailQuery>;
     },
   };
 }

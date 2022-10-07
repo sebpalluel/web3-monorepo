@@ -2525,8 +2525,12 @@ const DeleteVerificationTokenDocument = `
   }
 }
     `;
-export type Requester<C = {}> = <R, V>(doc: string, vars?: V, options?: C) => Promise<R>;
-export function getSdk<C>(requester: Requester<C>) {
+export type Requester<C = {}, E = unknown> = <R, V>(
+  doc: string,
+  vars?: V,
+  options?: C
+) => Promise<R> | AsyncIterable<R>;
+export function getSdk<C, E>(requester: Requester<C, E>) {
   return {
     DeleteAccount(
       variables: DeleteAccountMutationVariables,
@@ -2536,7 +2540,7 @@ export function getSdk<C>(requester: Requester<C>) {
         DeleteAccountDocument,
         variables,
         options
-      );
+      ) as Promise<DeleteAccountMutation>;
     },
     LinkAccount(
       variables: LinkAccountMutationVariables,
@@ -2546,7 +2550,7 @@ export function getSdk<C>(requester: Requester<C>) {
         LinkAccountDocument,
         variables,
         options
-      );
+      ) as Promise<LinkAccountMutation>;
     },
     CreateSession(
       variables: CreateSessionMutationVariables,
@@ -2556,7 +2560,7 @@ export function getSdk<C>(requester: Requester<C>) {
         CreateSessionDocument,
         variables,
         options
-      );
+      ) as Promise<CreateSessionMutation>;
     },
     GetSessionAndUser(
       variables: GetSessionAndUserQueryVariables,
@@ -2566,7 +2570,7 @@ export function getSdk<C>(requester: Requester<C>) {
         GetSessionAndUserDocument,
         variables,
         options
-      );
+      ) as Promise<GetSessionAndUserQuery>;
     },
     CreateUserWithCredentials(
       variables: CreateUserWithCredentialsMutationVariables,
@@ -2575,7 +2579,11 @@ export function getSdk<C>(requester: Requester<C>) {
       return requester<
         CreateUserWithCredentialsMutation,
         CreateUserWithCredentialsMutationVariables
-      >(CreateUserWithCredentialsDocument, variables, options);
+      >(
+        CreateUserWithCredentialsDocument,
+        variables,
+        options
+      ) as Promise<CreateUserWithCredentialsMutation>;
     },
     UpdateUser(
       variables: UpdateUserMutationVariables,
@@ -2585,7 +2593,7 @@ export function getSdk<C>(requester: Requester<C>) {
         UpdateUserDocument,
         variables,
         options
-      );
+      ) as Promise<UpdateUserMutation>;
     },
     GetUserByAccount(
       variables: GetUserByAccountQueryVariables,
@@ -2595,7 +2603,7 @@ export function getSdk<C>(requester: Requester<C>) {
         GetUserByAccountDocument,
         variables,
         options
-      );
+      ) as Promise<GetUserByAccountQuery>;
     },
     CreateUser(
       variables: CreateUserMutationVariables,
@@ -2605,14 +2613,14 @@ export function getSdk<C>(requester: Requester<C>) {
         CreateUserDocument,
         variables,
         options
-      );
+      ) as Promise<CreateUserMutation>;
     },
     GetUser(variables: GetUserQueryVariables, options?: C): Promise<GetUserQuery> {
       return requester<GetUserQuery, GetUserQueryVariables>(
         GetUserDocument,
         variables,
         options
-      );
+      ) as Promise<GetUserQuery>;
     },
     GetUserByEmail(
       variables: GetUserByEmailQueryVariables,
@@ -2622,7 +2630,7 @@ export function getSdk<C>(requester: Requester<C>) {
         GetUserByEmailDocument,
         variables,
         options
-      );
+      ) as Promise<GetUserByEmailQuery>;
     },
     GetUsersAndAccountByEmail(
       variables: GetUsersAndAccountByEmailQueryVariables,
@@ -2631,7 +2639,11 @@ export function getSdk<C>(requester: Requester<C>) {
       return requester<
         GetUsersAndAccountByEmailQuery,
         GetUsersAndAccountByEmailQueryVariables
-      >(GetUsersAndAccountByEmailDocument, variables, options);
+      >(
+        GetUsersAndAccountByEmailDocument,
+        variables,
+        options
+      ) as Promise<GetUsersAndAccountByEmailQuery>;
     },
     GetUserAndPasswordByEmail(
       variables: GetUserAndPasswordByEmailQueryVariables,
@@ -2640,7 +2652,11 @@ export function getSdk<C>(requester: Requester<C>) {
       return requester<
         GetUserAndPasswordByEmailQuery,
         GetUserAndPasswordByEmailQueryVariables
-      >(GetUserAndPasswordByEmailDocument, variables, options);
+      >(
+        GetUserAndPasswordByEmailDocument,
+        variables,
+        options
+      ) as Promise<GetUserAndPasswordByEmailQuery>;
     },
     CreateVerificationToken(
       variables: CreateVerificationTokenMutationVariables,
@@ -2649,7 +2665,11 @@ export function getSdk<C>(requester: Requester<C>) {
       return requester<
         CreateVerificationTokenMutation,
         CreateVerificationTokenMutationVariables
-      >(CreateVerificationTokenDocument, variables, options);
+      >(
+        CreateVerificationTokenDocument,
+        variables,
+        options
+      ) as Promise<CreateVerificationTokenMutation>;
     },
     GetVerificationToken(
       variables: GetVerificationTokenQueryVariables,
@@ -2659,7 +2679,7 @@ export function getSdk<C>(requester: Requester<C>) {
         GetVerificationTokenDocument,
         variables,
         options
-      );
+      ) as Promise<GetVerificationTokenQuery>;
     },
     DeleteVerificationToken(
       variables: DeleteVerificationTokenMutationVariables,
@@ -2668,7 +2688,11 @@ export function getSdk<C>(requester: Requester<C>) {
       return requester<
         DeleteVerificationTokenMutation,
         DeleteVerificationTokenMutationVariables
-      >(DeleteVerificationTokenDocument, variables, options);
+      >(
+        DeleteVerificationTokenDocument,
+        variables,
+        options
+      ) as Promise<DeleteVerificationTokenMutation>;
     },
   };
 }
