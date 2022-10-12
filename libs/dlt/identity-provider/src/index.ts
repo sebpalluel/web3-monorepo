@@ -34,7 +34,7 @@ export const IdentityProvider = (params: IdentityProviderParams) => {
     wellKnown: `${identityProviderURL}/api/oidc/.well-known/openid-configuration`,
     authorization: {
       params: {
-        scope: `openid`,
+        scope: 'openid profile',
         response_type: 'code',
       },
     },
