@@ -1,5 +1,4 @@
-<div style="text-align: center;"><img src="https://user-images.githubusercontent.com/11297176/195341400-f4cdf438-5caf-40f7-8d22-bf37ad89fea9.png
-" width="100%"></div>
+<p align="center"><img src="https://user-images.githubusercontent.com/11297176/195363494-6cc53b41-958d-4493-88b3-2cbfc65a2594.png" width="50%"></p>
 
 [![CodeFactor](https://www.codefactor.io/repository/github/sebpalluel/web3-monorepo-boilerplate/badge)](https://www.codefactor.io/repository/github/sebpalluel/web3-monorepo-boilerplate)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web3-monorepo-boilerplate&metric=alert_status)](https://sonarcloud.io/dashboard?id=sebpalluel_web3-monorepo-boilerplate) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web3-monorepo-boilerplate&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=sebpalluel_web3-monorepo-boilerplate) [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web3-monorepo-boilerplate&metric=bugs)](https://sonarcloud.io/dashboard?id=sebpalluel_web3-monorepo-boilerplate) [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web3-monorepo-boilerplate&metric=code_smells)](https://sonarcloud.io/dashboard?id=sebpalluel_web3-monorepo-boilerplate) [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web3-monorepo-boilerplate&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=sebpalluel_web3-monorepo-boilerplate) [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
@@ -32,7 +31,9 @@ pnpm start
 
 **View in [NX Graph](https://sebpalluel.github.io/web3-monorepo-boilerplate/?groupByFolder=true&select=all)**
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="128"></p>
+[![name](https://user-images.githubusercontent.com/11297176/195365021-4b35fe89-1a6e-4cfe-a7c0-ab3ef648d95d.png)](https://sebpalluel.github.io/web3-monorepo-boilerplate/?groupByFolder=true&select=all)
+
+### Access to the services and app URLs
 
 - [**Hasura console**](http://localhost:9695/console)
 
@@ -56,10 +57,6 @@ You can [check the doc here](https://docs.walt.id/v/idpkit/idpkit/readme) for mo
 
 [Keycloak Identity and Access Management server](https://www.keycloak.org) is used as a provider for Next Auth. The IDP Kit from walt.id is used through the OpenID Connect protocol.
 The login to access the [**administration console**](http://localhost:8100/auth/admin/master/console/#/master) is `admin@boilerplate.com / password`
-
-## What's inside?
-
-This repo uses [PNPM](https://pnpm.io/) as a package manager. It includes the following apps and libs:
 
 ### Apps and Libs
 
