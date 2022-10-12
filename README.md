@@ -135,21 +135,19 @@ In order to test it, you will need to follow this steps:
 
 1. Access the [sign in page](http://localhost:3000/auth/signin) and click on the `Walt.id IDPKit` button
 2. Login a new account on the walt.id web wallet by entering any credentials or by connecting your wallet
-3. Go to the menu and select `Credentials`
-4. Click on 'Request Credential'
-5. Choose 'walt.id Issuer Portal' and 'VerifiableID', click on 'Fetch Credentials'
-   ![Screenshot 20221004 at 18 57 06](https://user-images.githubusercontent.com/11297176/193880640-b5156924-4d53-4ce8-bdd2-75c35e0caf1a.png)
-6. Put any credentials to go through the fake login page of the 'Demo Issuer Portal'
-   ![Screenshot 20221004 at 19 00 19](https://user-images.githubusercontent.com/11297176/193881286-a743233a-105d-452d-8161-302ed346f745.png)
-7. Select the 'Verifiable ID document' option and Confirm.
-   <img width="937" alt="Screenshot 2022-10-04 at 19 01 21" src="https://user-images.githubusercontent.com/11297176/193881461-04195fee-3664-4f45-962f-5445108cf701.png">
-   10 Accept the received credentials
-   <img width="935" alt="Screenshot 2022-10-04 at 19 01 53" src="https://user-images.githubusercontent.com/11297176/193881578-29980b8f-6718-4ebc-8697-bd437a7e2d13.png">
-
-8. After that you will have to come back manually to the login page on <http://localhost:3000/auth/signin> to click on the 'Walt.id IDPKit' button
-   ![Screenshot 20221004 at 19 03 35](https://user-images.githubusercontent.com/11297176/193881887-26f29efa-0cc2-44be-8e92-4b9cf6e931d2.png)
-9. Accept the 'Presentation request' of 'Verifiable ID document' by clicking on 'Share'![Screenshot 20221004 at 19 05 15](https://user-images.githubusercontent.com/11297176/193882204-47112a2e-5abd-4a77-a732-3aa15d10b097.png)
+3. You will be presented with a page to ask you to get the needed crendentials to be able to connect to the service. Click on the 'Fetch credential from issuer' button.
+<img width="100%" alt="Screenshot 2022-10-12 at 16 16 28" src="https://user-images.githubusercontent.com/11297176/195373255-f99bdf2b-58cc-4456-821e-4d19903bab13.png">
+4. Put any credentials to go through the fake login page of the 'Demo Issuer Portal'
+<img width="100%" alt="Screenshot 20221004 at 19 00 19" src="https://user-images.githubusercontent.com/11297176/195373255-f99bdf2b-58cc-4456-821e-4d19903bab13.png">
+5. Confirm the claim of the Verifiable ID document.
+<img width="100%" alt="Screenshot 2022-10-12 at 16 16 49" src="https://user-images.githubusercontent.com/11297176/195373642-450081d1-1c77-4123-84e6-d118ec023ef1.png">
+6. Accept the 'Received Credentials'
+<img width="100%" alt="Screenshot 2022-10-04 at 19 01 53" src="https://user-images.githubusercontent.com/11297176/193881578-29980b8f-6718-4ebc-8697-bd437a7e2d13.png">
+9. Accept the 'Connection request' of 'Verifiable ID document'
+<img width="100%" alt="Screenshot 2022-10-12 at 16 17 45" src="https://user-images.githubusercontent.com/11297176/195374612-026bc3ce-d9fd-4cf3-9bf4-e52d792989fc.png">
 10. The user is logged in effectively and created on the DB through Hasura (Next Auth do it automatically for a new account)
+<img width="100%" alt="Screenshot 2022-10-12 at 16 35 23" src="https://user-images.githubusercontent.com/11297176/195374649-7b13bab2-bdb1-4a74-aec5-ff6a14061682.png">
+
 
 ### Keycloak
 
@@ -297,7 +295,7 @@ You can check the tests on <mark>auth.cy.ts</mark> for example usages of thoses 
 
 This project was generated using [Nx](https://nx.dev).
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="48"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="20%"></p>
 
 🔎 **Smart, Fast and Extensible Build System**
 
@@ -390,7 +388,7 @@ Visit the [Nx Documentation](https://nx.dev) to learn more.
 
 ### Distributed Computation Caching & Distributed Task Execution
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
+<p align="center"><img width="35%" src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
 
 Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
 
