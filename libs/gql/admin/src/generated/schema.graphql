@@ -147,6 +147,7 @@ type accounts {
   id_token: String
   provider: String!
   providerAccountId: String!
+  refresh_expires_in: Int
   refresh_token: String
   scope: String
   session_state: String
@@ -214,6 +215,7 @@ aggregate avg on columns
 """
 type accounts_avg_fields {
   expires_at: Float
+  refresh_expires_in: Float
 }
 
 """
@@ -221,6 +223,7 @@ order by avg() on columns of table "accounts"
 """
 input accounts_avg_order_by {
   expires_at: order_by
+  refresh_expires_in: order_by
 }
 
 """
@@ -236,6 +239,7 @@ input accounts_bool_exp {
   id_token: String_comparison_exp
   provider: String_comparison_exp
   providerAccountId: String_comparison_exp
+  refresh_expires_in: Int_comparison_exp
   refresh_token: String_comparison_exp
   scope: String_comparison_exp
   session_state: String_comparison_exp
@@ -259,6 +263,7 @@ input type for incrementing numeric columns in table "accounts"
 """
 input accounts_inc_input {
   expires_at: Int
+  refresh_expires_in: Int
 }
 
 """
@@ -271,6 +276,7 @@ input accounts_insert_input {
   id_token: String
   provider: String
   providerAccountId: String
+  refresh_expires_in: Int
   refresh_token: String
   scope: String
   session_state: String
@@ -289,6 +295,7 @@ type accounts_max_fields {
   id_token: String
   provider: String
   providerAccountId: String
+  refresh_expires_in: Int
   refresh_token: String
   scope: String
   session_state: String
@@ -307,6 +314,7 @@ input accounts_max_order_by {
   id_token: order_by
   provider: order_by
   providerAccountId: order_by
+  refresh_expires_in: order_by
   refresh_token: order_by
   scope: order_by
   session_state: order_by
@@ -325,6 +333,7 @@ type accounts_min_fields {
   id_token: String
   provider: String
   providerAccountId: String
+  refresh_expires_in: Int
   refresh_token: String
   scope: String
   session_state: String
@@ -343,6 +352,7 @@ input accounts_min_order_by {
   id_token: order_by
   provider: order_by
   providerAccountId: order_by
+  refresh_expires_in: order_by
   refresh_token: order_by
   scope: order_by
   session_state: order_by
@@ -385,6 +395,7 @@ input accounts_order_by {
   id_token: order_by
   provider: order_by
   providerAccountId: order_by
+  refresh_expires_in: order_by
   refresh_token: order_by
   scope: order_by
   session_state: order_by
@@ -437,6 +448,11 @@ enum accounts_select_column {
   """
   column name
   """
+  refresh_expires_in
+
+  """
+  column name
+  """
   refresh_token
 
   """
@@ -475,6 +491,7 @@ input accounts_set_input {
   id_token: String
   provider: String
   providerAccountId: String
+  refresh_expires_in: Int
   refresh_token: String
   scope: String
   session_state: String
@@ -488,6 +505,7 @@ aggregate stddev on columns
 """
 type accounts_stddev_fields {
   expires_at: Float
+  refresh_expires_in: Float
 }
 
 """
@@ -495,6 +513,7 @@ order by stddev() on columns of table "accounts"
 """
 input accounts_stddev_order_by {
   expires_at: order_by
+  refresh_expires_in: order_by
 }
 
 """
@@ -502,6 +521,7 @@ aggregate stddev_pop on columns
 """
 type accounts_stddev_pop_fields {
   expires_at: Float
+  refresh_expires_in: Float
 }
 
 """
@@ -509,6 +529,7 @@ order by stddev_pop() on columns of table "accounts"
 """
 input accounts_stddev_pop_order_by {
   expires_at: order_by
+  refresh_expires_in: order_by
 }
 
 """
@@ -516,6 +537,7 @@ aggregate stddev_samp on columns
 """
 type accounts_stddev_samp_fields {
   expires_at: Float
+  refresh_expires_in: Float
 }
 
 """
@@ -523,6 +545,41 @@ order by stddev_samp() on columns of table "accounts"
 """
 input accounts_stddev_samp_order_by {
   expires_at: order_by
+  refresh_expires_in: order_by
+}
+
+"""
+Streaming cursor of the table "accounts"
+"""
+input accounts_stream_cursor_input {
+  """
+  Stream column input with initial value
+  """
+  initial_value: accounts_stream_cursor_value_input!
+
+  """
+  cursor ordering
+  """
+  ordering: cursor_ordering
+}
+
+"""
+Initial value of the column from where the streaming should start
+"""
+input accounts_stream_cursor_value_input {
+  access_token: String
+  expires_at: Int
+  id: String
+  id_token: String
+  provider: String
+  providerAccountId: String
+  refresh_expires_in: Int
+  refresh_token: String
+  scope: String
+  session_state: String
+  token_type: String
+  type: String
+  userId: String
 }
 
 """
@@ -530,6 +587,7 @@ aggregate sum on columns
 """
 type accounts_sum_fields {
   expires_at: Int
+  refresh_expires_in: Int
 }
 
 """
@@ -537,6 +595,7 @@ order by sum() on columns of table "accounts"
 """
 input accounts_sum_order_by {
   expires_at: order_by
+  refresh_expires_in: order_by
 }
 
 """
@@ -576,6 +635,11 @@ enum accounts_update_column {
   """
   column name
   """
+  refresh_expires_in
+
+  """
+  column name
+  """
   refresh_token
 
   """
@@ -604,11 +668,25 @@ enum accounts_update_column {
   userId
 }
 
+input accounts_updates {
+  """
+  increments the numeric columns with given value of the filtered values
+  """
+  _inc: accounts_inc_input
+
+  """
+  sets the columns of the filtered rows to the given values
+  """
+  _set: accounts_set_input
+  where: accounts_bool_exp!
+}
+
 """
 aggregate var_pop on columns
 """
 type accounts_var_pop_fields {
   expires_at: Float
+  refresh_expires_in: Float
 }
 
 """
@@ -616,6 +694,7 @@ order by var_pop() on columns of table "accounts"
 """
 input accounts_var_pop_order_by {
   expires_at: order_by
+  refresh_expires_in: order_by
 }
 
 """
@@ -623,6 +702,7 @@ aggregate var_samp on columns
 """
 type accounts_var_samp_fields {
   expires_at: Float
+  refresh_expires_in: Float
 }
 
 """
@@ -630,6 +710,7 @@ order by var_samp() on columns of table "accounts"
 """
 input accounts_var_samp_order_by {
   expires_at: order_by
+  refresh_expires_in: order_by
 }
 
 """
@@ -637,6 +718,7 @@ aggregate variance on columns
 """
 type accounts_variance_fields {
   expires_at: Float
+  refresh_expires_in: Float
 }
 
 """
@@ -644,6 +726,22 @@ order by variance() on columns of table "accounts"
 """
 input accounts_variance_order_by {
   expires_at: order_by
+  refresh_expires_in: order_by
+}
+
+"""
+ordering argument of a cursor
+"""
+enum cursor_ordering {
+  """
+  ascending ordering of the cursor
+  """
+  ASC
+
+  """
+  descending ordering of the cursor
+  """
+  DESC
 }
 
 """
@@ -899,6 +997,16 @@ type mutation_root {
   ): accounts
 
   """
+  update multiples rows of table: "accounts"
+  """
+  update_accounts_many(
+    """
+    updates to execute, in order
+    """
+    updates: [accounts_updates!]!
+  ): [accounts_mutation_response]
+
+  """
   update data of the table: "passwords"
   """
   update_passwords(
@@ -935,6 +1043,16 @@ type mutation_root {
   ): passwords
 
   """
+  update multiples rows of table: "passwords"
+  """
+  update_passwords_many(
+    """
+    updates to execute, in order
+    """
+    updates: [passwords_updates!]!
+  ): [passwords_mutation_response]
+
+  """
   update data of the table: "sessions"
   """
   update_sessions(
@@ -959,6 +1077,16 @@ type mutation_root {
     _set: sessions_set_input
     pk_columns: sessions_pk_columns_input!
   ): sessions
+
+  """
+  update multiples rows of table: "sessions"
+  """
+  update_sessions_many(
+    """
+    updates to execute, in order
+    """
+    updates: [sessions_updates!]!
+  ): [sessions_mutation_response]
 
   """
   update data of the table: "users"
@@ -987,6 +1115,16 @@ type mutation_root {
   ): users
 
   """
+  update multiples rows of table: "users"
+  """
+  update_users_many(
+    """
+    updates to execute, in order
+    """
+    updates: [users_updates!]!
+  ): [users_mutation_response]
+
+  """
   update data of the table: "verificationTokens"
   """
   update_verificationTokens(
@@ -1000,6 +1138,16 @@ type mutation_root {
     """
     where: verificationTokens_bool_exp!
   ): verificationTokens_mutation_response
+
+  """
+  update multiples rows of table: "verificationTokens"
+  """
+  update_verificationTokens_many(
+    """
+    updates to execute, in order
+    """
+    updates: [verificationTokens_updates!]!
+  ): [verificationTokens_mutation_response]
 }
 
 """
@@ -1342,6 +1490,32 @@ input passwords_stddev_samp_order_by {
 }
 
 """
+Streaming cursor of the table "passwords"
+"""
+input passwords_stream_cursor_input {
+  """
+  Stream column input with initial value
+  """
+  initial_value: passwords_stream_cursor_value_input!
+
+  """
+  cursor ordering
+  """
+  ordering: cursor_ordering
+}
+
+"""
+Initial value of the column from where the streaming should start
+"""
+input passwords_stream_cursor_value_input {
+  attempts: Int
+  hash: String
+  iterations: Int
+  salt: String
+  userId: String
+}
+
+"""
 aggregate sum on columns
 """
 type passwords_sum_fields {
@@ -1385,6 +1559,19 @@ enum passwords_update_column {
   column name
   """
   userId
+}
+
+input passwords_updates {
+  """
+  increments the numeric columns with given value of the filtered values
+  """
+  _inc: passwords_inc_input
+
+  """
+  sets the columns of the filtered rows to the given values
+  """
+  _set: passwords_set_input
+  where: passwords_bool_exp!
 }
 
 """
@@ -1437,7 +1624,7 @@ input passwords_variance_order_by {
 
 type query_root {
   """
-  fetch data from the table: "accounts"
+  An array relationship
   """
   accounts(
     """
@@ -1467,7 +1654,7 @@ type query_root {
   ): [accounts!]!
 
   """
-  fetch aggregated fields from the table: "accounts"
+  An aggregate relationship
   """
   accounts_aggregate(
     """
@@ -1965,6 +2152,31 @@ input sessions_set_input {
 }
 
 """
+Streaming cursor of the table "sessions"
+"""
+input sessions_stream_cursor_input {
+  """
+  Stream column input with initial value
+  """
+  initial_value: sessions_stream_cursor_value_input!
+
+  """
+  cursor ordering
+  """
+  ordering: cursor_ordering
+}
+
+"""
+Initial value of the column from where the streaming should start
+"""
+input sessions_stream_cursor_value_input {
+  expires: timestamp
+  id: String
+  sessionToken: String
+  userId: String
+}
+
+"""
 update columns of table "sessions"
 """
 enum sessions_update_column {
@@ -1989,9 +2201,17 @@ enum sessions_update_column {
   userId
 }
 
+input sessions_updates {
+  """
+  sets the columns of the filtered rows to the given values
+  """
+  _set: sessions_set_input
+  where: sessions_bool_exp!
+}
+
 type subscription_root {
   """
-  fetch data from the table: "accounts"
+  An array relationship
   """
   accounts(
     """
@@ -2021,7 +2241,7 @@ type subscription_root {
   ): [accounts!]!
 
   """
-  fetch aggregated fields from the table: "accounts"
+  An aggregate relationship
   """
   accounts_aggregate(
     """
@@ -2054,6 +2274,26 @@ type subscription_root {
   fetch data from the table: "accounts" using primary key columns
   """
   accounts_by_pk(id: String!): accounts
+
+  """
+  fetch data from the table in a streaming manner : "accounts"
+  """
+  accounts_stream(
+    """
+    maximum number of rows returned in a single batch
+    """
+    batch_size: Int!
+
+    """
+    cursor to stream the results returned by the query
+    """
+    cursor: [accounts_stream_cursor_input]!
+
+    """
+    filter the rows returned
+    """
+    where: accounts_bool_exp
+  ): [accounts!]!
 
   """
   An array relationship
@@ -2121,6 +2361,26 @@ type subscription_root {
   passwords_by_pk(hash: String!): passwords
 
   """
+  fetch data from the table in a streaming manner : "passwords"
+  """
+  passwords_stream(
+    """
+    maximum number of rows returned in a single batch
+    """
+    batch_size: Int!
+
+    """
+    cursor to stream the results returned by the query
+    """
+    cursor: [passwords_stream_cursor_input]!
+
+    """
+    filter the rows returned
+    """
+    where: passwords_bool_exp
+  ): [passwords!]!
+
+  """
   An array relationship
   """
   sessions(
@@ -2184,6 +2444,26 @@ type subscription_root {
   fetch data from the table: "sessions" using primary key columns
   """
   sessions_by_pk(id: String!): sessions
+
+  """
+  fetch data from the table in a streaming manner : "sessions"
+  """
+  sessions_stream(
+    """
+    maximum number of rows returned in a single batch
+    """
+    batch_size: Int!
+
+    """
+    cursor to stream the results returned by the query
+    """
+    cursor: [sessions_stream_cursor_input]!
+
+    """
+    filter the rows returned
+    """
+    where: sessions_bool_exp
+  ): [sessions!]!
 
   """
   fetch data from the table: "users"
@@ -2251,6 +2531,26 @@ type subscription_root {
   users_by_pk(id: String!): users
 
   """
+  fetch data from the table in a streaming manner : "users"
+  """
+  users_stream(
+    """
+    maximum number of rows returned in a single batch
+    """
+    batch_size: Int!
+
+    """
+    cursor to stream the results returned by the query
+    """
+    cursor: [users_stream_cursor_input]!
+
+    """
+    filter the rows returned
+    """
+    where: users_bool_exp
+  ): [users!]!
+
+  """
   fetch data from the table: "verificationTokens"
   """
   verificationTokens(
@@ -2309,6 +2609,26 @@ type subscription_root {
     """
     where: verificationTokens_bool_exp
   ): verificationTokens_aggregate!
+
+  """
+  fetch data from the table in a streaming manner : "verificationTokens"
+  """
+  verificationTokens_stream(
+    """
+    maximum number of rows returned in a single batch
+    """
+    batch_size: Int!
+
+    """
+    cursor to stream the results returned by the query
+    """
+    cursor: [verificationTokens_stream_cursor_input]!
+
+    """
+    filter the rows returned
+    """
+    where: verificationTokens_bool_exp
+  ): [verificationTokens!]!
 }
 
 scalar timestamp
@@ -2333,7 +2653,7 @@ columns and relationships of "users"
 """
 type users {
   """
-  fetch data from the table: "accounts"
+  An array relationship
   """
   accounts(
     """
@@ -2363,7 +2683,7 @@ type users {
   ): [accounts!]!
 
   """
-  fetch aggregated fields from the table: "accounts"
+  An aggregate relationship
   """
   accounts_aggregate(
     """
@@ -2731,6 +3051,35 @@ input users_set_input {
 }
 
 """
+Streaming cursor of the table "users"
+"""
+input users_stream_cursor_input {
+  """
+  Stream column input with initial value
+  """
+  initial_value: users_stream_cursor_value_input!
+
+  """
+  cursor ordering
+  """
+  ordering: cursor_ordering
+}
+
+"""
+Initial value of the column from where the streaming should start
+"""
+input users_stream_cursor_value_input {
+  blocked: Boolean
+  email: String
+  emailVerified: timestamp
+  firstName: String
+  id: String
+  image: String
+  lastName: String
+  name: String
+}
+
+"""
 update columns of table "users"
 """
 enum users_update_column {
@@ -2773,6 +3122,14 @@ enum users_update_column {
   column name
   """
   name
+}
+
+input users_updates {
+  """
+  sets the columns of the filtered rows to the given values
+  """
+  _set: users_set_input
+  where: users_bool_exp!
 }
 
 """
@@ -2891,4 +3248,36 @@ input verificationTokens_set_input {
   expires: timestamp
   identifier: String
   token: String
+}
+
+"""
+Streaming cursor of the table "verificationTokens"
+"""
+input verificationTokens_stream_cursor_input {
+  """
+  Stream column input with initial value
+  """
+  initial_value: verificationTokens_stream_cursor_value_input!
+
+  """
+  cursor ordering
+  """
+  ordering: cursor_ordering
+}
+
+"""
+Initial value of the column from where the streaming should start
+"""
+input verificationTokens_stream_cursor_value_input {
+  expires: timestamp
+  identifier: String
+  token: String
+}
+
+input verificationTokens_updates {
+  """
+  sets the columns of the filtered rows to the given values
+  """
+  _set: verificationTokens_set_input
+  where: verificationTokens_bool_exp!
 }

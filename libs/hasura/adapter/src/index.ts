@@ -33,6 +33,8 @@ export function adapter(): Adapter {
       return null;
     },
     async linkAccount(account) {
+      // non standard field provided by keycloak causing issues so removing it
+      delete account['not-before-policy'];
       const data = await adminSdk.LinkAccount({
         account: {
           id: uuidv4(),

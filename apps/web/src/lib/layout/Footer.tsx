@@ -4,10 +4,10 @@ const Footer = () => {
   return (
     <Flex as="footer" width="full" align="center">
       <Text>
-        {new Date().getFullYear()} -{' '}
+        {/* {new Date().getFullYear()} -{' '}
         <Link href="https://sznm.dev" isExternal rel="noopener noreferrer">
           sznm.dev
-        </Link>
+        </Link> */}
       </Text>
     </Flex>
   );

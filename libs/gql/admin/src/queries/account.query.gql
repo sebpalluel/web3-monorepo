@@ -7,6 +7,14 @@ mutation DeleteAccount($providerAccountId: String!) {
 mutation LinkAccount($account: accounts_insert_input!) {
   insert_accounts_one(object: $account) {
     ...AccountFields
+    access_token
+    expires_at
+    refresh_expires_in
+    refresh_token
+    token_type
+    id_token
+    session_state
+    scope
     userId
   }
 }

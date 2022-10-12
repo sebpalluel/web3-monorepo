@@ -76,7 +76,19 @@ export function ProvidersBtns({ providers, router, onToggleCollapse }) {
             })
           }
         >
-          Identity Provider
+          Walt.id IDPKit
+        </Button>
+      ) : null}
+      {providers.includes('keycloak') ? (
+        <Button
+          w="full"
+          onClick={() =>
+            signIn('keycloak', {
+              callbackUrl: router.query.callbackUrl?.toString() || '',
+            })
+          }
+        >
+          Keycloak
         </Button>
       ) : null}
       {providers.includes('credentials') ? (

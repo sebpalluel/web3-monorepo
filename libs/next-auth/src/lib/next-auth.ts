@@ -5,6 +5,7 @@ import type { JWT, JWTOptions, getToken } from 'next-auth/jwt';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import KeycloakProvider from 'next-auth/providers/keycloak';
 
 import { adapter } from '@boilerplate/hasura-adapter';
 import { IdentityProvider } from '@boilerplate/dlt/identity-provider';
@@ -174,6 +175,16 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET)
     })
   );
 
+if (process.env.KEYCLOAK_ID && process.env.KEYCLOAK_SECRET)
+  // available options https://github.com/nextauthjs/next-auth/blob/main/packages/next-auth/src/providers/keycloak.ts
+  providers.push(
+    KeycloakProvider({
+      clientId: process.env.KEYCLOAK_ID,
+      clientSecret: process.env.KEYCLOAK_SECRET,
+      issuer: process.env.KEYCLOAK_ISSUER,
+    })
+  );
+
 export const authOptions: NextAuthOptions = {
   debug: true,
   // https://next-auth.js.org/configuration/providers/oauth
@@ -224,7 +235,7 @@ export const authOptions: NextAuthOptions = {
           accessToken: account.access_token,
           accessTokenExpires: Date.now() + (account?.expires_at as number) * 1000,
           refreshToken: account.refresh_token,
-          user,
+          user: { ...user, name: profile?.name },
           provider: account.provider,
           providerType: account.type,
           role: Roles.user,
