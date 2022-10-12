@@ -1,7 +1,7 @@
 <p align="center"><img src="https://user-images.githubusercontent.com/11297176/195363494-6cc53b41-958d-4493-88b3-2cbfc65a2594.png" width="50%"></p>
 
-[![CodeFactor](https://www.codefactor.io/repository/github/sebpalluel/web3-monorepo-boilerplate/badge)](https://www.codefactor.io/repository/github/sebpalluel/web3-monorepo-boilerplate)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web3-monorepo-boilerplate&metric=alert_status)](https://sonarcloud.io/dashboard?id=sebpalluel_web3-monorepo-boilerplate) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web3-monorepo-boilerplate&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=sebpalluel_web3-monorepo-boilerplate) [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web3-monorepo-boilerplate&metric=bugs)](https://sonarcloud.io/dashboard?id=sebpalluel_web3-monorepo-boilerplate) [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web3-monorepo-boilerplate&metric=code_smells)](https://sonarcloud.io/dashboard?id=sebpalluel_web3-monorepo-boilerplate) [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web3-monorepo-boilerplate&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=sebpalluel_web3-monorepo-boilerplate) [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![CodeFactor](https://www.codefactor.io/repository/github/sebpalluel/web3-monorepo/badge)](https://www.codefactor.io/repository/github/sebpalluel/web3-monorepo)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web3-monorepo&metric=alert_status)](https://sonarcloud.io/dashboard?id=sebpalluel_web3-monorepo) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web3-monorepo&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=sebpalluel_web3-monorepo) [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web3-monorepo&metric=bugs)](https://sonarcloud.io/dashboard?id=sebpalluel_web3-monorepo) [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web3-monorepo&metric=code_smells)](https://sonarcloud.io/dashboard?id=sebpalluel_web3-monorepo) [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web3-monorepo&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=sebpalluel_web3-monorepo) [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 ---
 
@@ -29,9 +29,9 @@ pnpm start
 
 ## Project structure
 
-**View in [NX Graph](https://sebpalluel.github.io/web3-monorepo-boilerplate/?groupByFolder=true&select=all)**
+**View in [NX Graph](https://sebpalluel.github.io/web3-monorepo/?groupByFolder=true&select=all)**
 
-[![name](https://user-images.githubusercontent.com/11297176/195365021-4b35fe89-1a6e-4cfe-a7c0-ab3ef648d95d.png)](https://sebpalluel.github.io/web3-monorepo-boilerplate/?groupByFolder=true&select=all)
+[![name](https://user-images.githubusercontent.com/11297176/195365021-4b35fe89-1a6e-4cfe-a7c0-ab3ef648d95d.png)](https://sebpalluel.github.io/web3-monorepo/?groupByFolder=true&select=all)
 
 ### Access to the services and app URLs
 
@@ -136,18 +136,17 @@ In order to test it, you will need to follow this steps:
 1. Access the [sign in page](http://localhost:3000/auth/signin) and click on the `Walt.id IDPKit` button
 2. Login a new account on the walt.id web wallet by entering any credentials or by connecting your wallet
 3. You will be presented with a page to ask you to get the needed crendentials to be able to connect to the service. Click on the 'Fetch credential from issuer' button.
-<img width="100%" alt="Screenshot 2022-10-12 at 16 16 28" src="https://user-images.githubusercontent.com/11297176/195373255-f99bdf2b-58cc-4456-821e-4d19903bab13.png">
+   <img width="100%" alt="Screenshot 2022-10-12 at 16 16 28" src="https://user-images.githubusercontent.com/11297176/195373255-f99bdf2b-58cc-4456-821e-4d19903bab13.png">
 4. Put any credentials to go through the fake login page of the 'Demo Issuer Portal'
-<img width="100%" alt="Screenshot 20221004 at 19 00 19" src="https://user-images.githubusercontent.com/11297176/195373255-f99bdf2b-58cc-4456-821e-4d19903bab13.png">
+   <img width="100%" alt="Screenshot 20221004 at 19 00 19" src="https://user-images.githubusercontent.com/11297176/195373255-f99bdf2b-58cc-4456-821e-4d19903bab13.png">
 5. Confirm the claim of the Verifiable ID document.
-<img width="100%" alt="Screenshot 2022-10-12 at 16 16 49" src="https://user-images.githubusercontent.com/11297176/195373642-450081d1-1c77-4123-84e6-d118ec023ef1.png">
+   <img width="100%" alt="Screenshot 2022-10-12 at 16 16 49" src="https://user-images.githubusercontent.com/11297176/195373642-450081d1-1c77-4123-84e6-d118ec023ef1.png">
 6. Accept the 'Received Credentials'
-<img width="100%" alt="Screenshot 2022-10-04 at 19 01 53" src="https://user-images.githubusercontent.com/11297176/193881578-29980b8f-6718-4ebc-8697-bd437a7e2d13.png">
-9. Accept the 'Connection request' of 'Verifiable ID document'
-<img width="100%" alt="Screenshot 2022-10-12 at 16 17 45" src="https://user-images.githubusercontent.com/11297176/195374612-026bc3ce-d9fd-4cf3-9bf4-e52d792989fc.png">
-10. The user is logged in effectively and created on the DB through Hasura (Next Auth do it automatically for a new account)
-<img width="100%" alt="Screenshot 2022-10-12 at 16 35 23" src="https://user-images.githubusercontent.com/11297176/195374649-7b13bab2-bdb1-4a74-aec5-ff6a14061682.png">
-
+   <img width="100%" alt="Screenshot 2022-10-04 at 19 01 53" src="https://user-images.githubusercontent.com/11297176/193881578-29980b8f-6718-4ebc-8697-bd437a7e2d13.png">
+7. Accept the 'Connection request' of 'Verifiable ID document'
+   <img width="100%" alt="Screenshot 2022-10-12 at 16 17 45" src="https://user-images.githubusercontent.com/11297176/195374612-026bc3ce-d9fd-4cf3-9bf4-e52d792989fc.png">
+8. The user is logged in effectively and created on the DB through Hasura (Next Auth do it automatically for a new account)
+   <img width="100%" alt="Screenshot 2022-10-12 at 16 35 23" src="https://user-images.githubusercontent.com/11297176/195374649-7b13bab2-bdb1-4a74-aec5-ff6a14061682.png">
 
 ### Keycloak
 
