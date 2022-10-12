@@ -1,13 +1,38 @@
-# Web3 monorepo boilerplate
+<div style="text-align: center;"><img src="https://user-images.githubusercontent.com/11297176/195341400-f4cdf438-5caf-40f7-8d22-bf37ad89fea9.png
+" width="100%"></div>
 
 [![CodeFactor](https://www.codefactor.io/repository/github/sebpalluel/web3-monorepo-boilerplate/badge)](https://www.codefactor.io/repository/github/sebpalluel/web3-monorepo-boilerplate)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web3-monorepo-boilerplate&metric=alert_status)](https://sonarcloud.io/dashboard?id=sebpalluel_web3-monorepo-boilerplate) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web3-monorepo-boilerplate&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=sebpalluel_web3-monorepo-boilerplate) [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web3-monorepo-boilerplate&metric=bugs)](https://sonarcloud.io/dashboard?id=sebpalluel_web3-monorepo-boilerplate) [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web3-monorepo-boilerplate&metric=code_smells)](https://sonarcloud.io/dashboard?id=sebpalluel_web3-monorepo-boilerplate) [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web3-monorepo-boilerplate&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=sebpalluel_web3-monorepo-boilerplate)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web3-monorepo-boilerplate&metric=alert_status)](https://sonarcloud.io/dashboard?id=sebpalluel_web3-monorepo-boilerplate) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web3-monorepo-boilerplate&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=sebpalluel_web3-monorepo-boilerplate) [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web3-monorepo-boilerplate&metric=bugs)](https://sonarcloud.io/dashboard?id=sebpalluel_web3-monorepo-boilerplate) [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web3-monorepo-boilerplate&metric=code_smells)](https://sonarcloud.io/dashboard?id=sebpalluel_web3-monorepo-boilerplate) [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=sebpalluel_web3-monorepo-boilerplate&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=sebpalluel_web3-monorepo-boilerplate) [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+---
+
+> All you need to start your web3 service, 🔋 included
+
+## Quick install
+
+First you need to install pnpm in your machine.
+
+```shell
+npm install -g pnpm
+```
+
+Install all the dependencies
+
+```shell
+pnpm install
+```
+
+Then you can run the project.
+
+```shell
+pnpm start
+```
 
 ## Project structure
 
-**View in [NX Graph ](https://sebpalluel.github.io/web3-monorepo-boilerplate/?groupByFolder=true&select=all)** <p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="48"></p>
+**View in [NX Graph](https://sebpalluel.github.io/web3-monorepo-boilerplate/?groupByFolder=true&select=all)**
+
+<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="128"></p>
 
 - [**Hasura console**](http://localhost:9695/console)
 
@@ -53,7 +78,52 @@ This repo uses [PNPM](https://pnpm.io/) as a package manager. It includes the fo
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
-### **Next Auth**
+## Docker
+
+This repo is configured to be built with Docker, and Docker compose. To build all apps in this repo:
+
+```shell
+pnpm docker:build
+```
+
+To shutdown all running containers:
+
+```shell
+pnpm docker:stop
+```
+
+To launch all the services containers:
+
+```shell
+pnpm docker:services
+```
+
+The command to run all the services and containers in this repo is
+
+```shell
+pnpm start
+```
+
+The command to run all the containers for unit and integration test is
+
+```shell
+pnpm docker:test
+```
+
+## Utilities
+
+This repo has some additional tools already setup for you:
+
+- [TypeScript](https://www.typescriptlang.org/) for static type checking
+- [ESLint](https://eslint.org/) for code linting
+- [Prettier](https://prettier.io) for code formatting
+- [Jest](https://jestjs.io) test runner for all things JavaScript
+- [Cypress](https://www.cypress.io/) test runner for E2E and components test
+- [Graphql Code Generator](https://www.the-guild.dev/graphql/codegen/) a generator for the graphql schemas and a client builders with provided queries.
+
+## Libraries
+
+### Next Auth
 
 This project use Next-Auth to offer different way of authentication.
 
@@ -79,7 +149,7 @@ In order to test it, you will need to follow this steps:
    10 Accept the received credentials
    <img width="935" alt="Screenshot 2022-10-04 at 19 01 53" src="https://user-images.githubusercontent.com/11297176/193881578-29980b8f-6718-4ebc-8697-bd437a7e2d13.png">
 
-8. After that you will have to come back manually to the login page on http://localhost:3000/auth/signin to click on the 'Walt.id IDPKit' button
+8. After that you will have to come back manually to the login page on <http://localhost:3000/auth/signin> to click on the 'Walt.id IDPKit' button
    ![Screenshot 20221004 at 19 03 35](https://user-images.githubusercontent.com/11297176/193881887-26f29efa-0cc2-44be-8e92-4b9cf6e931d2.png)
 9. Accept the 'Presentation request' of 'Verifiable ID document' by clicking on 'Share'![Screenshot 20221004 at 19 05 15](https://user-images.githubusercontent.com/11297176/193882204-47112a2e-5abd-4a77-a732-3aa15d10b097.png)
 10. The user is logged in effectively and created on the DB through Hasura (Next Auth do it automatically for a new account)
@@ -134,140 +204,6 @@ The graphql queries definition are defined in `libs/gql/user/queries`. We use th
 **Admin**
 
 The graphql queries definition are defined in `libs/gql/admin/queries`. We use a generic sdk with a simple fetch query in order to facilitate the querying the data for the admin role. Those queries are made on the server side of the frontend. Hasura will allow the request through the providing of the `X-Hasura-Admin-Secret`.
-
-## Populate missing env variables
-
-### Google OAuth provider
-
-Follow [this tutorial from google](https://support.google.com/cloud/answer/6158849?hl=en) to setup your own OAuth provider
-
-Once retrieved your <mark>client id</mark> and <mark>client secret</mark> assign them in `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` located in the file `.env.local`
-
-### JWT secret keys
-
-In order to secure your JWT authentication provided by [Next Auth](https://next-auth.js.org/) you are going to need to generate your own RSA-256 keys.
-
-<mark>Important !</mark> For testing purpose, public and private keys are provided on this folder `waltid-idpkit/data/OIDC/keystore/keys/c047f4e42cf54b66ad154d8ce51e03ef`. You are going to need to generate your own. For that, please refer to the section [Configure Hasura and Next Auth with same RSA key](#configure-hasura-and-next-auth-with-same-rsa-key). The keys provided to the idpkit container will need to be the same in order for the authentication process to work.
-
-### Configure your own OIDC client on the IDPKIT server
-
-1. Register a client with the IDP Kits CLI or the API exposed:
-
-```shell
-make idpkit-register-client -n "MyApp" --all-redirect-uris
-```
-
-2. Update the `IDPKIT_CLIENT_ID` and `IDPKIT_CLIENT_SECRET` environment variables based on the response received from the client
-   registration
-
-For more informations to register your own client, [please check this documentation]([Client registration - Docs](https://docs.walt.id/v/idpkit/configuration-and-setup/oidc-manager-configuration/client-registration#register-new-client)).
-
-### NX Cloud access tokens
-
-As refered in the [section about access token in the nx doc,](https://nx.dev/nx-cloud/account/access-tokens) you have different strategies to setup your access to [Nx Cloud](https://nx.app/). In order to beneficiate from local and remote cacheables operations, you can populate use this command to generate an access token allowing <mark>read-write</mark> access:
-
-```shell
-pnpx nx g @nrwl/nx-cloud:init
-```
-
-After that, you are going to need to [setup your workspace on the nx cloud](https://cloud.nx.app/orgs/workspace-setup) after registering an account.
-
-## How to run the project ?
-
-First you need to install pnpm in your machine.
-
-```shell
-npm install -g pnpm
-```
-
-Install all the dependencies
-
-```shell
-pnpm install
-```
-
-Then you can run the project.
-
-```shell
-pnpm start
-```
-
-### Docker
-
-This repo is configured to be built with Docker, and Docker compose. To build all apps in this repo:
-
-```shell
-pnpm docker:build
-```
-
-To shutdown all running containers:
-
-```shell
-pnpm docker:stop
-```
-
-To launch all the services containers:
-
-```shell
-pnpm docker:services
-```
-
-The command to run all the services and containers in this repo is
-
-```shell
-pnpm start
-```
-
-The command to run all the containers for unit and integration test is
-
-```shell
-pnpm docker:test
-```
-
-### Utilities
-
-This repo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-- [Jest](https://jestjs.io) test runner for all things JavaScript
-- [Cypress](https://www.cypress.io/) test runner for E2E and components test
-- [Graphql Code Generator](https://www.the-guild.dev/graphql/codegen/) a generator for the graphql schemas and a client builders with provided queries.
-
-### Configure Hasura and Next Auth with same RSA key
-
-You need to configure hasura and next auth to have the same asymmetric key. One is provided by default but you can generate your own RSA 256 key using those commands:
-
-```shell
-# Don't add passphrase
-
-ssh-keygen -t rsa -P "" -b 4096 -m PEM -f jwtRS256.key
-
-ssh-keygen -e -m PEM -f jwtRS256.key > jwtRS256.key.pub
-```
-
-<https://hasura.io/blog/next-js-jwt-authentication-with-next-auth-and-integration-with-hasura/>
-
-- Copy the public key in a single line format:
-
-```shell
-awk -v ORS='\\n' '1' jwtRS256.key.pub | pbcopy
-```
-
-- Now paste this value in your clipboard to `HASURA_GRAPHQL_JWT_SECRET` env in the format
-
-```shell
-{ "type": "RS256", "key": "<insert-your-public-key-here>"}
-```
-
-- Transform private key into a single line to copy to your clipboard to `NEXTAUTH_SECRET` env
-
-```shell
-awk -v ORS='\\n' '1' jwtRS256.key | pbcopy
-```
-
-Don't forget to add double quotes "" arround so that `\n` are interpreted correctly
 
 ## Test
 
@@ -464,6 +400,77 @@ Nx Cloud pairs with Nx in order to enable you to build and test code more rapidl
 Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
 
 Visit [Nx Cloud](https://nx.app/) to learn more.
+
+## Configure the project with your own env
+
+### Google OAuth provider
+
+Follow [this tutorial from google](https://support.google.com/cloud/answer/6158849?hl=en) to setup your own OAuth provider
+
+Once retrieved your <mark>client id</mark> and <mark>client secret</mark> assign them in `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` located in the file `.env.local`
+
+### JWT secret keys
+
+In order to secure your JWT authentication provided by [Next Auth](https://next-auth.js.org/) you are going to need to generate your own RSA-256 keys.
+
+<mark>Important !</mark> For testing purpose, public and private keys are provided on this folder `waltid-idpkit/data/OIDC/keystore/keys/c047f4e42cf54b66ad154d8ce51e03ef`. You are going to need to generate your own. For that, please refer to the section [Configure Hasura and Next Auth with same RSA key](#configure-hasura-and-next-auth-with-same-rsa-key). The keys provided to the idpkit container will need to be the same in order for the authentication process to work.
+
+### Configure the OIDC client on the IDPKIT server
+
+1. Register a client with the IDP Kits CLI or the API exposed:
+
+```shell
+make idpkit-register-client -n "MyApp" --all-redirect-uris
+```
+
+2. Update the `IDPKIT_CLIENT_ID` and `IDPKIT_CLIENT_SECRET` environment variables based on the response received from the client
+   registration
+
+For more informations to register your own client, [please check this documentation]([Client registration - Docs](https://docs.walt.id/v/idpkit/configuration-and-setup/oidc-manager-configuration/client-registration#register-new-client)).
+
+### NX Cloud access tokens
+
+As refered in the [section about access token in the nx doc,](https://nx.dev/nx-cloud/account/access-tokens) you have different strategies to setup your access to [Nx Cloud](https://nx.app/). In order to beneficiate from local and remote cacheables operations, you can populate use this command to generate an access token allowing <mark>read-write</mark> access:
+
+```shell
+pnpx nx g @nrwl/nx-cloud:init
+```
+
+After that, you are going to need to [setup your workspace on the nx cloud](https://cloud.nx.app/orgs/workspace-setup) after registering an account.
+
+### Configure Hasura and Next Auth with same RSA key
+
+You need to configure hasura and next auth to have the same asymmetric key. One is provided by default but you can generate your own RSA 256 key using those commands:
+
+```shell
+# Don't add passphrase
+
+ssh-keygen -t rsa -P "" -b 4096 -m PEM -f jwtRS256.key
+
+ssh-keygen -e -m PEM -f jwtRS256.key > jwtRS256.key.pub
+```
+
+<https://hasura.io/blog/next-js-jwt-authentication-with-next-auth-and-integration-with-hasura/>
+
+- Copy the public key in a single line format:
+
+```shell
+awk -v ORS='\\n' '1' jwtRS256.key.pub | pbcopy
+```
+
+- Now paste this value in your clipboard to `HASURA_GRAPHQL_JWT_SECRET` env in the format
+
+```shell
+{ "type": "RS256", "key": "<insert-your-public-key-here>"}
+```
+
+- Transform private key into a single line to copy to your clipboard to `NEXTAUTH_SECRET` env
+
+```shell
+awk -v ORS='\\n' '1' jwtRS256.key | pbcopy
+```
+
+Don't forget to add double quotes "" arround so that `\n` are interpreted correctly
 
 ## Troubleshoot
 
