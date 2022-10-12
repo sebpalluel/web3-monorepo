@@ -235,7 +235,7 @@ export const authOptions: NextAuthOptions = {
           accessToken: account.access_token,
           accessTokenExpires: Date.now() + (account?.expires_at as number) * 1000,
           refreshToken: account.refresh_token,
-          user,
+          user: { ...user, name: profile?.name },
           provider: account.provider,
           providerType: account.type,
           role: Roles.user,

@@ -79,7 +79,23 @@ export const IdentityProvider = (params: IdentityProviderParams) => {
       },
     },
     profile(profile) {
-      return { id: profile.sub };
+      // {
+      //   sub: 'did:key:z6MkhjJpQmhNypbzkhBob51jPGQBCUTg63m6hoDT8APfnAHt',
+      //   birthdate: '1993-04-08',
+      //   gender: 'FEMALE',
+      //   name: 'Jane DOE',
+      //   given_name: 'Jane',
+      //   family_name: 'DOE',
+      //   email: undefined,
+      //   emailVerified: null
+      // }
+      return {
+        id: profile.sub,
+        name: profile.name,
+        email: profile.email,
+        firstName: profile.given_name,
+        lastName: profile.family_name,
+      };
     },
   } as Provider;
 };
