@@ -30,7 +30,8 @@
       "@boilerplate/test-utils-db": ["libs/test-utils/db/src/index.ts"],
       "@boilerplate/test-utils-gql": ["libs/test-utils/gql/src/index.ts"],
       "@boilerplate/utils": ["libs/utils/src/index.ts"],
-      "@web/*": ["apps/web/src/*"]
+      "@web/*": ["apps/web/src/*"],
+      "gql-thegraph": ["libs/gql/thegraph/src/index.ts"]
     }
   },
   "include": [],

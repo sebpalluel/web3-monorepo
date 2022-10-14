@@ -5,6 +5,7 @@
     "dlt-identity-provider": "libs/dlt/identity-provider",
     "dlt-types": "libs/dlt/types",
     "gql-admin": "libs/gql/admin",
+    "gql-thegraph": "libs/gql/thegraph",
     "gql-user": "libs/gql/user",
     "hasura-adapter": "libs/hasura/adapter",
     "hasura-fetcher": "libs/hasura/fetcher",
