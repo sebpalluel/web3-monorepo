@@ -91,6 +91,11 @@ const Header = () => {
                 <a>Me</a>
               </Link>
             </li>
+            <li className={styles.navItem}>
+              <Link href="/blockchain">
+                <a>Blockchain</a>
+              </Link>
+            </li>
           </ul>
         </nav>
       </Heading>

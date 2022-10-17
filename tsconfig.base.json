@@ -18,6 +18,7 @@
       "@boilerplate/dlt/identity-provider": ["libs/dlt/identity-provider/src/index.ts"],
       "@boilerplate/dlt/types": ["libs/dlt/types/src/index.ts"],
       "@boilerplate/gql-admin": ["libs/gql/admin/src/generated/index.ts"],
+      "@boilerplate/gql-thegraph": ["libs/gql/thegraph/src/index.ts"],
       "@boilerplate/gql-user": ["libs/gql/user/src/generated/index.ts"],
       "@boilerplate/hasura-adapter": ["libs/hasura/adapter/src/index.ts"],
       "@boilerplate/hasura-fetcher": ["libs/hasura/fetcher/src/index.ts"],
@@ -30,8 +31,7 @@
       "@boilerplate/test-utils-db": ["libs/test-utils/db/src/index.ts"],
       "@boilerplate/test-utils-gql": ["libs/test-utils/gql/src/index.ts"],
       "@boilerplate/utils": ["libs/utils/src/index.ts"],
-      "@web/*": ["apps/web/src/*"],
-      "gql-thegraph": ["libs/gql/thegraph/src/index.ts"]
+      "@web/*": ["apps/web/src/*"]
     }
   },
   "include": [],
