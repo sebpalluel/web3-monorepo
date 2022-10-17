@@ -63,7 +63,8 @@ The login to access the [**administration console**](http://localhost:8100/auth/
 - `apps/web`: a [Next.js](https://nextjs.org) app
 - `apps/web-e2e`: Cypress e2e test for the web app
 - `hasura`: contain the config / metadata / migrations / seeds for the [Hasura](https://hasura.io/) service
-- `libs/gql`: a library containing all the GraphQL queries and mutations and the generated schemas to be used on the web app. It is divided on 3 folders: `user`, `admin` and `anonymous` depending of the role of the user.
+- `libs/gql/[user, admin]`: a library containing all the GraphQL queries and mutations and the generated schemas to be used on the web app. It is divided on 3 folders: `user`, `admin` and `anonymous` depending of the role of the user.
+- `libs/gql/thegraph`: a library that use [The Graph](https://thegraph.com/en/) protocol in order to query data directly from smart contract on the blockchain.
 - `libs/hasura`: Utilities to interact with hasura.
 - `libs/logger`: Isomorphic logger (a small wrapper around console.log)
 - `libs/next-auth`: Contain all the configs for [Next-Auth](https://next-auth.js.org/)
@@ -117,6 +118,7 @@ This repo has some additional tools already setup for you:
 - [Jest](https://jestjs.io) test runner for all things JavaScript
 - [Cypress](https://www.cypress.io/) test runner for E2E and components test
 - [Graphql Code Generator](https://www.the-guild.dev/graphql/codegen/) a generator for the graphql schemas and a client builders with provided queries.
+- [The Graph: Graph Client](https://github.com/graphprotocol/graph-client) a library to easily query the data from smart contract on supported blockchain such as Ethereum.
 
 ## Libraries
 
@@ -183,7 +185,7 @@ make idpkit-register-client -r http://localhost:8100/auth/realms/master/broker/o
 Be sure to copy the id and secret from the output in order to register it on keycloak.
 As you are running both keycloak and idpkit from docker, the resulting address in `Discovery endpoint` should be `http://idpkit:9080/api/oidc/.well-known/openid-configuration`
 
-### **GraphQL code generator**
+### GraphQL code generator
 
 The command `pnpm start` will launch the `graphql-codegen`script. All the codegen definitions are written in the file `codegen.yml`.
 
@@ -198,6 +200,16 @@ The graphql queries definition are defined in `libs/gql/user/queries`. We use th
 **Admin**
 
 The graphql queries definition are defined in `libs/gql/admin/queries`. We use a generic sdk with a simple fetch query in order to facilitate the querying the data for the admin role. Those queries are made on the server side of the frontend. Hasura will allow the request through the providing of the `X-Hasura-Admin-Secret`.
+
+### The Graph: Graph Client
+
+The [Graph Client library](https://github.com/graphprotocol/graph-client) is used in order to interact easily with any smart contract on blockchain supported by [The Graph protocol](https://thegraph.com/en/).
+
+The library located in `libs/gql/thegraph` integrate the client and the toolset from The Graph in order to generate the graphql code to be used by the web app to fetch live data from desired smart contracts.
+
+The query are defined in `libs/gql/thegraph/queries` and the smart contract sources are defined in `libs/gql/thegraph/src/.graphclientrc.yml`. When updating queries or smart contract sources, be sure to launch the command `pnpm thegraph-build` in order to generate the new version of the generated files located in `libs/gql/thegraph/.graphclient`.
+
+You can find an example of live query of smart contract on the [Blockchain page](http://localhost:3000/blockchain).
 
 ## Test
 
