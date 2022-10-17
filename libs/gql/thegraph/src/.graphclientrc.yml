@@ -9,4 +9,4 @@ sources:
         endpoint: https://api.thegraph.com/subgraphs/name/graphprotocol/compound-v2
 
 documents:
-  - ./libs/gql/thegraph/src/queries/*[.graphql, .gql]
+  - ./queries/*[.graphql, .gql]

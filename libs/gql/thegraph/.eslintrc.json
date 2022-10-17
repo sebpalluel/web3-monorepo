@@ -1,13 +1,13 @@
 {
   "extends": ["../../../.eslintrc.json"],
-  "ignorePatterns": ["!**/*"],
+  "ignorePatterns": ["./src/.graphclient/**"],
   "overrides": [
     {
       "files": ["src/queries/**/*.gql"],
       "extends": "plugin:@graphql-eslint/operations-all",
       "parserOptions": {
         "operations": ["src/queries/**/*.gql"],
-        "schema": "src/generated/.graphclient/**/introspectionSchema.ts"
+        "schema": "src/.graphclient/**/introspectionSchema.ts"
       },
       "rules": {
         "@graphql-eslint/no-deprecated": "warn",

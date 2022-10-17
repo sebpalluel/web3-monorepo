@@ -1,1 +1,1 @@
-export * from './generated/.graphclient';
+export * from './.graphclient';
