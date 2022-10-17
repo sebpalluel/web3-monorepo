@@ -1,1 +1,1 @@
-export * from './lib/gql-thegraph';
+export * from './generated/.graphclient';
