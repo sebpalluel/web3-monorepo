@@ -124,6 +124,8 @@ This repo has some additional tools already setup for you:
 
 ### Next Auth
 
+<p align="center"><img src="https://user-images.githubusercontent.com/11297176/196224807-718c7649-b946-423e-9449-92ef244a6816.png" width="15%"></p>
+
 This project use Next-Auth to offer different way of authentication.
 
 You can offer login with OAuth2 providers from Google and Github by providing the corresponding env variables.
@@ -131,6 +133,8 @@ You can offer login with OAuth2 providers from Google and Github by providing th
 Additionally, the boilerplate offer a way to authenticate through email + password credentials with the adapter to handle the request with Hasura. You can find this adapter in `libs/hasura/adapter`
 
 ### Waltid-idpkit
+
+<p align="center"><img src="https://user-images.githubusercontent.com/11297176/196224973-525515ff-73f4-4d9d-925d-ba3090ee8974.png" width="15%"></p>
 
 This project use the IDP kit in order to offer web3 sign in.
 In order to test it, you will need to follow this steps:
@@ -151,6 +155,8 @@ In order to test it, you will need to follow this steps:
    <img width="100%" alt="Screenshot 2022-10-12 at 16 35 23" src="https://user-images.githubusercontent.com/11297176/195374649-7b13bab2-bdb1-4a74-aec5-ff6a14061682.png">
 
 ### Keycloak
+
+<p align="center"><img src="https://user-images.githubusercontent.com/11297176/196224605-402a6adc-c25e-4ca9-a88c-42b3269e7273.png" width="30%"></p>
 
 We use Keycloak as the main provider to authenticate with credentials or federated sign in with google. The IDP kit server is linked through with OpenID Connect protocol. Keycloak is then used as a provider by Next Auth to handle all the authentication process on the web application.
 
@@ -187,6 +193,8 @@ As you are running both keycloak and idpkit from docker, the resulting address i
 
 ### GraphQL code generator
 
+<p align="center"><img src="https://user-images.githubusercontent.com/11297176/196225336-16072309-c798-4263-85ed-b5332509dc99.jpeg" width="20%"></p>
+
 The command `pnpm start` will launch the `graphql-codegen`script. All the codegen definitions are written in the file `codegen.yml`.
 
 The generator is divided in two parts, corresponding to the role of `user` and `admin`, targeting the graphql hasura server for those respective roles.
@@ -203,6 +211,8 @@ The graphql queries definition are defined in `libs/gql/admin/queries`. We use a
 
 ### The Graph: Graph Client
 
+<p align="center"><img src="https://user-images.githubusercontent.com/11297176/196224114-2521564d-6da6-4ee0-b2d6-e09655477913.png" width="20%"></p>
+
 The [Graph Client library](https://github.com/graphprotocol/graph-client) is used in order to interact easily with any smart contract on blockchain supported by [The Graph protocol](https://thegraph.com/en/).
 
 The library located in `libs/gql/thegraph` integrate the client and the toolset from The Graph in order to generate the graphql code to be used by the web app to fetch live data from desired smart contracts.
@@ -214,6 +224,8 @@ You can find an example of live query of smart contract on the [Blockchain page]
 ## Test
 
 ### Jest
+
+<p align="center"><img src="https://user-images.githubusercontent.com/11297176/196227843-0616474f-f801-49ad-bf87-b0f27baac0f2.png" width="25%"></p>
 
 Jest is the test-runner used for unit and integration tests.
 
@@ -252,6 +264,8 @@ Those clients located in `test-utils-gql`library offer you GraphQL instances wit
 You can check the test on <mark>users.spec.ts</mark> and <mark>adapter.spec.ts</mark> for example usages of thoses utilities.
 
 ### Cypress
+
+<p align="center"><img src="https://user-images.githubusercontent.com/11297176/196226285-40932c18-00e4-4bf4-b8cf-b2af9cda6d0e.png" width="40%"></p>
 
 Cypress is the test runner used for e2e test and component test.
 
