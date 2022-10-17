@@ -17,7 +17,7 @@
     "nx-graph-static": "nx graph --file=static/nx-graph/index.html",
     "help": "nx help",
     "graphql-codegen": "nx run web:gql",
-    "thegraph-build": "graphclient build",
+    "thegraph-build": "graphclient build --dir libs/gql/thegraph/src",
     "thegraph": "graphclient",
     "affected:build": "nx affected:build",
     "affected:e2e": "pnpm docker:services && nx affected:e2e",

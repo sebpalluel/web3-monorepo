@@ -40,8 +40,8 @@ module.exports = {
     },
     thegraph: {
       schema: [
-        `${gqlPath}/thegraph/src/generated/.graphclient/schema.graphql`,
-        `${gqlPath}/thegraph/src/generated/.graphclient/sources/**/schema.graphql`,
+        `${gqlPath}/thegraph/src/.graphclient/schema.graphql`,
+        `${gqlPath}/thegraph/src/.graphclient/sources/**/schema.graphql`,
       ],
       documents: `${gqlPath}/thegraph/src/queries/**/*.gql`,
     },
