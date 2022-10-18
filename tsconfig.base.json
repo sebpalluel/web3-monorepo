@@ -30,9 +30,10 @@
       "@boilerplate/test-utils-cypress": ["libs/test-utils/cypress/src/index.ts"],
       "@boilerplate/test-utils-db": ["libs/test-utils/db/src/index.ts"],
       "@boilerplate/test-utils-gql": ["libs/test-utils/gql/src/index.ts"],
+      "@boilerplate/ui-components": ["libs/ui/components/src/index.ts"],
       "@boilerplate/ui-shared": ["libs/ui/shared/src/index.ts"],
+      "@boilerplate/ui-theme": ["libs/ui/theme/src/index.ts"],
       "@boilerplate/utils": ["libs/utils/src/index.ts"],
-      "@ui/shared": ["libs/ui-old/src/index.ts"],
       "@web/*": ["apps/web/src/*"]
     }
   },
