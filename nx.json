@@ -43,7 +43,8 @@
           "affected:test",
           "e2e",
           "affected:e2e",
-          "clean"
+          "clean",
+          "build-storybook"
         ],
         "parallel": true,
         "accessToken": "ZmMwYzlkZTktYjUzOS00ZTc5LTljMDAtOGNhMTg3NGQxOTEzfHJlYWQtd3JpdGU=",
@@ -62,6 +63,9 @@
     },
     "test": {
       "inputs": ["noMarkdown", "^noMarkdown"]
+    },
+    "build-storybook": {
+      "inputs": ["default", "^default", "{workspaceRoot}/.storybook/**/*"]
     }
   },
   "generators": {
