@@ -5,7 +5,7 @@ import Document, { Html, Head, Main, NextScript } from 'next/document';
 
 import customTheme from '../lib/styles/customTheme';
 
-const APP_NAME = 'nextarter-chakra';
+const APP_NAME = 'web3-monorepo';
 
 class MyDocument extends Document {
   static getInitialProps(ctx: DocumentContext) {
