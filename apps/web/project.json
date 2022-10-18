@@ -11,6 +11,13 @@
         "root": "apps/web",
         "outputPath": "dist/apps/web"
       },
+      "assets": [
+        {
+          "input": "libs/ui/shared/src/assets",
+          "glob": "**/*",
+          "output": "assets"
+        }
+      ],
       "configurations": {
         "development": {
           "outputPath": "tmp/apps/web"
@@ -27,7 +34,14 @@
         "buildTarget": "web:build",
         "hmr": true,
         "port": 3000,
-        "dev": true
+        "dev": true,
+        "assets": [
+          {
+            "input": "libs/ui/shared/src/assets",
+            "glob": "**/*",
+            "output": "assets"
+          }
+        ]
       },
       "configurations": {
         "development": {
