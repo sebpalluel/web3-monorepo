@@ -18,5 +18,5 @@ basic.argTypes = {
   children: { type: 'string' },
 };
 basic.args = {
-  children: 'Button',
+  children: 'Button Test',
 };
