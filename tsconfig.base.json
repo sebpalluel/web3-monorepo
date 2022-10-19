@@ -34,6 +34,7 @@
       "@boilerplate/ui-shared": ["libs/ui/shared/src/index.ts"],
       "@boilerplate/ui-theme": ["libs/ui/theme/src/index.ts"],
       "@boilerplate/utils": ["libs/utils/src/index.ts"],
+      "@boilerplate/workspace": ["libs/workspace/src/index.ts"],
       "@web/*": ["apps/web/src/*"]
     }
   },
