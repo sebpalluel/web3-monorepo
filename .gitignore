@@ -61,6 +61,7 @@ testem.log
 *.pem
 *.log
 *.eslintcache
+storybook-static
 
 # System Files
 .DS_Store
