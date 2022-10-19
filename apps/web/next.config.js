@@ -24,17 +24,24 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV !== 'development',
   },
-  nx: {
-    // Set this to true if you would like to to use SVGR
-    // See: https://github.com/gregberge/svgr
-    svgr: false,
-  },
 };
 
-module.exports = () => {
+module.exports = (_phase, { defaultConfig }) => {
+  // Workaround https://github.com/cyrilwanner/next-compose-plugins/issues/59#issuecomment-1248439850
+  delete defaultConfig.webpackDevMiddleware;
+  delete defaultConfig.configOrigin;
+  delete defaultConfig.target;
+  delete defaultConfig.webpack5;
+  delete defaultConfig.amp.canonicalBase;
+  delete defaultConfig.experimental.outputFileTracingRoot;
+  delete defaultConfig.i18n;
+
   const plugins = [withPWA, withNx];
-  const config = plugins.reduce((acc, next) => next(acc), {
-    ...nextConfig,
-  });
-  return config;
+  return plugins.reduce(
+    (acc, plugin) => (typeof plugin == 'function' ? plugin(acc) : acc),
+    {
+      ...defaultConfig,
+      ...nextConfig,
+    }
+  );
 };
