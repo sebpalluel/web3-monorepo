@@ -47,9 +47,5 @@ describe('component generator', () => {
     expect(
       tree.exists(joinPathFragments(sourceRoot, 'lib/data-table/DataTable.stories.tsx'))
     ).toBe(true);
-
-    expect(
-      tree.exists(joinPathFragments(e2eSourceRoot, '/e2e/DataTable/DataTable.cy.ts'))
-    ).toBe(true);
   });
 });
