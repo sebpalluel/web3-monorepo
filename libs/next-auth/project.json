@@ -5,7 +5,7 @@
   "tags": ["data-access"],
   "targets": {
     "build": {
-      "executor": "@nrwl/web:rollup",
+      "executor": "@nrwl/rollup:rollup",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/next-auth",
@@ -33,7 +33,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/next-auth"],
+      "outputs": ["{workspaceRoot}/coverage/libs/next-auth"],
       "options": {
         "jestConfig": "libs/next-auth/jest.config.ts",
         "passWithNoTests": true
