@@ -2,6 +2,12 @@ name: 'Chromatic'
 
 on:
   pull_request:
+    paths:
+      - libs/ui
+  push:
+    branches: ['main']
+    paths:
+      - libs/ui
 
 jobs:
   chromatic-deployment:
