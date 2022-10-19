@@ -19,8 +19,8 @@
     "**/*.tsx",
     "**/*.js",
     "**/*.jsx",
-    "next-env.d.ts",
-    "next-auth.d.ts"
+    "types/next-env.d.ts",
+    "types/next-auth.d.ts"
   ],
   "exclude": [
     "node_modules",
