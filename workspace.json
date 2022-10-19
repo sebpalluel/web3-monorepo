@@ -17,6 +17,7 @@
     "test-utils-db": "libs/test-utils/db",
     "test-utils-gql": "libs/test-utils/gql",
     "ui-components": "libs/ui/components",
+    "ui-components-e2e": "apps/ui-components-e2e",
     "ui-shared": "libs/ui/shared",
     "ui-theme": "libs/ui/theme",
     "utils": "libs/utils",
