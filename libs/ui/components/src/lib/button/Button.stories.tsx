@@ -1,18 +1,11 @@
 import { StoryFn } from '@storybook/react';
 import { Button } from './Button';
-import { Container, ThemingProps, theme } from '@chakra-ui/react';
+import { ThemingProps, theme } from '@chakra-ui/react';
 import { getThemingArgTypes } from '@chakra-ui/storybook-addon';
 
 export default {
   component: Button,
   title: 'Atoms/Button',
-  decorators: [
-    (Story: any) => (
-      <Container mt="40px" display="flex" flexWrap="wrap" gap="4">
-        <Story />
-      </Container>
-    ),
-  ],
 };
 
 interface StoryProps extends ThemingProps<'Button'> {
