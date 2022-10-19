@@ -1,5 +1,4 @@
 import { formatFiles, installPackagesTask, Tree, names } from '@nrwl/devkit';
-import { componentCypressGenerator } from '@nrwl/react/src/generators/component-cypress-spec/component-cypress-spec';
 import { componentStoryGenerator } from '@nrwl/react/src/generators/component-story/component-story';
 import { componentGenerator as reactComponentGenerator } from '@nrwl/react/src/generators/component/component';
 import { ComponentGeneratorSchema } from './schema';
@@ -20,8 +19,6 @@ export async function componentGenerator(
   });
 
   await componentStoryGenerator(tree, { project, componentPath });
-
-  componentCypressGenerator(tree, { project, componentPath });
 
   await formatFiles(tree);
 
