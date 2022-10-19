@@ -1,12 +1,29 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn } from '@storybook/react';
 import { Button } from './Button';
+import { Container, ThemingProps, theme } from '@chakra-ui/react';
+import { getThemingArgTypes } from '@chakra-ui/storybook-addon';
 
 export default {
   component: Button,
-  title: 'Button',
-} as ComponentMeta<typeof Button>;
+  title: 'Atoms/Button',
+  decorators: [
+    (Story: any) => (
+      <Container mt="40px" display="flex" flexWrap="wrap" gap="4">
+        <Story />
+      </Container>
+    ),
+  ],
+};
 
-const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
+interface StoryProps extends ThemingProps<'Button'> {
+  children?: React.ReactNode;
+}
 
-export const Primary = Template.bind({});
-Primary.args = {};
+export const basic: StoryFn<StoryProps> = (props) => <Button {...props} />;
+basic.argTypes = {
+  ...getThemingArgTypes(theme, 'Button'),
+  children: { type: 'string' },
+};
+basic.args = {
+  children: 'Button',
+};

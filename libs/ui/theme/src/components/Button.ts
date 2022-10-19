@@ -2,7 +2,7 @@ import { SystemStyleFunction, mode, StyleFunctionProps } from '@chakra-ui/theme-
 import { ComponentStyleConfig } from '@chakra-ui/react';
 
 const baseStyle: SystemStyleFunction = (props: StyleFunctionProps) => ({
-  color: mode(props.theme.colors.neutral['100'], props.theme.colors.neutral['0'])(props),
+  // color: mode(props.theme.colors.neutral['100'], props.theme.colors.neutral['0'])(props),
 
   padding: '2px',
   _disabled: {

@@ -10,6 +10,8 @@ import * as components from './components';
 const theme: any = extendTheme({
   config,
   ...foundations,
-  components,
+  components: {
+    ...components,
+  },
 });
 export default theme;
