@@ -22,7 +22,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/gql/admin"],
+      "outputs": ["{workspaceRoot}/coverage/libs/gql/admin"],
       "options": {
         "jestConfig": "libs/gql/admin/jest.config.ts",
         "passWithNoTests": true

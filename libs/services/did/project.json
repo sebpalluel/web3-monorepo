@@ -5,7 +5,7 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@nrwl/web:rollup",
+      "executor": "@nrwl/rollup:rollup",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/services/did",
@@ -33,7 +33,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/services/did"],
+      "outputs": ["{workspaceRoot}/coverage/libs/services/did"],
       "options": {
         "jestConfig": "libs/services/did/jest.config.ts",
         "passWithNoTests": true

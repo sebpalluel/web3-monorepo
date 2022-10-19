@@ -5,7 +5,7 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@nrwl/web:rollup",
+      "executor": "@nrwl/rollup:rollup",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/dlt/identity-provider",
@@ -33,7 +33,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/dlt/identity-provider"],
+      "outputs": ["{workspaceRoot}/coverage/libs/dlt/identity-provider"],
       "options": {
         "jestConfig": "libs/dlt/identity-provider/jest.config.ts",
         "passWithNoTests": true

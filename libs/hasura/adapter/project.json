@@ -22,7 +22,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/hasura/adapter"],
+      "outputs": ["{workspaceRoot}/coverage/libs/hasura/adapter"],
       "options": {
         "jestConfig": "libs/hasura/adapter/jest.config.ts",
         "passWithNoTests": true
