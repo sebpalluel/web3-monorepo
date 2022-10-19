@@ -8,15 +8,12 @@ export default {
   title: 'Atoms/Button',
 };
 
-interface StoryProps extends ThemingProps<'Button'> {
-  children?: React.ReactNode;
-}
-
-export const basic: StoryFn<StoryProps> = (props) => <Button {...props} />;
-basic.argTypes = {
+export const Basic: StoryFn = (props) => <Button {...props} />;
+Basic.argTypes = {
   ...getThemingArgTypes(theme, 'Button'),
+  onClick: { action: 'clicked' },
   children: { type: 'string' },
 };
-basic.args = {
-  children: 'Button Test',
+Basic.args = {
+  children: 'Button',
 };
