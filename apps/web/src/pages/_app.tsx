@@ -4,7 +4,12 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
-import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientProvider,
+  type DehydratedState,
+} from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import defaultSEOConfig from '../../next-seo.config';
@@ -18,6 +23,7 @@ const MyApp = ({
   pageProps,
 }: AppProps<{
   session: Session;
+  dehydratedState: DehydratedState;
 }>) => {
   // https://tanstack.com/query/v4/docs/guides/ssr?from=reactQueryV3&original=https://react-query-v3.tanstack.com/guides/ssr#using-nextjs
   const [queryClient] = useState(() => new QueryClient());
