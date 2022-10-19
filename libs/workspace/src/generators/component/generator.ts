@@ -1,9 +1,8 @@
-import { formatFiles, installPackagesTask, Tree } from '@nrwl/devkit';
+import { formatFiles, installPackagesTask, Tree, names } from '@nrwl/devkit';
 import { componentCypressGenerator } from '@nrwl/react/src/generators/component-cypress-spec/component-cypress-spec';
 import { componentStoryGenerator } from '@nrwl/react/src/generators/component-story/component-story';
 import { componentGenerator as reactComponentGenerator } from '@nrwl/react/src/generators/component/component';
 import { ComponentGeneratorSchema } from './schema';
-import { names } from '@nrwl/devkit';
 import { toPascalCase } from '@boilerplate/utils';
 
 export async function componentGenerator(

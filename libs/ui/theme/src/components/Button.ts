@@ -1,4 +1,4 @@
-import { SystemStyleFunction, mode, StyleFunctionProps } from '@chakra-ui/theme-tools';
+import { SystemStyleFunction, StyleFunctionProps } from '@chakra-ui/theme-tools';
 import { ComponentStyleConfig } from '@chakra-ui/react';
 
 const baseStyle: SystemStyleFunction = (props: StyleFunctionProps) => ({

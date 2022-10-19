@@ -2,8 +2,6 @@ import { render, screen } from '@testing-library/react';
 import { composeStories } from '@storybook/testing-react';
 import * as stories from './Button.stories'; // import all stories from the stories file
 
-import { Button } from './Button';
-
 // Every component that is returned maps 1:1 with the stories, but they already contain all decorators from story level, meta level and global level.
 const { Basic } = composeStories(stories);
 

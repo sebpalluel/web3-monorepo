@@ -1,6 +1,6 @@
 import { StoryFn } from '@storybook/react';
 import { Button } from './Button';
-import { ThemingProps, theme } from '@chakra-ui/react';
+import { theme } from '@chakra-ui/react';
 import { getThemingArgTypes } from '@chakra-ui/storybook-addon';
 
 export default {
