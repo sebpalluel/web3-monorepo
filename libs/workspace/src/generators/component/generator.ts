@@ -15,7 +15,7 @@ export async function componentGenerator(
   await reactComponentGenerator(tree, {
     name: componentName,
     project,
-    style: 'styled-components',
+    style: 'none',
   });
 
   await componentStoryGenerator(tree, { project, componentPath });

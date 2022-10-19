@@ -9,7 +9,7 @@ describe('component generator', () => {
   let tree: Tree;
 
   beforeEach(() => {
-    tree = createTreeWithEmptyWorkspace(2);
+    tree = createTreeWithEmptyWorkspace();
   });
 
   it('should run successfully', async () => {
@@ -18,7 +18,7 @@ describe('component generator', () => {
       linter: Linter.EsLint,
       skipFormat: false,
       skipTsConfig: false,
-      style: 'styled-components',
+      style: 'none',
       unitTestRunner: 'jest',
     });
 
@@ -49,9 +49,7 @@ describe('component generator', () => {
     ).toBe(true);
 
     expect(
-      tree.exists(
-        joinPathFragments(e2eSourceRoot, 'integration/ui-button/ui-button.spec.ts')
-      )
+      tree.exists(joinPathFragments(e2eSourceRoot, '/e2e/ui-button/ui-button.cy.ts'))
     ).toBe(true);
   });
 });
