@@ -1,6 +1,6 @@
 import { dbClient } from '@boilerplate/test-utils-db';
 import { adapter as HasuraAdapter } from './index';
-import { Account } from 'next-auth';
+import { AdapterAccount } from 'next-auth/adapters';
 
 describe('hasura Next Auth Adapter', () => {
   const user = {
@@ -10,7 +10,7 @@ describe('hasura Next Auth Adapter', () => {
     image: null,
     email: 'alpha_admin@test.io',
   };
-  const account: Account = {
+  const account: AdapterAccount = {
     id: '',
     access_token: '',
     expires_at: 12312424,
@@ -70,7 +70,7 @@ describe('hasura Next Auth Adapter', () => {
     email: 'test@keycloak.com',
     image: undefined,
   };
-  const accountKeycloak: Account = {
+  const accountKeycloak: AdapterAccount = {
     provider: 'keycloak',
     type: 'oauth',
     providerAccountId: 'f8924a92-04ee-4d61-9868-a8258220c66e',
