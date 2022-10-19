@@ -1,6 +1,6 @@
 import { Button as ChakraButton, ButtonProps, useStyleConfig } from '@chakra-ui/react';
 
-export default function Button(props: ButtonProps) {
+export function Button(props: ButtonProps) {
   const { variant, ...rest } = props;
 
   const styles = useStyleConfig('Button', { variant });

@@ -12,7 +12,7 @@ describe('component generator', () => {
     tree = createTreeWithEmptyWorkspace();
   });
 
-  it('should run successfully', async () => {
+  it('create react component and unit & e2e test + story', async () => {
     await libraryGenerator(tree, {
       name: 'ui-lib',
       linter: Linter.EsLint,
@@ -29,7 +29,7 @@ describe('component generator', () => {
     });
 
     await generator(tree, {
-      name: 'ui-button',
+      name: 'data-table',
       project: 'ui-lib',
     });
 
@@ -37,19 +37,19 @@ describe('component generator', () => {
     const { sourceRoot: e2eSourceRoot } = readProjectConfiguration(tree, 'ui-lib-e2e');
 
     expect(
-      tree.exists(joinPathFragments(sourceRoot, 'lib/ui-button/ui-button.tsx'))
+      tree.exists(joinPathFragments(sourceRoot, 'lib/data-table/DataTable.tsx'))
     ).toBe(true);
 
     expect(
-      tree.exists(joinPathFragments(sourceRoot, 'lib/ui-button/ui-button.spec.tsx'))
+      tree.exists(joinPathFragments(sourceRoot, 'lib/data-table/DataTable.spec.tsx'))
     ).toBe(true);
 
     expect(
-      tree.exists(joinPathFragments(sourceRoot, 'lib/ui-button/ui-button.stories.tsx'))
+      tree.exists(joinPathFragments(sourceRoot, 'lib/data-table/DataTable.stories.tsx'))
     ).toBe(true);
 
     expect(
-      tree.exists(joinPathFragments(e2eSourceRoot, '/e2e/ui-button/ui-button.cy.ts'))
+      tree.exists(joinPathFragments(e2eSourceRoot, '/e2e/DataTable/DataTable.cy.ts'))
     ).toBe(true);
   });
 });
