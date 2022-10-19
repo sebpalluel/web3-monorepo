@@ -31,7 +31,9 @@
     "docker:hasura-engine-logs": "docker-compose -f docker-compose.yaml --env-file .env.local logs -f hasura-engine",
     "docker:hasura-console-logs": "docker-compose -f docker-compose.yaml --env-file .env.local logs -f hasura-console",
     "prepare": "husky install",
-    "cypress": "cypress"
+    "cypress": "cypress",
+    "build-storybook": " nx run ui-components:build-storybook",
+    "chromatic": "npx chromatic --project-token=af56fcbf28af"
   },
   "private": true,
   "dependencies": {
@@ -110,6 +112,7 @@
     "@storybook/manager-webpack5": "~6.5.9",
     "@storybook/react": "~6.5.9",
     "@storybook/test-runner": "^0.7.2",
+    "@storybook/testing-react": "^1.3.0",
     "@svgr/webpack": "^5.4.0",
     "@swc-node/register": "^1.4.2",
     "@swc/cli": "~0.1.55",
@@ -130,6 +133,7 @@
     "@typescript-eslint/parser": "^5.31.0",
     "babel-jest": "27.5.1",
     "babel-loader": "8.1.0",
+    "chromatic": "^6.10.4",
     "cypress": "^10.2.0",
     "dotenv": "^16.0.1",
     "eslint": "~8.15.0",
@@ -174,5 +178,7 @@
       "nx affected:lint --fix --files",
       "nx format:write --files"
     ]
-  }
+  },
+  "readme": "ERROR: No README data found!",
+  "_id": "boilerplate@0.0.0"
 }
