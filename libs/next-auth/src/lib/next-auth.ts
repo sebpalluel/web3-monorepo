@@ -1,5 +1,6 @@
 import * as jsonwebtoken from 'jsonwebtoken';
 import { NextAuthOptions, User, Account, Profile } from 'next-auth';
+import { AdapterAccount } from 'next-auth/adapters';
 import type { JWT, JWTOptions, getToken } from 'next-auth/jwt';
 // import EmailProvider from 'next-auth/providers/email'
 import GithubProvider from 'next-auth/providers/github';
@@ -213,15 +214,16 @@ export const authOptions: NextAuthOptions = {
       const {
         token,
         user,
+        account,
         profile,
         isNewUser,
       }: {
         token: JWT;
         user?: User;
         profile?: Profile;
+        account?: Account | null | undefined;
         isNewUser?: boolean | undefined;
       } = args;
-      const { account }: { account?: Account } = args;
       // First time user sign in
       if (user && account) {
         logger.debug('jwt user sign in: ', {
@@ -253,11 +255,11 @@ export const authOptions: NextAuthOptions = {
       // Access token has expired, try to update it
       return refreshAccessToken(token);
     },
-    // Add user ID and accessToken to the session
+    // Add user ID to the session
     async session({ session, token }) {
       session.user = token.user as User;
-      session.accessToken = token.accessToken;
-      session.error = token.error;
+      // session.accessToken = token.accessToken;
+      session.error = token.error as string;
       return session;
     },
   },
