@@ -4,18 +4,20 @@ import { componentStoryGenerator } from '@nrwl/react/src/generators/component-st
 import { componentGenerator as reactComponentGenerator } from '@nrwl/react/src/generators/component/component';
 import { ComponentGeneratorSchema } from './schema';
 import { names } from '@nrwl/devkit';
+import { toPascalCase } from '@boilerplate/utils';
 
 export async function componentGenerator(
   tree: Tree,
   { name, project }: ComponentGeneratorSchema
 ) {
   const { fileName: componentFileName, className: componentName } = names(name);
-  const componentPath = `lib/${componentFileName}/${componentFileName}.tsx`;
+  const componentPath = `lib/${componentFileName}/${toPascalCase(componentFileName)}.tsx`;
 
   await reactComponentGenerator(tree, {
     name: componentName,
     project,
     style: 'none',
+    pascalCaseFiles: true,
   });
 
   await componentStoryGenerator(tree, { project, componentPath });

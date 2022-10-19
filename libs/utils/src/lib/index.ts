@@ -21,3 +21,9 @@ export async function fetchJSON(
 }
 
 export const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+export function toPascalCase(s: string): string {
+  return (s.match(/[a-zA-Z0-9]+/g) || [])
+    .map((w) => `${w.charAt(0).toUpperCase()}${w.slice(1)}`)
+    .join('');
+}
