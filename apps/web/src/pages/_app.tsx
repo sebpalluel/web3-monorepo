@@ -12,8 +12,9 @@ import Layout from '../lib/layout';
 import '../lib/styles/globals.css';
 import { useState } from 'react';
 
-const MyApp = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
+const MyApp = ({ Component, pageProps }: AppProps) => {
   // https://tanstack.com/query/v4/docs/guides/ssr?from=reactQueryV3&original=https://react-query-v3.tanstack.com/guides/ssr#using-nextjs
+  const { session, ...props } = pageProps;
   const [queryClient] = useState(() => new QueryClient());
   return (
     <Chakra>
@@ -27,8 +28,8 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps } }: AppProps) =>
       <SessionProvider session={session}>
         <Layout>
           <QueryClientProvider client={queryClient}>
-            <Hydrate state={pageProps.dehydratedState}>
-              <Component {...pageProps} />
+            <Hydrate state={props.dehydratedState}>
+              <Component {...props} />
             </Hydrate>
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
