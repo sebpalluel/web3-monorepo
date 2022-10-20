@@ -31,7 +31,7 @@ jobs:
       # Generate nx graph static site
       - uses: creepinson/pnpm-action@master
         with:
-          arguments: '["install -D nx", "nx-graph-static"]'
+          arguments: '["i -D @nrwl/cli", "nx-graph-static"]'
       - name: Setup Nx Graph Page
         uses: actions/configure-pages@v2
       - name: Upload artifact
