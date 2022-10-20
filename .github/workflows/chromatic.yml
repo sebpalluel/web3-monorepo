@@ -4,10 +4,14 @@ on:
   pull_request:
     paths:
       - libs/ui
+      - apps/web
+      - apps/storybook-main
   push:
     branches: ['main']
     paths:
       - libs/ui
+      - apps/web
+      - apps/storybook-main
 
 jobs:
   chromatic-deployment:

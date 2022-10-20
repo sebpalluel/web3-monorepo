@@ -13,6 +13,7 @@
     "logger": "libs/logger",
     "next-auth": "libs/next-auth",
     "services-did": "libs/services/did",
+    "storybook-main": "apps/storybook-main",
     "test-utils-common": "libs/test-utils/common",
     "test-utils-db": "libs/test-utils/db",
     "test-utils-gql": "libs/test-utils/gql",
