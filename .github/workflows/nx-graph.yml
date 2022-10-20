@@ -29,9 +29,8 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       # Generate nx graph static site
-      - uses: creepinson/pnpm-action@master
-        with:
-          arguments: '["i -D @nrwl/cli", "nx-graph-static"]'
+      - name: Install dependencies and generate nx graph
+        run: yarn add "@nrwl/cli@$(cat ./package.json | jq -r '.devDependencies["@nrwl/cli"]')" && yarn nx-graph-static
       - name: Setup Nx Graph Page
         uses: actions/configure-pages@v2
       - name: Upload artifact
