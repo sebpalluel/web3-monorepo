@@ -5,10 +5,7 @@ const excludedPropNames = propNames.concat(['as', 'apply', 'sx', '__css']);
 
 export const rootMain: StorybookConfig = {
   stories: [],
-  addons: ['@storybook/addon-essentials', '@chakra-ui/storybook-addon'],
-  features: {
-    emotionAlias: false,
-  },
+  addons: ['@storybook/addon-essentials'],
   typescript: {
     check: false,
     checkOptions: {},
