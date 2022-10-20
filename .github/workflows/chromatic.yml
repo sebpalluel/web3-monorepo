@@ -12,6 +12,13 @@ on:
       - libs/ui/**
       - apps/web/**
       - apps/storybook-main/**
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Allow one concurrent deployment
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   chromatic-deployment:
