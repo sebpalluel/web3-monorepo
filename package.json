@@ -32,8 +32,10 @@
     "docker:hasura-console-logs": "docker-compose -f docker-compose.yaml --env-file .env.local logs -f hasura-console",
     "prepare": "husky install",
     "cypress": "cypress",
-    "build-storybook": " nx run ui-components:build-storybook",
-    "chromatic": "npx chromatic --project-token=af56fcbf28af"
+    "build-storybook": " nx run-many --target=build-storybook --all",
+    "chromatic": "npx chromatic --project-token=cbd146078cb4",
+    "storybook-main": "nx run storybook-main:storybook",
+    "storybook-composition": "nx run storybook-main:storybook-composition"
   },
   "private": true,
   "dependencies": {

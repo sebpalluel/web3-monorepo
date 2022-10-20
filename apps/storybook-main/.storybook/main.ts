@@ -1,6 +1,5 @@
 import { rootMain } from '../../../.storybook/main';
 import type { StorybookConfig, Options } from '@storybook/core-common';
-import path from 'path';
 
 const config: StorybookConfig = {
   ...rootMain,
@@ -12,18 +11,17 @@ const config: StorybookConfig = {
     '../src/**/*.stories.mdx',
     '../src/**/*.stories.@(js|jsx|ts|tsx)',
   ],
-  addons: [
-    ...(rootMain.addons || []),
-    '@nrwl/react/plugins/storybook',
-
-    'storybook-addon-swc',
-    {
-      name: 'storybook-addon-next',
-      options: {
-        nextConfigPath: path.resolve(__dirname, '../next.config.js'),
-      },
+  addons: [...(rootMain.addons || []), '@nrwl/react/plugins/storybook'],
+  refs: {
+    'web-app': {
+      title: 'Web App',
+      url: 'http://localhost:4401',
     },
-  ],
+    'ui-library': {
+      title: 'UI Library',
+      url: 'http://localhost:4402',
+    },
+  },
   webpackFinal: async (config, { configType }: Options) => {
     // apply any global webpack configs that might have been specified in .storybook/main.ts
     if (rootMain.webpackFinal) {
