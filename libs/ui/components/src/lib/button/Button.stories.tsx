@@ -8,19 +8,20 @@ import { theme } from '@chakra-ui/react';
 import { getThemingArgTypes } from '@chakra-ui/storybook-addon';
 import { delayData } from '@boilerplate/test-utils-common';
 
-export default {
+const Story: ComponentMeta<typeof Button> = {
   component: Button,
   title: 'Atoms/Button',
-} as ComponentMeta<typeof Button>;
+};
+export default Story;
 
-const Template: ComponentStory<typeof Button> = (props) => <Button {...props} />;
+const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 
-export const Basic = Template.bind({});
-Basic.argTypes = {
+export const Primary = Template.bind({});
+Primary.argTypes = {
   ...getThemingArgTypes(theme, 'Button'),
   children: { type: 'string' },
 };
-Basic.args = {
+Primary.args = {
   action: async () => await delayData(2000, null),
   children: 'Button',
 };

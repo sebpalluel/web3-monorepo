@@ -3,7 +3,7 @@ import { ColorModeScript } from '@chakra-ui/react';
 import type { DocumentContext } from 'next/document';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 
-import customTheme from '../lib/styles/customTheme';
+import theme from '@boilerplate/ui-theme';
 
 const APP_NAME = 'web3-monorepo';
 
@@ -39,7 +39,7 @@ class MyDocument extends Document {
           <link rel="manifest" href="/manifest.json" />
         </Head>
         <body>
-          <ColorModeScript initialColorMode={customTheme.config?.initialColorMode} />
+          <ColorModeScript initialColorMode={theme.config?.initialColorMode} />
           <Main />
           <NextScript />
         </body>

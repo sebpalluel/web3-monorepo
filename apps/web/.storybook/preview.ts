@@ -1,7 +1,7 @@
-import customTheme from '../src/lib/styles/customTheme';
+import theme from '@boilerplate/ui-theme';
 
 export const parameters = {
   chakra: {
-    theme: customTheme,
+    theme,
   },
 };
