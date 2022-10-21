@@ -6,12 +6,12 @@ import * as stories from './Button.stories'; // import all stories from the stor
 const { Basic } = composeStories(stories);
 
 describe('Button', () => {
-  test('renders primary button with default args', () => {
+  test('renders basic button with default args', () => {
     render(<Basic />);
     const buttonElement = screen.getByText(/Button/i);
     expect(buttonElement).not.toBeNull();
   });
-  test('renders primary button with overriden props', () => {
+  test('renders basic button with overriden props', () => {
     render(<Basic>Hello world</Basic>); // you can override props and they will get merged with values from the Story's args
     const buttonElement = screen.getByText(/Hello world/i);
     expect(buttonElement).not.toBeNull();
