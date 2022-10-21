@@ -5,7 +5,10 @@ const excludedPropNames = propNames.concat(['as', 'apply', 'sx', '__css']);
 
 export const rootMain: StorybookConfig = {
   stories: [],
-  addons: ['@storybook/addon-essentials'],
+  addons: ['@storybook/addon-essentials', '@storybook/addon-interactions'],
+  features: {
+    interactionsDebugger: true, // 👈 Enable playback controls
+  },
   typescript: {
     check: false,
     checkOptions: {},
