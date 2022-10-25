@@ -11,6 +11,8 @@ import {
   useStyleConfig,
 } from '@chakra-ui/react';
 
+import { toCssId } from '@boilerplate/ui-shared';
+
 import { UseFormRegisterReturn } from 'react-hook-form';
 
 export type InputProps = FormControlProps &
@@ -50,11 +52,6 @@ export const Input = ({ label, helper, error, input, variant, ...props }: InputP
       <FormErrorMessage __css={styles}>{error}</FormErrorMessage>
     </FormControl>
   );
-};
-
-// ts function to convert a string with any character to a css id and remove any non-alphanumeric characters
-export const toCssId = (str: string) => {
-  return str.replace(/[^a-z0-9]/gi, '_').toLowerCase();
 };
 
 export default Input;
