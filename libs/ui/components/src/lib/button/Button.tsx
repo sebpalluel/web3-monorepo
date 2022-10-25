@@ -14,7 +14,7 @@ export function Button(props: ButtonProps): JSX.Element {
   const { variant, action, isLoading, ...rest } = props;
 
   const styles = useStyleConfig('Button', { variant });
-  const [loading, setLoading] = useState(isLoading);
+  const [loading, setLoading] = useState(false);
 
   // a function that await for the action to be completed
   const handleClick = async (action: (() => void) | undefined) => {
@@ -30,7 +30,7 @@ export function Button(props: ButtonProps): JSX.Element {
     <ChakraButton
       __css={styles}
       onClick={() => handleClick(action)}
-      isLoading={loading}
+      isLoading={loading || isLoading}
       {...rest}
     />
   );

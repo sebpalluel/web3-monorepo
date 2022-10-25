@@ -37,3 +37,14 @@ Clicked.play = async ({ canvasElement }) => {
   // // 👇 Assert DOM structure
   await expect(canvas.getByText('Button being clicked')).not.toBeVisible();
 };
+
+export const Loading = Template.bind({});
+Loading.args = {
+  isLoading: true,
+  children: 'External loading',
+};
+
+Loading.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await expect(canvas.getByText('External loading')).not.toBeVisible();
+};
