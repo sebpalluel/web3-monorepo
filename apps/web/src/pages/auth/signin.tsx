@@ -19,6 +19,9 @@ import {
   Collapse,
   useDisclosure,
 } from '@chakra-ui/react';
+
+import { Button as UIButton } from '@boilerplate/ui-components';
+
 import React, { useState, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
@@ -168,7 +171,7 @@ function CredentialsForm({ router, credentialsInvalid }) {
             <Checkbox>Remember me</Checkbox>
             <Link color={'blue.400'}>Forgot password?</Link>
           </Stack>
-          <Button
+          <UIButton
             isLoading={isSubmitting}
             loadingText="Signing in..."
             bg={'blue.400'}
@@ -179,7 +182,7 @@ function CredentialsForm({ router, credentialsInvalid }) {
             }}
           >
             Sign in
-          </Button>
+          </UIButton>
         </Stack>
         <Stack pt={6}>
           <Text align={'center'}>
