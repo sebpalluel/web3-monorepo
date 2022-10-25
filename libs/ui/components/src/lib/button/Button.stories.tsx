@@ -32,11 +32,8 @@ Clicked.args = {
   children: 'Button being clicked',
 };
 Clicked.play = async ({ canvasElement }) => {
-  // Starts querying the component from its root element
   const canvas = within(canvasElement);
-
   await userEvent.click(canvas.getByRole('button'));
-
   // // 👇 Assert DOM structure
   await expect(canvas.getByText('Button being clicked')).not.toBeVisible();
 };
