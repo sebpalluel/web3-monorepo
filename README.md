@@ -31,7 +31,7 @@ pnpm start
 
 **View in [NX Graph](https://sebpalluel.github.io/web3-monorepo/?groupByFolder=true&select=all)**
 
-[![name](https://user-images.githubusercontent.com/11297176/195365021-4b35fe89-1a6e-4cfe-a7c0-ab3ef648d95d.png)](https://sebpalluel.github.io/web3-monorepo/?groupByFolder=true&select=all)
+[![name](https://user-images.githubusercontent.com/11297176/198037536-5aaea3b3-4da5-45cf-b5b4-9b1f72f170d3.png)](https://sebpalluel.github.io/web3-monorepo/?groupByFolder=true&select=all)
 
 ### Access to the services and app URLs
 
@@ -70,6 +70,7 @@ The login to access the [**administration console**](http://localhost:8100/auth/
 - `libs/next-auth`: Contain all the configs for [Next-Auth](https://next-auth.js.org/)
 - `libs/test-utils`: All the utilities used for test with jest/cypress to interact easily with the db and hasura through graphql
 - `libs/ui`: React component library
+- `libs/workspace`: Contain all the generators and tooling dedicated to maintaining the NX workspace.
 - `tools`: Set of tools to to be used for DX (Developer Experience) and testing purposes.
 - `waltid-idpkit`: Contain the config files, the encryption keys for the DID server and the registered OIDC client.
 - `keycloak`: Contain all the realm settings loaded by the keycloak container
@@ -77,6 +78,8 @@ The login to access the [**administration console**](http://localhost:8100/auth/
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
 ## Docker
+
+<p align="center"><img src="https://user-images.githubusercontent.com/11297176/198038805-76a9dc37-538e-41f5-93c5-0e372d43ae9a.png" width="15%"></p>
 
 This repo is configured to be built with Docker, and Docker compose. To build all apps in this repo:
 
@@ -107,6 +110,16 @@ The command to run all the containers for unit and integration test is
 ```shell
 pnpm docker:test
 ```
+
+## Storybook
+
+<p align="center"><img src="https://user-images.githubusercontent.com/11297176/198039106-fa335322-4416-4f3f-967c-f6c663963ab2.png" width="35%"></p>
+
+You can [**find the Storybook for this project here**](https://63511cd2e1271125e3654edf-szwfakvhbw.chromatic.com/)
+Stories are defined on the `libs/ui/components`. We use [interaction testing](https://storybook.js.org/docs/react/writing-tests/interaction-testing) with the storybook version of jest and testing library in order to provide dynamic demonstration of the usage of individual components along with testing.
+Aditionnaly, the service [chromatic](https://www.chromatic.com) is launched on the CI in order to spot and approve/decline UI changes.
+
+To create a new component, you can use the custom nx generator provided on this project `@boilerplate/workspace - component` provided from the `libs/workspace`. It will create the boilerplate code for the react component, the stories file and the jest spec file.
 
 ## Utilities
 
