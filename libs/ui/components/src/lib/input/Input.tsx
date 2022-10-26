@@ -23,7 +23,15 @@ export type InputProps = FormControlProps &
     input?: ChakraInputProps & UseFormRegisterReturn;
   };
 
-export const Input = ({ label, helper, error, input, variant, ...props }: InputProps) => {
+export const Input = ({
+  label,
+  helper,
+  error,
+  input,
+  variant,
+  isRequired,
+  ...props
+}: InputProps) => {
   const styles = useStyleConfig('Button', { variant });
   const labelId = `${toCssId(label as string)}_label`;
   return (
@@ -31,6 +39,7 @@ export const Input = ({ label, helper, error, input, variant, ...props }: InputP
       __css={styles}
       {...props}
       {...input}
+      isRequired={isRequired}
       isInvalid={!!error}
       variant="floating"
     >
@@ -45,6 +54,7 @@ export const Input = ({ label, helper, error, input, variant, ...props }: InputP
         }}
       />
       {/* It is important that the Label comes after the Control due to css selectors */}
+      {/* style={{ backgroundColor: 'transparent' }} */}
       <FormLabel __css={styles} {...props} id={labelId}>
         {label}
       </FormLabel>
