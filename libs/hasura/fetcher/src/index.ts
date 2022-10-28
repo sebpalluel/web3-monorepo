@@ -1,11 +1,14 @@
 import { logger } from '@boilerplate/logger';
-import { isJestRunning } from '@boilerplate/test-utils-common';
+// this is causing a build issue because of nested dependency on @boilerplate/dlt-types
+import { isJestRunning, isServerSide } from '@boilerplate/utils';
+import { useEffect } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 
 export const endpointUrl = (): string => {
   if (isJestRunning()) {
     return 'http://localhost:9696/v1/graphql';
   }
-  return typeof window !== 'undefined'
+  return !isServerSide()
     ? (process.env.NEXT_PUBLIC_HASURA_URL as string)
     : (process.env.NEXT_PUBLIC_HASURA_SSR_URL as string);
 };
@@ -69,7 +72,7 @@ export const fetchData = (opts: Opts = { admin: false, jwt: '' }) => {
     };
     if (admin) {
       // forbid calling on client side and allow if jest is running
-      if (typeof window !== 'undefined' && !isJestRunning())
+      if (!isServerSide() && !isJestRunning())
         throw new Error('Admin access is only available on the server');
       if (!process.env.HASURA_GRAPHQL_ADMIN_SECRET)
         throw new Error('Admin secret env is missing');
@@ -104,4 +107,57 @@ export const fetchData = (opts: Opts = { admin: false, jwt: '' }) => {
 
     return json.data;
   };
+};
+
+let latestData = null;
+
+const headers = { 'Content-Type': 'application/json' };
+
+// https://tkdodo.eu/blog/using-web-sockets-with-react-query#consuming-data
+// https://github.com/TanStack/query/issues/171#issuecomment-649810136
+
+export const useReactQuerySubscription = async (
+  query: string,
+  operationName?: string,
+  variables?: any
+) => {
+  const queryClient = useQueryClient();
+  useEffect(() => {
+    if (isServerSide()) return () => null;
+    const ws = new WebSocket(
+      process.env.NEXT_PUBLIC_HASURA_URL_WS as string,
+      'graphql-ws'
+    );
+    const init_msg = {
+      type: 'connection_init',
+      payload: { headers },
+    };
+    ws.onopen = function (event) {
+      ws.send(JSON.stringify(init_msg));
+      const msg = {
+        id: '1',
+        type: 'start',
+        payload: { variables, extensions: {}, operationName, query },
+      };
+      ws.send(JSON.stringify(msg));
+    };
+    ws.onmessage = function (event) {
+      const finalData = JSON.parse(event.data);
+      if (finalData.type === 'data') {
+        console.log('event: ', event);
+        latestData = finalData.payload.data;
+        let queryKey: string[] = [''];
+        if (operationName)
+          queryKey = variables ? [operationName, variables] : [operationName];
+        else queryKey = variables ? [query, variables] : [query];
+        queryClient.setQueriesData(queryKey, latestData);
+        return latestData;
+      }
+    };
+    return () => {
+      // // Unsubscribe before exit
+      // ws.send(JSON.stringify({ id: '1', type: 'stop' }));
+      ws.close();
+    };
+  }, [query, variables]);
 };

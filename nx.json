@@ -40,6 +40,8 @@
           "format:check",
           "format:write",
           "test",
+          "test-prisma",
+          "test-hasura",
           "affected:test",
           "e2e",
           "affected:e2e",
@@ -47,7 +49,7 @@
           "build-storybook"
         ],
         "parallel": true,
-        "accessToken": "MDY3ZDg1NmUtNDU2Ny00NDljLWI5NzgtM2Y3NjNkYjI0NDU3fHJlYWQtd3JpdGU=",
+        "accessToken": "OGM4NWRjYzAtZTg2MS00ZTEzLWE3MjEtODlmZTM3NWU2YWYzfHJlYWQtd3JpdGU=",
         "canTrackAnalytics": true,
         "showUsageWarning": true
       }

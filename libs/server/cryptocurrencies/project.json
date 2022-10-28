@@ -1,0 +1,35 @@
+{
+  "name": "cryptocurrencies",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/server/cryptocurrencies/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/server/cryptocurrencies",
+        "tsConfig": "libs/server/cryptocurrencies/tsconfig.lib.json",
+        "packageJson": "libs/server/cryptocurrencies/package.json",
+        "main": "libs/server/cryptocurrencies/src/index.ts",
+        "assets": ["libs/server/cryptocurrencies/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/server/cryptocurrencies/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/server/cryptocurrencies/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

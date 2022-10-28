@@ -27,3 +27,19 @@ export function toPascalCase(s: string): string {
     .map((w) => `${w.charAt(0).toUpperCase()}${w.slice(1)}`)
     .join('');
 }
+
+export function convertArrayOfObjtoObjWithKeys(arr: any[], key: string): any {
+  return arr.reduce((obj, item) => ((obj[item?.[key]] = item), obj), {});
+}
+
+export function isServerSide(): boolean {
+  return typeof window === 'undefined';
+}
+
+export function isJestRunning() {
+  return process.env.JEST_WORKER_ID !== undefined;
+}
+
+export function isCypressRunning() {
+  return window && (window as any).Cypress !== undefined;
+}

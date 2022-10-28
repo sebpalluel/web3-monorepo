@@ -131,7 +131,7 @@ function CredentialsForm({ router, credentialsInvalid }) {
         router.push(res.url && !res.url.includes('auth/signin') ? res.url : '/');
       else router.push({ query: { error: 'credentialsInvalid' } });
     } catch (error) {
-      logger.error(error);
+      if (!error?.includes('Invalid credentials')) logger.error(error);
     }
   }
 

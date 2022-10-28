@@ -1,0 +1,16 @@
+query getWalletsByAddress($address: String!) {
+  Wallet(where: { address: { _eq: $address } }) {
+    balanceUsd
+    network
+    updatedAt
+  }
+}
+
+subscription subscribeWalletsByAddress($address: String!) {
+  Wallet(where: { address: { _eq: $address } }) {
+    address
+    balanceUsd
+    updatedAt
+    name
+  }
+}

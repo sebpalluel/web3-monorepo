@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-import { isJestRunning } from '@boilerplate/test-utils-common';
+import { isJestRunning } from '@boilerplate/utils';
 import { Client } from 'pg';
 
 const fs = require('fs');

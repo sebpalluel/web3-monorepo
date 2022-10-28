@@ -2,6 +2,8 @@
 const { logger } = require('../../libs/logger/src');
 global.fetch = require('node-fetch');
 
+let retriesLeft = 3;
+
 module.exports = async () => {
   logger.info('global-setup: Starting');
   console.time('global-setup');
@@ -41,12 +43,18 @@ module.exports = async () => {
         hasuraReady = true;
         if (res.statusText === 'OK') {
           logger.info('Hasura is ready');
-        } else logger.error(`Hasura healthz: ${res.statusText}`);
+        } else {
+          logger.error(`Hasura healthz: ${res.statusText}`);
+        }
       }
     } catch (e) {
       logger.debug(`Hasura failure: ${e}`);
-      // wait 5sec for hasura to be ready
-      await new Promise((resolve) => setTimeout(resolve, 5000));
+      // wait 3sec for hasura to be ready
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      retriesLeft -= 1;
+      if (!retriesLeft) {
+        throw new Error('Hasura is not reachable');
+      }
     }
   }
   // }

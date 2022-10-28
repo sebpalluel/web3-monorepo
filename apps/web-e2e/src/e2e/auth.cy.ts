@@ -14,9 +14,9 @@ describe('Authentication tests', () => {
     cy.findByLabelText(/Password/i).type(password);
     cy.findByRole('button', { name: /Sign in/i }).click();
     cy.url().should('not.include', '/auth');
-    //    our auth cookie should be present
+    // our auth cookie should be present
     cy.getCookie('next-auth.session-token').should('exist');
-    //   UI should reflect this user being logged in
+    // UI should reflect this user being logged in
     cy.findAllByText(email).should('be.visible');
   }
 
@@ -82,6 +82,6 @@ describe('Authentication tests', () => {
   it('cypress direct login allow logged user to see his infos', function () {
     cy.login('alpha_admin');
     cy.visit('/me');
-    cy.findByText(new RegExp(users.alpha_admin.name, 'i')).should('be.visible');
+    cy.findAllByText(new RegExp(users.alpha_admin.email, 'i')).should('be.visible');
   });
 });

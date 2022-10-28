@@ -1,46 +1,24 @@
 type Query {
-  login(
-    params: LoginInput!
-  ): AccessTokens!
+  balancesEIP377(
+    network: String!
+    address: String!
+  ): [BalanceTokenData]
 }
 
-type Query {
-  refreshJwtToken(
-    refreshToken: String!
-    fingerprintHash: String!
-  ): JwtToken!
+input BalancesEIP377 {
+  network: String!
+  address: String!
 }
 
-type Mutation {
-  signout: SignoutOutput
+type BalancesEIP377Output {
+  balances: [BalanceTokenData]
 }
 
-type Mutation {
-  signup(
-    params: SignupInput!
-  ): AccessTokens!
-}
-
-input LoginInput {
-  email: String!
-  password: String!
-}
-
-input SignupInput {
-  email: String!
-  password: String!
-}
-
-type AccessTokens {
-  jwt: String!
-  refreshToken: String!
-}
-
-type JwtToken {
-  jwt: String!
-}
-
-type SignoutOutput {
-  ok: Boolean!
+type BalanceTokenData {
+  address: String
+  name: String
+  symbol: String
+  decimals: Int
+  balanceUsd: Float
 }
 

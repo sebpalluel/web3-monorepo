@@ -1,31 +1,18 @@
 # https://github.com/testjavascript/nodejs-integration-tests-best-practices#section-1-infrastructure-and-database-setup
 version: '3.9'
 services:
-  test-db:
-    container_name: test_db
-    image: postgres:13
-    command: postgres -c fsync=off -c synchronous_commit=off -c full_page_writes=off -c random_page_cost=1.0 -p 5454
-    env_file:
-      - .env.test.jest
-    ports:
-      - '5454:5454'
-    tmpfs: /var/lib/postgresql/data
-    healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -p 5454 -U ${POSTGRES_USER}']
-      interval: 2s
-      timeout: 2s
-      retries: 10
-  hasura-engine:
+  hasura-engine-test:
+    container_name: hasura_engine_test
     image: 'hasura/graphql-engine:v2.11.2.cli-migrations-v3'
     # command: 'graphql-engine --database-url $HASURA_GRAPHQL_DATABASE_URL serve --server-port $HASURA_GRAPHQL_SERVER_PORT'
-    container_name: hasura_test
     depends_on:
       test-db:
+        condition: service_healthy
+      prisma-test-db:
         condition: service_healthy
     env_file:
       - .env.test.jest
     environment:
-      HASURA_GRAPHQL_NO_OF_RETRIES: '10'
       HASURA_GRAPHQL_DEV_MODE: 'true'
       ## important ! here we use headers with encrypted json instead of cookie for testing purposes
       HASURA_GRAPHQL_JWT_SECRET: '{"type":"HS256", "key": "3EK6FD+o0+c7tzBNVfjpMkNDi2yARAAKzQlk8O2IKoxQu4nF7EdAh8s3TwpHwrdWT6R", "claims_map": { "x-hasura-allowed-roles": { "path": "$$.roles" }, "x-hasura-default-role": { "path": "$$.roles[0]" }, "x-hasura-client-id": { "path": "$$.clientId", "default": "" }, "x-hasura-user-id": { "path": "$$.userId", "default": "" }, "x-hasura-username": { "path": "$$.username", "default": "" } }}'
@@ -40,6 +27,53 @@ services:
       retries: 20
     ports:
       - '9696:9696'
+      - '9691:9691'
     volumes:
       - ../../hasura/app/migrations:/hasura-migrations
       - ../../hasura/app/metadata:/hasura-metadata
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+  test-db:
+    container_name: test_db
+    image: postgres:13
+    command: postgres -c fsync=off -c synchronous_commit=off -c full_page_writes=off -c random_page_cost=1.0 -p ${POSTGRES_PORT}
+    env_file:
+      - .env.test.jest
+    ports:
+      - '$POSTGRES_PORT:$POSTGRES_PORT'
+    volumes:
+      - test_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -p ${POSTGRES_PORT} -U ${POSTGRES_USER}']
+      interval: 2s
+      timeout: 2s
+      retries: 10
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+  prisma-test-db:
+    container_name: prisma_test_db
+    image: postgres:13
+    command: postgres -c fsync=off -c synchronous_commit=off -c full_page_writes=off -c random_page_cost=1.0
+    env_file:
+      - .env.test.jest
+    ports:
+      - '$PRISMA_DB_PORT:5432'
+    volumes:
+      - prisma_test_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER}']
+      interval: 2s
+      timeout: 2s
+      retries: 10
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+
+volumes:
+  prisma_test_db_data:
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+  test_db_data:
+    driver_opts:
+      type: tmpfs
+      device: tmpfs

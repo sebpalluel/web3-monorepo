@@ -32,8 +32,8 @@ import {
 import { MeshStore, FsStoreStorageAdapter } from '@graphql-mesh/store';
 import { path as pathModule } from '@graphql-mesh/cross-helpers';
 import { ImportFn } from '@graphql-mesh/types';
-import type { Uniswapv2Types } from './sources/uniswapv2/types';
 import type { Compoundv2Types } from './sources/compoundv2/types';
+import type { Uniswapv2Types } from './sources/uniswapv2/types';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };

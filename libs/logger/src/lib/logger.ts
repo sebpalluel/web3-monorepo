@@ -23,6 +23,7 @@ prefix.reg(log);
 prefix.apply(log, {
   format(level: level, name: string, timestamp: string) {
     const color = colors[level];
+    // eslint-disable-next-line sonarjs/no-nested-template-literals
     return `${chalk.gray(`[${timestamp}]`)} ${color(level)} ${chalk.green(`${name}:`)}`;
   },
 });

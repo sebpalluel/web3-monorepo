@@ -1,0 +1,26 @@
+{
+  "name": "test-utils-mocks",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/test-utils/mocks/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/test-utils/mocks",
+        "main": "libs/test-utils/mocks/src/index.ts",
+        "tsConfig": "libs/test-utils/mocks/tsconfig.lib.json",
+        "assets": ["libs/test-utils/mocks/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/test-utils/mocks/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

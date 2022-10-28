@@ -1,0 +1,9 @@
+query balancesEIP377($network: String!, $address: String!) {
+  balancesEIP377(network: $network, address: $address) {
+    address
+    balanceUsd
+    decimals
+    name
+    symbol
+  }
+}

@@ -1,37 +1,26 @@
 actions:
-  - name: login
+  - name: balancesEIP377
     definition:
       kind: ""
-      handler: '{{ACTION_BASE_URL}}/api/actions/login'
-      forward_client_headers: true
-    permissions:
-      - role: anonymous
-  - name: refreshJwtToken
-    definition:
-      kind: ""
-      handler: '{{ACTION_BASE_URL}}/api/actions/refresh-jwt'
-    permissions:
-      - role: anonymous
-      - role: user
-  - name: signout
-    definition:
-      kind: synchronous
-      handler: '{{ACTION_BASE_URL}}/api/actions/signout'
+      handler: '{{NEST_API_URL}}/balances'
+      request_transform:
+        method: GET
+        query_params: {}
+        request_headers:
+          add_headers: {}
+          remove_headers:
+            - content-type
+        template_engine: Kriti
+        url: '{{$base_url}}/{{$body.input.network}}/{{$body.input.address}}'
+        version: 2
     permissions:
       - role: user
-  - name: signup
-    definition:
-      kind: synchronous
-      handler: '{{ACTION_BASE_URL}}/api/actions/signup'
-    permissions:
-      - role: anonymous
+    comment: Get balances of token for an address in given network
 custom_types:
   enums: []
   input_objects:
-    - name: LoginInput
-    - name: SignupInput
+    - name: BalancesEIP377
   objects:
-    - name: AccessTokens
-    - name: JwtToken
-    - name: SignoutOutput
+    - name: BalancesEIP377Output
+    - name: BalanceTokenData
   scalars: []

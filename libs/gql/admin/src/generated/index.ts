@@ -15,13 +15,17 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  float8: any;
   timestamp: any;
 };
 
-export type AccessTokens = {
-  __typename?: 'AccessTokens';
-  jwt: Scalars['String'];
-  refreshToken: Scalars['String'];
+export type BalanceTokenData = {
+  __typename?: 'BalanceTokenData';
+  address?: Maybe<Scalars['String']>;
+  balanceUsd?: Maybe<Scalars['Float']>;
+  decimals?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  symbol?: Maybe<Scalars['String']>;
 };
 
 /** Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'. */
@@ -48,26 +52,6 @@ export type Int_Comparison_Exp = {
   _lte?: InputMaybe<Scalars['Int']>;
   _neq?: InputMaybe<Scalars['Int']>;
   _nin?: InputMaybe<Array<Scalars['Int']>>;
-};
-
-export type JwtToken = {
-  __typename?: 'JwtToken';
-  jwt: Scalars['String'];
-};
-
-export type LoginInput = {
-  email: Scalars['String'];
-  password: Scalars['String'];
-};
-
-export type SignoutOutput = {
-  __typename?: 'SignoutOutput';
-  ok: Scalars['Boolean'];
-};
-
-export type SignupInput = {
-  email: Scalars['String'];
-  password: Scalars['String'];
 };
 
 /** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
@@ -101,6 +85,735 @@ export type String_Comparison_Exp = {
   _regex?: InputMaybe<Scalars['String']>;
   /** does the column match the given SQL regular expression */
   _similar?: InputMaybe<Scalars['String']>;
+};
+
+/** columns and relationships of "Transaction" */
+export type Transaction = {
+  __typename?: 'Transaction';
+  blockHash: Scalars['String'];
+  blockNumber: Scalars['float8'];
+  contractAddress?: Maybe<Scalars['String']>;
+  createdAt: Scalars['timestamp'];
+  data: Scalars['String'];
+  fromAddress: Scalars['String'];
+  gasFee: Scalars['float8'];
+  gasFeeUsd: Scalars['float8'];
+  gasLimit: Scalars['float8'];
+  gasPrice: Scalars['float8'];
+  gasUsed: Scalars['float8'];
+  id: Scalars['String'];
+  input: Scalars['String'];
+  nonce: Scalars['Int'];
+  status: Scalars['Boolean'];
+  toAddress: Scalars['String'];
+  transaction: Scalars['String'];
+  updatedAt: Scalars['timestamp'];
+  value: Scalars['float8'];
+  walletId?: Maybe<Scalars['String']>;
+};
+
+/** aggregated selection of "Transaction" */
+export type Transaction_Aggregate = {
+  __typename?: 'Transaction_aggregate';
+  aggregate?: Maybe<Transaction_Aggregate_Fields>;
+  nodes: Array<Transaction>;
+};
+
+/** aggregate fields of "Transaction" */
+export type Transaction_Aggregate_Fields = {
+  __typename?: 'Transaction_aggregate_fields';
+  avg?: Maybe<Transaction_Avg_Fields>;
+  count: Scalars['Int'];
+  max?: Maybe<Transaction_Max_Fields>;
+  min?: Maybe<Transaction_Min_Fields>;
+  stddev?: Maybe<Transaction_Stddev_Fields>;
+  stddev_pop?: Maybe<Transaction_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Transaction_Stddev_Samp_Fields>;
+  sum?: Maybe<Transaction_Sum_Fields>;
+  var_pop?: Maybe<Transaction_Var_Pop_Fields>;
+  var_samp?: Maybe<Transaction_Var_Samp_Fields>;
+  variance?: Maybe<Transaction_Variance_Fields>;
+};
+
+/** aggregate fields of "Transaction" */
+export type Transaction_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Transaction_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** aggregate avg on columns */
+export type Transaction_Avg_Fields = {
+  __typename?: 'Transaction_avg_fields';
+  blockNumber?: Maybe<Scalars['Float']>;
+  gasFee?: Maybe<Scalars['Float']>;
+  gasFeeUsd?: Maybe<Scalars['Float']>;
+  gasLimit?: Maybe<Scalars['Float']>;
+  gasPrice?: Maybe<Scalars['Float']>;
+  gasUsed?: Maybe<Scalars['Float']>;
+  nonce?: Maybe<Scalars['Float']>;
+  value?: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to filter rows from the table "Transaction". All fields are combined with a logical 'AND'. */
+export type Transaction_Bool_Exp = {
+  _and?: InputMaybe<Array<Transaction_Bool_Exp>>;
+  _not?: InputMaybe<Transaction_Bool_Exp>;
+  _or?: InputMaybe<Array<Transaction_Bool_Exp>>;
+  blockHash?: InputMaybe<String_Comparison_Exp>;
+  blockNumber?: InputMaybe<Float8_Comparison_Exp>;
+  contractAddress?: InputMaybe<String_Comparison_Exp>;
+  createdAt?: InputMaybe<Timestamp_Comparison_Exp>;
+  data?: InputMaybe<String_Comparison_Exp>;
+  fromAddress?: InputMaybe<String_Comparison_Exp>;
+  gasFee?: InputMaybe<Float8_Comparison_Exp>;
+  gasFeeUsd?: InputMaybe<Float8_Comparison_Exp>;
+  gasLimit?: InputMaybe<Float8_Comparison_Exp>;
+  gasPrice?: InputMaybe<Float8_Comparison_Exp>;
+  gasUsed?: InputMaybe<Float8_Comparison_Exp>;
+  id?: InputMaybe<String_Comparison_Exp>;
+  input?: InputMaybe<String_Comparison_Exp>;
+  nonce?: InputMaybe<Int_Comparison_Exp>;
+  status?: InputMaybe<Boolean_Comparison_Exp>;
+  toAddress?: InputMaybe<String_Comparison_Exp>;
+  transaction?: InputMaybe<String_Comparison_Exp>;
+  updatedAt?: InputMaybe<Timestamp_Comparison_Exp>;
+  value?: InputMaybe<Float8_Comparison_Exp>;
+  walletId?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "Transaction" */
+export const enum Transaction_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  TransactionPkey = 'Transaction_pkey',
+}
+
+/** input type for incrementing numeric columns in table "Transaction" */
+export type Transaction_Inc_Input = {
+  blockNumber?: InputMaybe<Scalars['float8']>;
+  gasFee?: InputMaybe<Scalars['float8']>;
+  gasFeeUsd?: InputMaybe<Scalars['float8']>;
+  gasLimit?: InputMaybe<Scalars['float8']>;
+  gasPrice?: InputMaybe<Scalars['float8']>;
+  gasUsed?: InputMaybe<Scalars['float8']>;
+  nonce?: InputMaybe<Scalars['Int']>;
+  value?: InputMaybe<Scalars['float8']>;
+};
+
+/** input type for inserting data into table "Transaction" */
+export type Transaction_Insert_Input = {
+  blockHash?: InputMaybe<Scalars['String']>;
+  blockNumber?: InputMaybe<Scalars['float8']>;
+  contractAddress?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['timestamp']>;
+  data?: InputMaybe<Scalars['String']>;
+  fromAddress?: InputMaybe<Scalars['String']>;
+  gasFee?: InputMaybe<Scalars['float8']>;
+  gasFeeUsd?: InputMaybe<Scalars['float8']>;
+  gasLimit?: InputMaybe<Scalars['float8']>;
+  gasPrice?: InputMaybe<Scalars['float8']>;
+  gasUsed?: InputMaybe<Scalars['float8']>;
+  id?: InputMaybe<Scalars['String']>;
+  input?: InputMaybe<Scalars['String']>;
+  nonce?: InputMaybe<Scalars['Int']>;
+  status?: InputMaybe<Scalars['Boolean']>;
+  toAddress?: InputMaybe<Scalars['String']>;
+  transaction?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['timestamp']>;
+  value?: InputMaybe<Scalars['float8']>;
+  walletId?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type Transaction_Max_Fields = {
+  __typename?: 'Transaction_max_fields';
+  blockHash?: Maybe<Scalars['String']>;
+  blockNumber?: Maybe<Scalars['float8']>;
+  contractAddress?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['timestamp']>;
+  data?: Maybe<Scalars['String']>;
+  fromAddress?: Maybe<Scalars['String']>;
+  gasFee?: Maybe<Scalars['float8']>;
+  gasFeeUsd?: Maybe<Scalars['float8']>;
+  gasLimit?: Maybe<Scalars['float8']>;
+  gasPrice?: Maybe<Scalars['float8']>;
+  gasUsed?: Maybe<Scalars['float8']>;
+  id?: Maybe<Scalars['String']>;
+  input?: Maybe<Scalars['String']>;
+  nonce?: Maybe<Scalars['Int']>;
+  toAddress?: Maybe<Scalars['String']>;
+  transaction?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['timestamp']>;
+  value?: Maybe<Scalars['float8']>;
+  walletId?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type Transaction_Min_Fields = {
+  __typename?: 'Transaction_min_fields';
+  blockHash?: Maybe<Scalars['String']>;
+  blockNumber?: Maybe<Scalars['float8']>;
+  contractAddress?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['timestamp']>;
+  data?: Maybe<Scalars['String']>;
+  fromAddress?: Maybe<Scalars['String']>;
+  gasFee?: Maybe<Scalars['float8']>;
+  gasFeeUsd?: Maybe<Scalars['float8']>;
+  gasLimit?: Maybe<Scalars['float8']>;
+  gasPrice?: Maybe<Scalars['float8']>;
+  gasUsed?: Maybe<Scalars['float8']>;
+  id?: Maybe<Scalars['String']>;
+  input?: Maybe<Scalars['String']>;
+  nonce?: Maybe<Scalars['Int']>;
+  toAddress?: Maybe<Scalars['String']>;
+  transaction?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['timestamp']>;
+  value?: Maybe<Scalars['float8']>;
+  walletId?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "Transaction" */
+export type Transaction_Mutation_Response = {
+  __typename?: 'Transaction_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Transaction>;
+};
+
+/** on_conflict condition type for table "Transaction" */
+export type Transaction_On_Conflict = {
+  constraint: Transaction_Constraint;
+  update_columns?: Array<Transaction_Update_Column>;
+  where?: InputMaybe<Transaction_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "Transaction". */
+export type Transaction_Order_By = {
+  blockHash?: InputMaybe<Order_By>;
+  blockNumber?: InputMaybe<Order_By>;
+  contractAddress?: InputMaybe<Order_By>;
+  createdAt?: InputMaybe<Order_By>;
+  data?: InputMaybe<Order_By>;
+  fromAddress?: InputMaybe<Order_By>;
+  gasFee?: InputMaybe<Order_By>;
+  gasFeeUsd?: InputMaybe<Order_By>;
+  gasLimit?: InputMaybe<Order_By>;
+  gasPrice?: InputMaybe<Order_By>;
+  gasUsed?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  input?: InputMaybe<Order_By>;
+  nonce?: InputMaybe<Order_By>;
+  status?: InputMaybe<Order_By>;
+  toAddress?: InputMaybe<Order_By>;
+  transaction?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+  value?: InputMaybe<Order_By>;
+  walletId?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: Transaction */
+export type Transaction_Pk_Columns_Input = {
+  id: Scalars['String'];
+};
+
+/** select columns of table "Transaction" */
+export const enum Transaction_Select_Column {
+  /** column name */
+  BlockHash = 'blockHash',
+  /** column name */
+  BlockNumber = 'blockNumber',
+  /** column name */
+  ContractAddress = 'contractAddress',
+  /** column name */
+  CreatedAt = 'createdAt',
+  /** column name */
+  Data = 'data',
+  /** column name */
+  FromAddress = 'fromAddress',
+  /** column name */
+  GasFee = 'gasFee',
+  /** column name */
+  GasFeeUsd = 'gasFeeUsd',
+  /** column name */
+  GasLimit = 'gasLimit',
+  /** column name */
+  GasPrice = 'gasPrice',
+  /** column name */
+  GasUsed = 'gasUsed',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Input = 'input',
+  /** column name */
+  Nonce = 'nonce',
+  /** column name */
+  Status = 'status',
+  /** column name */
+  ToAddress = 'toAddress',
+  /** column name */
+  Transaction = 'transaction',
+  /** column name */
+  UpdatedAt = 'updatedAt',
+  /** column name */
+  Value = 'value',
+  /** column name */
+  WalletId = 'walletId',
+}
+
+/** input type for updating data in table "Transaction" */
+export type Transaction_Set_Input = {
+  blockHash?: InputMaybe<Scalars['String']>;
+  blockNumber?: InputMaybe<Scalars['float8']>;
+  contractAddress?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['timestamp']>;
+  data?: InputMaybe<Scalars['String']>;
+  fromAddress?: InputMaybe<Scalars['String']>;
+  gasFee?: InputMaybe<Scalars['float8']>;
+  gasFeeUsd?: InputMaybe<Scalars['float8']>;
+  gasLimit?: InputMaybe<Scalars['float8']>;
+  gasPrice?: InputMaybe<Scalars['float8']>;
+  gasUsed?: InputMaybe<Scalars['float8']>;
+  id?: InputMaybe<Scalars['String']>;
+  input?: InputMaybe<Scalars['String']>;
+  nonce?: InputMaybe<Scalars['Int']>;
+  status?: InputMaybe<Scalars['Boolean']>;
+  toAddress?: InputMaybe<Scalars['String']>;
+  transaction?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['timestamp']>;
+  value?: InputMaybe<Scalars['float8']>;
+  walletId?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate stddev on columns */
+export type Transaction_Stddev_Fields = {
+  __typename?: 'Transaction_stddev_fields';
+  blockNumber?: Maybe<Scalars['Float']>;
+  gasFee?: Maybe<Scalars['Float']>;
+  gasFeeUsd?: Maybe<Scalars['Float']>;
+  gasLimit?: Maybe<Scalars['Float']>;
+  gasPrice?: Maybe<Scalars['Float']>;
+  gasUsed?: Maybe<Scalars['Float']>;
+  nonce?: Maybe<Scalars['Float']>;
+  value?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Transaction_Stddev_Pop_Fields = {
+  __typename?: 'Transaction_stddev_pop_fields';
+  blockNumber?: Maybe<Scalars['Float']>;
+  gasFee?: Maybe<Scalars['Float']>;
+  gasFeeUsd?: Maybe<Scalars['Float']>;
+  gasLimit?: Maybe<Scalars['Float']>;
+  gasPrice?: Maybe<Scalars['Float']>;
+  gasUsed?: Maybe<Scalars['Float']>;
+  nonce?: Maybe<Scalars['Float']>;
+  value?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Transaction_Stddev_Samp_Fields = {
+  __typename?: 'Transaction_stddev_samp_fields';
+  blockNumber?: Maybe<Scalars['Float']>;
+  gasFee?: Maybe<Scalars['Float']>;
+  gasFeeUsd?: Maybe<Scalars['Float']>;
+  gasLimit?: Maybe<Scalars['Float']>;
+  gasPrice?: Maybe<Scalars['Float']>;
+  gasUsed?: Maybe<Scalars['Float']>;
+  nonce?: Maybe<Scalars['Float']>;
+  value?: Maybe<Scalars['Float']>;
+};
+
+/** Streaming cursor of the table "Transaction" */
+export type Transaction_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Transaction_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Transaction_Stream_Cursor_Value_Input = {
+  blockHash?: InputMaybe<Scalars['String']>;
+  blockNumber?: InputMaybe<Scalars['float8']>;
+  contractAddress?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['timestamp']>;
+  data?: InputMaybe<Scalars['String']>;
+  fromAddress?: InputMaybe<Scalars['String']>;
+  gasFee?: InputMaybe<Scalars['float8']>;
+  gasFeeUsd?: InputMaybe<Scalars['float8']>;
+  gasLimit?: InputMaybe<Scalars['float8']>;
+  gasPrice?: InputMaybe<Scalars['float8']>;
+  gasUsed?: InputMaybe<Scalars['float8']>;
+  id?: InputMaybe<Scalars['String']>;
+  input?: InputMaybe<Scalars['String']>;
+  nonce?: InputMaybe<Scalars['Int']>;
+  status?: InputMaybe<Scalars['Boolean']>;
+  toAddress?: InputMaybe<Scalars['String']>;
+  transaction?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['timestamp']>;
+  value?: InputMaybe<Scalars['float8']>;
+  walletId?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate sum on columns */
+export type Transaction_Sum_Fields = {
+  __typename?: 'Transaction_sum_fields';
+  blockNumber?: Maybe<Scalars['float8']>;
+  gasFee?: Maybe<Scalars['float8']>;
+  gasFeeUsd?: Maybe<Scalars['float8']>;
+  gasLimit?: Maybe<Scalars['float8']>;
+  gasPrice?: Maybe<Scalars['float8']>;
+  gasUsed?: Maybe<Scalars['float8']>;
+  nonce?: Maybe<Scalars['Int']>;
+  value?: Maybe<Scalars['float8']>;
+};
+
+/** update columns of table "Transaction" */
+export const enum Transaction_Update_Column {
+  /** column name */
+  BlockHash = 'blockHash',
+  /** column name */
+  BlockNumber = 'blockNumber',
+  /** column name */
+  ContractAddress = 'contractAddress',
+  /** column name */
+  CreatedAt = 'createdAt',
+  /** column name */
+  Data = 'data',
+  /** column name */
+  FromAddress = 'fromAddress',
+  /** column name */
+  GasFee = 'gasFee',
+  /** column name */
+  GasFeeUsd = 'gasFeeUsd',
+  /** column name */
+  GasLimit = 'gasLimit',
+  /** column name */
+  GasPrice = 'gasPrice',
+  /** column name */
+  GasUsed = 'gasUsed',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Input = 'input',
+  /** column name */
+  Nonce = 'nonce',
+  /** column name */
+  Status = 'status',
+  /** column name */
+  ToAddress = 'toAddress',
+  /** column name */
+  Transaction = 'transaction',
+  /** column name */
+  UpdatedAt = 'updatedAt',
+  /** column name */
+  Value = 'value',
+  /** column name */
+  WalletId = 'walletId',
+}
+
+export type Transaction_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Transaction_Inc_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Transaction_Set_Input>;
+  where: Transaction_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Transaction_Var_Pop_Fields = {
+  __typename?: 'Transaction_var_pop_fields';
+  blockNumber?: Maybe<Scalars['Float']>;
+  gasFee?: Maybe<Scalars['Float']>;
+  gasFeeUsd?: Maybe<Scalars['Float']>;
+  gasLimit?: Maybe<Scalars['Float']>;
+  gasPrice?: Maybe<Scalars['Float']>;
+  gasUsed?: Maybe<Scalars['Float']>;
+  nonce?: Maybe<Scalars['Float']>;
+  value?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate var_samp on columns */
+export type Transaction_Var_Samp_Fields = {
+  __typename?: 'Transaction_var_samp_fields';
+  blockNumber?: Maybe<Scalars['Float']>;
+  gasFee?: Maybe<Scalars['Float']>;
+  gasFeeUsd?: Maybe<Scalars['Float']>;
+  gasLimit?: Maybe<Scalars['Float']>;
+  gasPrice?: Maybe<Scalars['Float']>;
+  gasUsed?: Maybe<Scalars['Float']>;
+  nonce?: Maybe<Scalars['Float']>;
+  value?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate variance on columns */
+export type Transaction_Variance_Fields = {
+  __typename?: 'Transaction_variance_fields';
+  blockNumber?: Maybe<Scalars['Float']>;
+  gasFee?: Maybe<Scalars['Float']>;
+  gasFeeUsd?: Maybe<Scalars['Float']>;
+  gasLimit?: Maybe<Scalars['Float']>;
+  gasPrice?: Maybe<Scalars['Float']>;
+  gasUsed?: Maybe<Scalars['Float']>;
+  nonce?: Maybe<Scalars['Float']>;
+  value?: Maybe<Scalars['Float']>;
+};
+
+/** columns and relationships of "Wallet" */
+export type Wallet = {
+  __typename?: 'Wallet';
+  address: Scalars['String'];
+  balanceUsd: Scalars['float8'];
+  createdAt: Scalars['timestamp'];
+  id: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  network: Scalars['String'];
+  updatedAt: Scalars['timestamp'];
+};
+
+/** aggregated selection of "Wallet" */
+export type Wallet_Aggregate = {
+  __typename?: 'Wallet_aggregate';
+  aggregate?: Maybe<Wallet_Aggregate_Fields>;
+  nodes: Array<Wallet>;
+};
+
+/** aggregate fields of "Wallet" */
+export type Wallet_Aggregate_Fields = {
+  __typename?: 'Wallet_aggregate_fields';
+  avg?: Maybe<Wallet_Avg_Fields>;
+  count: Scalars['Int'];
+  max?: Maybe<Wallet_Max_Fields>;
+  min?: Maybe<Wallet_Min_Fields>;
+  stddev?: Maybe<Wallet_Stddev_Fields>;
+  stddev_pop?: Maybe<Wallet_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Wallet_Stddev_Samp_Fields>;
+  sum?: Maybe<Wallet_Sum_Fields>;
+  var_pop?: Maybe<Wallet_Var_Pop_Fields>;
+  var_samp?: Maybe<Wallet_Var_Samp_Fields>;
+  variance?: Maybe<Wallet_Variance_Fields>;
+};
+
+/** aggregate fields of "Wallet" */
+export type Wallet_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Wallet_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** aggregate avg on columns */
+export type Wallet_Avg_Fields = {
+  __typename?: 'Wallet_avg_fields';
+  balanceUsd?: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to filter rows from the table "Wallet". All fields are combined with a logical 'AND'. */
+export type Wallet_Bool_Exp = {
+  _and?: InputMaybe<Array<Wallet_Bool_Exp>>;
+  _not?: InputMaybe<Wallet_Bool_Exp>;
+  _or?: InputMaybe<Array<Wallet_Bool_Exp>>;
+  address?: InputMaybe<String_Comparison_Exp>;
+  balanceUsd?: InputMaybe<Float8_Comparison_Exp>;
+  createdAt?: InputMaybe<Timestamp_Comparison_Exp>;
+  id?: InputMaybe<String_Comparison_Exp>;
+  name?: InputMaybe<String_Comparison_Exp>;
+  network?: InputMaybe<String_Comparison_Exp>;
+  updatedAt?: InputMaybe<Timestamp_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "Wallet" */
+export const enum Wallet_Constraint {
+  /** unique or primary key constraint on columns "network", "address" */
+  WalletNetworkAddressKey = 'Wallet_network_address_key',
+  /** unique or primary key constraint on columns "id" */
+  WalletPkey = 'Wallet_pkey',
+}
+
+/** input type for incrementing numeric columns in table "Wallet" */
+export type Wallet_Inc_Input = {
+  balanceUsd?: InputMaybe<Scalars['float8']>;
+};
+
+/** input type for inserting data into table "Wallet" */
+export type Wallet_Insert_Input = {
+  address?: InputMaybe<Scalars['String']>;
+  balanceUsd?: InputMaybe<Scalars['float8']>;
+  createdAt?: InputMaybe<Scalars['timestamp']>;
+  id?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  network?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['timestamp']>;
+};
+
+/** aggregate max on columns */
+export type Wallet_Max_Fields = {
+  __typename?: 'Wallet_max_fields';
+  address?: Maybe<Scalars['String']>;
+  balanceUsd?: Maybe<Scalars['float8']>;
+  createdAt?: Maybe<Scalars['timestamp']>;
+  id?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  network?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['timestamp']>;
+};
+
+/** aggregate min on columns */
+export type Wallet_Min_Fields = {
+  __typename?: 'Wallet_min_fields';
+  address?: Maybe<Scalars['String']>;
+  balanceUsd?: Maybe<Scalars['float8']>;
+  createdAt?: Maybe<Scalars['timestamp']>;
+  id?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  network?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['timestamp']>;
+};
+
+/** response of any mutation on the table "Wallet" */
+export type Wallet_Mutation_Response = {
+  __typename?: 'Wallet_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Wallet>;
+};
+
+/** on_conflict condition type for table "Wallet" */
+export type Wallet_On_Conflict = {
+  constraint: Wallet_Constraint;
+  update_columns?: Array<Wallet_Update_Column>;
+  where?: InputMaybe<Wallet_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "Wallet". */
+export type Wallet_Order_By = {
+  address?: InputMaybe<Order_By>;
+  balanceUsd?: InputMaybe<Order_By>;
+  createdAt?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  network?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: Wallet */
+export type Wallet_Pk_Columns_Input = {
+  id: Scalars['String'];
+};
+
+/** select columns of table "Wallet" */
+export const enum Wallet_Select_Column {
+  /** column name */
+  Address = 'address',
+  /** column name */
+  BalanceUsd = 'balanceUsd',
+  /** column name */
+  CreatedAt = 'createdAt',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  Network = 'network',
+  /** column name */
+  UpdatedAt = 'updatedAt',
+}
+
+/** input type for updating data in table "Wallet" */
+export type Wallet_Set_Input = {
+  address?: InputMaybe<Scalars['String']>;
+  balanceUsd?: InputMaybe<Scalars['float8']>;
+  createdAt?: InputMaybe<Scalars['timestamp']>;
+  id?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  network?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['timestamp']>;
+};
+
+/** aggregate stddev on columns */
+export type Wallet_Stddev_Fields = {
+  __typename?: 'Wallet_stddev_fields';
+  balanceUsd?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Wallet_Stddev_Pop_Fields = {
+  __typename?: 'Wallet_stddev_pop_fields';
+  balanceUsd?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Wallet_Stddev_Samp_Fields = {
+  __typename?: 'Wallet_stddev_samp_fields';
+  balanceUsd?: Maybe<Scalars['Float']>;
+};
+
+/** Streaming cursor of the table "Wallet" */
+export type Wallet_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Wallet_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Wallet_Stream_Cursor_Value_Input = {
+  address?: InputMaybe<Scalars['String']>;
+  balanceUsd?: InputMaybe<Scalars['float8']>;
+  createdAt?: InputMaybe<Scalars['timestamp']>;
+  id?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  network?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['timestamp']>;
+};
+
+/** aggregate sum on columns */
+export type Wallet_Sum_Fields = {
+  __typename?: 'Wallet_sum_fields';
+  balanceUsd?: Maybe<Scalars['float8']>;
+};
+
+/** update columns of table "Wallet" */
+export const enum Wallet_Update_Column {
+  /** column name */
+  Address = 'address',
+  /** column name */
+  BalanceUsd = 'balanceUsd',
+  /** column name */
+  CreatedAt = 'createdAt',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  Network = 'network',
+  /** column name */
+  UpdatedAt = 'updatedAt',
+}
+
+export type Wallet_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Wallet_Inc_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Wallet_Set_Input>;
+  where: Wallet_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Wallet_Var_Pop_Fields = {
+  __typename?: 'Wallet_var_pop_fields';
+  balanceUsd?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate var_samp on columns */
+export type Wallet_Var_Samp_Fields = {
+  __typename?: 'Wallet_var_samp_fields';
+  balanceUsd?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate variance on columns */
+export type Wallet_Variance_Fields = {
+  __typename?: 'Wallet_variance_fields';
+  balanceUsd?: Maybe<Scalars['Float']>;
 };
 
 /** columns and relationships of "accounts" */
@@ -551,9 +1264,30 @@ export const enum Cursor_Ordering {
   Desc = 'DESC',
 }
 
+/** Boolean expression to compare columns of type "float8". All fields are combined with logical 'AND'. */
+export type Float8_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['float8']>;
+  _gt?: InputMaybe<Scalars['float8']>;
+  _gte?: InputMaybe<Scalars['float8']>;
+  _in?: InputMaybe<Array<Scalars['float8']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['float8']>;
+  _lte?: InputMaybe<Scalars['float8']>;
+  _neq?: InputMaybe<Scalars['float8']>;
+  _nin?: InputMaybe<Array<Scalars['float8']>>;
+};
+
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root';
+  /** delete data from the table: "Transaction" */
+  delete_Transaction?: Maybe<Transaction_Mutation_Response>;
+  /** delete single row from the table: "Transaction" */
+  delete_Transaction_by_pk?: Maybe<Transaction>;
+  /** delete data from the table: "Wallet" */
+  delete_Wallet?: Maybe<Wallet_Mutation_Response>;
+  /** delete single row from the table: "Wallet" */
+  delete_Wallet_by_pk?: Maybe<Wallet>;
   /** delete data from the table: "accounts" */
   delete_accounts?: Maybe<Accounts_Mutation_Response>;
   /** delete single row from the table: "accounts" */
@@ -572,6 +1306,14 @@ export type Mutation_Root = {
   delete_users_by_pk?: Maybe<Users>;
   /** delete data from the table: "verificationTokens" */
   delete_verificationTokens?: Maybe<VerificationTokens_Mutation_Response>;
+  /** insert data into the table: "Transaction" */
+  insert_Transaction?: Maybe<Transaction_Mutation_Response>;
+  /** insert a single row into the table: "Transaction" */
+  insert_Transaction_one?: Maybe<Transaction>;
+  /** insert data into the table: "Wallet" */
+  insert_Wallet?: Maybe<Wallet_Mutation_Response>;
+  /** insert a single row into the table: "Wallet" */
+  insert_Wallet_one?: Maybe<Wallet>;
   /** insert data into the table: "accounts" */
   insert_accounts?: Maybe<Accounts_Mutation_Response>;
   /** insert a single row into the table: "accounts" */
@@ -592,8 +1334,18 @@ export type Mutation_Root = {
   insert_verificationTokens?: Maybe<VerificationTokens_Mutation_Response>;
   /** insert a single row into the table: "verificationTokens" */
   insert_verificationTokens_one?: Maybe<VerificationTokens>;
-  signout?: Maybe<SignoutOutput>;
-  signup: AccessTokens;
+  /** update data of the table: "Transaction" */
+  update_Transaction?: Maybe<Transaction_Mutation_Response>;
+  /** update single row of the table: "Transaction" */
+  update_Transaction_by_pk?: Maybe<Transaction>;
+  /** update multiples rows of table: "Transaction" */
+  update_Transaction_many?: Maybe<Array<Maybe<Transaction_Mutation_Response>>>;
+  /** update data of the table: "Wallet" */
+  update_Wallet?: Maybe<Wallet_Mutation_Response>;
+  /** update single row of the table: "Wallet" */
+  update_Wallet_by_pk?: Maybe<Wallet>;
+  /** update multiples rows of table: "Wallet" */
+  update_Wallet_many?: Maybe<Array<Maybe<Wallet_Mutation_Response>>>;
   /** update data of the table: "accounts" */
   update_accounts?: Maybe<Accounts_Mutation_Response>;
   /** update single row of the table: "accounts" */
@@ -624,6 +1376,26 @@ export type Mutation_Root = {
   update_verificationTokens_many?: Maybe<
     Array<Maybe<VerificationTokens_Mutation_Response>>
   >;
+};
+
+/** mutation root */
+export type Mutation_RootDelete_TransactionArgs = {
+  where: Transaction_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootDelete_Transaction_By_PkArgs = {
+  id: Scalars['String'];
+};
+
+/** mutation root */
+export type Mutation_RootDelete_WalletArgs = {
+  where: Wallet_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootDelete_Wallet_By_PkArgs = {
+  id: Scalars['String'];
 };
 
 /** mutation root */
@@ -669,6 +1441,30 @@ export type Mutation_RootDelete_Users_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootDelete_VerificationTokensArgs = {
   where: VerificationTokens_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_TransactionArgs = {
+  objects: Array<Transaction_Insert_Input>;
+  on_conflict?: InputMaybe<Transaction_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_Transaction_OneArgs = {
+  object: Transaction_Insert_Input;
+  on_conflict?: InputMaybe<Transaction_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_WalletArgs = {
+  objects: Array<Wallet_Insert_Input>;
+  on_conflict?: InputMaybe<Wallet_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_Wallet_OneArgs = {
+  object: Wallet_Insert_Input;
+  on_conflict?: InputMaybe<Wallet_On_Conflict>;
 };
 
 /** mutation root */
@@ -730,8 +1526,41 @@ export type Mutation_RootInsert_VerificationTokens_OneArgs = {
 };
 
 /** mutation root */
-export type Mutation_RootSignupArgs = {
-  params: SignupInput;
+export type Mutation_RootUpdate_TransactionArgs = {
+  _inc?: InputMaybe<Transaction_Inc_Input>;
+  _set?: InputMaybe<Transaction_Set_Input>;
+  where: Transaction_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Transaction_By_PkArgs = {
+  _inc?: InputMaybe<Transaction_Inc_Input>;
+  _set?: InputMaybe<Transaction_Set_Input>;
+  pk_columns: Transaction_Pk_Columns_Input;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Transaction_ManyArgs = {
+  updates: Array<Transaction_Updates>;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_WalletArgs = {
+  _inc?: InputMaybe<Wallet_Inc_Input>;
+  _set?: InputMaybe<Wallet_Set_Input>;
+  where: Wallet_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Wallet_By_PkArgs = {
+  _inc?: InputMaybe<Wallet_Inc_Input>;
+  _set?: InputMaybe<Wallet_Set_Input>;
+  pk_columns: Wallet_Pk_Columns_Input;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Wallet_ManyArgs = {
+  updates: Array<Wallet_Updates>;
 };
 
 /** mutation root */
@@ -1165,20 +1994,32 @@ export type Passwords_Variance_Order_By = {
 
 export type Query_Root = {
   __typename?: 'query_root';
+  /** fetch data from the table: "Transaction" */
+  Transaction: Array<Transaction>;
+  /** fetch aggregated fields from the table: "Transaction" */
+  Transaction_aggregate: Transaction_Aggregate;
+  /** fetch data from the table: "Transaction" using primary key columns */
+  Transaction_by_pk?: Maybe<Transaction>;
+  /** fetch data from the table: "Wallet" */
+  Wallet: Array<Wallet>;
+  /** fetch aggregated fields from the table: "Wallet" */
+  Wallet_aggregate: Wallet_Aggregate;
+  /** fetch data from the table: "Wallet" using primary key columns */
+  Wallet_by_pk?: Maybe<Wallet>;
   /** An array relationship */
   accounts: Array<Accounts>;
   /** An aggregate relationship */
   accounts_aggregate: Accounts_Aggregate;
   /** fetch data from the table: "accounts" using primary key columns */
   accounts_by_pk?: Maybe<Accounts>;
-  login: AccessTokens;
+  /** Get balances of token for an address in given network */
+  balancesEIP377?: Maybe<Array<Maybe<BalanceTokenData>>>;
   /** An array relationship */
   passwords: Array<Passwords>;
   /** An aggregate relationship */
   passwords_aggregate: Passwords_Aggregate;
   /** fetch data from the table: "passwords" using primary key columns */
   passwords_by_pk?: Maybe<Passwords>;
-  refreshJwtToken: JwtToken;
   /** An array relationship */
   sessions: Array<Sessions>;
   /** An aggregate relationship */
@@ -1195,6 +2036,46 @@ export type Query_Root = {
   verificationTokens: Array<VerificationTokens>;
   /** fetch aggregated fields from the table: "verificationTokens" */
   verificationTokens_aggregate: VerificationTokens_Aggregate;
+};
+
+export type Query_RootTransactionArgs = {
+  distinct_on?: InputMaybe<Array<Transaction_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Transaction_Order_By>>;
+  where?: InputMaybe<Transaction_Bool_Exp>;
+};
+
+export type Query_RootTransaction_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Transaction_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Transaction_Order_By>>;
+  where?: InputMaybe<Transaction_Bool_Exp>;
+};
+
+export type Query_RootTransaction_By_PkArgs = {
+  id: Scalars['String'];
+};
+
+export type Query_RootWalletArgs = {
+  distinct_on?: InputMaybe<Array<Wallet_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Wallet_Order_By>>;
+  where?: InputMaybe<Wallet_Bool_Exp>;
+};
+
+export type Query_RootWallet_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Wallet_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Wallet_Order_By>>;
+  where?: InputMaybe<Wallet_Bool_Exp>;
+};
+
+export type Query_RootWallet_By_PkArgs = {
+  id: Scalars['String'];
 };
 
 export type Query_RootAccountsArgs = {
@@ -1217,8 +2098,9 @@ export type Query_RootAccounts_By_PkArgs = {
   id: Scalars['String'];
 };
 
-export type Query_RootLoginArgs = {
-  params: LoginInput;
+export type Query_RootBalancesEip377Args = {
+  address: Scalars['String'];
+  network: Scalars['String'];
 };
 
 export type Query_RootPasswordsArgs = {
@@ -1239,11 +2121,6 @@ export type Query_RootPasswords_AggregateArgs = {
 
 export type Query_RootPasswords_By_PkArgs = {
   hash: Scalars['String'];
-};
-
-export type Query_RootRefreshJwtTokenArgs = {
-  fingerprintHash: Scalars['String'];
-  refreshToken: Scalars['String'];
 };
 
 export type Query_RootSessionsArgs = {
@@ -1495,6 +2372,22 @@ export type Sessions_Updates = {
 
 export type Subscription_Root = {
   __typename?: 'subscription_root';
+  /** fetch data from the table: "Transaction" */
+  Transaction: Array<Transaction>;
+  /** fetch aggregated fields from the table: "Transaction" */
+  Transaction_aggregate: Transaction_Aggregate;
+  /** fetch data from the table: "Transaction" using primary key columns */
+  Transaction_by_pk?: Maybe<Transaction>;
+  /** fetch data from the table in a streaming manner : "Transaction" */
+  Transaction_stream: Array<Transaction>;
+  /** fetch data from the table: "Wallet" */
+  Wallet: Array<Wallet>;
+  /** fetch aggregated fields from the table: "Wallet" */
+  Wallet_aggregate: Wallet_Aggregate;
+  /** fetch data from the table: "Wallet" using primary key columns */
+  Wallet_by_pk?: Maybe<Wallet>;
+  /** fetch data from the table in a streaming manner : "Wallet" */
+  Wallet_stream: Array<Wallet>;
   /** An array relationship */
   accounts: Array<Accounts>;
   /** An aggregate relationship */
@@ -1533,6 +2426,58 @@ export type Subscription_Root = {
   verificationTokens_aggregate: VerificationTokens_Aggregate;
   /** fetch data from the table in a streaming manner : "verificationTokens" */
   verificationTokens_stream: Array<VerificationTokens>;
+};
+
+export type Subscription_RootTransactionArgs = {
+  distinct_on?: InputMaybe<Array<Transaction_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Transaction_Order_By>>;
+  where?: InputMaybe<Transaction_Bool_Exp>;
+};
+
+export type Subscription_RootTransaction_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Transaction_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Transaction_Order_By>>;
+  where?: InputMaybe<Transaction_Bool_Exp>;
+};
+
+export type Subscription_RootTransaction_By_PkArgs = {
+  id: Scalars['String'];
+};
+
+export type Subscription_RootTransaction_StreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<Transaction_Stream_Cursor_Input>>;
+  where?: InputMaybe<Transaction_Bool_Exp>;
+};
+
+export type Subscription_RootWalletArgs = {
+  distinct_on?: InputMaybe<Array<Wallet_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Wallet_Order_By>>;
+  where?: InputMaybe<Wallet_Bool_Exp>;
+};
+
+export type Subscription_RootWallet_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Wallet_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Wallet_Order_By>>;
+  where?: InputMaybe<Wallet_Bool_Exp>;
+};
+
+export type Subscription_RootWallet_By_PkArgs = {
+  id: Scalars['String'];
+};
+
+export type Subscription_RootWallet_StreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<Wallet_Stream_Cursor_Input>>;
+  where?: InputMaybe<Wallet_Bool_Exp>;
 };
 
 export type Subscription_RootAccountsArgs = {

@@ -1,8 +1,6 @@
 import * as jsonwebtoken from 'jsonwebtoken';
 import { NextAuthOptions, User, Account, Profile } from 'next-auth';
-import { AdapterAccount } from 'next-auth/adapters';
-import type { JWT, JWTOptions, getToken } from 'next-auth/jwt';
-// import EmailProvider from 'next-auth/providers/email'
+import type { JWT, JWTOptions } from 'next-auth/jwt';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
@@ -82,12 +80,10 @@ const refreshAccessToken = async (token: JWT) => {
 export const jwtOptions: JWTOptions = {
   secret: process.env.NEXTAUTH_SECRET as string,
   maxAge: parseInt(process.env.TOKEN_LIFE_TIME as string) || 30 * 24 * 60 * 60, // 30 days
-  encode: async ({ secret, token: payload }) => {
-    const signedToken = jsonwebtoken.sign(payload!, secret, {
+  encode: async ({ secret, token: payload }) =>
+    jsonwebtoken.sign(payload!, secret, {
       algorithm: 'RS256',
-    });
-    return signedToken;
-  },
+    }),
   decode: async ({ secret, token }) => {
     const decodedToken = jsonwebtoken.verify(token!, secret, {
       algorithms: ['RS256'],

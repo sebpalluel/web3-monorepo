@@ -1,0 +1,15 @@
+table:
+  name: Wallet
+  schema: public
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - balanceUsd
+        - address
+        - id
+        - name
+        - network
+        - createdAt
+        - updatedAt
+      filter: {}
