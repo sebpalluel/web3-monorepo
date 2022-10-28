@@ -30,9 +30,11 @@ jobs:
       - uses: actions/checkout@v2
       # Generate nx graph static site
       - name: Install dependencies and generate nx graph
-        run: yarn add "@nrwl/cli@$(cat ./package.json | jq -r '.devDependencies["@nrwl/cli"]')" && yarn nx-graph-static
+        run: yarn install && yarn nx-graph-static
       - name: Setup Nx Graph Page
-        uses: actions/configure-pages@v2
+        uses: actions/configure-pages@v2.1.2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:

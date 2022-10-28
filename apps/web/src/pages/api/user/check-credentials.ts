@@ -20,8 +20,9 @@ const isPasswordCorrect = (secret: string, password: PasswordWithAttempt): boole
 };
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const invalidCredentialsStr = 'Invalid credentials';
   if (!req.body) {
-    throw new ApiError(400, 'Invalid credentials');
+    throw new ApiError(400, invalidCredentialsStr);
   }
   const data = await adminSdk.GetUserAndPasswordByEmail({ email: req.body.username });
   const userPasswords = data?.users[0];
@@ -34,9 +35,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     } else {
       // update with attempt+1
       // if attempt > process.env.PSWD_MAX_ATTEMPTS, block user and ask to reset password
-      throw new ApiError(400, 'Invalid credentials');
+      throw new ApiError(400, invalidCredentialsStr);
     }
-  } else throw new ApiError(400, 'Invalid credentials');
+  } else throw new ApiError(400, invalidCredentialsStr);
 }
 
 export default async function checkCredentials(

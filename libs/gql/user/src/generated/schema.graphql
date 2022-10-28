@@ -19,12 +19,12 @@ directive @cached(
   ttl: Int! = 60
 ) on QUERY
 
-type JwtToken {
-  jwt: String!
-}
-
-type SignoutOutput {
-  ok: Boolean!
+type BalanceTokenData {
+  address: String
+  balanceUsd: Float
+  decimals: Int
+  name: String
+  symbol: String
 }
 
 """
@@ -93,6 +93,116 @@ input String_comparison_exp {
 }
 
 """
+columns and relationships of "Wallet"
+"""
+type Wallet {
+  address: String!
+  balanceUsd: float8!
+  createdAt: timestamp!
+  id: String!
+  name: String
+  network: String!
+  updatedAt: timestamp!
+}
+
+"""
+Boolean expression to filter rows from the table "Wallet". All fields are combined with a logical 'AND'.
+"""
+input Wallet_bool_exp {
+  _and: [Wallet_bool_exp!]
+  _not: Wallet_bool_exp
+  _or: [Wallet_bool_exp!]
+  address: String_comparison_exp
+  balanceUsd: float8_comparison_exp
+  createdAt: timestamp_comparison_exp
+  id: String_comparison_exp
+  name: String_comparison_exp
+  network: String_comparison_exp
+  updatedAt: timestamp_comparison_exp
+}
+
+"""
+Ordering options when selecting data from "Wallet".
+"""
+input Wallet_order_by {
+  address: order_by
+  balanceUsd: order_by
+  createdAt: order_by
+  id: order_by
+  name: order_by
+  network: order_by
+  updatedAt: order_by
+}
+
+"""
+select columns of table "Wallet"
+"""
+enum Wallet_select_column {
+  """
+  column name
+  """
+  address
+
+  """
+  column name
+  """
+  balanceUsd
+
+  """
+  column name
+  """
+  createdAt
+
+  """
+  column name
+  """
+  id
+
+  """
+  column name
+  """
+  name
+
+  """
+  column name
+  """
+  network
+
+  """
+  column name
+  """
+  updatedAt
+}
+
+"""
+Streaming cursor of the table "Wallet"
+"""
+input Wallet_stream_cursor_input {
+  """
+  Stream column input with initial value
+  """
+  initial_value: Wallet_stream_cursor_value_input!
+
+  """
+  cursor ordering
+  """
+  ordering: cursor_ordering
+}
+
+"""
+Initial value of the column from where the streaming should start
+"""
+input Wallet_stream_cursor_value_input {
+  address: String
+  balanceUsd: float8
+  createdAt: timestamp
+  id: String
+  name: String
+  network: String
+  updatedAt: timestamp
+}
+
+"""
 ordering argument of a cursor
 """
 enum cursor_ordering {
@@ -105,6 +215,23 @@ enum cursor_ordering {
   descending ordering of the cursor
   """
   DESC
+}
+
+scalar float8
+
+"""
+Boolean expression to compare columns of type "float8". All fields are combined with logical 'AND'.
+"""
+input float8_comparison_exp {
+  _eq: float8
+  _gt: float8
+  _gte: float8
+  _in: [float8!]
+  _is_null: Boolean
+  _lt: float8
+  _lte: float8
+  _neq: float8
+  _nin: [float8!]
 }
 
 """
@@ -125,7 +252,6 @@ type mutation_root {
   delete single row from the table: "users"
   """
   delete_users_by_pk(id: String!): users
-  signout: SignoutOutput
 
   """
   update data of the table: "users"
@@ -200,7 +326,45 @@ enum order_by {
 }
 
 type query_root {
-  refreshJwtToken(fingerprintHash: String!, refreshToken: String!): JwtToken!
+  """
+  fetch data from the table: "Wallet"
+  """
+  Wallet(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Wallet_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Wallet_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Wallet_bool_exp
+  ): [Wallet!]!
+
+  """
+  fetch data from the table: "Wallet" using primary key columns
+  """
+  Wallet_by_pk(id: String!): Wallet
+
+  """
+  Get balances of token for an address in given network
+  """
+  balancesEIP377(address: String!, network: String!): [BalanceTokenData]
 
   """
   fetch data from the table: "users"
@@ -239,6 +403,61 @@ type query_root {
 }
 
 type subscription_root {
+  """
+  fetch data from the table: "Wallet"
+  """
+  Wallet(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Wallet_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Wallet_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Wallet_bool_exp
+  ): [Wallet!]!
+
+  """
+  fetch data from the table: "Wallet" using primary key columns
+  """
+  Wallet_by_pk(id: String!): Wallet
+
+  """
+  fetch data from the table in a streaming manner : "Wallet"
+  """
+  Wallet_stream(
+    """
+    maximum number of rows returned in a single batch
+    """
+    batch_size: Int!
+
+    """
+    cursor to stream the results returned by the query
+    """
+    cursor: [Wallet_stream_cursor_input]!
+
+    """
+    filter the rows returned
+    """
+    where: Wallet_bool_exp
+  ): [Wallet!]!
+
   """
   fetch data from the table: "users"
   """

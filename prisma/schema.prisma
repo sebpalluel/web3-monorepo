@@ -1,0 +1,127 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("PRISMA_DATABASE_URL")
+}
+
+// returned data from https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&category=ethereum-ecosystem&order=market_cap_desc&per_page=100&page=1&sparkline=false
+
+// {
+//     "id": "ethereum",
+//     "symbol": "eth",
+//     "name": "Ethereum",
+//     "image": "https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880",
+//     "current_price": 1629.65,
+//     "market_cap": 196366574372,
+//     "market_cap_rank": 2,
+//     "fully_diluted_valuation": 196366574372,
+//     "total_volume": 16402241617,
+//     "high_24h": 1631.42,
+//     "low_24h": 1495.61,
+//     "price_change_24h": 125.04,
+//     "price_change_percentage_24h": 8.31052,
+//     "market_cap_change_24h": 14903894842,
+//     "market_cap_change_percentage_24h": 8.2132,
+//     "circulating_supply": 120521729.494931,
+//     "total_supply": 120521729.494931,
+//     "max_supply": null,
+//     "ath": 4878.26,
+//     "ath_change_percentage": -66.55682,
+//     "ath_date": "2021-11-10T14:24:19.604Z",
+//     "atl": 0.432979,
+//     "atl_change_percentage": 376695.61196,
+//     "atl_date": "2015-10-20T00:00:00.000Z",
+//     "roi": {
+//       "times": 103.07483216932741,
+//       "currency": "btc",
+//       "percentage": 10307.48321693274
+//     },
+//     "last_updated": "2022-10-29T10:04:17.197Z"
+//   },
+
+// returned data from https://api.coingecko.com/api/v3/coins/list?include_platform=true
+
+// {
+//     "id": "aave-wbtc",
+//     "symbol": "awbtc",
+//     "name": "Aave WBTC",
+//     "platforms": {
+//       "ethereum": "0x9ff58f4ffb29fa2266ab25e75e2a8b3503311656",
+//       "arbitrum-one": "0x078f358208685046a11c85e8ad32895ded33a249",
+//       "harmony-shard-0": "0x078f358208685046a11c85e8ad32895ded33a249",
+//       "avalanche": "0x078f358208685046a11c85e8ad32895ded33a249",
+//       "fantom": "0x078f358208685046a11c85e8ad32895ded33a249",
+//       "polygon-pos": "0x078f358208685046a11c85e8ad32895ded33a249",
+//       "optimistic-ethereum": "0x078f358208685046a11c85e8ad32895ded33a249"
+//     }
+//   },
+
+// model Cryptocurrency {
+//   id          String        @id @default(cuid())
+//   name        String
+//   symbol      String
+//   image       String
+//   // Change here when find how to put limited choices of string
+//   network     String
+//   address     String
+//   createdAt   DateTime      @default(now())
+//   updatedAt   DateTime      @updatedAt
+//   Transaction Transaction[]
+
+//   @@unique([network, address])
+// }
+
+// [
+//   {
+//     "address": "0x6b175474e89094c44da98b954eedeac495271d0f",
+//     "name": "DAI Stablecoin",
+//     "symbol": "DAI",
+//     "decimals": 18,
+//     "balance": "1234990000000000000000",
+//     "balanceUsd": 1234.99
+//   },
+//   ...
+// ]
+
+model Transaction {
+  id              String   @id @default(cuid())
+  fromAddress     String
+  toAddress       String
+  value           Float
+  gasLimit        Float
+  gasPrice        Float
+  gasUsed         Float
+  gasFee          Float
+  gasFeeUsd       Float
+  nonce           Int
+  status          Boolean
+  data            String
+  input           String
+  blockNumber     Float
+  blockHash       String
+  transaction     String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  contractAddress String?
+  // Wallet          Wallet?  @relation(fields: [walletId], references: [id])
+  walletId        String?
+}
+
+model Wallet {
+  id         String   @id @default(cuid())
+  address    String
+  network    String // didn't find a way to make this an enum
+  name       String?
+  balanceUsd Float
+  // pendingTransactions Transaction[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([network, address], name: "EIP377")
+}

@@ -19,5 +19,10 @@ export async function withSession(req: NextApiRequest, res: NextApiResponse) {
       } catch (error: any) {
         res.status(500).json({ error: error?.message });
       }
+      break;
+    case 'POST':
+      break;
+    default:
+      break;
   }
 }

@@ -1,12 +1,14 @@
 version: '3.9'
 services:
   hasura-engine:
-    container_name: hasura-engine
+    container_name: hasura_engine
     image: hasura/graphql-engine:v2.11.2
     ports:
       - '8080:8080'
     depends_on:
       db:
+        condition: service_healthy
+      prisma-db:
         condition: service_healthy
     env_file:
       - .env.local
@@ -15,6 +17,7 @@ services:
       HASURA_GRAPHQL_DEV_MODE: 'true'
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
       HASURA_GRAPHQL_ENABLE_TELEMETRY: 'false'
+      HASURA_GRAPHQL_JWT_SECRET: '{"type": "RS256","key": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlE9g9dr5yaq89gr4lnZ1\nyRb2DKisPhrVmAvVPTcXkFrOzQzJvuIVdnyojTxLOTokqP1tdijb72wPUWQaxuBu\nimIoQAQ2l1z/ovNLgzPQh/c2g8rC3Sq3O4sVgdZSErGGtKviHc++a3V/ZHJ45qJg\nrWposj05q8SHQufP6L6N+xu1wwi8CP9LxJh1gp/RnabPggPMRj09wV6unqcMuK/o\nhL6ycfgeTmVGlcCvULN/tncHw34sGnOBE3kQfghR0KRFGR2PwO4GnIknBebul0W7\n+hrUtlyi2fzP5WUn6n88BLu/2cd99sxOkbG9Gk8TMKb30vOb45ut7CWvt7oFfHow\n7wIDAQAB\n-----END PUBLIC KEY-----\n", "header": {"type": "Cookie", "name": "next-auth.session-token" }, "claims_map": { "x-hasura-allowed-roles": ["user", "anonymous" ], "x-hasura-default-role": "user", "x-hasura-client-id": { "path": "$$.clientId", "default": "" }, "x-hasura-user-id": { "path": "$$.user.id", "default": "" }, "x-hasura-role": { "path": "$$.role", "default": "" }, "x-hasura-username": { "path": "$$.name", "default": "" } } }'
     healthcheck:
       test:
         [
@@ -65,10 +68,11 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      prisma-db:
+        condition: service_healthy
     command: './start.sh'
     # tty: true
     restart: unless-stopped
-
   idpkit:
     container_name: idpkit
     image: waltid/idpkit:latest # backend docker image
@@ -88,7 +92,6 @@ services:
       - '9080:9080'
     extra_hosts:
       - 'host.docker.internal:host-gateway'
-
   mailhog:
     container_name: mailhog
     image: mailhog/mailhog
@@ -104,7 +107,6 @@ services:
     env_file:
       - .env.local
     restart: on-failure
-
   db:
     container_name: db
     image: postgres:13
@@ -112,6 +114,25 @@ services:
       - db_data:/var/lib/postgresql/data
     ports:
       - '5432:5432'
+    networks:
+      - db
+    restart: unless-stopped
+    env_file:
+      - .env.local
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 2s
+      timeout: 2s
+      retries: 10
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+  prisma-db:
+    container_name: prisma_db
+    image: postgres:13
+    volumes:
+      - prisma_db_data:/var/lib/postgresql/data
+    ports:
+      - '$PRISMA_DB_PORT:5432'
     networks:
       - db
     restart: unless-stopped
@@ -168,7 +189,7 @@ services:
       - ${KEYCLOAK_PORT}:${KEYCLOAK_PORT}
       - '8443:8443'
     depends_on:
-      db:
+      keycloak-db:
         condition: service_healthy
     healthcheck:
       test: ['CMD', 'curl', '--fail', 'http://localhost:8100/auth/health/ready']
@@ -192,7 +213,7 @@ services:
     extra_hosts:
       - 'host.docker.internal:host-gateway'
 
-  # # Used to have same DNS in docker and on the host machine
+  # # Used to have same DNS in docker and on the host machine but unfortunately it doesn't work on Mac
   # dps:
   #   image: defreitas/dns-proxy-server
   #   volumes:
@@ -207,6 +228,7 @@ services:
 
 volumes:
   db_data:
+  prisma_db_data:
   keycloak_db_data:
 
 networks:

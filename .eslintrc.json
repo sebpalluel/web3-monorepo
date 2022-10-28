@@ -1,28 +1,19 @@
 {
   "root": true,
-  "plugins": ["@nrwl/nx", "eslint-plugin-prettier", "markdown"],
+  "plugins": ["@nrwl/nx", "eslint-plugin-prettier", "markdown", "sonarjs"],
   "extends": [
     "eslint-config-prettier",
     "plugin:markdown/recommended",
-    "plugin:json/recommended"
+    "plugin:json/recommended",
+    "plugin:sonarjs/recommended"
   ],
   "overrides": [
     {
-      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "files": ["*"],
+      "extends": ["plugin:sonarjs/recommended"],
       "rules": {
-        "@nrwl/nx/enforce-module-boundaries": [
-          "error",
-          {
-            "enforceBuildableLibDependency": true,
-            "allow": [],
-            "depConstraints": [
-              {
-                "sourceTag": "*",
-                "onlyDependOnLibsWithTags": ["*"]
-              }
-            ]
-          }
-        ]
+        "sonarjs/cognitive-complexity": "warn",
+        "sonarjs/no-duplicate-string": "off"
       }
     },
     {

@@ -20,7 +20,7 @@
         "lintFilePatterns": ["libs/hasura/adapter/**/*.ts"]
       }
     },
-    "test": {
+    "test-hasura": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/hasura/adapter"],
       "options": {

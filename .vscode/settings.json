@@ -25,5 +25,8 @@
   },
   "[sql]": {
     "editor.defaultFormatter": "adpyke.vscode-sql-formatter"
+  },
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
   }
 }

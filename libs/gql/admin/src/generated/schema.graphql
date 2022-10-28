@@ -19,9 +19,12 @@ directive @cached(
   ttl: Int! = 60
 ) on QUERY
 
-type AccessTokens {
-  jwt: String!
-  refreshToken: String!
+type BalanceTokenData {
+  address: String
+  balanceUsd: Float
+  decimals: Int
+  name: String
+  symbol: String
 }
 
 """
@@ -52,24 +55,6 @@ input Int_comparison_exp {
   _lte: Int
   _neq: Int
   _nin: [Int!]
-}
-
-type JwtToken {
-  jwt: String!
-}
-
-input LoginInput {
-  email: String!
-  password: String!
-}
-
-type SignoutOutput {
-  ok: Boolean!
-}
-
-input SignupInput {
-  email: String!
-  password: String!
 }
 
 """
@@ -135,6 +120,994 @@ input String_comparison_exp {
   does the column match the given SQL regular expression
   """
   _similar: String
+}
+
+"""
+columns and relationships of "Transaction"
+"""
+type Transaction {
+  blockHash: String!
+  blockNumber: float8!
+  contractAddress: String
+  createdAt: timestamp!
+  data: String!
+  fromAddress: String!
+  gasFee: float8!
+  gasFeeUsd: float8!
+  gasLimit: float8!
+  gasPrice: float8!
+  gasUsed: float8!
+  id: String!
+  input: String!
+  nonce: Int!
+  status: Boolean!
+  toAddress: String!
+  transaction: String!
+  updatedAt: timestamp!
+  value: float8!
+  walletId: String
+}
+
+"""
+aggregated selection of "Transaction"
+"""
+type Transaction_aggregate {
+  aggregate: Transaction_aggregate_fields
+  nodes: [Transaction!]!
+}
+
+"""
+aggregate fields of "Transaction"
+"""
+type Transaction_aggregate_fields {
+  avg: Transaction_avg_fields
+  count(columns: [Transaction_select_column!], distinct: Boolean): Int!
+  max: Transaction_max_fields
+  min: Transaction_min_fields
+  stddev: Transaction_stddev_fields
+  stddev_pop: Transaction_stddev_pop_fields
+  stddev_samp: Transaction_stddev_samp_fields
+  sum: Transaction_sum_fields
+  var_pop: Transaction_var_pop_fields
+  var_samp: Transaction_var_samp_fields
+  variance: Transaction_variance_fields
+}
+
+"""
+aggregate avg on columns
+"""
+type Transaction_avg_fields {
+  blockNumber: Float
+  gasFee: Float
+  gasFeeUsd: Float
+  gasLimit: Float
+  gasPrice: Float
+  gasUsed: Float
+  nonce: Float
+  value: Float
+}
+
+"""
+Boolean expression to filter rows from the table "Transaction". All fields are combined with a logical 'AND'.
+"""
+input Transaction_bool_exp {
+  _and: [Transaction_bool_exp!]
+  _not: Transaction_bool_exp
+  _or: [Transaction_bool_exp!]
+  blockHash: String_comparison_exp
+  blockNumber: float8_comparison_exp
+  contractAddress: String_comparison_exp
+  createdAt: timestamp_comparison_exp
+  data: String_comparison_exp
+  fromAddress: String_comparison_exp
+  gasFee: float8_comparison_exp
+  gasFeeUsd: float8_comparison_exp
+  gasLimit: float8_comparison_exp
+  gasPrice: float8_comparison_exp
+  gasUsed: float8_comparison_exp
+  id: String_comparison_exp
+  input: String_comparison_exp
+  nonce: Int_comparison_exp
+  status: Boolean_comparison_exp
+  toAddress: String_comparison_exp
+  transaction: String_comparison_exp
+  updatedAt: timestamp_comparison_exp
+  value: float8_comparison_exp
+  walletId: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "Transaction"
+"""
+enum Transaction_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  Transaction_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "Transaction"
+"""
+input Transaction_inc_input {
+  blockNumber: float8
+  gasFee: float8
+  gasFeeUsd: float8
+  gasLimit: float8
+  gasPrice: float8
+  gasUsed: float8
+  nonce: Int
+  value: float8
+}
+
+"""
+input type for inserting data into table "Transaction"
+"""
+input Transaction_insert_input {
+  blockHash: String
+  blockNumber: float8
+  contractAddress: String
+  createdAt: timestamp
+  data: String
+  fromAddress: String
+  gasFee: float8
+  gasFeeUsd: float8
+  gasLimit: float8
+  gasPrice: float8
+  gasUsed: float8
+  id: String
+  input: String
+  nonce: Int
+  status: Boolean
+  toAddress: String
+  transaction: String
+  updatedAt: timestamp
+  value: float8
+  walletId: String
+}
+
+"""
+aggregate max on columns
+"""
+type Transaction_max_fields {
+  blockHash: String
+  blockNumber: float8
+  contractAddress: String
+  createdAt: timestamp
+  data: String
+  fromAddress: String
+  gasFee: float8
+  gasFeeUsd: float8
+  gasLimit: float8
+  gasPrice: float8
+  gasUsed: float8
+  id: String
+  input: String
+  nonce: Int
+  toAddress: String
+  transaction: String
+  updatedAt: timestamp
+  value: float8
+  walletId: String
+}
+
+"""
+aggregate min on columns
+"""
+type Transaction_min_fields {
+  blockHash: String
+  blockNumber: float8
+  contractAddress: String
+  createdAt: timestamp
+  data: String
+  fromAddress: String
+  gasFee: float8
+  gasFeeUsd: float8
+  gasLimit: float8
+  gasPrice: float8
+  gasUsed: float8
+  id: String
+  input: String
+  nonce: Int
+  toAddress: String
+  transaction: String
+  updatedAt: timestamp
+  value: float8
+  walletId: String
+}
+
+"""
+response of any mutation on the table "Transaction"
+"""
+type Transaction_mutation_response {
+  """
+  number of rows affected by the mutation
+  """
+  affected_rows: Int!
+
+  """
+  data from the rows affected by the mutation
+  """
+  returning: [Transaction!]!
+}
+
+"""
+on_conflict condition type for table "Transaction"
+"""
+input Transaction_on_conflict {
+  constraint: Transaction_constraint!
+  update_columns: [Transaction_update_column!]! = []
+  where: Transaction_bool_exp
+}
+
+"""
+Ordering options when selecting data from "Transaction".
+"""
+input Transaction_order_by {
+  blockHash: order_by
+  blockNumber: order_by
+  contractAddress: order_by
+  createdAt: order_by
+  data: order_by
+  fromAddress: order_by
+  gasFee: order_by
+  gasFeeUsd: order_by
+  gasLimit: order_by
+  gasPrice: order_by
+  gasUsed: order_by
+  id: order_by
+  input: order_by
+  nonce: order_by
+  status: order_by
+  toAddress: order_by
+  transaction: order_by
+  updatedAt: order_by
+  value: order_by
+  walletId: order_by
+}
+
+"""
+primary key columns input for table: Transaction
+"""
+input Transaction_pk_columns_input {
+  id: String!
+}
+
+"""
+select columns of table "Transaction"
+"""
+enum Transaction_select_column {
+  """
+  column name
+  """
+  blockHash
+
+  """
+  column name
+  """
+  blockNumber
+
+  """
+  column name
+  """
+  contractAddress
+
+  """
+  column name
+  """
+  createdAt
+
+  """
+  column name
+  """
+  data
+
+  """
+  column name
+  """
+  fromAddress
+
+  """
+  column name
+  """
+  gasFee
+
+  """
+  column name
+  """
+  gasFeeUsd
+
+  """
+  column name
+  """
+  gasLimit
+
+  """
+  column name
+  """
+  gasPrice
+
+  """
+  column name
+  """
+  gasUsed
+
+  """
+  column name
+  """
+  id
+
+  """
+  column name
+  """
+  input
+
+  """
+  column name
+  """
+  nonce
+
+  """
+  column name
+  """
+  status
+
+  """
+  column name
+  """
+  toAddress
+
+  """
+  column name
+  """
+  transaction
+
+  """
+  column name
+  """
+  updatedAt
+
+  """
+  column name
+  """
+  value
+
+  """
+  column name
+  """
+  walletId
+}
+
+"""
+input type for updating data in table "Transaction"
+"""
+input Transaction_set_input {
+  blockHash: String
+  blockNumber: float8
+  contractAddress: String
+  createdAt: timestamp
+  data: String
+  fromAddress: String
+  gasFee: float8
+  gasFeeUsd: float8
+  gasLimit: float8
+  gasPrice: float8
+  gasUsed: float8
+  id: String
+  input: String
+  nonce: Int
+  status: Boolean
+  toAddress: String
+  transaction: String
+  updatedAt: timestamp
+  value: float8
+  walletId: String
+}
+
+"""
+aggregate stddev on columns
+"""
+type Transaction_stddev_fields {
+  blockNumber: Float
+  gasFee: Float
+  gasFeeUsd: Float
+  gasLimit: Float
+  gasPrice: Float
+  gasUsed: Float
+  nonce: Float
+  value: Float
+}
+
+"""
+aggregate stddev_pop on columns
+"""
+type Transaction_stddev_pop_fields {
+  blockNumber: Float
+  gasFee: Float
+  gasFeeUsd: Float
+  gasLimit: Float
+  gasPrice: Float
+  gasUsed: Float
+  nonce: Float
+  value: Float
+}
+
+"""
+aggregate stddev_samp on columns
+"""
+type Transaction_stddev_samp_fields {
+  blockNumber: Float
+  gasFee: Float
+  gasFeeUsd: Float
+  gasLimit: Float
+  gasPrice: Float
+  gasUsed: Float
+  nonce: Float
+  value: Float
+}
+
+"""
+Streaming cursor of the table "Transaction"
+"""
+input Transaction_stream_cursor_input {
+  """
+  Stream column input with initial value
+  """
+  initial_value: Transaction_stream_cursor_value_input!
+
+  """
+  cursor ordering
+  """
+  ordering: cursor_ordering
+}
+
+"""
+Initial value of the column from where the streaming should start
+"""
+input Transaction_stream_cursor_value_input {
+  blockHash: String
+  blockNumber: float8
+  contractAddress: String
+  createdAt: timestamp
+  data: String
+  fromAddress: String
+  gasFee: float8
+  gasFeeUsd: float8
+  gasLimit: float8
+  gasPrice: float8
+  gasUsed: float8
+  id: String
+  input: String
+  nonce: Int
+  status: Boolean
+  toAddress: String
+  transaction: String
+  updatedAt: timestamp
+  value: float8
+  walletId: String
+}
+
+"""
+aggregate sum on columns
+"""
+type Transaction_sum_fields {
+  blockNumber: float8
+  gasFee: float8
+  gasFeeUsd: float8
+  gasLimit: float8
+  gasPrice: float8
+  gasUsed: float8
+  nonce: Int
+  value: float8
+}
+
+"""
+update columns of table "Transaction"
+"""
+enum Transaction_update_column {
+  """
+  column name
+  """
+  blockHash
+
+  """
+  column name
+  """
+  blockNumber
+
+  """
+  column name
+  """
+  contractAddress
+
+  """
+  column name
+  """
+  createdAt
+
+  """
+  column name
+  """
+  data
+
+  """
+  column name
+  """
+  fromAddress
+
+  """
+  column name
+  """
+  gasFee
+
+  """
+  column name
+  """
+  gasFeeUsd
+
+  """
+  column name
+  """
+  gasLimit
+
+  """
+  column name
+  """
+  gasPrice
+
+  """
+  column name
+  """
+  gasUsed
+
+  """
+  column name
+  """
+  id
+
+  """
+  column name
+  """
+  input
+
+  """
+  column name
+  """
+  nonce
+
+  """
+  column name
+  """
+  status
+
+  """
+  column name
+  """
+  toAddress
+
+  """
+  column name
+  """
+  transaction
+
+  """
+  column name
+  """
+  updatedAt
+
+  """
+  column name
+  """
+  value
+
+  """
+  column name
+  """
+  walletId
+}
+
+input Transaction_updates {
+  """
+  increments the numeric columns with given value of the filtered values
+  """
+  _inc: Transaction_inc_input
+
+  """
+  sets the columns of the filtered rows to the given values
+  """
+  _set: Transaction_set_input
+  where: Transaction_bool_exp!
+}
+
+"""
+aggregate var_pop on columns
+"""
+type Transaction_var_pop_fields {
+  blockNumber: Float
+  gasFee: Float
+  gasFeeUsd: Float
+  gasLimit: Float
+  gasPrice: Float
+  gasUsed: Float
+  nonce: Float
+  value: Float
+}
+
+"""
+aggregate var_samp on columns
+"""
+type Transaction_var_samp_fields {
+  blockNumber: Float
+  gasFee: Float
+  gasFeeUsd: Float
+  gasLimit: Float
+  gasPrice: Float
+  gasUsed: Float
+  nonce: Float
+  value: Float
+}
+
+"""
+aggregate variance on columns
+"""
+type Transaction_variance_fields {
+  blockNumber: Float
+  gasFee: Float
+  gasFeeUsd: Float
+  gasLimit: Float
+  gasPrice: Float
+  gasUsed: Float
+  nonce: Float
+  value: Float
+}
+
+"""
+columns and relationships of "Wallet"
+"""
+type Wallet {
+  address: String!
+  balanceUsd: float8!
+  createdAt: timestamp!
+  id: String!
+  name: String
+  network: String!
+  updatedAt: timestamp!
+}
+
+"""
+aggregated selection of "Wallet"
+"""
+type Wallet_aggregate {
+  aggregate: Wallet_aggregate_fields
+  nodes: [Wallet!]!
+}
+
+"""
+aggregate fields of "Wallet"
+"""
+type Wallet_aggregate_fields {
+  avg: Wallet_avg_fields
+  count(columns: [Wallet_select_column!], distinct: Boolean): Int!
+  max: Wallet_max_fields
+  min: Wallet_min_fields
+  stddev: Wallet_stddev_fields
+  stddev_pop: Wallet_stddev_pop_fields
+  stddev_samp: Wallet_stddev_samp_fields
+  sum: Wallet_sum_fields
+  var_pop: Wallet_var_pop_fields
+  var_samp: Wallet_var_samp_fields
+  variance: Wallet_variance_fields
+}
+
+"""
+aggregate avg on columns
+"""
+type Wallet_avg_fields {
+  balanceUsd: Float
+}
+
+"""
+Boolean expression to filter rows from the table "Wallet". All fields are combined with a logical 'AND'.
+"""
+input Wallet_bool_exp {
+  _and: [Wallet_bool_exp!]
+  _not: Wallet_bool_exp
+  _or: [Wallet_bool_exp!]
+  address: String_comparison_exp
+  balanceUsd: float8_comparison_exp
+  createdAt: timestamp_comparison_exp
+  id: String_comparison_exp
+  name: String_comparison_exp
+  network: String_comparison_exp
+  updatedAt: timestamp_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "Wallet"
+"""
+enum Wallet_constraint {
+  """
+  unique or primary key constraint on columns "network", "address"
+  """
+  Wallet_network_address_key
+
+  """
+  unique or primary key constraint on columns "id"
+  """
+  Wallet_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "Wallet"
+"""
+input Wallet_inc_input {
+  balanceUsd: float8
+}
+
+"""
+input type for inserting data into table "Wallet"
+"""
+input Wallet_insert_input {
+  address: String
+  balanceUsd: float8
+  createdAt: timestamp
+  id: String
+  name: String
+  network: String
+  updatedAt: timestamp
+}
+
+"""
+aggregate max on columns
+"""
+type Wallet_max_fields {
+  address: String
+  balanceUsd: float8
+  createdAt: timestamp
+  id: String
+  name: String
+  network: String
+  updatedAt: timestamp
+}
+
+"""
+aggregate min on columns
+"""
+type Wallet_min_fields {
+  address: String
+  balanceUsd: float8
+  createdAt: timestamp
+  id: String
+  name: String
+  network: String
+  updatedAt: timestamp
+}
+
+"""
+response of any mutation on the table "Wallet"
+"""
+type Wallet_mutation_response {
+  """
+  number of rows affected by the mutation
+  """
+  affected_rows: Int!
+
+  """
+  data from the rows affected by the mutation
+  """
+  returning: [Wallet!]!
+}
+
+"""
+on_conflict condition type for table "Wallet"
+"""
+input Wallet_on_conflict {
+  constraint: Wallet_constraint!
+  update_columns: [Wallet_update_column!]! = []
+  where: Wallet_bool_exp
+}
+
+"""
+Ordering options when selecting data from "Wallet".
+"""
+input Wallet_order_by {
+  address: order_by
+  balanceUsd: order_by
+  createdAt: order_by
+  id: order_by
+  name: order_by
+  network: order_by
+  updatedAt: order_by
+}
+
+"""
+primary key columns input for table: Wallet
+"""
+input Wallet_pk_columns_input {
+  id: String!
+}
+
+"""
+select columns of table "Wallet"
+"""
+enum Wallet_select_column {
+  """
+  column name
+  """
+  address
+
+  """
+  column name
+  """
+  balanceUsd
+
+  """
+  column name
+  """
+  createdAt
+
+  """
+  column name
+  """
+  id
+
+  """
+  column name
+  """
+  name
+
+  """
+  column name
+  """
+  network
+
+  """
+  column name
+  """
+  updatedAt
+}
+
+"""
+input type for updating data in table "Wallet"
+"""
+input Wallet_set_input {
+  address: String
+  balanceUsd: float8
+  createdAt: timestamp
+  id: String
+  name: String
+  network: String
+  updatedAt: timestamp
+}
+
+"""
+aggregate stddev on columns
+"""
+type Wallet_stddev_fields {
+  balanceUsd: Float
+}
+
+"""
+aggregate stddev_pop on columns
+"""
+type Wallet_stddev_pop_fields {
+  balanceUsd: Float
+}
+
+"""
+aggregate stddev_samp on columns
+"""
+type Wallet_stddev_samp_fields {
+  balanceUsd: Float
+}
+
+"""
+Streaming cursor of the table "Wallet"
+"""
+input Wallet_stream_cursor_input {
+  """
+  Stream column input with initial value
+  """
+  initial_value: Wallet_stream_cursor_value_input!
+
+  """
+  cursor ordering
+  """
+  ordering: cursor_ordering
+}
+
+"""
+Initial value of the column from where the streaming should start
+"""
+input Wallet_stream_cursor_value_input {
+  address: String
+  balanceUsd: float8
+  createdAt: timestamp
+  id: String
+  name: String
+  network: String
+  updatedAt: timestamp
+}
+
+"""
+aggregate sum on columns
+"""
+type Wallet_sum_fields {
+  balanceUsd: float8
+}
+
+"""
+update columns of table "Wallet"
+"""
+enum Wallet_update_column {
+  """
+  column name
+  """
+  address
+
+  """
+  column name
+  """
+  balanceUsd
+
+  """
+  column name
+  """
+  createdAt
+
+  """
+  column name
+  """
+  id
+
+  """
+  column name
+  """
+  name
+
+  """
+  column name
+  """
+  network
+
+  """
+  column name
+  """
+  updatedAt
+}
+
+input Wallet_updates {
+  """
+  increments the numeric columns with given value of the filtered values
+  """
+  _inc: Wallet_inc_input
+
+  """
+  sets the columns of the filtered rows to the given values
+  """
+  _set: Wallet_set_input
+  where: Wallet_bool_exp!
+}
+
+"""
+aggregate var_pop on columns
+"""
+type Wallet_var_pop_fields {
+  balanceUsd: Float
+}
+
+"""
+aggregate var_samp on columns
+"""
+type Wallet_var_samp_fields {
+  balanceUsd: Float
+}
+
+"""
+aggregate variance on columns
+"""
+type Wallet_variance_fields {
+  balanceUsd: Float
 }
 
 """
@@ -744,10 +1717,57 @@ enum cursor_ordering {
   DESC
 }
 
+scalar float8
+
+"""
+Boolean expression to compare columns of type "float8". All fields are combined with logical 'AND'.
+"""
+input float8_comparison_exp {
+  _eq: float8
+  _gt: float8
+  _gte: float8
+  _in: [float8!]
+  _is_null: Boolean
+  _lt: float8
+  _lte: float8
+  _neq: float8
+  _nin: [float8!]
+}
+
 """
 mutation root
 """
 type mutation_root {
+  """
+  delete data from the table: "Transaction"
+  """
+  delete_Transaction(
+    """
+    filter the rows which have to be deleted
+    """
+    where: Transaction_bool_exp!
+  ): Transaction_mutation_response
+
+  """
+  delete single row from the table: "Transaction"
+  """
+  delete_Transaction_by_pk(id: String!): Transaction
+
+  """
+  delete data from the table: "Wallet"
+  """
+  delete_Wallet(
+    """
+    filter the rows which have to be deleted
+    """
+    where: Wallet_bool_exp!
+  ): Wallet_mutation_response
+
+  """
+  delete single row from the table: "Wallet"
+  """
+  delete_Wallet_by_pk(id: String!): Wallet
+
   """
   delete data from the table: "accounts"
   """
@@ -817,6 +1837,66 @@ type mutation_root {
     """
     where: verificationTokens_bool_exp!
   ): verificationTokens_mutation_response
+
+  """
+  insert data into the table: "Transaction"
+  """
+  insert_Transaction(
+    """
+    the rows to be inserted
+    """
+    objects: [Transaction_insert_input!]!
+
+    """
+    upsert condition
+    """
+    on_conflict: Transaction_on_conflict
+  ): Transaction_mutation_response
+
+  """
+  insert a single row into the table: "Transaction"
+  """
+  insert_Transaction_one(
+    """
+    the row to be inserted
+    """
+    object: Transaction_insert_input!
+
+    """
+    upsert condition
+    """
+    on_conflict: Transaction_on_conflict
+  ): Transaction
+
+  """
+  insert data into the table: "Wallet"
+  """
+  insert_Wallet(
+    """
+    the rows to be inserted
+    """
+    objects: [Wallet_insert_input!]!
+
+    """
+    upsert condition
+    """
+    on_conflict: Wallet_on_conflict
+  ): Wallet_mutation_response
+
+  """
+  insert a single row into the table: "Wallet"
+  """
+  insert_Wallet_one(
+    """
+    the row to be inserted
+    """
+    object: Wallet_insert_input!
+
+    """
+    upsert condition
+    """
+    on_conflict: Wallet_on_conflict
+  ): Wallet
 
   """
   insert data into the table: "accounts"
@@ -957,8 +2037,98 @@ type mutation_root {
     """
     object: verificationTokens_insert_input!
   ): verificationTokens
-  signout: SignoutOutput
-  signup(params: SignupInput!): AccessTokens!
+
+  """
+  update data of the table: "Transaction"
+  """
+  update_Transaction(
+    """
+    increments the numeric columns with given value of the filtered values
+    """
+    _inc: Transaction_inc_input
+
+    """
+    sets the columns of the filtered rows to the given values
+    """
+    _set: Transaction_set_input
+
+    """
+    filter the rows which have to be updated
+    """
+    where: Transaction_bool_exp!
+  ): Transaction_mutation_response
+
+  """
+  update single row of the table: "Transaction"
+  """
+  update_Transaction_by_pk(
+    """
+    increments the numeric columns with given value of the filtered values
+    """
+    _inc: Transaction_inc_input
+
+    """
+    sets the columns of the filtered rows to the given values
+    """
+    _set: Transaction_set_input
+    pk_columns: Transaction_pk_columns_input!
+  ): Transaction
+
+  """
+  update multiples rows of table: "Transaction"
+  """
+  update_Transaction_many(
+    """
+    updates to execute, in order
+    """
+    updates: [Transaction_updates!]!
+  ): [Transaction_mutation_response]
+
+  """
+  update data of the table: "Wallet"
+  """
+  update_Wallet(
+    """
+    increments the numeric columns with given value of the filtered values
+    """
+    _inc: Wallet_inc_input
+
+    """
+    sets the columns of the filtered rows to the given values
+    """
+    _set: Wallet_set_input
+
+    """
+    filter the rows which have to be updated
+    """
+    where: Wallet_bool_exp!
+  ): Wallet_mutation_response
+
+  """
+  update single row of the table: "Wallet"
+  """
+  update_Wallet_by_pk(
+    """
+    increments the numeric columns with given value of the filtered values
+    """
+    _inc: Wallet_inc_input
+
+    """
+    sets the columns of the filtered rows to the given values
+    """
+    _set: Wallet_set_input
+    pk_columns: Wallet_pk_columns_input!
+  ): Wallet
+
+  """
+  update multiples rows of table: "Wallet"
+  """
+  update_Wallet_many(
+    """
+    updates to execute, in order
+    """
+    updates: [Wallet_updates!]!
+  ): [Wallet_mutation_response]
 
   """
   update data of the table: "accounts"
@@ -1624,6 +2794,136 @@ input passwords_variance_order_by {
 
 type query_root {
   """
+  fetch data from the table: "Transaction"
+  """
+  Transaction(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Transaction_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Transaction_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Transaction_bool_exp
+  ): [Transaction!]!
+
+  """
+  fetch aggregated fields from the table: "Transaction"
+  """
+  Transaction_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Transaction_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Transaction_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Transaction_bool_exp
+  ): Transaction_aggregate!
+
+  """
+  fetch data from the table: "Transaction" using primary key columns
+  """
+  Transaction_by_pk(id: String!): Transaction
+
+  """
+  fetch data from the table: "Wallet"
+  """
+  Wallet(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Wallet_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Wallet_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Wallet_bool_exp
+  ): [Wallet!]!
+
+  """
+  fetch aggregated fields from the table: "Wallet"
+  """
+  Wallet_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Wallet_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Wallet_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Wallet_bool_exp
+  ): Wallet_aggregate!
+
+  """
+  fetch data from the table: "Wallet" using primary key columns
+  """
+  Wallet_by_pk(id: String!): Wallet
+
+  """
   An array relationship
   """
   accounts(
@@ -1687,7 +2987,11 @@ type query_root {
   fetch data from the table: "accounts" using primary key columns
   """
   accounts_by_pk(id: String!): accounts
-  login(params: LoginInput!): AccessTokens!
+
+  """
+  Get balances of token for an address in given network
+  """
+  balancesEIP377(address: String!, network: String!): [BalanceTokenData]
 
   """
   An array relationship
@@ -1753,7 +3057,6 @@ type query_root {
   fetch data from the table: "passwords" using primary key columns
   """
   passwords_by_pk(hash: String!): passwords
-  refreshJwtToken(fingerprintHash: String!, refreshToken: String!): JwtToken!
 
   """
   An array relationship
@@ -2210,6 +3513,176 @@ input sessions_updates {
 }
 
 type subscription_root {
+  """
+  fetch data from the table: "Transaction"
+  """
+  Transaction(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Transaction_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Transaction_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Transaction_bool_exp
+  ): [Transaction!]!
+
+  """
+  fetch aggregated fields from the table: "Transaction"
+  """
+  Transaction_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Transaction_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Transaction_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Transaction_bool_exp
+  ): Transaction_aggregate!
+
+  """
+  fetch data from the table: "Transaction" using primary key columns
+  """
+  Transaction_by_pk(id: String!): Transaction
+
+  """
+  fetch data from the table in a streaming manner : "Transaction"
+  """
+  Transaction_stream(
+    """
+    maximum number of rows returned in a single batch
+    """
+    batch_size: Int!
+
+    """
+    cursor to stream the results returned by the query
+    """
+    cursor: [Transaction_stream_cursor_input]!
+
+    """
+    filter the rows returned
+    """
+    where: Transaction_bool_exp
+  ): [Transaction!]!
+
+  """
+  fetch data from the table: "Wallet"
+  """
+  Wallet(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Wallet_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Wallet_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Wallet_bool_exp
+  ): [Wallet!]!
+
+  """
+  fetch aggregated fields from the table: "Wallet"
+  """
+  Wallet_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Wallet_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Wallet_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Wallet_bool_exp
+  ): Wallet_aggregate!
+
+  """
+  fetch data from the table: "Wallet" using primary key columns
+  """
+  Wallet_by_pk(id: String!): Wallet
+
+  """
+  fetch data from the table in a streaming manner : "Wallet"
+  """
+  Wallet_stream(
+    """
+    maximum number of rows returned in a single batch
+    """
+    batch_size: Int!
+
+    """
+    cursor to stream the results returned by the query
+    """
+    cursor: [Wallet_stream_cursor_input]!
+
+    """
+    filter the rows returned
+    """
+    where: Wallet_bool_exp
+  ): [Wallet!]!
+
   """
   An array relationship
   """

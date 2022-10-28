@@ -6,6 +6,8 @@ const withNx = require('@nrwl/next/plugins/with-nx');
  * @type {import('@nrwl/next/plugins/with-nx').WithNxOptions}
  * */
 
+const isProd = process.env.NODE_ENV === 'production';
+
 const withPWA = require('next-pwa')({
   dest: 'public',
   disable:
@@ -24,6 +26,15 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV !== 'development',
   },
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback.fs = false;
+    }
+    return config;
+  },
+  images: {},
+  // Use the CDN in production and localhost for development.
+  assetPrefix: isProd ? 'https://cdn.mydomain.com' : undefined,
 };
 
 module.exports = (_phase, { defaultConfig }) => {

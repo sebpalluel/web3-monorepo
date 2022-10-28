@@ -62,39 +62,25 @@ const Header = () => {
         <nav>
           <ul className={styles.navItems}>
             <li className={styles.navItem}>
-              <Link href="/">
-                <a>Home</a>
-              </Link>
+              <Link href="/">Home</Link>
             </li>
             <li className={styles.navItem}>
-              <Link href="/client">
-                <a>Client</a>
-              </Link>
+              <Link href="/client">Client</Link>
             </li>
             <li className={styles.navItem}>
-              <Link href="/server">
-                <a>Server</a>
-              </Link>
+              <Link href="/server">Server</Link>
             </li>
             <li className={styles.navItem}>
-              <Link href="/api-example">
-                <a>API</a>
-              </Link>
+              <Link href="/api-example">API</Link>
             </li>
             <li className={styles.navItem}>
-              <Link href="/admin">
-                <a>Admin</a>
-              </Link>
+              <Link href="/admin">Admin</Link>
             </li>
             <li className={styles.navItem}>
-              <Link href="/me">
-                <a>Me</a>
-              </Link>
+              <Link href="/me">Me</Link>
             </li>
             <li className={styles.navItem}>
-              <Link href="/blockchain">
-                <a>Blockchain</a>
-              </Link>
+              <Link href="/blockchain">Blockchain</Link>
             </li>
           </ul>
         </nav>

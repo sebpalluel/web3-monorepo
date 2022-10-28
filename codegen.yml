@@ -31,7 +31,6 @@ generates:
       - 'add':
           content: 'export const adminSdk = getSdk(fetchData({admin:true}));'
           placement: 'append'
-
   # user
   libs/gql/user/src/generated/schema.json:
     plugins:
@@ -61,6 +60,7 @@ generates:
           fetcher:
             func: '@boilerplate/hasura-fetcher#fetchDataReactQuery'
             isReactHook: false
+          errorType: Error
   # test user
   libs/test-utils/gql/src/generated/test-user.ts:
     schema:
@@ -74,6 +74,7 @@ generates:
       - 'typescript-generic-sdk':
           noExport: true
           documentMode: 'string'
+
     # ## hasura
     # #  doesn't support yet separated fragments so it fail
     # #  TODO: follow up on this issue https://github.com/dotansimha/graphql-code-generator/issues/7700
