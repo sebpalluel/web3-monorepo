@@ -23,7 +23,7 @@
 
 **View in [NX Graph](https://sebpalluel.github.io/web3-monorepo/?groupByFolder=true&select=all)**
 
-[![name](https://user-images.githubusercontent.com/11297176/198037536-5aaea3b3-4da5-45cf-b5b4-9b1f72f170d3.png)](https://sebpalluel.github.io/web3-monorepo/?groupByFolder=true&select=all)
+[![name](https://user-images.githubusercontent.com/11297176/204857101-f5c70cc0-02a2-478f-8e7c-c71e6d43caef.png)](https://sebpalluel.github.io/web3-monorepo/?groupByFolder=true&select=all)
 
 ### Access to the services and app URLs
 
@@ -131,9 +131,13 @@ npx nx serve nestjs-server
 
 ## Next.js
 
+<p align="center"><img src="https://user-images.githubusercontent.com/11297176/204857747-9717a55e-7edc-45cb-8970-a18aee3857f3.png" width="25%"></p>
+
 The web app is using [next.js meta-framework](https://nextjs.org/) v13 in order to leverage serverless api functions and react hybrid SSR/SSG/PWA capabilities. The web app is using the [next-auth](https://next-auth.js.org/) library to handle the authentication and the authorization and the ChakraUI components library.
 
 ##  Hasura
+
+<p align="center"><img src="https://user-images.githubusercontent.com/11297176/204858221-400660c3-74b9-40d5-8780-f47b52852fd3.png" width="25%"></p>
 
 The [Hasura service](https://hasura.io/) is used as a GraphQL API gateway to the Postgres database and for introspection into the prisma database. It is also used to handle the authentication and authorization of the users through a Next-Auth adapter.
 
@@ -141,9 +145,13 @@ It act as the single endpoint for the web app to query the database and the exte
 
 ## Prisma ORM
 
+<p align="center"><img src="https://user-images.githubusercontent.com/11297176/204858587-fddcad8e-eb9b-40d7-a692-cb91f3a689fc.png" width="35%"></p>
+
 The [Prisma ORM](https://www.prisma.io/) is used in the context of the Nest.js Server app to interact with the prisma Postgres database. It is used to generate the database schema and the migrations and offer an admin with [Prisma Studio](https://www.prisma.io/studio).
 
 ## Nest.js
+
+<p align="center"><img src="https://user-images.githubusercontent.com/11297176/204859634-4614e8e2-2759-482f-b5b0-84f7591b1b4e.png" width="15%"></p>
 
 The [Nest.js](https://nestjs.com/) framework is used to extend the Hasura functionalities. It serves as a complementary layer to Hasura to handle the business logic of the application and to interact with the external services like the blockchain and the crypto APIs. Currently it serves as a service to handle the retrieval of the user's wallet balance of ERC20 tokens on the Ethereum/Polygon/Arbitrum blockchains. More info in the [Nest.js Server app README](./apps/nestjs-server/README.md).
 
@@ -174,7 +182,7 @@ This repo has some additional tools already setup for you:
 
 ### Next Auth
 
-<p align="center"><img src="https://user-images.githubusercontent.com/11297176/196224807-718c7649-b946-423e-9449-92ef244a6816.png" width="15%"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/11297176/196224807-718c7649-b946-423e-9449-92ef244a6816.png" width="10%"></p>
 
 This project use Next-Auth to offer different way of authentication.
 
@@ -184,7 +192,7 @@ Additionally, the boilerplate offer a way to authenticate through email + passwo
 
 ### Waltid-idpkit
 
-<p align="center"><img src="https://user-images.githubusercontent.com/11297176/196224973-525515ff-73f4-4d9d-925d-ba3090ee8974.png" width="15%"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/11297176/196224973-525515ff-73f4-4d9d-925d-ba3090ee8974.png" width="10%"></p>
 
 **This project use the IDP kit in order to offer web3 sign in with your DID.**
 
@@ -220,7 +228,7 @@ An other use case of the IDP kit is to use it with the [NFT Kit](https://docs.wa
 
 ### Keycloak
 
-<p align="center"><img src="https://user-images.githubusercontent.com/11297176/196224605-402a6adc-c25e-4ca9-a88c-42b3269e7273.png" width="30%"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/11297176/196224605-402a6adc-c25e-4ca9-a88c-42b3269e7273.png" width="20%"></p>
 
 We use Keycloak as the main provider to authenticate with credentials or federated sign in with google. The IDP kit server is linked through with OpenID Connect protocol. Keycloak is then used as a provider by Next Auth to handle all the authentication process on the web application.
 
@@ -257,7 +265,7 @@ As you are running both keycloak and idpkit from docker, the resulting address i
 
 ### GraphQL code generator
 
-<p align="center"><img src="https://user-images.githubusercontent.com/11297176/196225336-16072309-c798-4263-85ed-b5332509dc99.jpeg" width="20%"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/11297176/196225336-16072309-c798-4263-85ed-b5332509dc99.jpeg" width="15%"></p>
 
 The command `pnpm graphql-codegen` will launch the `graphql-codegen`script. All the codegen definitions are written in the file `codegen.yml`.
 
@@ -275,7 +283,7 @@ The graphql queries definition are defined in `libs/gql/admin/queries`. We use a
 
 ### The Graph: Graph Client
 
-<p align="center"><img src="https://user-images.githubusercontent.com/11297176/196224114-2521564d-6da6-4ee0-b2d6-e09655477913.png" width="20%"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/11297176/196224114-2521564d-6da6-4ee0-b2d6-e09655477913.png" width="15%"></p>
 
 The [Graph Client library](https://github.com/graphprotocol/graph-client) is used in order to interact easily with any smart contract on blockchain supported by [The Graph protocol](https://thegraph.com/en/).
 
@@ -289,7 +297,7 @@ You can find an example of live query of smart contract on the [Blockchain page]
 
 ### Jest
 
-<p align="center"><img src="https://user-images.githubusercontent.com/11297176/196227843-0616474f-f801-49ad-bf87-b0f27baac0f2.png" width="25%"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/11297176/196227843-0616474f-f801-49ad-bf87-b0f27baac0f2.png" width="20%"></p>
 
 Jest is the test-runner used for unit and integration tests.
 
@@ -323,7 +331,7 @@ You can check the tests on <mark>auth.cy.ts</mark> for example usages of thoses 
 
 This project was generated using [Nx](https://nx.dev).
 
-<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="20%"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="15%"></p>
 
 🔎 **Smart, Fast and Extensible Build System**
 
@@ -440,7 +448,7 @@ ALCHEMY_POLYGON_MAINNET_TOKEN=
 ALCHEMY_ARBITRUM_MAINNET_TOKEN=
 ```
 
-### Provide the .env file to the github action CI job
+### Provide the .env file to the github action CI job
 
 The CI pipeline on github action will fail if you don't provide the Alchemy api keys as it's needed for the Nestjs Server app.
 
@@ -472,262 +480,68 @@ In order to secure your JWT authentication provided by [Next Auth](https://next-
 1. Register a client with the IDP Kits CLI or the API exposed:
 
 ```shell
-curl --location --request GET 'http://localhost:3333/api/balances/bitconnect/0xb21090C8f6bAC1ba614A3F529aAe728eA92B6487'
+make idpkit-register-client -n "MyApp" --all-redirect-uris
 ```
 
-To be noted, a cron job is running every 5 minutes to update the cryptocurrencies market value from the coingecko api. You should see a log `Cryptocurrencies data fetched and stored in cache` that show it's working effectively. This data is stored in the cache and should be reflected on the balanceUsd fields of the response.
+2. Update the `IDPKIT_CLIENT_ID` and `IDPKIT_CLIENT_SECRET` environment variables based on the response received from the client
+   registration
 
-The different optimization should make the second call to the same route near instant. The first call will take a bit longer because it's fetching the data for each missing token metadata from the alchemy rpc provider. This is visible in the logs `Fetched ${newTokensData.length} token data for ${network} and stored it in cache`.
+For more informations to register your own client, [please check this documentation]([Client registration - Docs](https://docs.walt.id/v/idpkit/configuration-and-setup/oidc-manager-configuration/client-registration#register-new-client)).
 
-For each call to a different address, a wallet will be created into the prisma database storing the address and the tokens total balances in usd.
+### NX Cloud access tokens
 
-Here is the command to check the wallets created in the database.
+As refered in the [section about access token in the nx doc,](https://nx.dev/nx-cloud/account/access-tokens) you have different strategies to setup your access to [Nx Cloud](https://nx.app/). In order to beneficiate from local and remote cacheables operations, you can populate use this command to generate an access token allowing <mark>read-write</mark> access:
 
 ```shell
-npx prisma studio
+pnpx nx g @nrwl/nx-cloud:init
 ```
 
-For existing wallet, the balance will be updated according to the new market value fetched from the coingecko api.
+After that, you are going to need to [setup your workspace on the nx cloud](https://cloud.nx.app/orgs/workspace-setup) after registering an account.
 
-The coingecko api might be free but it has a limit of request per minute. If you reach this limit, you will see an error in the logs `Error: Request failed with status code 429` or `Error: HTTP Request timeout after 30000` and the cron job will stop working. You can change the cron job interval in the `apps/nestjs-server/src/task/task.service.ts` file and the number of pages fetched for each platforms in the .env.local file.
+### Configure Hasura and Next Auth with same RSA key
 
-```sh
-## real limit is 50
-ETHEREUM_COINGECKO_PAGE_THRESHOLD=2
-## real limit is 20
-POLYGON_COINGECKO_PAGE_THRESHOLD=1
-## real limit is 4
-ARBITRUM_COINGECKO_PAGE_THRESHOLD=1
+You need to configure hasura and next auth to have the same asymmetric key. One is provided by default but you can generate your own RSA 256 key using those commands:
+
+```shell
+# Don't add passphrase
+
+ssh-keygen -t rsa -P "" -b 4096 -m PEM -f jwtRS256.key
+
+ssh-keygen -e -m PEM -f jwtRS256.key > jwtRS256.key.pub
 ```
 
-## Challenges
+<https://hasura.io/blog/next-js-jwt-authentication-with-next-auth-and-integration-with-hasura/>
 
-### Unique identifier for each cryptocurrencies
+- Copy the public key in a single line format:
 
-With the emergence of L2 (Optimism, Arbitrum, Polygon), forks (like Ethereum Classic) and other EVM compatible DLT it's becoming more and more difficult to identify a cryptocurrency solely by its name or symbol. It's also possible to have multiple tokens with the same symbol on different DLT (like USDT as OMNI, ERC20, TRC20 token) or multiple tokens with the same name (like Wrapped Bitcoin).
-
-This article is developing on this issue and it draw as a conclusion that we need a global, cross-chain standard that is yet to be adopted: <https://philippsandner.medium.com/unique-referencing-and-identification-in-the-token-universe-cross-chain-worldwide-and-85f7741c92d5>
-The name of this standard is: The Uniform Token Locator (UTL) - A Concept to Identify Tokens Uniquely, Cross-Chain, Worldwide, and Fork-Resilient —
-
-This project will focus on the Ethereum Ecosystem and will use the EIP-3770 standard to identify each token from their respective EVM-based Chains: <https://eips.ethereum.org/EIPS/eip-3770>. To be noted, the EIP-3770 standard is a draft and is not yet adopted by the Ethereum community.
-
-### Token price
-
-The price of a token is a very important information for a user. It's also a very volatile information. The price of a token can change in a matter of seconds. It's also possible to have multiple sources of price for a token. For example, the price of a token can be provided by a centralized exchange (like Binance), a decentralized exchange (like Uniswap) or a price oracle (like Chainlink).
-
-In our case, we will use the price of a token provided by the [Coingecko API](https://www.coingecko.com/en/api/documentation) that is centralized but used broadly into the DLT ecosystem for it's reliability. The Coingecko API is also free to use and doesn't require any authentication.
-
-The API route used in our case is `https://api.coingecko.com/api/v3/coins/market` with the following parameters: `vs_currency=usd&order=market_cap_desc&per_page=250`. This route will return the top 250 tokens by market cap in USD. Additionally we are using as dynamic parameters the `page` and `category` parameters. The `page` parameter will be used to paginate the results and the `category` parameter will be used to get the token specific to each supported chains. So in our case we will have 3 categories: `ethereum-ecosystem`, `polygon-ecosystem` and `arbitrum-ecosystem`.
-
-```ts
-const res = this.coinGeckoSdk.coinMarkets({
-  vs_currency: 'usd',
-  order: 'market_cap_desc',
-  per_page: 250,
-  page,
-  category: chain.coingecko.category,
-});
+```shell
+awk -v ORS='\\n' '1' jwtRS256.key.pub | pbcopy
 ```
 
-In order to optimize the fetch from Coingecko, we will limit the number of pages fetched for each chains. This trade off will allow us to have a good coverage of the most popular tokens on each chains and will avoid storing a lot of dead tokens. For example, the Ethereum ecosystem has more than 2500 tokens and we will only fetch the top 500 tokens by market cap. We will limit the number of the token fetched for the Polygon ecosystem and Arbitrum to 250.
+- Now paste this value in your clipboard to `HASURA_GRAPHQL_JWT_SECRET` env in the format
 
-Those parameters can be changed in the `.env.local` file.
-
-The Coingecko API doesn't provide a way to get at the same time the coin `contract_address` and the market data. The API call to get all the coins with their `contract_address` is very slow and will sometime make more than 20 seconds to complete. I've decided to download the json of the list to avoid doing this call every time the server boot up. The list is downloaded from the following route: `https://api.coingecko.com/api/v3/coins/list`. The path for the json file is `libs/dlt/types/src/lib/allCryptoFromCoingecko.json`. This file can be updated later if new coins need to be supported.
-
-In order to avoid configuring redis for the cache, we are using the `memory` cache strategy. This strategy is not recommended for production but is good enough for this project. We are using the [`CacheModule` from NestJS](https://docs.nestjs.com/techniques/caching#in-memory-cache) to store the token data set.
-
-As we want to have an updated price regularly, we will use the [task scheduler from NestJS](https://docs.nestjs.com/techniques/task-scheduling) to update the token list every minutes. This task named `fetchCryptocurrenciesDataAndStoreInCache` will be executed in the `nestjs-server` app with the `@server/task` service. Currently, the task is executed every 5 minutes but can be changed in the `apps/nestjs-server/src/task/task.service.ts` file.
-
-### Token balance for an address
-
-In order to get the balance of a token for a specific address, we will use RPC providers. The RPC providers will be configured in the `.env.local` file. The RPC providers will be used by the `@server/ethers` service.
-
-An other solution could have been to deploy our own full node with Geth for Ethereum Mainnet, ArbOS for Arbitrum and Bor for Polygon but it's a tedious task and would require deploying an expensive VPC.
-
-Ethereum is a very well established blockchain and has a lot of RPC providers with a good uptime. For example, Infura is a very reliable and well known RPC provider. As Polygon and Arbitrum chains are relatively new, we will have to use a different RPC provider. [QuickNode](https://www.quicknode.com) appear to be the only one with [Alchemy](https://www.alchemy.com) and [Chainstack](https://chainstack.com) to support the tree chains on mainnet.
-Because I'm (reasonably) lazy 😚 I'm going to use [the built in solution from Alchemy to retrieve the balances for the three platforms](https://docs.alchemy.com/reference/alchemy-gettokenbalances) `alchemy_getTokenBalances`.
-The landscape of DLT is moving fast so I think it's clever to rely on a SaaS provider to avoid having to maintain our own infrastructure.
-Nevertheless I'm going to use the ['Branch By Abstraction' architecture](https://martinfowler.com/bliki/BranchByAbstraction.html) to facilitate the transition to an other API if Alchemy is not doing the job anymore. With this architecture, it's also possible for the server to 'auto-heal' in case the API is down and switch to an other one, offering more resilience for this critical feature.
-Nest is natively build around this concept of abstraction so we will leverage it to implement this feature.
-
-**Disclaimer, I was not able to use the `@server/wallet` library because of an [unresolved NX issue with buildable libraries](#nx-issue-build)**
-![graph-5](https://user-images.githubusercontent.com/11297176/199849869-3545a30e-91bb-45a9-87df-8b642e510847.png)
-
-<!-- TODO add screenshot + link to the nx graph to show the dependency graph with wallet/ethers/alchemy (explain onion architecture advantage even if it seems a lot of boilerplate code at first) -->
-<!-- The Alchemy SDK is a wrapper around the ethers.js library -->
-<!-- http://127.0.0.1:4211/?groupByFolder=true&traceStart=nestjs-server&traceEnd=alchemy&traceAlgorithm=all -->
-<!-- TODO create a service Coingecko to follow the same principle as alchemy linked to the crypto-currencies service, maybe add a coingecko ping to check if the api is up and offer a fallback yet to be implemented, for ex coinmarketcap (simulate this in test) -->
-
-Following the onion architecture principle, we will create a `@server/wallet` service that will be the entry point for the wallet feature. The `@server/wallet` service will use the `@server/ethers` service to interact with the ethereum blockchains.
-The `@server/ethers` service will use the services corresponding to the three chains we support on the ethereum ecosystem: `@server/ethereum`, `@server/polygon` and `@server/arbitrum`.
-Those three services will use as the last layer of abstraction the `@server/alchemy` service to interact with the blockchain through the provided `alchemy-sdk`.
-
-Also, following the ['Practical test pyramid'](https://martinfowler.com/articles/practical-test-pyramid.html) we are going to focus on the integration tests for the wallet feature. For the other modules we are going to do integration and unit testing with test doubles (mocks) as we want to avoid calling the Alchemy SDK for real and test what's already been tested in wallet. The granularity of the test should be finer as we go deeper so the main focus is on the alchemy service. This will be particularly useful if we want to switch or add another API provider without causing regression.
-
-### Optimizing balances route while getting an updated balance
-
-As we are relying on DLTs and RPC providers, the response time of the balances route can be slow. In order to improve the user experience, we are going to use the [NestJS cache module](https://docs.nestjs.com/techniques/caching) to cache the response of the balances route. This approach rather than storing the balances in a database will allow us to have a fast response time and a low cost infrastructure. The other advantage is to rely more on the DLT as the ultimate source of truth, henceforth making our service more decentralized in nature.
-
-### Store some wallet info in the database
-
-As we are using the cache to store the balances, we are going to store the wallet info in the database. This will allow us to have a more reliable and persistent storage of the wallet info. The wallet info will be stored in the `wallet` table. The data we want to store are the address and the totalBalance of the portfolio. We also want to store the last time the balance was updated. This will allow us to know if the cache is up to date or not. Lastly an interesting data would be the pending transactions. This will allow us to display a notification to the user if there is a pending transaction and could be also useful for debugging, for instance when there is not enough Gas attached to a transaction.
-We could store other data metrics like the total number of transactions, the total number of tokens, the total number of tokens with a non-zero balance, etc. but we will not do it for now.
-
-### Handle the calculation of the token balance with decimals
-
-The ERC20 standard on Ethereum define the number of decimals for a token. This is a number between 0 and 18 that represent the number of decimal places in the token. For instance, the [DAI token](https://etherscan.io/token/0x6b175474e89094c44da98b954eedeac495271d0f) has 18 decimals. The [USDC token](https://etherscan.io/token/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48) has 6 decimals. This means that the balance of a DAI token is the number of DAI tokens in the wallet multiplied by 10^18.
-In order to display the balance of the token in the right unit, we are going to use the `decimals` property of the token. This property is not available on [CoinGecko](https://www.coingecko.com) but with the Alchemy SDK so we unfortunately need to fetch the token info for each token held in the wallet:
-
-```ts
-function fetchTokensMetadata(
-  sdk: Alchemy,
-  tokenAddresses: string[]
-): Promise<TTokenData[]> {
-  const promises: Promise<TTokenData>[] = tokenAddresses.map((tokenAddress) =>
-    sdk.core.getTokenMetadata(tokenAddress).then((res) => {
-      const tokenData: TTokenData = {
-        ...res,
-        contractAddress: tokenAddress,
-      };
-      return tokenData;
-    })
-  );
-  return Promise.all(promises);
-  // return result as TTokenData[];
-}
+```shell
+{ "type": "RS256", "key": "<insert-your-public-key-here>"}
 ```
 
-This call is very heavy so we are going to cache the result. This will allow us to avoid calling the Alchemy API each time. The fetch will be done only if a token is not found in the cache. In that case we will fetch all the missing tokens info and update the cache.
-That way the server should be very fast to respond to the client once this period of initialization has been done. For more info, you can check the function `fetchTokensMetadataAndUpdateTokenCache`
+- Transform private key into a single line to copy to your clipboard to `NEXTAUTH_SECRET` env
 
-Now that we have the decimals for each tokens, we are going to use this information to calculate the balance of the token in the right unit. This process is done in the `calculateTokenBalance` function.
-
-The format we get for the token balance from the Alchemy API is a number in the hexadecimal bytes32 format. We are going to use the `ethers` library to convert this number to a decimal number. Then we are going to divide this number by 10^decimals to get the balance in the right unit, you can find this operation in the function `convertToBalanceTokenData`.
-
-## Possible improvements
-
-### Add a new currency to the portfolio
-
-We have chosen to limit the fetch on coingecko to the tokens with the most value. Some tokens like [this one](https://etherscan.io/token/0x515669d308f887fd83a471c7764f5d084886d34d?a=0xb21090c8f6bac1ba614a3f529aae728ea92b6487) that is hold in [this wallet](https://etherscan.io/address/0xb21090c8f6bac1ba614a3f529aae728ea92b6487) don't have any value. As such it will be displayed as `Unknown`.
-
-```ts
-if (!cryptocurrency) {
-  logger.error('Cryptocurrency not found');
-  cryptocurrency = {
-    name: 'Unknown',
-    symbol: 'Unknown',
-    decimals: 18,
-    current_price: 0,
-    address: tokenBalance.contractAddress,
-  };
-}
+```shell
+awk -v ORS='\\n' '1' jwtRS256.key | pbcopy
 ```
 
-We could add a new feature to add a new token to the list of token fetched.
-This feature could be available in the `Settings` page. The user could be able to add a new token by entering the address of the token.
-The `@server/ethers` service would be responsible to check if the address is a valid ERC20 token address.
-Otherwise, we could simply pay for the coingecko api to not be limited by the number of coin fetched.
+Don't forget to add double quotes "" arround so that `\n` are interpreted correctly
 
-### Track the pending transactions and offer a websocket route for the client to subscribe to
+## Troubleshoot
 
-Alchemy provide a [Subscription API](https://docs.alchemy.com/reference/subscription-api) through websocket to keep in sync the wallet balance with new transactions. To be noted: This feature is currently not available for Arbitrum. We could use this feature to update the wallet data in real time. This would allow us to display the updated balance without having to refresh the page.
+In case you need your own image instead of `sebpalluel/hasura_cli_with_socat_and_curl` you can do the following command to publish it in docker hub.
 
-### Track the current price of the tokens
+Be sure to have activated the buildx module first by following [this article](https://cloudolife.com/2022/03/05/Infrastructure-as-Code-IaC/Container/Docker/Docker-buildx-support-multiple-architectures-images/)
 
-An other websocket could be used to track the current price of the tokens. This would allow us to display the current price of the tokens in the portfolio. This would also allow us to display the current price of the tokens in a `Token` page. It would simply stream the data received from the coingecko api in the cron job schedule in the task manager.
-
-### Implement an alternative to the coingecko api
-
-The coinmarketcap api could be leveraged to get the current price of the tokens as an alternative to the coingecko api. It would be particularly useful for an `auto-heal` of the server in case the coingecko api is down or rate limited.
-
-### Implement an alternative to the alchemy api
-
-There is many options for rpc providers. We could implement an alternative to the alchemy api. This would also be useful for an `auto-heal` of the server in case the alchemy api is down.
-
-### Use testnet instead of mainnet for the development
-
-It would be wise to use the testnet networks, Polygon Mumbai, Arbitrum Goerli and Ethereum Goerli in local development to be able to test and implement more of the wallet features with faucets. An other option would be to use the [Hardhat Network](https://hardhat.org/hardhat-network/) to simulate the DLT.
-
-### Link the nest-js server to the hasura graphql api
-
-The nest-js server could be linked to the hasura graphql api. This would allow the client to fetch the data from the graphql api instead of the nest-js server. This would also allow the client to subscribe to the websocket with ease thanks to the streaming subscription feature native to hasura. This could be done swiftly by adding the the prisma database and by tracking the wallet table in hasura. Hasura could also be used to provide user credentials to the nestjs-server through the JWT claims. An other advantage would be to implement a rate limit on hasura to avoid the server to be overloaded by the client.
-
-## How to
-
-### Generate a new nest library with nx
-
-1. run nx generator:
-
-```zsh
-nx generate @nrwl/nest:library my-lib --controller --service --directory=server --importPath=@server/my-lib --buildable
+```shell
+cd hasura && docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t <username>/<image>:latest --push .
 ```
 
-For more options see: <https://nx.dev/packages/nest/generators/library>
+## Credits
 
-2. Change the generated files from `server-my-lib.*` to `my-lib.*`
-
-```zsh
-find . -name "server-my-lib.*" -exec rename "s/server-my-lib/my-lib/g" * {} ";"
-```
-
-3. In your IDE, search and replace all the occurrences of `server-my-lib` with `my-lib` and `ServerMyLib` with `MyLib` with the right matching case.
-
-4. You can then import the controller and service in `apps/nestjs-server/src/app/app.module.ts`
-
-## General Links
-
-### DLT
-
-- Awesome list of RPC providers: <https://github.com/arddluma/awesome-list-rpc-nodes-providers>
-
-- <https://docs.alchemy.com/docs/how-to-get-all-tokens-owned-by-an-address> Get all token owned for an address on Alchemy
-- <https://www.quicknode.com/guides/web3-sdks/how-to-build-an-erc20-token-balance-app-with-quicknode-token-api> Get all token owned for an address on Alchemy
-- <https://chainstack.com/ultimate-guide-erc20-token-balance/> Get all erc20 token
-- <https://chainstack.com/the-ultimate-guide-to-getting-multiple-token-balances-on-ethereum/> Get all erc20 token with GraphQL examples
-- <https://github.com/chainstack/token-balance-ultimate> CLI to fetch all token balance
-- https://www.coingecko.com/learn/3-steps-to-power-your-ethereum-app-with-token-price-data-using-an-api Get all crypto price and contract address from coingecko
-
-### Prisma
-
-- <https://www.prisma.io/blog/full-stack-typesafety-with-angular-nest-nx-and-prisma-CcMK7fbQfTWc> Prisma blog post about the integration of Nest + Prisma in a NX monorepo
-
-### NestJS
-
-- Basic of making a REST api with NestJS and E2E Testing <https://www.youtube.com/watch?v=GHTA143_b-s> <https://docs.nestjs.com/fundamentals/testing#end-to-end-testing>
-
-- Basic of Integration Testing with NestJS <https://www.youtube.com/watch?v=J5As5D_Ht_w> <https://docs.nestjs.com/fundamentals/testing#integration-testing>
-
-- How to use Axios in NestJS <https://www.codewithvlad.com/blog/how-to-use-axios-in-nestjs>
-
-- How to use cache in NestJS with Redis <https://www.tomray.dev/nestjs-caching-redis>
-
-- E2E project with clean architecture and optimized for parallel testing thanks to `uvu` <https://github.com/jmcdo29/nest-e2e-sample>
-
-- Build a Fullstack App with NestJS, Hasura and GraphQL <https://hasura.io/blog/build-fullstack-apps-nestjs-hasura-graphql-api/>
-
-\***\*Nest's Module Structure\*\***
-
-![Nest's Module Structure](https://user-images.githubusercontent.com/11297176/204095828-e09ae756-9aac-453f-a53e-0b5720c75afd.png)
-
-\***\*Nest's Request -> Response Lifecycle\*\***
-
-![Nest's Request -> Response Lifecycle](https://user-images.githubusercontent.com/11297176/204095864-b7fc9f18-9ca2-42f1-bbe3-147957ecf3ee.png)
-
-- Clean Node.js Architecture <https://betterprogramming.pub/clean-node-js-architecture-with-nestjs-and-typescript-34b9398d790f>
-
-### Handling value conversion with precision
-
-- Money operations with Node.js and PostgreSQL general best practices and tradeoffs <https://medium.com/geekculture/money-operations-with-node-js-and-postgresql-91d1f06ff263>
-- Money operations with Node.js and PostgreSQL benchmark <https://blog.xendit.engineer/benchmarking-pg-numeric-integer-9c593d7af67e>
-- Example of conversion in Alchemy doc: https://docs.alchemy.com/docs/how-to-get-all-tokens-owned-by-an-address
-
-### GraphQL
-
-- GraphQL subscriptions with streaming API on Hasura https://hasura.io/blog/instant-streaming-api-built-in-authorization-new-existing-postgres/
-- Graphql and React Query for query/mutation/subscription on client side https://hasura.io/blog/getting-started-with-react-query-and-graphql/
-
-## Troubleshooting
-
-<a name="nx-issue-build" />Nx seems to have an internal issue sometimes when trying to build nested libraries: <https://github.com/nrwl/nx/issues/11583>
-I was not able to find a workaround for this issue, so I had to move the `@server/wallet` code on the `nestjs-server` app.
+This project is based on the [nextstarter-chakra](https://github.com/sozonome/nextarter-chakra) template
