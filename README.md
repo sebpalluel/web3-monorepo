@@ -99,34 +99,36 @@ Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
 <p align="center"><img src="https://user-images.githubusercontent.com/11297176/198038805-76a9dc37-538e-41f5-93c5-0e372d43ae9a.png" width="15%"></p>
 
-This repo is configured to be built with Docker, and Docker compose. To build all apps in this repo:
+This repo is configured to be built with Docker, and Docker compose.
+
+To build all apps in this repo:
 
 ```shell
-pnpm prisma:dev:deploy
+pnpm docker:build
 ```
 
-In order to run all the tests, you can run the following command. (**You should stop the nestjs server before the tests because it's bound to the same port**)
+To shutdown all running containers:
 
 ```shell
-pnpm all:test
+pnpm docker:stop
 ```
 
-If you want to run the tests for a specific app, you can run the following command:
+To launch all the services containers:
 
 ```shell
-npx nx test nestjs-server
+pnpm docker:services
 ```
 
-To run the test on a specific library, you can run the following command:
+The command to run all the services in this repo is
 
 ```shell
-npx nx run alchemy:test
+pnpm docker:services
 ```
 
-If you want to run only the NestJS server, you can use the following command.
+The command to run all the containers for unit and integration test is
 
 ```shell
-npx nx serve nestjs-server
+pnpm docker:test
 ```
 
 ## Next.js
