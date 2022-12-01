@@ -7,6 +7,9 @@ on:
       - completed
   workflow_dispatch:
 
+env:
+  CYPRESS_CACHE_FOLDER: cypress/cache
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
   cancel-in-progress: true
@@ -14,10 +17,13 @@ concurrency:
 jobs:
   main:
     name: Nx Cloud - Main Job
-    uses: sebpalluel/ci/.github/workflows/nx-cloud-main.yml@v0.10.9
+    uses: sebpalluel/ci/.github/workflows/nx-cloud-main.yml@v0.10.10
     secrets:
       ENV_FILE: ${{ secrets.ENV_FILE }}
     with:
+      environment-variables: |
+        CYPRESS_CACHE_FOLDER=cypress/cache
+      cypress_cache_path: cypress/cache
       environment: staging
       init-commands: |
         pnpm exec nx-cloud record -- pnpm docker:test & pnpm docker:services
@@ -38,7 +44,7 @@ jobs:
         pnpm nx affected --target=test --parallel=3 --ci --code-coverage &
   agents:
     name: Nx Cloud - Agents
-    uses: sebpalluel/ci/.github/workflows/nx-cloud-agents.yml@v0.10.9
+    uses: sebpalluel/ci/.github/workflows/nx-cloud-agents.yml@v0.10.10
     secrets:
       ENV_FILE: ${{ secrets.ENV_FILE }}
     with:
