@@ -1,22 +1,17 @@
 name: 'Chromatic'
 
 on:
-  workflow_run:
-    workflows: [Install and cache dependencies]
-    branches: [main]
-    pull_request:
-      paths:
-        - libs/client/ui/**
-        - apps/web/**
-        - apps/storybook-main/**
-    push:
-      branches: ['main']
-      paths:
-        - libs/client/ui/**
-        - apps/web/**
-        - apps/storybook-main/**
-    types:
-      - completed
+  pull_request:
+    paths:
+      - libs/client/ui/**
+      - apps/web/**
+      - apps/storybook-main/**
+  push:
+    branches: ['main']
+    paths:
+      - libs/client/ui/**
+      - apps/web/**
+      - apps/storybook-main/**
   workflow_dispatch:
 
 concurrency:

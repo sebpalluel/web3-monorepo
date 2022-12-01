@@ -1,11 +1,11 @@
 name: Nx Graph
 
 on:
-  workflow_run:
-    workflows: [Install and cache dependencies]
-    branches: [main]
-    types:
-      - completed
+  push:
+    branches: ['main']
+    paths:
+      - nx.json
+      - workspace.json
   workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
