@@ -14,7 +14,7 @@ concurrency:
 jobs:
   main:
     name: Nx Cloud - Main Job
-    uses: sebpalluel/ci/.github/workflows/nx-cloud-main.yml@v0.10.8
+    uses: sebpalluel/ci/.github/workflows/nx-cloud-main.yml@v0.10.9
     secrets:
       ENV_FILE: ${{ secrets.ENV_FILE }}
     with:
@@ -38,7 +38,7 @@ jobs:
         pnpm nx affected --target=test --parallel=3 --ci --code-coverage &
   agents:
     name: Nx Cloud - Agents
-    uses: sebpalluel/ci/.github/workflows/nx-cloud-agents.yml@v0.10.8
+    uses: sebpalluel/ci/.github/workflows/nx-cloud-agents.yml@v0.10.9
     secrets:
       ENV_FILE: ${{ secrets.ENV_FILE }}
     with:
