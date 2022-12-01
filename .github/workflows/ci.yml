@@ -1,10 +1,11 @@
 name: CI
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+  workflow_run:
+    workflows: ['install-dependencies']
+    types:
+      - completed
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}

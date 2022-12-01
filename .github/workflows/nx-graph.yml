@@ -1,11 +1,11 @@
 name: Nx Graph
 
 on:
-  # Runs on pushes targeting the default branch
-  push:
-    branches: ['main']
-
-  # Allows you to run this workflow manually from the Actions tab
+  workflow_run:
+    workflows: ['install-dependencies']
+    branches: [main]
+    types:
+      - completed
   workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
@@ -29,8 +29,14 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       # Generate nx graph static site
-      - name: Install dependencies and generate nx graph
-        run: yarn install && yarn nx-graph-static
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
+      - name: generate nx graph
+        run: pnpm nx-graph-static
       - name: Setup Nx Graph Page
         uses: actions/configure-pages@v2.1.2
         with:
