@@ -51,7 +51,6 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: pnpm install
       - name: generate nx graph
         run: pnpm nx-graph-static
