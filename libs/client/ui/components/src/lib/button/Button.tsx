@@ -25,7 +25,7 @@ export function Button(props: ButtonProps): JSX.Element {
     }
   };
 
-  // Pass the computed styles into the `__css` prop
+  /// Pass the computed styles into the `__css` prop
   return (
     <ChakraButton
       __css={styles}

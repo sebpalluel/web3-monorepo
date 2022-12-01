@@ -1,21 +1,24 @@
 name: 'Chromatic'
 
 on:
-  pull_request:
-    paths:
-      - libs/ui/**
-      - apps/web/**
-      - apps/storybook-main/**
-  push:
-    branches: ['main']
-    paths:
-      - libs/ui/**
-      - apps/web/**
-      - apps/storybook-main/**
-  # Allows you to run this workflow manually from the Actions tab
+  workflow_run:
+    workflows: [Install and cache dependencies]
+    branches: [main]
+    pull_request:
+      paths:
+        - libs/client/ui/**
+        - apps/web/**
+        - apps/storybook-main/**
+    push:
+      branches: ['main']
+      paths:
+        - libs/client/ui/**
+        - apps/web/**
+        - apps/storybook-main/**
+    types:
+      - completed
   workflow_dispatch:
 
-# Allow one concurrent deployment
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -25,10 +28,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: yarn
+        run: pnpm install
 
       - name: Publish to Chromatic
         uses: chromaui/action@v1
