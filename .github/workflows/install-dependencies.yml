@@ -32,16 +32,19 @@ jobs:
           version: 7
           run_install: false
 
-      - name: Cache pnpm modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-pnpm-modules
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
         with:
-          # pnpm cache files are stored in `~/.pnpm-store` on Linux/macOS
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-node-${{ steps.versions.outputs.node_version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-node-${{ steps.versions.outputs.node_version }}-
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
         run: pnpm install
