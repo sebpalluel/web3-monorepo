@@ -74,7 +74,7 @@ export function ProvidersBtns({ providers, router, onToggleCollapse }) {
         <Button
           w="full"
           onClick={() =>
-            signIn('identity-provider', {
+            signIn('did-provider', {
               callbackUrl: router.query.callbackUrl?.toString() || '',
             })
           }

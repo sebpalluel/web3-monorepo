@@ -66,6 +66,7 @@ The login to access the [**administration console**](http://localhost:8100/auth/
 - `waltid-idpkit`: Contain the config files, the encryption keys for the DID server and the registered OIDC client.
 - `keycloak`: Contain all the realm settings loaded by the keycloak container
 - `libs/dlt/types`: contain the typescript types/interfaces related to the DLT (Blockchain) used in the project
+- `libs/dlt/did-provider`: next-auth provider to use the walt.id idpkit as an OpenID Client
 - `libs/client/gql/[user, admin]`: a library containing all the GraphQL queries and mutations and the generated schemas to be used on the web app. It is divided on 3 folders: `user`, `admin` and `anonymous` depending of the role of the user.
 - `libs/client/gql/thegraph`: a library that use [The Graph](https://thegraph.com/en/) protocol in order to query data directly from smart contract on the blockchain.
 - `libs/hasura-adapter`: Next-auth adapter for the Hasura service.

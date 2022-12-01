@@ -1,6 +1,7 @@
 {
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/dlt/identity-provider/src",
+  "name": "client-did-provider",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/client/did/provider/src",
   "projectType": "library",
   "tags": [],
   "targets": {
@@ -8,16 +9,16 @@
       "executor": "@nrwl/rollup:rollup",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/libs/dlt/identity-provider",
-        "tsConfig": "libs/dlt/identity-provider/tsconfig.lib.json",
-        "project": "libs/dlt/identity-provider/package.json",
-        "entryFile": "libs/dlt/identity-provider/src/index.ts",
+        "outputPath": "dist/libs/client/did/provider",
+        "tsConfig": "libs/client/did/provider/tsconfig.lib.json",
+        "project": "libs/client/did/provider/package.json",
+        "entryFile": "libs/client/did/provider/src/index.ts",
         "external": ["react/jsx-runtime"],
         "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
         "compiler": "babel",
         "assets": [
           {
-            "glob": "libs/dlt/identity-provider/README.md",
+            "glob": "libs/client/did/provider/README.md",
             "input": ".",
             "output": "."
           }
@@ -28,14 +29,14 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/dlt/identity-provider/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["libs/client/did/provider/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/dlt/identity-provider"],
+      "outputs": ["{workspaceRoot}/coverage/libs/client/did/provider"],
       "options": {
-        "jestConfig": "libs/dlt/identity-provider/jest.config.ts",
+        "jestConfig": "libs/client/did/provider/jest.config.ts",
         "passWithNoTests": true
       }
     }

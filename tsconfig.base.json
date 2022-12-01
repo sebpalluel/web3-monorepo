@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@client/did/provider": ["libs/client/did/provider/src/index.ts"],
       "@client/gql/admin": ["libs/client/gql/admin/src/generated/index.ts"],
       "@client/gql/thegraph": ["libs/client/gql/thegraph/src/index.ts"],
       "@client/gql/user": ["libs/client/gql/user/src/generated/index.ts"],
@@ -25,7 +26,6 @@
       "@client/ui/components": ["libs/client/ui/components/src/index.ts"],
       "@client/ui/shared": ["libs/client/ui/shared/src/index.ts"],
       "@client/ui/theme": ["libs/client/ui/theme/src/index.ts"],
-      "@dlt/identity-provider": ["libs/dlt/identity-provider/src/index.ts"],
       "@dlt/types": ["libs/dlt/types/src/index.ts"],
       "@logger": ["libs/logger/src/index.ts"],
       "@server/alchemy": ["libs/server/alchemy/src/index.ts"],
