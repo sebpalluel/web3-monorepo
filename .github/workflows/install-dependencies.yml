@@ -47,11 +47,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - name: Cache Cypress Binary
+      - uses: actions/cache@v3
+        name: Setup cypress cache
         id: cache-cypress-binary
-        uses: actions/cache@v3
         with:
-          path: cypress/cache
+          path: .cache/Cypress
           key: ${{ runner.os }}-cypress-binary-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}}-cypress-binary-

@@ -206,7 +206,7 @@
     "msw": "^0.47.4",
     "npm-run-all": "^4.1.5",
     "nx": "15.2.3",
-    "pactum": "^3.2.3",
+    "pactum": "^3.2.1",
     "pg": "^8.7.3",
     "prettier": "^2.7.1",
     "prettier-plugin-prisma": "^4.4.0",

@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 env:
-  CYPRESS_CACHE_FOLDER: cypress/cache
+  CYPRESS_CACHE_FOLDER: .cache/Cypress
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
@@ -22,8 +22,8 @@ jobs:
       ENV_FILE: ${{ secrets.ENV_FILE }}
     with:
       environment-variables: |
-        CYPRESS_CACHE_FOLDER=cypress/cache
-      cypress_cache_path: cypress/cache
+        CYPRESS_CACHE_FOLDER=.cache/Cypress
+      cypress_cache_path: .cache/Cypress
       environment: staging
       init-commands: |
         pnpm exec nx-cloud record -- pnpm docker:test & pnpm docker:services
