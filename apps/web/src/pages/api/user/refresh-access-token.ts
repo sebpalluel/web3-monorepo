@@ -6,7 +6,7 @@ import {
   withMethodsGuard,
   withSession,
 } from '../../../lib/middlewares';
-import { logger } from '@boilerplate/logger';
+import { logger } from '@logger';
 import { ApiError } from 'next/dist/server/api-utils';
 
 // TODO: implement refesh access token for credentials

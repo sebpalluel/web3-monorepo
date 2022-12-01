@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@server/prisma';
 import { AlchemyService } from '@server/alchemy';
 import { Wallet } from '@prisma/client';
-import { EIP3770Network, WalletData, TTokenBalance } from '@boilerplate/dlt/types';
+import { EIP3770Network, WalletData, TTokenBalance } from '@dlt/types';
 
 @Injectable()
 export class PolygonService {

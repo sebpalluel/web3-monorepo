@@ -1,9 +1,5 @@
-import {
-  alphaAdminClient,
-  betaAdminClient,
-  sebGoogleClient,
-} from '@boilerplate/test-utils-gql';
-import { deleteUsers, seedDb } from '@boilerplate/test-utils-db';
+import { alphaAdminClient, betaAdminClient, sebGoogleClient } from '@test-utils/gql';
+import { deleteUsers, seedDb } from '@test-utils/db';
 
 describe('user access security tests', () => {
   const alphaAdmin = alphaAdminClient();

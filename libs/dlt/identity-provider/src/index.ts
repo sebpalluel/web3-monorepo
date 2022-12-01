@@ -1,4 +1,4 @@
-import { logger } from '@boilerplate/logger';
+import { logger } from '@logger';
 import type { Provider } from 'next-auth/providers';
 import { TokenSetParameters } from 'openid-client';
 

@@ -1,10 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import {
-  TEIP377,
-  EIP3770Network,
-  WalletData,
-  TTokenBalance,
-} from '@boilerplate/dlt/types';
+import { TEIP377, EIP3770Network, WalletData, TTokenBalance } from '@dlt/types';
 import { EthereumService } from '@server/ethereum';
 import { PolygonService } from '@server/polygon';
 import { ArbitrumService } from '@server/arbitrum';

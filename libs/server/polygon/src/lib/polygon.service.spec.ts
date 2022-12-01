@@ -2,7 +2,7 @@ import { Test } from '@nestjs/testing';
 import { ConfigService } from '@nestjs/config';
 import { CACHE_MANAGER } from '@nestjs/common';
 import { AlchemyService } from '@server/alchemy';
-import { tokensBalancePoly } from '@boilerplate/test-utils-mocks';
+import { tokensBalancePoly } from '@test-utils/mocks';
 import { PolygonService } from './polygon.service';
 import { PrismaService } from '@server/prisma';
 

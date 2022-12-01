@@ -4,12 +4,8 @@ import { CACHE_MANAGER } from '@nestjs/common';
 import { EthersService } from './ethers.service';
 import { EthersProviders } from './ethers.module';
 import { AlchemyService } from '@server/alchemy';
-import { EIP3770Network } from '@boilerplate/dlt/types';
-import {
-  tokensBalancePoly,
-  tokensBalanceEth,
-  tokensBalanceArb,
-} from '@boilerplate/test-utils-mocks';
+import { EIP3770Network } from '@dlt/types';
+import { tokensBalancePoly, tokensBalanceEth, tokensBalanceArb } from '@test-utils/mocks';
 import { PrismaService } from '@server/prisma';
 import { Wallet } from '@prisma/client';
 

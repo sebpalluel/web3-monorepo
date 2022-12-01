@@ -2,15 +2,15 @@ import { Injectable, Inject, CACHE_MANAGER } from '@nestjs/common';
 import { ApiService } from '@server/api';
 import { PrismaService } from '@server/prisma';
 import { Cache } from 'cache-manager';
-import { logger } from '@boilerplate/logger';
+import { logger } from '@logger';
 import {
   TEIP377,
   allCryptoFromCoingecko,
   TCryptocurrency,
   TCryptocurrencyData,
   TCryptocurrencyWithAddress,
-} from '@boilerplate/dlt/types';
-import { convertArrayOfObjtoObjWithKeys } from '@boilerplate/utils';
+} from '@dlt/types';
+import { convertArrayOfObjtoObjWithKeys } from '@utils';
 
 export type WalletData = {
   balanceUsd?: number;

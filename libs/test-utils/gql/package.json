@@ -1,5 +1,5 @@
 {
-  "name": "@boilerplate/test-utils-gql",
+  "name": "@test-utils/gql",
   "version": "0.0.1",
   "type": "commonjs"
 }

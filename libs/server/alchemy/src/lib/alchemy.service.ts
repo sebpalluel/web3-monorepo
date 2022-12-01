@@ -1,14 +1,9 @@
 import { Injectable, Inject, CACHE_MANAGER } from '@nestjs/common';
 import { Cache } from 'cache-manager';
 import { Network, Alchemy, TokenBalance } from 'alchemy-sdk';
-import {
-  TTokenData,
-  TEIP377,
-  TTokenBalance,
-  EIP3770Network,
-} from '@boilerplate/dlt/types';
+import { TTokenData, TEIP377, TTokenBalance, EIP3770Network } from '@dlt/types';
 import { ConfigService } from '@nestjs/config';
-import { logger } from '@boilerplate/logger';
+import { logger } from '@logger';
 
 @Injectable()
 export class AlchemyService {

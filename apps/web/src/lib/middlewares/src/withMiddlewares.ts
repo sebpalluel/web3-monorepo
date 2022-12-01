@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import type { Maybe } from '@boilerplate/utils';
+import type { Maybe } from '@utils';
 
 type Middleware = (req: NextApiRequest, res: NextApiResponse) => unknown;
 

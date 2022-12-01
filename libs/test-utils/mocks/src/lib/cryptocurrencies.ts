@@ -1,6 +1,6 @@
 import { TokenBalance, TokenBalancesResponseErc20 } from 'alchemy-sdk';
 import { CoinListResponseItem } from 'coingecko-api-v3';
-import { TTokenData, TTokenBalance } from '@boilerplate/dlt/types';
+import { TTokenData, TTokenBalance } from '@dlt/types';
 
 export const tokensBalanceEth: TTokenBalance[] = [
   {

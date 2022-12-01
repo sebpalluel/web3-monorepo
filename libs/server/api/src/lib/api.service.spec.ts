@@ -1,7 +1,7 @@
 import { Test } from '@nestjs/testing';
 import { ApiService } from './api.service';
 import { config } from './api.module';
-import { allCryptoFromCoingecko, TEIP377 } from '@boilerplate/dlt/types';
+import { allCryptoFromCoingecko, TEIP377 } from '@dlt/types';
 
 describe('ApiService', () => {
   let service: ApiService;
