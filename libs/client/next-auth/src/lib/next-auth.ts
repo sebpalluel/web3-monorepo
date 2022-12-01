@@ -7,7 +7,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import KeycloakProvider from 'next-auth/providers/keycloak';
 
 import { adapter } from '@client/hasura/adapter';
-import { IdentityProvider } from '@dlt/identity-provider';
+import { DidProvider } from '@client/did/provider';
 import { Roles } from '@client/hasura/utils';
 import { fetchJSON } from '@utils';
 import { logger } from '@logger';
@@ -149,8 +149,8 @@ const providers: Array<Provider> = [
       }
     },
   }),
-  IdentityProvider({
-    identityProviderURL: 'http://localhost:9080',
+  DidProvider({
+    didProviderURL: 'http://localhost:9080',
     clientId: process.env.IDPKIT_CLIENT_ID as string,
     clientSecret: process.env.IDPKIT_CLIENT_SECRET as string,
   }),
