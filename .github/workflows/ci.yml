@@ -2,7 +2,7 @@ name: CI
 
 on:
   workflow_run:
-    workflows: ['install-dependencies']
+    workflows: [Install and cache dependencies]
     types:
       - completed
   workflow_dispatch:

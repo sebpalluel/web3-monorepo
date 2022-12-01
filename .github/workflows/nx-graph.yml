@@ -2,7 +2,7 @@ name: Nx Graph
 
 on:
   workflow_run:
-    workflows: ['install-dependencies']
+    workflows: [Install and cache dependencies]
     branches: [main]
     types:
       - completed
@@ -35,6 +35,16 @@ jobs:
         with:
           version: 7
           run_install: false
+      - name: Use the node_modules cache if available [pnpm]
+        if: steps.package_manager.outputs.name == 'pnpm'
+        uses: actions/cache@v3
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-node-${{ steps.versions.outputs.node_version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ steps.versions.outputs.node_version }}-
+      - name: Get dependencies from cache
+        run: pnpm install --frozen-lockfile
       - name: generate nx graph
         run: pnpm nx-graph-static
       - name: Setup Nx Graph Page
