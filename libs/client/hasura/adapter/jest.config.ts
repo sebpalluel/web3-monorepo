@@ -1,6 +1,6 @@
 export default {
-  displayName: 'hasura-adapter',
-  preset: '../../../jest.preset.js',
+  displayName: 'client-hasura-adapter',
+  preset: '../../../../jest.preset.js',
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
@@ -12,5 +12,5 @@ export default {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../coverage/libs/hasura/adapter',
+  coverageDirectory: '../../../../coverage/libs/client/hasura/adapter',
 };

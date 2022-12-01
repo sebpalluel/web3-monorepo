@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
-  displayName: 'hasura-fetcher',
-  preset: '../../../jest.preset.js',
+  displayName: 'client-hasura-utils',
+  preset: '../../../../jest.preset.js',
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
@@ -11,5 +11,5 @@ export default {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../coverage/libs/hasura/fetcher',
+  coverageDirectory: '../../../../coverage/libs/client/hasura/utils',
 };

@@ -1,5 +1,5 @@
 {
-  "name": "@boilerplate/hasura-fetcher",
+  "name": "@client/hasura/fetcher",
   "version": "0.0.1",
   "type": "commonjs"
 }

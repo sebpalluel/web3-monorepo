@@ -1,5 +1,5 @@
 {
-  "name": "@boilerplate/hasura-adapter",
+  "name": "@client/hasura/utils",
   "version": "0.0.1",
   "type": "commonjs"
 }

@@ -7,7 +7,7 @@ import {
   useBalancesEip377Query,
   GetWalletsByAddressQuery,
 } from '@boilerplate/gql-user';
-import { useReactQuerySubscription } from '@boilerplate/hasura-fetcher';
+import { useReactQuerySubscription } from '@client/hasura/fetcher';
 
 import {
   Flex,
