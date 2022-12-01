@@ -23,7 +23,7 @@
 
 **View in [NX Graph](https://sebpalluel.github.io/web3-monorepo/?groupByFolder=true&select=all)**
 
-[![name](https://user-images.githubusercontent.com/11297176/204857101-f5c70cc0-02a2-478f-8e7c-c71e6d43caef.png)](https://sebpalluel.github.io/web3-monorepo/?groupByFolder=true&select=all)
+[![name](https://user-images.githubusercontent.com/11297176/205083488-daffa5c9-88d5-40ac-8114-a0626df5e54b.png)](https://sebpalluel.github.io/web3-monorepo/?groupByFolder=true&select=all)
 
 ### Access to the services and app URLs
 
