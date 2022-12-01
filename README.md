@@ -65,22 +65,23 @@ The login to access the [**administration console**](http://localhost:8100/auth/
 - `tools`: Set of tools to to be used for DX (Developer Experience) and testing purposes.
 - `waltid-idpkit`: Contain the config files, the encryption keys for the DID server and the registered OIDC client.
 - `keycloak`: Contain all the realm settings loaded by the keycloak container
+- `libs/logger`: Isomorphic logger (a small wrapper around console.log)
+- `libs/utils`: Common utils functions and types for the whole project
+- `libs/workspace`: Contain all the generators and tooling dedicated to maintaining the NX workspace.
 - `libs/dlt/types`: contain the typescript types/interfaces related to the DLT (Blockchain) used in the project
-- `libs/dlt/did-provider`: next-auth provider to use the walt.id idpkit as an OpenID Client
 - `libs/client/gql/[user, admin]`: a library containing all the GraphQL queries and mutations and the generated schemas to be used on the web app. It is divided on 3 folders: `user`, `admin` and `anonymous` depending of the role of the user.
 - `libs/client/gql/thegraph`: a library that use [The Graph](https://thegraph.com/en/) protocol in order to query data directly from smart contract on the blockchain.
-- `libs/hasura-adapter`: Next-auth adapter for the Hasura service.
-- `libs/hasura-fetcher`: Fetcher functions to query the Hasura service.
-- `libs/hasura-utils`: Utilities to interact with Hasura.
-- `libs/logger`: Isomorphic logger (a small wrapper around console.log)
-- `libs/next-auth`: Contain all the configs for [Next-Auth](https://next-auth.js.org/)
-- `libs/test-utils-db`: All the utilities relating the handling of db operation on the context of testing, for ex: seeding/deleting.
-- `libs/test-utils-functions`: All the utilities functions common to every test runner.
-- `libs/test-utils-gql`: Offer an sdk and different test user clients to be used on test in order to interact with the hasura service.
-- `libs/ui-components`: React reusable components library
-- `libs/ui-shared`: Functions and assets shared in the context of the UI library
-- `libs/ui-theme`: Contains all the specification for the global style and components style
-- `libs/workspace`: Contain all the generators and tooling dedicated to maintaining the NX workspace.
+- `libs/client/hasura/adapter`: Next-auth adapter for the Hasura service.
+- `libs/client/hasura/fetcher`: Fetcher functions to query the Hasura service.
+- `libs/client/hasura/utils`: Utilities to interact with Hasura.
+- `libs/client/did/provider`: Next-auth OpenID Client provider for the walt.id idpkit
+- `libs/client/next-auth`: Contain all the configs for [Next-Auth](https://next-auth.js.org/)
+- `libs/client/ui/components`: React reusable components library
+- `libs/client/ui/shared`: Functions and assets shared in the context of the UI library
+- `libs/client/ui/theme`: Contains all the specification for the global style and components style
+- `libs/test-utils/db`: All the utilities relating the handling of db operation on the context of testing, for ex: seeding/deleting.
+- `libs/test-utils/functions`: All the utilities functions common to every test runner.
+- `libs/test-utils/gql`: Offer an sdk and different test user clients to be used on test in order to interact with the hasura service.
 - `libs/server/api`: API service to query the external services (ex: CoinGecko api)
 - `libs/server/alchemy`: Low level service to interact with the Alchemy RPC provider
 - `libs/server/arbitrum`: Service to interact with the Arbitrum RPC provider
