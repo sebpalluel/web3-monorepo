@@ -1,5 +1,5 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
-import { fetchDataReactQuery } from '@boilerplate/hasura-fetcher';
+import { fetchDataReactQuery } from '@client/hasura/fetcher';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };

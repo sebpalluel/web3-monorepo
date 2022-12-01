@@ -6,9 +6,9 @@ import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import KeycloakProvider from 'next-auth/providers/keycloak';
 
-import { adapter } from '@boilerplate/hasura-adapter';
+import { adapter } from '@client/hasura/adapter';
 import { IdentityProvider } from '@boilerplate/dlt/identity-provider';
-import { Roles } from '@boilerplate/hasura-utils';
+import { Roles } from '@client/hasura/utils';
 import { fetchJSON } from '@boilerplate/utils';
 import { logger } from '@boilerplate/logger';
 import { Provider } from 'next-auth/providers';
