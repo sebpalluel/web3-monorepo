@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
-  displayName: 'next-auth',
-  preset: '../../jest.preset.js',
+  displayName: 'client-next-auth',
+  preset: '../../../jest.preset.js',
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
@@ -11,5 +11,5 @@ export default {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/libs/next-auth',
+  coverageDirectory: '../../../coverage/libs/client/next-auth',
 };
