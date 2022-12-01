@@ -20,7 +20,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 
-import { Button as UIButton } from '@boilerplate/ui-components';
+import { Button as UIButton } from '@client/ui/components';
 
 import React, { useState, useMemo } from 'react';
 import { useForm } from 'react-hook-form';

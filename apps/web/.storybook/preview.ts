@@ -1,4 +1,4 @@
-import theme from '@boilerplate/ui-theme';
+import theme from '@client/ui/theme';
 
 export const parameters = {
   chakra: {

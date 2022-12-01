@@ -6,7 +6,7 @@ import {
   SubscribeWalletsByAddressDocument,
   useBalancesEip377Query,
   GetWalletsByAddressQuery,
-} from '@boilerplate/gql-user';
+} from '@client/gql/user';
 import { useReactQuerySubscription } from '@client/hasura/fetcher';
 
 import {

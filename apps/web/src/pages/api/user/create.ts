@@ -4,7 +4,7 @@ import {
   withErrorHandling,
   withMethodsGuard,
 } from '../../../lib/middlewares';
-import { adminSdk } from '@boilerplate/gql-admin';
+import { adminSdk } from '@client/gql/admin';
 import cryptojs from 'crypto-js';
 import { v4 as uuidv4 } from 'uuid';
 import { ApiError } from 'next/dist/server/api-utils';

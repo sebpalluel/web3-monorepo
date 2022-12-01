@@ -10,7 +10,7 @@ const adminHeaders = {
   'x-hasura-admin-secret': process.env.HASURA_GRAPHQL_ADMIN_SECRET || 'password',
 };
 
-const gqlPath = 'libs/gql';
+const gqlPath = 'libs/client/gql';
 
 module.exports = {
   projects: {

@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { adminSdk } from '@boilerplate/gql-admin';
+import { adminSdk } from '@client/gql/admin';
 import {
   withMiddlewares,
   withErrorHandling,

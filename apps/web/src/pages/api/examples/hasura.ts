@@ -1,4 +1,4 @@
-import { adminSdk } from '@boilerplate/gql-admin';
+import { adminSdk } from '@client/gql/admin';
 import { getSession } from 'next-auth/react';
 
 // This is an example of how to read a JSON Web Token from an API route

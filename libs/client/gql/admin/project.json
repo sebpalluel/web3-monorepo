@@ -1,0 +1,34 @@
+{
+  "name": "client-gql-admin",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/client/gql/admin/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/client/gql/admin",
+        "main": "libs/client/gql/admin/src/generated/index.ts",
+        "tsConfig": "libs/client/gql/admin/tsconfig.lib.json",
+        "assets": ["libs/client/gql/admin/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/client/gql/user/**/*.{ts, gql, graphql}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/client/gql/admin"],
+      "options": {
+        "jestConfig": "libs/client/gql/admin/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

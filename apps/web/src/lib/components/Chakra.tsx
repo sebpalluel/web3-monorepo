@@ -1,6 +1,6 @@
 import { ChakraProvider, localStorageManager } from '@chakra-ui/react';
 
-import theme from '@boilerplate/ui-theme';
+import theme from '@client/ui/theme';
 
 interface ChakraProps {
   children: React.ReactNode;
