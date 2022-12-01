@@ -1,6 +1,6 @@
 import { Injectable, PipeTransform, BadRequestException } from '@nestjs/common';
 import { isAddress } from 'ethers/lib/utils';
-import { EIP3770Network, TEIP377 } from '@boilerplate/dlt/types';
+import { EIP3770Network, TEIP377 } from '@dlt/types';
 
 @Injectable()
 export class IsEthAddressPipe implements PipeTransform {

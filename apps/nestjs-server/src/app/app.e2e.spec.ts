@@ -5,13 +5,13 @@ import { AppModule } from './app.module';
 import { PrismaService } from '@server/prisma';
 import { CryptocurrenciesService } from '@server/cryptocurrencies';
 import { BalancesService } from '../balances/balances.service';
-import { convertArrayOfObjtoObjWithKeys } from '@boilerplate/utils';
+import { convertArrayOfObjtoObjWithKeys } from '@utils';
 import {
   EIP3770Network,
   allEthCryptoMarketFromCoingecko,
   allPolyCryptoMarketFromCoingecko,
   allArbCryptoMarketFromCoingecko,
-} from '@boilerplate/dlt/types';
+} from '@dlt/types';
 
 describe('NestJS Server e2e', () => {
   let app: INestApplication;

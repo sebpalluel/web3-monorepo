@@ -26,7 +26,7 @@ import React, { useState, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { signIn, getProviders } from 'next-auth/react';
-import { logger } from '@boilerplate/logger';
+import { logger } from '@logger';
 import { useRouter } from 'next/router';
 
 import { AiFillGithub, AiFillGoogleCircle } from 'react-icons/ai';

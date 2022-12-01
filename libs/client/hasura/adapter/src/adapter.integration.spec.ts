@@ -1,4 +1,4 @@
-import { deleteUsers } from '@boilerplate/test-utils-db';
+import { deleteUsers } from '@test-utils/db';
 import { adapter as HasuraAdapter } from './index';
 import { AdapterAccount } from 'next-auth/adapters';
 

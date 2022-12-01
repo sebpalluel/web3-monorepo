@@ -6,7 +6,7 @@ import {
   TEIP377,
   TCryptocurrency,
   TCryptocurrencyWithAddress,
-} from '@boilerplate/dlt/types';
+} from '@dlt/types';
 import { CoinGeckoClient, CoinMarket } from 'coingecko-api-v3';
 
 @Injectable()

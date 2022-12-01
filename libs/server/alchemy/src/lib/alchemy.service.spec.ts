@@ -7,8 +7,8 @@ import {
   tokenDataEth,
   tokensBalanceEth,
   tokenBalanceAlchemyEth,
-} from '@boilerplate/test-utils-mocks';
-import { TTokenBalance, EIP3770Network } from '@boilerplate/dlt/types';
+} from '@test-utils/mocks';
+import { TTokenBalance, EIP3770Network } from '@dlt/types';
 
 const mockCacheManager = {
   set: jest.fn(),

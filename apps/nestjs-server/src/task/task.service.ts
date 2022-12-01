@@ -6,10 +6,10 @@ import {
   TEIP377,
   TCryptocurrency,
   TCryptocurrencyData,
-} from '@boilerplate/dlt/types';
-import { convertArrayOfObjtoObjWithKeys } from '@boilerplate/utils';
+} from '@dlt/types';
+import { convertArrayOfObjtoObjWithKeys } from '@utils';
 import { Cache } from 'cache-manager';
-import { logger } from '@boilerplate/logger';
+import { logger } from '@logger';
 
 @Injectable()
 export class TaskService {

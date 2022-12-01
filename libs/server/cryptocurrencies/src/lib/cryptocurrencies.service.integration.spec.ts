@@ -1,12 +1,12 @@
 import { Test } from '@nestjs/testing';
 import { CACHE_MANAGER } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
-import { coinMarketData } from '@boilerplate/test-utils-mocks';
+import { coinMarketData } from '@test-utils/mocks';
 import { CryptocurrenciesService } from './cryptocurrencies.service';
 import { PrismaService } from '@server/prisma';
 import { ConfigService } from '@nestjs/config';
 import { ApiService } from '@server/api';
-import { allCryptoFromCoingecko, EIP3770Network } from '@boilerplate/dlt/types';
+import { allCryptoFromCoingecko, EIP3770Network } from '@dlt/types';
 
 const mockCacheManager = {
   get: jest.fn(),

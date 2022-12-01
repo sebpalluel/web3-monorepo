@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { WalletService } from '../wallet/wallet.service';
 import { CryptocurrenciesService } from '@server/cryptocurrencies';
-import type { TEIP377, TBalanceTokenData } from '@boilerplate/dlt/types';
+import type { TEIP377, TBalanceTokenData } from '@dlt/types';
 
 @Injectable()
 export class BalancesService {

@@ -6,9 +6,9 @@ import { HttpModule } from '@nestjs/axios';
 import { PrismaService } from '@server/prisma';
 import { ApiService } from '@server/api';
 import { ConfigService } from '@nestjs/config';
-import { coinMarketData } from '@boilerplate/test-utils-mocks';
-import { supportedChains } from '@boilerplate/dlt/types';
-import { logger } from '@boilerplate/logger';
+import { coinMarketData } from '@test-utils/mocks';
+import { supportedChains } from '@dlt/types';
+import { logger } from '@logger';
 
 const mockCacheManager = {
   set: jest.fn(),

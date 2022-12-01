@@ -6,7 +6,7 @@ import { expect } from '@storybook/jest';
 import { Button } from './Button';
 import { theme } from '@chakra-ui/react';
 import { getThemingArgTypes } from '@chakra-ui/storybook-addon';
-import { delayData } from '@boilerplate/test-utils-functions';
+import { delayData } from '@test-utils/functions';
 
 const Story: ComponentMeta<typeof Button> = {
   component: Button,

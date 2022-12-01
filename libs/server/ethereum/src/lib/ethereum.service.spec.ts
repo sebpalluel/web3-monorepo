@@ -4,7 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { AlchemyService } from '@server/alchemy';
 import { EthereumService } from './ethereum.service';
 import { PrismaService } from '@server/prisma';
-import { tokensBalanceEth } from '@boilerplate/test-utils-mocks';
+import { tokensBalanceEth } from '@test-utils/mocks';
 
 const mockCacheManager = {
   set: jest.fn(),

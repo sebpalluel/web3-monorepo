@@ -9,8 +9,8 @@ import { CryptocurrenciesService } from '@server/cryptocurrencies';
 import { ConfigService } from '@nestjs/config';
 import { WalletService } from '../wallet/wallet.service';
 import { WalletProviders } from '../wallet/wallet.module';
-import { EIP3770Network } from '@boilerplate/dlt/types';
-import { tokensBalanceEth } from '@boilerplate/test-utils-mocks';
+import { EIP3770Network } from '@dlt/types';
+import { tokensBalanceEth } from '@test-utils/mocks';
 
 const mockCacheManager = {
   set: jest.fn(),

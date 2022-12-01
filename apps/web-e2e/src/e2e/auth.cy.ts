@@ -1,5 +1,5 @@
 import { getGreeting } from '../support/app.po';
-import { users } from '@boilerplate/test-utils-gql';
+import { users } from '@test-utils/gql';
 
 describe('Authentication tests', () => {
   before(() => {

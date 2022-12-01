@@ -7,7 +7,7 @@ import type {
   TCryptocurrencyData,
   TBalanceTokenData,
   TTokenBalance,
-} from '@boilerplate/dlt/types';
+} from '@dlt/types';
 
 import { Transaction, Wallet } from '@prisma/client';
 // eslint-disable-next-line @typescript-eslint/no-var-requires

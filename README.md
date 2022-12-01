@@ -165,7 +165,7 @@ You can [**find the Storybook for this project here**](https://63511cd2e1271125e
 Stories are defined on the `libs/ui/components`. We use [interaction testing](https://storybook.js.org/docs/react/writing-tests/interaction-testing) with the storybook version of jest and testing library in order to provide dynamic demonstration of the usage of individual components along with testing.
 Aditionnaly, the service [chromatic](https://www.chromatic.com) is launched on the CI in order to spot and approve/decline UI changes.
 
-To create a new component, you can use the custom nx generator provided on this project `@boilerplate/workspace - component` provided from the `libs/workspace`. It will create the boilerplate code for the react component, the stories file and the jest spec file.
+To create a new component, you can use the custom nx generator provided on this project `@workspace - component` provided from the `libs/workspace`. It will create the boilerplate code for the react component, the stories file and the jest spec file.
 
 ## Utilities
 

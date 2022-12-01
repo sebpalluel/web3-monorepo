@@ -2,7 +2,7 @@ import { formatFiles, installPackagesTask, Tree, names } from '@nrwl/devkit';
 import { componentStoryGenerator } from '@nrwl/react/src/generators/component-story/component-story';
 import { componentGenerator as reactComponentGenerator } from '@nrwl/react/src/generators/component/component';
 import { ComponentGeneratorSchema } from './schema';
-import { toPascalCase } from '@boilerplate/utils';
+import { toPascalCase } from '@utils';
 
 export async function componentGenerator(
   tree: Tree,

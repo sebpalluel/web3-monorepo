@@ -1,7 +1,7 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { BalancesService } from './balances.service';
 import { IsEthAddressPipe, isSupportedNetworkPipe } from './balances.pipe';
-import type { TEIP377 } from '@boilerplate/dlt/types';
+import type { TEIP377 } from '@dlt/types';
 
 @Controller('balances')
 export class BalancesController {

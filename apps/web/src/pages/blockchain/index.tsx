@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
-import { supportedChains } from '@boilerplate/dlt/types';
+import { supportedChains } from '@dlt/types';
 import { useQuery } from '@tanstack/react-query';
 import {
   SubscribeWalletsByAddressDocument,

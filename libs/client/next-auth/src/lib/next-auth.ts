@@ -7,10 +7,10 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import KeycloakProvider from 'next-auth/providers/keycloak';
 
 import { adapter } from '@client/hasura/adapter';
-import { IdentityProvider } from '@boilerplate/dlt/identity-provider';
+import { IdentityProvider } from '@dlt/identity-provider';
 import { Roles } from '@client/hasura/utils';
-import { fetchJSON } from '@boilerplate/utils';
-import { logger } from '@boilerplate/logger';
+import { fetchJSON } from '@utils';
+import { logger } from '@logger';
 import { Provider } from 'next-auth/providers';
 
 // For more information on each option (and a full list of options) go to

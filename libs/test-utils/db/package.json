@@ -1,5 +1,5 @@
 {
-  "name": "@boilerplate/test-utils-db",
+  "name": "@test-utils/db",
   "version": "0.0.1",
   "type": "commonjs"
 }

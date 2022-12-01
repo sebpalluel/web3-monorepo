@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { CACHE_MANAGER } from '@nestjs/common';
 import { ArbitrumService } from './arbitrum.service';
 import { AlchemyService } from '@server/alchemy';
-import { tokensBalanceArb } from '@boilerplate/test-utils-mocks';
+import { tokensBalanceArb } from '@test-utils/mocks';
 import { PrismaService } from '@server/prisma';
 
 const mockCacheManager = {
