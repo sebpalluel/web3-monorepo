@@ -1,0 +1,34 @@
+{
+  "name": "client-gql-user",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/client/gql/user/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/client/gql/user",
+        "main": "libs/client/gql/user/src/generated/index.ts",
+        "tsConfig": "libs/client/gql/user/tsconfig.lib.json",
+        "assets": ["libs/client/gql/user/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/client/gql/user/**/*.{ts, gql, graphql}"]
+      }
+    },
+    "test-hasura": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/client/gql/user"],
+      "options": {
+        "jestConfig": "libs/client/gql/user/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

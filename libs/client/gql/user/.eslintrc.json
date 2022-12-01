@@ -1,0 +1,28 @@
+{
+  "extends": ["../../../../.eslintrc.json"],
+  "overrides": [
+    {
+      "files": ["src/queries/**/*.gql"],
+      "extends": "plugin:@graphql-eslint/operations-all",
+      "parserOptions": {
+        "operations": ["src/queries/**/*.gql"],
+        "schema": "src/generated/schema.json"
+      },
+      "rules": {
+        "@graphql-eslint/no-deprecated": "warn",
+        "@graphql-eslint/naming-convention": [
+          "warn",
+          {
+            "OperationDefinition": "PascalCase",
+            "allowLeadingUnderscore": true
+          }
+        ],
+        "@graphql-eslint/no-anonymous-operations": "error",
+        "@graphql-eslint/unique-fragment-name": "error",
+        "@graphql-eslint/match-document-filename": "off",
+        "@graphql-eslint/alphabetize": "off",
+        "@graphql-eslint/require-id-when-available": "off"
+      }
+    }
+  ]
+}

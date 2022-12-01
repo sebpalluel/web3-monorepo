@@ -3,7 +3,7 @@ import { ColorModeScript } from '@chakra-ui/react';
 import type { DocumentContext } from 'next/document';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 
-import theme from '@boilerplate/ui-theme';
+import theme from '@client/ui/theme';
 
 const APP_NAME = 'web3-monorepo';
 

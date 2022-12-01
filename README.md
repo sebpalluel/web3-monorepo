@@ -66,8 +66,8 @@ The login to access the [**administration console**](http://localhost:8100/auth/
 - `waltid-idpkit`: Contain the config files, the encryption keys for the DID server and the registered OIDC client.
 - `keycloak`: Contain all the realm settings loaded by the keycloak container
 - `libs/dlt/types`: contain the typescript types/interfaces related to the DLT (Blockchain) used in the project
-- `libs/gql/[user, admin]`: a library containing all the GraphQL queries and mutations and the generated schemas to be used on the web app. It is divided on 3 folders: `user`, `admin` and `anonymous` depending of the role of the user.
-- `libs/gql/thegraph`: a library that use [The Graph](https://thegraph.com/en/) protocol in order to query data directly from smart contract on the blockchain.
+- `libs/client/gql/[user, admin]`: a library containing all the GraphQL queries and mutations and the generated schemas to be used on the web app. It is divided on 3 folders: `user`, `admin` and `anonymous` depending of the role of the user.
+- `libs/client/gql/thegraph`: a library that use [The Graph](https://thegraph.com/en/) protocol in order to query data directly from smart contract on the blockchain.
 - `libs/hasura-adapter`: Next-auth adapter for the Hasura service.
 - `libs/hasura-fetcher`: Fetcher functions to query the Hasura service.
 - `libs/hasura-utils`: Utilities to interact with Hasura.
@@ -277,11 +277,11 @@ Each one have a grapqhl schema and an ast schema generated and specfic sdk.
 
 **User**
 
-The graphql queries definition are defined in `libs/gql/user/queries`. We use the React-Query module in order to facilitate the querying the data for the user role in the fontend client. The hasura service will read the auth cookie in order to validate the request. We also generate a generic sdk in order to facilitate testing of user query with jest on `libs/test-utils/gql/src/generated/test-user.ts`where we provide a Bearer JWT instead of a cookie because jest is not capable to provide one.
+The graphql queries definition are defined in `libs/client/gql/user/queries`. We use the React-Query module in order to facilitate the querying the data for the user role in the fontend client. The hasura service will read the auth cookie in order to validate the request. We also generate a generic sdk in order to facilitate testing of user query with jest on `libs/test-utils/gql/src/generated/test-user.ts`where we provide a Bearer JWT instead of a cookie because jest is not capable to provide one.
 
 **Admin**
 
-The graphql queries definition are defined in `libs/gql/admin/queries`. We use a generic sdk with a simple fetch query in order to facilitate the querying the data for the admin role. Those queries are made on the server side of the frontend. Hasura will allow the request through the providing of the `X-Hasura-Admin-Secret`.
+The graphql queries definition are defined in `libs/client/gql/admin/queries`. We use a generic sdk with a simple fetch query in order to facilitate the querying the data for the admin role. Those queries are made on the server side of the frontend. Hasura will allow the request through the providing of the `X-Hasura-Admin-Secret`.
 
 ### The Graph: Graph Client
 
@@ -289,9 +289,9 @@ The graphql queries definition are defined in `libs/gql/admin/queries`. We use a
 
 The [Graph Client library](https://github.com/graphprotocol/graph-client) is used in order to interact easily with any smart contract on blockchain supported by [The Graph protocol](https://thegraph.com/en/).
 
-The library located in `libs/gql/thegraph` integrate the client and the toolset from The Graph in order to generate the graphql code to be used by the web app to fetch live data from desired smart contracts.
+The library located in `libs/client/gql/thegraph` integrate the client and the toolset from The Graph in order to generate the graphql code to be used by the web app to fetch live data from desired smart contracts.
 
-The query are defined in `libs/gql/thegraph/queries` and the smart contract sources are defined in `libs/gql/thegraph/src/.graphclientrc.yml`. When updating queries or smart contract sources, be sure to launch the command `pnpm thegraph-build` in order to generate the new version of the generated files located in `libs/gql/thegraph/.graphclient`.
+The query are defined in `libs/client/gql/thegraph/queries` and the smart contract sources are defined in `libs/client/gql/thegraph/src/.graphclientrc.yml`. When updating queries or smart contract sources, be sure to launch the command `pnpm thegraph-build` in order to generate the new version of the generated files located in `libs/client/gql/thegraph/.graphclient`.
 
 You can find an example of live query of smart contract on the [Blockchain page](http://localhost:3000/blockchain).
 

@@ -9,14 +9,14 @@ schema:
 
 generates:
   # admin
-  libs/gql/admin/src/generated/schema.json:
+  libs/client/gql/admin/src/generated/schema.json:
     plugins:
       - 'introspection'
-  libs/gql/admin/src/generated/schema.graphql:
+  libs/client/gql/admin/src/generated/schema.graphql:
     plugins:
       - 'schema-ast'
-  libs/gql/admin/src/generated/index.ts:
-    documents: './libs/gql/admin/src/queries/**/*.{graphql,gql}'
+  libs/client/gql/admin/src/generated/index.ts:
+    documents: './libs/client/gql/admin/src/queries/**/*.{graphql,gql}'
     plugins:
       - 'typescript':
           constEnums: true
@@ -32,7 +32,7 @@ generates:
           content: 'export const adminSdk = getSdk(fetchData({admin:true}));'
           placement: 'append'
   # user
-  libs/gql/user/src/generated/schema.json:
+  libs/client/gql/user/src/generated/schema.json:
     plugins:
       - 'introspection'
     schema:
@@ -42,15 +42,15 @@ generates:
             'x-hasura-admin-secret': ${HASURA_GRAPHQL_ADMIN_SECRET:password}
             'x-hasura-default-role': 'user'
             'x-hasura-role': 'user'
-  libs/gql/user/src/generated/schema.graphql:
+  libs/client/gql/user/src/generated/schema.graphql:
     plugins:
       - 'schema-ast'
     schema:
       - *userSchema
-  libs/gql/user/src/generated/index.ts:
+  libs/client/gql/user/src/generated/index.ts:
     schema:
       - *userSchema
-    documents: './libs/gql/user/src/queries/**/*.{graphql,gql}'
+    documents: './libs/client/gql/user/src/queries/**/*.{graphql,gql}'
     plugins:
       - 'typescript':
           constEnums: true
@@ -65,7 +65,7 @@ generates:
   libs/test-utils/gql/src/generated/test-user.ts:
     schema:
       - *userSchema
-    documents: './libs/gql/user/src/queries/**/*.{graphql,gql}'
+    documents: './libs/client/gql/user/src/queries/**/*.{graphql,gql}'
     plugins:
       - 'typescript':
           constEnums: true
@@ -80,7 +80,7 @@ generates:
     # #  TODO: follow up on this issue https://github.com/dotansimha/graphql-code-generator/issues/7700
     # #  ref: https://www.graphql-code-generator.com/plugins/other/hasura-allow-list
     # hasura/app/metadata/query_collections.yaml:
-    #   documents: './libs/gql/*/src/queries/**/*.{graphql,gql}'
+    #   documents: './libs/client/gql/*/src/queries/**/*.{graphql,gql}'
     #   plugins:
     #     - 'hasura-allow-list'
     #   hooks:

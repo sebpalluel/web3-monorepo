@@ -1,0 +1,34 @@
+{
+  "name": "client-ui-theme",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/client/ui/theme/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/client/ui/theme",
+        "main": "libs/client/ui/theme/src/index.ts",
+        "tsConfig": "libs/client/ui/theme/tsconfig.lib.json",
+        "assets": ["libs/client/ui/theme/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/client/ui/theme/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/client/ui/theme"],
+      "options": {
+        "jestConfig": "libs/client/ui/theme/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
