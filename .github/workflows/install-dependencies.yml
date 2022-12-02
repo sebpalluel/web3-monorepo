@@ -50,18 +50,20 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
+      # we use the exact restore key to avoid Cypress binary snowballing
+      # https://glebbahmutov.com/blog/do-not-let-cypress-cache-snowball/
+      # https://github.com/cypress-io/cypress-example-kitchensink/blob/0cf2a960fea4804271a9e5273d2ed8e246dd9e21/.github/workflows/parallel.yml#L1-L1
       - name: Cache Cypress binary
         uses: actions/cache@v3
         id: cache-cypress-binary
         with:
           path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-cypress-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: cypress-${{ runner.os }}-cypress-${{ github.ref }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             cypress-${{ runner.os }}-cypress-${{ github.ref }}-${{ hashFiles('**/pnpm-lock.yaml') }}
 
-      - name: Install dependencies and check cypress
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
-        run: pnpm install
+      - name: Install dependencies && generate prisma client
+        run: pnpm install && pnpm prisma generate
 
       ### Use in case cypress not found in cache
       # run: pnpm install && pnpm install cypress
@@ -72,6 +74,3 @@ jobs:
       #     pnpm cypress cache list
       #     pnpm cypress verify
       #     pnpm cypress info
-
-      - name: Generate prisma client
-        run: pnpm prisma generate
