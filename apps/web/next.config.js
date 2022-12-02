@@ -6,7 +6,7 @@ const withNx = require('@nrwl/next/plugins/with-nx');
  * @type {import('@nrwl/next/plugins/with-nx').WithNxOptions}
  * */
 
-const isProd = process.env.NODE_ENV === 'production';
+// const isProd = process.env.NODE_ENV === 'production';
 
 const withPWA = require('next-pwa')({
   dest: 'public',
@@ -34,7 +34,8 @@ const nextConfig = {
   },
   images: {},
   // Use the CDN in production and localhost for development.
-  assetPrefix: isProd ? 'https://cdn.mydomain.com' : undefined,
+  // assetPrefix: isProd ? 'https://cdn.mydomain.com' : undefined,
+  assetPrefix: undefined,
 };
 
 module.exports = (_phase, { defaultConfig }) => {

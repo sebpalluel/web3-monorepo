@@ -231,7 +231,6 @@
       "nx format:write --files"
     ]
   },
-  "readme": "ERROR: No README data found!",
   "_id": "boilerplate@0.0.0",
   "msw": {
     "workerDirectory": "apps/nestjs-server/src"

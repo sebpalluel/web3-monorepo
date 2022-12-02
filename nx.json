@@ -20,6 +20,7 @@
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
+        "cacheDirectory": "/tmp/nx-cache",
         "cacheableOperations": [
           "dev",
           "serve",
