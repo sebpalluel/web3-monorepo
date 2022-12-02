@@ -60,15 +60,18 @@ jobs:
             cypress-${{ runner.os }}-cypress-${{ github.ref }}-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: Install dependencies and check cypress
-        # if: steps.cache-node-modules.outputs.cache-hit != 'true'
-        run: pnpm install && pnpm cypress install
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: pnpm install
 
-      - name: Check for Cypress cache binary
-        run: |
-          pnpm cypress cache path
-          pnpm cypress cache list
-          pnpm cypress verify
-          pnpm cypress info
+      ### Use in case cypress not found in cache
+      # run: pnpm install && pnpm install cypress
+
+      # - name: Check for Cypress cache binary
+      #   run: |
+      #     pnpm cypress cache path
+      #     pnpm cypress cache list
+      #     pnpm cypress verify
+      #     pnpm cypress info
 
       - name: Generate prisma client
         run: pnpm prisma generate

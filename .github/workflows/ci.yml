@@ -18,7 +18,7 @@ jobs:
   main:
     name: Nx Cloud - Main Job
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    uses: sebpalluel/ci/.github/workflows/nx-cloud-main.yml@v0.10.14
+    uses: sebpalluel/ci/.github/workflows/nx-cloud-main.yml@v0.10.15
     secrets:
       ENV_FILE: ${{ secrets.ENV_FILE }}
     with:
@@ -46,7 +46,7 @@ jobs:
   agents:
     name: Nx Cloud - Agents
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    uses: sebpalluel/ci/.github/workflows/nx-cloud-agents.yml@v0.10.14
+    uses: sebpalluel/ci/.github/workflows/nx-cloud-agents.yml@v0.10.15
     secrets:
       ENV_FILE: ${{ secrets.ENV_FILE }}
     with:
