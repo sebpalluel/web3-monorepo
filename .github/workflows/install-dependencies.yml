@@ -65,6 +65,10 @@ jobs:
       - name: Install dependencies && generate prisma client
         run: pnpm install && pnpm prisma generate
 
+      - name: Install Cypress binary if no cache hit
+        if: steps.cache-cypress-binary.outputs.cache-hit != 'true'
+        run: pnpm cypress install
+
       ### Use in case cypress not found in cache
       # run: pnpm install && pnpm install cypress
 
