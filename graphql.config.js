@@ -1,13 +1,13 @@
 const userHeaders = {
   'x-hasura-role': 'user',
   'x-hasura-default-role': 'user',
-  'x-hasura-admin-secret': process.env.HASURA_GRAPHQL_ADMIN_SECRET || 'password',
+  'x-hasura-admin-secret': 'password',
 };
 
 const adminHeaders = {
   'x-hasura-role': 'admin',
   'x-hasura-default-role': 'admin',
-  'x-hasura-admin-secret': process.env.HASURA_GRAPHQL_ADMIN_SECRET || 'password',
+  'x-hasura-admin-secret': 'password',
 };
 
 const gqlPath = 'libs/client/gql';
@@ -20,7 +20,7 @@ module.exports = {
       extensions: {
         endpoints: {
           default: {
-            url: process.env.NEXT_PUBLIC_HASURA_URL,
+            url: 'http://localhost:8080/v1/graphql',
             headers: adminHeaders,
           },
         },
@@ -32,7 +32,7 @@ module.exports = {
       extensions: {
         endpoints: {
           default: {
-            url: process.env.NEXT_PUBLIC_HASURA_URL,
+            url: 'http://localhost:8080/v1/graphql',
             headers: userHeaders,
           },
         },

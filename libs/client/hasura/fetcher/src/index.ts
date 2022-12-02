@@ -1,6 +1,6 @@
 import { logger } from '@logger';
 // this is causing a build issue because of nested dependency on @boilerplate/dlt-types
-import { isJestRunning, isServerSide } from '@utils';
+import { isJestRunning, isServerSide, isDev } from '@utils';
 import { useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -8,9 +8,7 @@ export const endpointUrl = (): string => {
   if (isJestRunning()) {
     return 'http://localhost:9696/v1/graphql';
   }
-  return !isServerSide()
-    ? (process.env.NEXT_PUBLIC_HASURA_URL as string)
-    : (process.env.NEXT_PUBLIC_HASURA_SSR_URL as string);
+  return process.env.NEXT_PUBLIC_HASURA_PROJECT_ENDPOINT as string;
 };
 
 // This fetcher is used for fetching data for react query from Hasura GraphQL API on the client side.
@@ -124,10 +122,11 @@ export const useReactQuerySubscription = async (
   const queryClient = useQueryClient();
   useEffect(() => {
     if (isServerSide()) return () => null;
-    const ws = new WebSocket(
-      process.env.NEXT_PUBLIC_HASURA_URL_WS as string,
-      'graphql-ws'
+    const ws_url = endpointUrl().replace(
+      isDev() ? 'http' : 'https',
+      isDev() ? 'ws' : 'wss'
     );
+    const ws = new WebSocket(ws_url, 'graphql-ws');
     const init_msg = {
       type: 'connection_init',
       payload: { headers },

@@ -1,9 +1,9 @@
 overwrite: true
 watch: true
 schema:
-  - ${NEXT_PUBLIC_HASURA_URL:http://localhost:8080/v1/graphql}:
+  - 'http://localhost:8080/v1/graphql':
       headers:
-        'x-hasura-admin-secret': ${HASURA_GRAPHQL_ADMIN_SECRET:password}
+        'x-hasura-admin-secret': 'password'
         'x-hasura-default-role': 'admin'
         'x-hasura-role': 'admin'
 

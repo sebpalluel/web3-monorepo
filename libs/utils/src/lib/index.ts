@@ -43,3 +43,11 @@ export function isJestRunning() {
 export function isCypressRunning() {
   return window && (window as any).Cypress !== undefined;
 }
+
+export function isDev() {
+  return process.env.NODE_ENV === 'development';
+}
+
+export function isProd() {
+  return process.env.NODE_ENV === 'production';
+}
