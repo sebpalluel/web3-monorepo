@@ -52,3 +52,5 @@ jobs:
     with:
       environment: staging
       number-of-agents: 3
+      init-commands: |
+        pnpm prisma generate

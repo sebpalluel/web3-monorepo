@@ -62,8 +62,8 @@ jobs:
           restore-keys: |
             cypress-${{ runner.os }}-cypress-${{ github.ref }}-${{ hashFiles('**/pnpm-lock.yaml') }}
 
-      - name: Install dependencies && generate prisma client
-        run: pnpm install && pnpm prisma generate
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Install Cypress binary if no cache hit
         if: steps.cache-cypress-binary.outputs.cache-hit != 'true'
