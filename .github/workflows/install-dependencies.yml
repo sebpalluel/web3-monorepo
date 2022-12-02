@@ -61,7 +61,6 @@ jobs:
         run: pnpm install
 
       - name: Check for Cypress cache binary
-        if: steps.cache-cypress-binary.outputs.cache-hit == 'true'
         run: |
           pnpm cypress cache path
           pnpm cypress cache list
