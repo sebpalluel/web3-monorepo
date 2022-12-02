@@ -47,15 +47,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - uses: actions/cache@v3
-        name: Setup cypress cache
-        id: cache-cypress-binary
+      - name: Cache Cypress binary
+        uses: actions/cache@v3
         with:
-          path: .cache/Cypress
-          key: ${{ runner.os }}-cypress-binary-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-cypress-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}}-cypress-binary-
+            cypress-${{ runner.os }}-cypress-${{ github.ref }}-${{ hashFiles('**/pnpm-lock.yaml') }}
 
-      - name: Install dependencies
+      - name: Install dependencies and check cypress
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
-        run: pnpm install
+        run: pnpm install && pnpm cypress verify
+
+      - name: Generate prisma client
+        run: pnpm prisma generate
