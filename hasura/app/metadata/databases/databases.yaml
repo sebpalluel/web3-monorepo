@@ -12,7 +12,7 @@
         retries: 1
       use_prepared_statements: true
   tables: "!include default/tables/tables.yaml"
-- name: Prisma Nestjs-server
+- name: prisma_nestjs_server
   kind: postgres
   configuration:
     connection_info:
@@ -22,4 +22,4 @@
       use_prepared_statements: false
   customization:
     naming_convention: hasura-default
-  tables: "!include Prisma Nestjs-server/tables/tables.yaml"
+  tables: "!include prisma_nestjs_server/tables/tables.yaml"
