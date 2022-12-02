@@ -12,6 +12,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
   cancel-in-progress: true
 
+env:
+  CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
+
 jobs:
   cache-and-install:
     runs-on: ubuntu-latest
