@@ -61,7 +61,7 @@ jobs:
 
       - name: Install dependencies and check cypress
         # if: steps.cache-node-modules.outputs.cache-hit != 'true'
-        run: pnpm install
+        run: pnpm install && pnpm cypress install
 
       - name: Check for Cypress cache binary
         run: |
