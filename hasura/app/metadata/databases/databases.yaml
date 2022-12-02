@@ -17,7 +17,7 @@
   configuration:
     connection_info:
       database_url:
-        from_env: PRISMA_DATABASE_URL_DOCKER
+        from_env: PRISMA_DATABASE_URL_HASURA
       isolation_level: read-committed
       use_prepared_statements: false
   customization:
