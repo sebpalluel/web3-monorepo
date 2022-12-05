@@ -30,9 +30,6 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
-# vercel
-.vercel
-
 **/public/workbox-*.js
 **/public/sw.js
 **/public/service-worker.js
