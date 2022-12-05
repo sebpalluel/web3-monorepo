@@ -1,5 +1,7 @@
 import { Module, CacheModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+// https://blog.logrocket.com/add-redis-cache-nestjs-app/
+import * as redisStore from 'cache-manager-redis-store';
 import { ScheduleModule } from '@nestjs/schedule';
 
 import { PrismaModule } from '@server/prisma';
@@ -15,10 +17,24 @@ import { HealthModule } from '../health/health.module';
 import { WalletService } from '../wallet/wallet.service';
 import { WalletProviders } from '../wallet/wallet.module';
 import { AppController } from './app.controller';
+import { isProd } from '@utils';
+
+const cacheForDev = {
+  ttl: 0,
+  isGlobal: true,
+};
+
+const cacheForProd = {
+  ttl: 60 * 60 * 24 * 7, // 24 hours * 7 days = 1 week
+  isGlobal: true,
+  store: redisStore,
+  host: process.env.REDISHOST,
+  port: process.env.REDISPORT,
+};
 
 @Module({
   imports: [
-    CacheModule.register({ isGlobal: true, ttl: 0 }),
+    CacheModule.register(isProd() ? cacheForProd : cacheForDev),
     ConfigModule.forRoot({
       isGlobal: true,
     }),

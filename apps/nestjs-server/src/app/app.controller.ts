@@ -4,7 +4,7 @@ import { Controller, Get } from '@nestjs/common';
 export class AppController {
   // return 200 OK
   @Get()
-  getHello(): string {
-    return 'Web3 monorepo nestjs server';
+  get(): string {
+    return `Web3 monorepo nestjs server running in ${process.env.NODE_ENV} mode`;
   }
 }
