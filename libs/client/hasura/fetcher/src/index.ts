@@ -1,5 +1,4 @@
 import { logger } from '@logger';
-// this is causing a build issue because of nested dependency on @boilerplate/dlt-types
 import { isJestRunning, isServerSide, isDev } from '@utils';
 import { useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';

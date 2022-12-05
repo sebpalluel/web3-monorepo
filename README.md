@@ -52,7 +52,7 @@ You can [check the doc here](https://docs.walt.id/v/idpkit/idpkit/readme) for mo
 - [**Keycloak IAM server**](http://localhost:8100/auth/)
 
 [Keycloak Identity and Access Management server](https://www.keycloak.org) is used as a provider for Next Auth. The IDP Kit from walt.id is used through the OpenID Connect protocol.
-The login to access the [**administration console**](http://localhost:8100/auth/admin/master/console/#/master) is `admin@boilerplate.com / password`
+The login to access the [**administration console**](http://localhost:8100/auth/admin/master/console/#/master) is `admin@web3-monorepo.com / password`
 
 ### Apps and Libs
 
