@@ -17,9 +17,10 @@ export class HealthController {
       () =>
         this.http.pingCheck(
           'Basic Check',
-          `http://${this.config.get('NEST_HOST') || '0.0.0.0'}:${
-            this.config.get('NEST_PORT') || 3333
-          }/api/`
+          'https://docs.nestjs.com'
+          // `http://${this.config.get('NEST_HOST') || '0.0.0.0'}:${
+          //   this.config.get('NEST_PORT') || 3333
+          // }/api/`
         ),
     ]);
   }
