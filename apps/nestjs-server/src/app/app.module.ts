@@ -1,6 +1,8 @@
 import { Module, CacheModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
+import { TerminusModule } from '@nestjs/terminus';
+import { HttpModule } from '@nestjs/axios';
 
 import { PrismaModule } from '@server/prisma';
 import { ApiModule } from '@server/api';
@@ -13,6 +15,7 @@ import { AlchemyService } from '@server/alchemy';
 import { TaskService } from '../task/task.service';
 import { WalletService } from '../wallet/wallet.service';
 import { WalletProviders } from '../wallet/wallet.module';
+import { HealthController } from '../health/health.controller';
 
 @Module({
   imports: [
@@ -23,8 +26,10 @@ import { WalletProviders } from '../wallet/wallet.module';
     ScheduleModule.forRoot(),
     PrismaModule,
     ApiModule,
+    TerminusModule,
+    HttpModule,
   ],
-  controllers: [BalancesController],
+  controllers: [HealthController, BalancesController],
   providers: [
     CryptocurrenciesService,
     TaskService,

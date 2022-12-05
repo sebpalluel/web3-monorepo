@@ -68,6 +68,7 @@
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/schedule": "^2.1.0",
+    "@nestjs/terminus": "^9.1.4",
     "@nrwl/next": "15.2.3",
     "@prisma/client": "^4.5.0",
     "@swc/helpers": "~0.4.11",

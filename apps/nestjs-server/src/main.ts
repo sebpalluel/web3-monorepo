@@ -12,10 +12,11 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
+  const host = process.env.NEST_HOST || '0.0.0.0';
   const port = process.env.NEST_PORT || 3333;
-  await app.listen(port);
+  await app.listen(port, host);
   Logger.log(
-    `🚀 Nestjs Server Application is running on: http://localhost:${port}/${globalPrefix}`
+    `🚀 Nestjs Server Application is running on: http://${host}:${port}/${globalPrefix}`
   );
 }
 

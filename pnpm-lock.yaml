@@ -32,6 +32,7 @@ specifiers:
   '@nestjs/platform-express': ^9.0.0
   '@nestjs/schedule': ^2.1.0
   '@nestjs/schematics': ^9.0.0
+  '@nestjs/terminus': ^9.1.4
   '@nestjs/testing': ^9.0.0
   '@nrwl/cli': 15.2.3
   '@nrwl/cypress': 15.2.3
@@ -178,6 +179,7 @@ dependencies:
   '@nestjs/core': 9.1.6_bx3wiubfryfbvpzqwr6ml4ajpu
   '@nestjs/platform-express': 9.1.6_6whalgrsvisgjemghedgkfq7dm
   '@nestjs/schedule': 2.1.0_6gc6obcawnp52bp7gggit3czna
+  '@nestjs/terminus': 9.1.4_g6h25znejo3vrfcrozphbqno6y
   '@nrwl/next': 15.2.3_2pvg3rvccz3oe3ptv5zysidm7e
   '@prisma/client': 4.5.0_prisma@4.5.0
   '@swc/helpers': 0.4.12
@@ -5634,6 +5636,60 @@ packages:
       - chokidar
     dev: true
 
+  /@nestjs/terminus/9.1.4_g6h25znejo3vrfcrozphbqno6y:
+    resolution: {integrity: sha512-VUkafKRK6uWzwyHPind3RejxQAFJxPaXjDtvHQRaNdJ5Pk9wVD4e6e8KLGhcrPGC8ZDorqBLZABnECIcGzkodA==}
+    peerDependencies:
+      '@grpc/grpc-js': '*'
+      '@grpc/proto-loader': '*'
+      '@mikro-orm/core': '*'
+      '@mikro-orm/nestjs': '*'
+      '@nestjs/axios': '*'
+      '@nestjs/common': 9.x
+      '@nestjs/core': 9.x
+      '@nestjs/microservices': '*'
+      '@nestjs/mongoose': '*'
+      '@nestjs/sequelize': '*'
+      '@nestjs/typeorm': '*'
+      mongoose: '*'
+      reflect-metadata: 0.1.x
+      rxjs: 7.x
+      sequelize: '*'
+      typeorm: '*'
+    peerDependenciesMeta:
+      '@grpc/grpc-js':
+        optional: true
+      '@grpc/proto-loader':
+        optional: true
+      '@mikro-orm/core':
+        optional: true
+      '@mikro-orm/nestjs':
+        optional: true
+      '@nestjs/axios':
+        optional: true
+      '@nestjs/microservices':
+        optional: true
+      '@nestjs/mongoose':
+        optional: true
+      '@nestjs/sequelize':
+        optional: true
+      '@nestjs/typeorm':
+        optional: true
+      mongoose:
+        optional: true
+      sequelize:
+        optional: true
+      typeorm:
+        optional: true
+    dependencies:
+      '@nestjs/axios': 0.1.0_yjxybkvltbh2d3oivnq5etx3oi
+      '@nestjs/common': 9.1.6_kse33lrkcbkdnbc4tnupnm44vu
+      '@nestjs/core': 9.1.6_bx3wiubfryfbvpzqwr6ml4ajpu
+      boxen: 5.1.2
+      check-disk-space: 3.3.1
+      reflect-metadata: 0.1.13
+      rxjs: 7.5.7
+    dev: false
+
   /@nestjs/testing/9.1.6_ymrbmmkpvmejpm3rdaw5glgevq:
     resolution: {integrity: sha512-3kdTgiv5DHRHMQ/befLWd/60LZWjOM2V+SwOLqGkITt1yjo+jpkDze8/f0ZXVGEa6pcWYZ5oeedbL2T1nyUKSQ==}
     peerDependencies:
@@ -10300,7 +10356,6 @@ packages:
     resolution: {integrity: sha512-IOfwwBF5iczOjp/WeY4YxyjqAFMQoZufdQWDd19SEExbVLNXqvpzSJ/M7Za4/sCPmQ0+GRquoA7bGcINcxew6w==}
     dependencies:
       string-width: 4.2.3
-    dev: true
 
   /ansi-colors/3.2.4:
     resolution: {integrity: sha512-hHUXGagefjN2iRrID63xckIvotOXOojhQKWIPUZ4mNUZ9nLZW+7FMNoE1lOkEhNWYsx/7ysGIuJYCiMAA9FnrA==}
@@ -11309,7 +11364,6 @@ packages:
       type-fest: 0.20.2
       widest-line: 3.1.0
       wrap-ansi: 7.0.0
-    dev: true
 
   /bplist-parser/0.1.1:
     resolution: {integrity: sha512-2AEM0FXy8ZxVLBuqX0hqt1gDwcnz2zygEkQ6zaD5Wko/sB9paUNwlpawrFtKeHUAQUOzjVy9AO4oeonqIHKA9Q==}
@@ -11851,6 +11905,11 @@ packages:
   /charenc/0.0.2:
     resolution: {integrity: sha512-yrLQ/yVUFXkzg7EDQsPieE/53+0RlaWTs+wBrvW36cyilJ2SaDWfl4Yj7MtLTXleV9uEKefbAGUPv2/iWSooRA==}
 
+  /check-disk-space/3.3.1:
+    resolution: {integrity: sha512-iOrT8yCZjSnyNZ43476FE2rnssvgw5hnuwOM0hm8Nj1qa0v4ieUUEbCyxxsEliaoDUb/75yCOL71zkDiDBLbMQ==}
+    engines: {node: '>=12'}
+    dev: false
+
   /check-more-types/2.24.0:
     resolution: {integrity: sha512-Pj779qHxV2tuapviy1bSZNEL1maXr13bPYpsvSDB68HlYcYuhlDrmGd63i0JHMCLKzc7rUSNIrpdJlhVlNwrxA==}
     engines: {node: '>= 0.8.0'}
@@ -11991,7 +12050,6 @@ packages:
   /cli-boxes/2.2.1:
     resolution: {integrity: sha512-y4coMcylgSCdVinjiDBuR8PCC2bLjyGTwEmPb9NHR/QaNU6EUOXcTY/s6VjGMD6ENSEaeQYHCY0GNGS5jfMwPw==}
     engines: {node: '>=6'}
-    dev: true
 
   /cli-cursor/3.1.0:
     resolution: {integrity: sha512-I/zHAwsKf9FqGoXM4WWRACob9+SNukZTd94DWF57E4toouRulbCxcUh6RKUEOQlYTHJnzkPMySvPNaaSLNfLZw==}
@@ -25980,7 +26038,6 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       string-width: 4.2.3
-    dev: true
 
   /wildcard/2.0.0:
     resolution: {integrity: sha512-JcKqAHLPxcdb9KM49dufGXn2x3ssnfjbcaQdLlfZsL9rH9wgDQjUtDxbo8NE0F6SFvydeu1VhZe7hZuHsB2/pw==}
