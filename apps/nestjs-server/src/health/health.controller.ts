@@ -19,7 +19,7 @@ export class HealthController {
           'Basic Check',
           `http://${this.config.get('NEST_HOST') || '0.0.0.0'}:${
             this.config.get('NEST_PORT') || 3333
-          }/health`
+          }/api/`
         ),
     ]);
   }
