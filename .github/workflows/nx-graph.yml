@@ -2,7 +2,7 @@ name: Nx Graph
 
 on:
   push:
-    branches: ['main']
+    branches: ['develop']
     paths:
       - nx.json
       - workspace.json

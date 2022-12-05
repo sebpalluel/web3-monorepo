@@ -7,7 +7,7 @@ on:
       - apps/web/**
       - apps/storybook-main/**
   push:
-    branches: ['main']
+    branches: ['develop']
     paths:
       - libs/client/ui/**
       - apps/web/**

@@ -5,11 +5,10 @@ name: Install and cache dependencies
 on:
   push:
     branches:
-      - main
+      - develop
   pull_request:
     branches-ignore:
-      - main
-      - production
+      - develop
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
