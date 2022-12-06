@@ -1,0 +1,44 @@
+{
+  "name": "client-next-auth-options",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/client/next-auth/options/src",
+  "projectType": "library",
+  "tags": ["data-access"],
+  "targets": {
+    "build": {
+      "executor": "@nrwl/rollup:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/client/next-auth/options",
+        "tsConfig": "libs/client/next-auth/options/tsconfig.lib.json",
+        "project": "libs/client/next-auth/options/package.json",
+        "entryFile": "libs/client/next-auth/options/src/index.ts",
+        "external": ["react/jsx-runtime"],
+        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+        "compiler": "babel",
+        "assets": [
+          {
+            "glob": "libs/client/next-auth/options/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/client/next-auth/options/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/client/next-auth/options"],
+      "options": {
+        "jestConfig": "libs/client/next-auth/options/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

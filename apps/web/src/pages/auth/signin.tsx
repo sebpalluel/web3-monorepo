@@ -15,14 +15,13 @@ import {
   InputRightElement,
   VStack,
   FormErrorMessage,
-  Divider,
   Collapse,
   useDisclosure,
 } from '@chakra-ui/react';
 
 import { Button as UIButton } from '@client/ui/components';
 
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { signIn, getProviders } from 'next-auth/react';
@@ -30,7 +29,6 @@ import { logger } from '@logger';
 import { useRouter } from 'next/router';
 
 import { AiFillGithub, AiFillGoogleCircle } from 'react-icons/ai';
-import { MdOutlineEmail } from 'react-icons/md';
 import { BiLockAlt } from 'react-icons/bi';
 
 // server side
@@ -70,7 +68,7 @@ export function ProvidersBtns({ providers, router, onToggleCollapse }) {
           Github
         </Button>
       ) : null}
-      {providers.includes('credentials') ? (
+      {providers.includes('did-provider') ? (
         <Button
           w="full"
           onClick={() =>

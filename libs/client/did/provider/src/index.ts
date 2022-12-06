@@ -1,3 +1,4 @@
+import { getNextAuthURL } from '@client/next-auth/common';
 import { logger } from '@logger';
 import type { Provider } from 'next-auth/providers';
 import { TokenSetParameters } from 'openid-client';
@@ -44,7 +45,7 @@ export const DidProvider = (params: DidProviderParams) => {
         const details = {
           grant_type: 'authorization_code',
           code: context.params.code as string,
-          redirect_uri: `${process.env.NEXTAUTH_URL}/api/auth/callback/did-provider`,
+          redirect_uri: `${getNextAuthURL()}/api/auth/callback/did-provider`,
         };
 
         const formBody: string[] = [];

@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const withNx = require('@nrwl/next/plugins/with-nx');
+const path = require('path');
 
 /**
  * @type {import('next').NextConfig}
  * @type {import('@nrwl/next/plugins/with-nx').WithNxOptions}
  * */
-
-// const isProd = process.env.NODE_ENV === 'production';
 
 const withPWA = require('next-pwa')({
   dest: 'public',
@@ -34,8 +33,15 @@ const nextConfig = {
   },
   images: {},
   // Use the CDN in production and localhost for development.
-  // assetPrefix: isProd ? 'https://cdn.mydomain.com' : undefined,
+  // assetPrefix: isProd() ? 'https://cdn.mydomain.com' : undefined,
   assetPrefix: undefined,
+  // optimize build with vercel nft (node file tracing) https://nextjs.org/docs/advanced-features/output-file-tracing
+  // outputFileTracingRoot needed for monorepo
+  output: 'standalone',
+  experimental: {
+    outputFileTracingRoot: path.join(__dirname, '../../'),
+  },
+  //
 };
 
 module.exports = (_phase, { defaultConfig }) => {

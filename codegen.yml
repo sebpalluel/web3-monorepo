@@ -39,7 +39,7 @@ generates:
       - &userSchema
         ${NEXT_PUBLIC_HASURA_URL:http://localhost:8080/v1/graphql}:
           headers:
-            'x-hasura-admin-secret': ${HASURA_GRAPHQL_ADMIN_SECRET:password}
+            'x-hasura-admin-secret': ${HASURA_ADMIN_SECRET:password}
             'x-hasura-default-role': 'user'
             'x-hasura-role': 'user'
   libs/client/gql/user/src/generated/schema.graphql:

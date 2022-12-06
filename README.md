@@ -75,7 +75,8 @@ The login to access the [**administration console**](http://localhost:8100/auth/
 - `libs/client/hasura/fetcher`: Fetcher functions to query the Hasura service.
 - `libs/client/hasura/utils`: Utilities to interact with Hasura.
 - `libs/client/did/provider`: Next-auth OpenID Client provider for the walt.id idpkit
-- `libs/client/next-auth`: Contain all the configs for [Next-Auth](https://next-auth.js.org/)
+- `libs/client/next-auth/options`: Contain all the configs for [Next-Auth](https://next-auth.js.org/)
+- `libs/client/next-auth/common`: Common functions used in the context of Next-Auth
 - `libs/client/ui/components`: React reusable components library
 - `libs/client/ui/shared`: Functions and assets shared in the context of the UI library
 - `libs/client/ui/theme`: Contains all the specification for the global style and components style
