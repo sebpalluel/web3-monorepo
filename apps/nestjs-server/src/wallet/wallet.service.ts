@@ -32,7 +32,7 @@ export class WalletService {
   public async getWallet(network: TEIP377, address: string): Promise<Wallet | Error> {
     return this.ethersService.getWallet(network, address);
   }
-  // handle the balance with the data for each token on the wallet + creation/update of the wallet
+  /// handle the balance with the data for each token on the wallet + creation/update of the wallet
   public async fetchTokensFromAddressAndSyncWallet(
     network: TEIP377,
     address: string,
