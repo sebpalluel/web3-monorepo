@@ -48,22 +48,16 @@ const refreshAccessToken = async (token: JWT) => {
             grant_type: 'refresh_token',
             refresh_token: token.refreshToken as string,
           });
-
         const response = await fetch(url, {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
           },
           method: 'POST',
         });
-
         const refreshedTokens = await response.json();
-
-        logger.debug('refreshed tokens', { refreshedTokens });
-
         if (!response.ok) {
           throw refreshedTokens;
         }
-
         return {
           ...token,
           accessToken: refreshedTokens.access_token,
@@ -221,8 +215,8 @@ export const authOptions: NextAuthOptions = {
         token: JWT;
         user?: User;
         profile?: Profile;
-        account?: Account | null | undefined;
-        isNewUser?: boolean | undefined;
+        account?: Account | null;
+        isNewUser?: boolean;
       } = args;
       // First time user sign in
       if (user && account) {
@@ -258,7 +252,6 @@ export const authOptions: NextAuthOptions = {
     // Add user ID to the session
     async session({ session, token }) {
       session.user = token.user as User;
-      // session.accessToken = token.accessToken;
       session.error = token.error as string;
       return session;
     },
