@@ -229,7 +229,7 @@
   },
   "packageManager": "pnpm@7.6.0",
   "engines": {
-    "node": ">=18.0.0",
+    "node": ">=16.0.0",
     "pnpm": ">=7"
   },
   "lint-staged": {
