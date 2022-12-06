@@ -1,8 +1,6 @@
-import { Global, Module } from '@nestjs/common';
+import { Global, Module, CACHE_MANAGER } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { redisStore } from 'cache-manager-redis-store';
-
-export const REDIS_CACHE = 'REDIS_CACHE';
 
 // https://github.com/dabroek/node-cache-manager-redis-store/issues/40#issuecomment-1318528768
 
@@ -11,7 +9,7 @@ export const REDIS_CACHE = 'REDIS_CACHE';
   imports: [ConfigModule],
   providers: [
     {
-      provide: REDIS_CACHE,
+      provide: CACHE_MANAGER,
       useFactory: async (configService: ConfigService) =>
         await redisStore({
           socket: {
@@ -23,6 +21,6 @@ export const REDIS_CACHE = 'REDIS_CACHE';
       inject: [ConfigService],
     },
   ],
-  exports: [REDIS_CACHE],
+  exports: [CACHE_MANAGER],
 })
 export class RedisCacheModule {}
