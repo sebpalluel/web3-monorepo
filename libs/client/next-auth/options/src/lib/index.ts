@@ -117,7 +117,7 @@ const providers: Array<Provider> = [
     },
     authorize: async (credentials) => {
       try {
-        const user = await fetchJSON(`${getNextAuthURL}/api/user/check-credentials`, {
+        const user = await fetchJSON(`${getNextAuthURL()}/api/user/check-credentials`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
