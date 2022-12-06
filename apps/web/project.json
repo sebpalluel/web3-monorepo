@@ -24,7 +24,8 @@
         },
         "test": {
           "outputPath": "tmp/apps/web-test"
-        }
+        },
+        "production": { "outputPath": "dist/apps/web" }
       }
     },
     "serve": {

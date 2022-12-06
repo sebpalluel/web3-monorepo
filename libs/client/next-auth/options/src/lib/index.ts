@@ -12,6 +12,7 @@ import { Roles } from '@client/hasura/utils';
 import { fetchJSON } from '@utils';
 import { logger } from '@logger';
 import { Provider } from 'next-auth/providers';
+import { getNextAuthURL } from '@client/next-auth/common';
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
@@ -21,7 +22,7 @@ const refreshAccessToken = async (token: JWT) => {
     logger.debug('refreshing access token', { token });
     if (token.type === 'credentials') {
       return token;
-      // const url = `${process.env.NEXTAUTH_URL}/api/user/refresh-access-token`
+      // const url = `${getNextAuthURL()}/api/user/refresh-access-token`
       // const res = await fetch(url, {
       //     method: 'POST',
       //     credentials: 'include',
@@ -122,22 +123,19 @@ const providers: Array<Provider> = [
     },
     authorize: async (credentials) => {
       try {
-        const user = await fetchJSON(
-          `${process.env.NEXTAUTH_URL}/api/user/check-credentials`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-              accept: 'application/json',
-            },
-            body: Object.entries({
-              username: credentials?.username,
-              password: credentials?.password,
-            })
-              .map((e) => e.join('='))
-              .join('&'),
-          }
-        );
+        const user = await fetchJSON(`${getNextAuthURL}/api/user/check-credentials`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            accept: 'application/json',
+          },
+          body: Object.entries({
+            username: credentials?.username,
+            password: credentials?.password,
+          })
+            .map((e) => e.join('='))
+            .join('&'),
+        });
         logger.debug(user);
         if (user) {
           return user;
@@ -145,16 +143,22 @@ const providers: Array<Provider> = [
           return null;
         }
       } catch (e) {
+        logger.error(e);
         return null;
       }
     },
   }),
-  DidProvider({
-    didProviderURL: 'http://localhost:9080',
-    clientId: process.env.IDPKIT_CLIENT_ID as string,
-    clientSecret: process.env.IDPKIT_CLIENT_SECRET as string,
-  }),
 ];
+
+if (process.env.IDPKIT_CLIENT_ID && process.env.IDPKIT_CLIENT_SECRET) {
+  providers.push(
+    DidProvider({
+      didProviderURL: process.env.IDPKIT_PROVIDER_URL as string,
+      clientId: process.env.IDPKIT_CLIENT_ID as string,
+      clientSecret: process.env.IDPKIT_CLIENT_SECRET as string,
+    })
+  );
+}
 
 if (process.env.GITHUB_ID && process.env.GITHUB_SECRET)
   providers.push(

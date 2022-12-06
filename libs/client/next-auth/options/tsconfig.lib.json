@@ -1,12 +1,12 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../../dist/out-tsc",
+    "outDir": "../../../../dist/out-tsc",
     "types": ["node"]
   },
   "files": [
-    "../../../node_modules/@nrwl/react/typings/cssmodule.d.ts",
-    "../../../node_modules/@nrwl/next/typings/image.d.ts"
+    "../../../../node_modules/@nrwl/react/typings/cssmodule.d.ts",
+    "../../../../node_modules/@nrwl/next/typings/image.d.ts"
   ],
   "exclude": [
     "jest.config.ts",
@@ -24,6 +24,6 @@
     "**/*.jsx",
     "**/*.ts",
     "**/*.tsx",
-    "../../../apps/web/types/next-auth.d.ts"
+    "../../../../apps/web/types/next-auth.d.ts"
   ]
 }

@@ -9,7 +9,8 @@ node_modules
 coverage
 
 # next.js
-.next/
+.next
+.vercel
 out/
 build
 
@@ -22,7 +23,6 @@ yarn-error.log*
 # local env files
 .env
 # .env.local
-.env
 .env.development.local
 # .env.test.local
 .env.production.local
@@ -69,6 +69,3 @@ static
 # System Files
 .DS_Store
 Thumbs.db
-
-# Next.js
-.next

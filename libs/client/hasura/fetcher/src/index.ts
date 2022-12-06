@@ -7,7 +7,11 @@ export const endpointUrl = (): string => {
   if (isJestRunning()) {
     return 'http://localhost:9696/v1/graphql';
   }
-  return process.env.NEXT_PUBLIC_HASURA_PROJECT_ENDPOINT as string;
+  let url = isServerSide()
+    ? process.env.HASURA_PROJECT_ENDPOINT
+    : process.env.NEXT_PUBLIC_HASURA_PROJECT_ENDPOINT;
+  if (!url) url = 'http://localhost:8080/v1/graphql';
+  return url;
 };
 
 // This fetcher is used for fetching data for react query from Hasura GraphQL API on the client side.
@@ -52,7 +56,7 @@ export const fetchDataReactQuery = <TData, TVariables>(
 };
 
 // This fetcher is used for fetching data from Hasura GraphQL API.
-// The admin mode is used solely for the admin role, it returns an error if the HASURA_GRAPHQL_ADMIN_SECRET is not set or if it's not called server side
+// The admin mode is used solely for the admin role, it returns an error if the HASURA_ADMIN_SECRET is not set or if it's not called server side
 // Otherwise it include the auth cookie or get the jwt for testing purposes
 type Opts = {
   admin?: boolean;
@@ -71,9 +75,9 @@ export const fetchData = (opts: Opts = { admin: false, jwt: '' }) => {
       // forbid calling on client side and allow if jest is running
       if (!isServerSide() && !isJestRunning())
         throw new Error('Admin access is only available on the server');
-      if (!process.env.HASURA_GRAPHQL_ADMIN_SECRET)
+      if (!process.env.HASURA_ADMIN_SECRET)
         throw new Error('Admin secret env is missing');
-      headers['X-Hasura-Admin-Secret'] = process.env.HASURA_GRAPHQL_ADMIN_SECRET;
+      headers['X-Hasura-Admin-Secret'] = process.env.HASURA_ADMIN_SECRET;
     }
     // on jest we use the jwt because the cookie is not available on the client side
     else if (isJestRunning()) {
