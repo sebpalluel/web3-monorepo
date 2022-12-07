@@ -193,7 +193,7 @@ export const authOptions: NextAuthOptions = {
         httpOnly: true,
         sameSite: true,
         path: '/',
-        secure: false, // we want to be able to do post with the cookie for graphql
+        secure: useSecureCookies, // we want to be able to do post with the cookie for graphql
         domain: hostName === 'localhost' ? hostName : '.' + hostName,
       },
     },
