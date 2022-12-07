@@ -1,7 +1,6 @@
-import { Module, CacheModule } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 // https://blog.logrocket.com/add-redis-cache-nestjs-app/
-import { redisStore } from 'cache-manager-redis-store';
 import { ScheduleModule } from '@nestjs/schedule';
 
 import { PrismaModule } from '@server/prisma';
