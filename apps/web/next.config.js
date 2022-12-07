@@ -40,8 +40,6 @@ const nextConfig = {
   output: 'standalone',
   experimental: {
     outputFileTracingRoot: path.join(__dirname, '../../'),
-    // to enable app directory
-    appDir: true,
   },
   //
 };
