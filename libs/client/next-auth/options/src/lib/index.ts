@@ -191,10 +191,10 @@ export const authOptions: NextAuthOptions = {
       name: `${cookiePrefix}next-auth.session-token`,
       options: {
         httpOnly: true,
-        sameSite: true,
+        sameSite: 'lax',
         path: '/',
-        secure: useSecureCookies, // we want to be able to do post with the cookie for graphql
-        domain: hostName === 'localhost' ? hostName : '.' + hostName,
+        secure: useSecureCookies,
+        domain: hostName === 'localhost' ? hostName : undefined,
       },
     },
   },
