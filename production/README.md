@@ -89,8 +89,6 @@ GOOGLE_CLIENT_ID=
 GITHUB_SECRET=
 GITHUB_ID=
 
-# your url for the web app deployed on vercel, you should get a default one when you deploy or you can buy a custom domain on the provided dns service of vercel
-NEXTAUTH_COOKIE_NAME=
 # make sure to generate a new rsa key for this
 NEXTAUTH_SECRET=
 ```

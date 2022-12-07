@@ -9,7 +9,7 @@ import KeycloakProvider from 'next-auth/providers/keycloak';
 import { adapter } from '@client/hasura/adapter';
 import { DidProvider } from '@client/did/provider';
 import { Roles } from '@client/hasura/utils';
-import { fetchJSON } from '@utils';
+import { fetchJSON, isProd } from '@utils';
 import { logger } from '@logger';
 import { Provider } from 'next-auth/providers';
 import { getNextAuthURL } from '@client/next-auth/common';
@@ -180,8 +180,25 @@ if (process.env.KEYCLOAK_ID && process.env.KEYCLOAK_SECRET)
     })
   );
 
+// Authorize cookie for hasura app https://github.com/nextauthjs/next-auth/issues/405#issuecomment-737593528
+const useSecureCookies = getNextAuthURL().startsWith('https://');
+const cookiePrefix = useSecureCookies ? '__Secure-' : '';
+const hostName = new URL(getNextAuthURL()).hostname;
+
 export const authOptions: NextAuthOptions = {
-  debug: true,
+  cookies: {
+    sessionToken: {
+      name: `${cookiePrefix}next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: useSecureCookies,
+        domain: hostName === 'localhost' ? hostName : hostName + '.hasura.app', //
+      },
+    },
+  },
+  debug: !isProd(),
   // https://next-auth.js.org/configuration/providers/oauth
   providers,
   adapter: adapter(),
