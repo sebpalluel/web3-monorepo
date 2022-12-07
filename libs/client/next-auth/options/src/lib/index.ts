@@ -180,7 +180,7 @@ if (process.env.KEYCLOAK_ID && process.env.KEYCLOAK_SECRET)
     })
   );
 
-// Authorize cookie for hasura app https://github.com/nextauthjs/next-auth/issues/405#issuecomment-737593528
+/// Authorize cookie for hasura app https://github.com/nextauthjs/next-auth/issues/405#issuecomment-737593528
 const useSecureCookies = getNextAuthURL().startsWith('https://');
 const cookiePrefix = useSecureCookies ? '__Secure-' : '';
 const hostName = new URL(getNextAuthURL()).hostname;
