@@ -12,10 +12,7 @@ import { redisStore } from 'cache-manager-redis-store';
       provide: CACHE_MANAGER,
       useFactory: async (configService: ConfigService) =>
         await redisStore({
-          socket: {
-            host: configService.get('REDISHOST'),
-            port: configService.get('REDISPORT'),
-          },
+          url: configService.get('REDIS_URL'),
           ttl: 60 * 60 * 24 * 7, // 24 hours * 7 days = 1 week
         }),
       inject: [ConfigService],
