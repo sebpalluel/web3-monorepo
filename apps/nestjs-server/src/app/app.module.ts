@@ -17,19 +17,10 @@ import { HealthModule } from '../health/health.module';
 import { WalletService } from '../wallet/wallet.service';
 import { WalletProviders } from '../wallet/wallet.module';
 import { AppController } from './app.controller';
-import { isProd } from '@utils';
 import { RedisCacheModule } from '../redis-cache/redis-cache.module';
-
-export const REDIS_CACHE = 'REDIS_CACHE';
-
 @Module({
   imports: [
-    isProd()
-      ? RedisCacheModule
-      : CacheModule.register({
-          ttl: 0,
-          isGlobal: true,
-        }),
+    RedisCacheModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),

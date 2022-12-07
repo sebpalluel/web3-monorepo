@@ -213,6 +213,17 @@ services:
     extra_hosts:
       - 'host.docker.internal:host-gateway'
 
+  redis: # Name of container
+    image: redis
+    env_file:
+      - .env.local
+    ports:
+      - ${REDIS_PORT}:${REDIS_PORT}
+    volumes:
+      - redis:/data
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+
   # # Used to have same DNS in docker and on the host machine but unfortunately it doesn't work on Mac
   # dps:
   #   image: defreitas/dns-proxy-server
@@ -230,6 +241,8 @@ volumes:
   db_data:
   prisma_db_data:
   keycloak_db_data:
+  redis:
+    driver: local
 
 networks:
   web:
