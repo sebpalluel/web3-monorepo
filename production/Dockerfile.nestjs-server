@@ -9,6 +9,8 @@
 
 FROM node:18-alpine as builder
 
+ENV NX_DAEMON=false
+
 # ENV PRISMA_DATABASE_URL=PRISMA_DATABASE_URL
 
 ENV NODE_ENV build
@@ -22,7 +24,7 @@ USER node
 WORKDIR /home/node
 
 COPY --chown=node package.json pnpm-lock.yaml nx.json workspace.json prisma ./
-RUN npm install -g pnpm && pnpm install
+RUN npm install -g pnpm && pnpm install --ignore-scripts
 
 COPY --chown=node . .
 RUN pnpm nx run nestjs-server:build --prod
