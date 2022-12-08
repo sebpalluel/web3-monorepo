@@ -1,9 +1,12 @@
 FROM node:18-alpine as builder
 
+## avoid nx build error because don't detect it's a ci environment
 ENV NX_DAEMON=false
 ENV NODE_ENV build
+## set global npm path to node user
 ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 ENV PATH=$PATH:/home/node/.npm-global/bin
+## trick to pass down PRISMA_DATABASE_URL to avoid prisma error when running prisma migration
 ARG PRISMA_DATABASE_URL
 ENV PRISMA_DATABASE_URL ${PRISMA_DATABASE_URL}
 
@@ -13,7 +16,7 @@ RUN apk add --no-cache openssl
 USER node
 WORKDIR /home/node
 
-COPY --chown=node package.json pnpm-lock.yaml nx.json workspace.json prisma ./
+COPY --chown=node package.json pnpm-lock.yaml ./
 RUN npm install -g pnpm && pnpm install --ignore-scripts
 
 COPY --chown=node . .
