@@ -38,7 +38,7 @@ COPY --chown=node . .
 ## here we generate the prisma client + apply migrations + build the nestjs server. Finally we strip the dev dependencies.
 RUN pnpm prisma generate && pnpm prisma migrate deploy && pnpm nx run nestjs-server:build --prod && pnpm prune --prod
 
-FROM node:18-alpine
+FROM node:18-alpine as production
 
 ENV NODE_ENV production
 
