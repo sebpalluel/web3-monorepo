@@ -1,5 +1,5 @@
 import { Test } from '@nestjs/testing';
-import { CACHE_MANAGER } from '@nestjs/common';
+import { CACHE_MANAGER, Logger } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { CryptocurrenciesService } from '@server/cryptocurrencies';
 import { HttpModule } from '@nestjs/axios';
@@ -8,7 +8,6 @@ import { ApiService } from '@server/api';
 import { ConfigService } from '@nestjs/config';
 import { coinMarketData } from '@test-utils/mocks';
 import { supportedChains } from '@dlt/types';
-import { logger } from '@logger';
 
 const mockCacheManager = {
   set: jest.fn(),
@@ -37,7 +36,7 @@ describe('TaskService', () => {
 
     service = module.get(TaskService);
     cryptocurrenciesService = module.get(CryptocurrenciesService);
-    spyLogger = jest.spyOn(logger, 'error').mockImplementation();
+    spyLogger = jest.spyOn(Logger, 'error').mockImplementation();
   });
   it('should be defined', () => {
     expect(service).toBeTruthy();
