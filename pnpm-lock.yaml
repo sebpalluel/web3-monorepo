@@ -205,6 +205,7 @@ dependencies:
   coingecko-api-v3: 0.0.13
   core-js: 3.26.1
   crypto-js: 4.1.1
+  dotenv: 16.0.3
   ethers: 5.7.2
   framer-motion: 6.5.1_biqbaboplfbrettd7655fr4n2y
   graphql-ws: 5.11.2_graphql@16.6.0
@@ -309,7 +310,6 @@ devDependencies:
   babel-loader: 8.1.0_ztqwsvkb6z73luspkai6ilstpu
   chromatic: 6.11.4
   cypress: 11.2.0
-  dotenv: 16.0.3
   dotenv-cli: 6.0.0
   eslint: 8.15.0
   eslint-config-next: 13.0.6_oy7hgmlo6357d5kkcjbkfgtg4q
@@ -14141,7 +14141,6 @@ packages:
   /dotenv/16.0.3:
     resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
     engines: {node: '>=12'}
-    dev: true
 
   /dotenv/8.6.0:
     resolution: {integrity: sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==}
