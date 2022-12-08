@@ -9,6 +9,8 @@
 
 FROM node:18-alpine as builder
 
+# ENV PRISMA_DATABASE_URL=PRISMA_DATABASE_URL
+
 ENV NODE_ENV build
 ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 ENV PATH=$PATH:/home/node/.npm-global/bin
@@ -23,7 +25,7 @@ COPY --chown=node package.json pnpm-lock.yaml nx.json prisma ./
 RUN npm install -g pnpm && pnpm install --ignore-scripts
 
 COPY --chown=node . .
-RUN pnpm prisma migrate deploy && pnpm nx run nestjs-server:build --prod
+RUN pnpm nx run nestjs-server:build --prod
 
 FROM node:18-alpine
 
