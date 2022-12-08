@@ -180,30 +180,29 @@ if (process.env.KEYCLOAK_ID && process.env.KEYCLOAK_SECRET)
     })
   );
 
-// // Authorize cookie for hasura app https://github.com/nextauthjs/next-auth/issues/405#issuecomment-737593528
-// const useSecureCookies = getNextAuthURL().startsWith('https://');
-// const cookiePrefix = useSecureCookies ? '__Secure-' : '';
-// const hostName = new URL(getNextAuthURL()).hostname;
+// Authorize cookie for hasura app https://github.com/nextauthjs/next-auth/issues/405#issuecomment-737593528
+const useSecureCookies = getNextAuthURL().startsWith('https://');
+const cookiePrefix = useSecureCookies ? '__Secure-' : '';
+const hostName = new URL(getNextAuthURL()).hostname;
 
 export const authOptions: NextAuthOptions = {
-  // cookies: {
-  //   sessionToken: {
-  //     name: `${cookiePrefix}next-auth.session-token`,
-  //     options: {
-  //       httpOnly: true,
-  //       sameSite: 'lax',
-  //       path: '/',
-  //       secure: useSecureCookies,
-  //       domain: hostName === 'localhost' ? hostName : '.web3-monorepo.app',
-  //     },
-  //   },
-  // },
+  cookies: {
+    sessionToken: {
+      name: `${cookiePrefix}next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: useSecureCookies,
+        domain: hostName === 'localhost' ? hostName : '.' + hostName,
+      },
+    },
+  },
   session: {
     strategy: 'jwt',
     maxAge: parseInt(process.env.TOKEN_LIFE_TIME as string) || 30 * 24 * 60 * 60, // 30 days
   },
-  // debug: !isProd(),
-  debug: true,
+  debug: !isProd(),
   // https://next-auth.js.org/configuration/providers/oauth
   providers,
   adapter: adapter(),
