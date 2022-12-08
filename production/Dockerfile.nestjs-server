@@ -18,7 +18,7 @@ USER node
 WORKDIR /home/node
 
 COPY --chown=node package.json pnpm-lock.yaml ./
-RUN npm install -g pnpm && pnpm install --ignore-scripts
+RUN npm install -g pnpm && pnpm install --ignore-scripts --production
 
 COPY --chown=node . .
 RUN pnpm prisma generate && pnpm prisma migrate deploy && pnpm nx run nestjs-server:build --prod

@@ -69,3 +69,6 @@ static
 # System Files
 .DS_Store
 Thumbs.db
+
+# msw
+mockServiceWorker.js
