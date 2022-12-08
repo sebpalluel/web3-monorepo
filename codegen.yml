@@ -1,5 +1,4 @@
 overwrite: true
-watch: true
 schema:
   - 'http://localhost:8080/v1/graphql':
       headers:
