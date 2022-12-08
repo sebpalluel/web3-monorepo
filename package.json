@@ -33,7 +33,7 @@
     "docker:hasura-engine-logs": "docker-compose -f docker-compose.yaml --env-file .env.local logs -f hasura-engine",
     "docker:hasura-console-logs": "docker-compose -f docker-compose.yaml --env-file .env.local logs -f hasura-console",
     "docker:hasura-test-logs": "docker-compose -f tools/test/docker-compose.yml --env-file tools/test/.env.test.jest logs -f hasura-engine-test",
-    "prepare": "husky install",
+    "prepare": "node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\"",
     "cypress": "cypress",
     "build-storybook": " nx run-many --target=build-storybook --all",
     "chromatic": "npx chromatic --project-token=cbd146078cb4",
