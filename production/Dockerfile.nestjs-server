@@ -17,7 +17,7 @@ COPY --chown=node package.json pnpm-lock.yaml nx.json workspace.json prisma ./
 RUN npm install -g pnpm && pnpm install --ignore-scripts
 
 COPY --chown=node . .
-RUN pnpm prisma migrate deploy && pnpm nx run nestjs-server:build --prod
+RUN pnpm prisma generate && pnpm prisma migrate deploy && pnpm nx run nestjs-server:build --prod
 
 FROM node:18-alpine
 
