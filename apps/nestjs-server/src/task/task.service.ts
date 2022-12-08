@@ -43,6 +43,7 @@ export class TaskService {
     if (result instanceof Error) {
       throw result;
     }
+    Logger.log(`Fetched ${network} market data with ${result?.length} tokens}`);
     const obj: TCryptocurrencyData[] = convertArrayOfObjtoObjWithKeys(
       result,
       'contractAddress'
