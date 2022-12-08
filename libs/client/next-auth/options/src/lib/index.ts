@@ -212,11 +212,6 @@ export const authOptions: NextAuthOptions = {
   theme: {
     colorScheme: 'auto',
   },
-  session: {
-    strategy: 'jwt',
-    maxAge: parseInt(process.env.TOKEN_LIFE_TIME as string) || 30 * 24 * 60 * 60, // 30 days
-    // updateAge: 24 * 60 * 60, // 24 hours
-  },
   jwt: jwtOptions,
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
