@@ -21,7 +21,7 @@ RUN apk add --no-cache openssl
 USER node
 WORKDIR /home/node
 
-COPY --chown=node package.json pnpm-lock.yaml nx.json prisma ./
+COPY --chown=node package.json pnpm-lock.yaml nx.json workspace.json prisma ./
 RUN npm install -g pnpm && pnpm install --ignore-scripts
 
 COPY --chown=node . .
