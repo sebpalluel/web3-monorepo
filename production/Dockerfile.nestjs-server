@@ -1,0 +1,27 @@
+FROM node:18-alpine as builder
+
+ENV NODE_ENV build
+
+USER node
+WORKDIR /home/node
+
+COPY --chown=node package.json pnpm-lock.yaml nx.json prisma ./
+RUN npm -g install pnpm && pnpm install --ignore-scripts
+
+COPY --chown=node . .
+RUN pnpm prisma migrate deploy && pnpm nx run nestjs-server:build --prod
+
+FROM node:18-alpine
+
+ENV NODE_ENV production
+
+USER node
+WORKDIR /home/node
+
+COPY --from=builder /home/node/package*.json /home/node/
+COPY --from=builder /home/node/node_modules/ /home/node/node_modules/
+COPY --from=builder /home/node/dist/ /home/node/dist/
+
+EXPOSE 3000
+
+CMD ["node", "dist/apps/nestjs-server/main.js"]
