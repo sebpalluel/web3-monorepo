@@ -1,4 +1,4 @@
-import { Injectable, Inject, CACHE_MANAGER } from '@nestjs/common';
+import { Injectable, Inject, CACHE_MANAGER, Logger } from '@nestjs/common';
 import { ApiService } from '@server/api';
 import { PrismaService } from '@server/prisma';
 import { Cache } from 'cache-manager';
@@ -48,7 +48,7 @@ export class CryptocurrenciesService {
       JSON.parse(JSON.stringify(allCryptoFromCoingecko)),
       'id'
     );
-    logger.info('Setting cryptocurrencies from json into cache');
+    Logger.log('Setting cryptocurrencies from json into cache');
     await this.cacheManager.set('cryptocurrencies', toObjMappedWithKey);
     return toObjMappedWithKey;
   }

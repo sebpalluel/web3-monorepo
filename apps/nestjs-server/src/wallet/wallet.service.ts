@@ -89,7 +89,7 @@ export class WalletService {
     // TODO handle if no cryptocurrency found, for now set to Unknown
     // if (!cryptocurrency) throw new Error('Cryptocurrency not found');
     if (!cryptocurrency) {
-      // logger.error('Cryptocurrency not found');
+      // Logger.error('Cryptocurrency not found');
       cryptocurrency = {
         name: 'Unknown',
         symbol: 'Unknown',

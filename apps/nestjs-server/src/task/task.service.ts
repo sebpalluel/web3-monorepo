@@ -1,4 +1,4 @@
-import { Injectable, Inject, CACHE_MANAGER } from '@nestjs/common';
+import { Injectable, Inject, CACHE_MANAGER, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { CryptocurrenciesService } from '@server/cryptocurrencies';
 import {
@@ -63,15 +63,15 @@ export class TaskService {
         this.cryptocurrencyFetchAndStoreCron(chain.network, cryptocurrencies)
       );
       await Promise.all(promises);
-      logger.info('Cryptocurrencies data fetched and stored in cache');
+      Logger.log('Cryptocurrencies data fetched and stored in cache');
     } catch (error) {
-      // TODO send an email to the admin if it is a critical error and make sure to implement Sentry with the logger.error
-      logger.error(error);
+      // TODO send an email to the admin if it is a critical error and make sure to implement Sentry with the Logger.error
+      Logger.error(error);
     }
   }
   // Force the cron to run at server start and for Jest tests
   async onModuleInit() {
     await this.fetchCryptocurrenciesDataAndStoreInCache();
-    logger.info('TaskService initialized');
+    Logger.log('TaskService initialized');
   }
 }

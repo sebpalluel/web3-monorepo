@@ -208,7 +208,7 @@ We have chosen to limit the fetch on coingecko to the tokens with the most value
 
 ```ts
 if (!cryptocurrency) {
-  logger.error('Cryptocurrency not found');
+  Logger.error('Cryptocurrency not found');
   cryptocurrency = {
     name: 'Unknown',
     symbol: 'Unknown',

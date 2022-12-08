@@ -1,9 +1,8 @@
-import { Injectable, Inject, CACHE_MANAGER } from '@nestjs/common';
+import { Injectable, Inject, CACHE_MANAGER, Logger } from '@nestjs/common';
 import { Cache } from 'cache-manager';
 import { Network, Alchemy, TokenBalance } from 'alchemy-sdk';
 import { TTokenData, TEIP377, TTokenBalance, EIP3770Network } from '@dlt/types';
 import { ConfigService } from '@nestjs/config';
-import { logger } from '@logger';
 
 @Injectable()
 export class AlchemyService {
@@ -88,7 +87,7 @@ export class AlchemyService {
         ? [...lastTokensData, ...fetchedTokenData]
         : fetchedTokenData;
       await this.setTokensData(network, newTokensData);
-      logger.info(
+      Logger.log(
         `Fetched ${newTokensData.length} token data for ${network} and stored it in cache`
       );
     }
