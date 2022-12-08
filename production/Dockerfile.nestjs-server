@@ -1,12 +1,17 @@
 FROM node:18-alpine as builder
 
 ENV NODE_ENV build
+ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
+ENV PATH=$PATH:/home/node/.npm-global/bin
+
+# add openssl for prisma
+RUN apk add --no-cache openssl
 
 USER node
 WORKDIR /home/node
 
 COPY --chown=node package.json pnpm-lock.yaml nx.json prisma ./
-RUN npm -g install pnpm && pnpm install --ignore-scripts
+RUN npm install -g pnpm && pnpm install --ignore-scripts
 
 COPY --chown=node . .
 RUN pnpm prisma migrate deploy && pnpm nx run nestjs-server:build --prod
