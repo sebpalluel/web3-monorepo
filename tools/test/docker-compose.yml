@@ -3,7 +3,7 @@ version: '3.9'
 services:
   hasura-engine-test:
     container_name: hasura_engine_test
-    image: 'hasura/graphql-engine:v2.11.2.cli-migrations-v3'
+    image: 'hasura/graphql-engine:v2.15.2.cli-migrations-v3'
     # command: 'graphql-engine --database-url $HASURA_GRAPHQL_DATABASE_URL serve --server-port $HASURA_GRAPHQL_SERVER_PORT'
     depends_on:
       test-db:
