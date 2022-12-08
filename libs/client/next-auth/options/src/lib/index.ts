@@ -185,6 +185,8 @@ const useSecureCookies = getNextAuthURL().startsWith('https://');
 const cookiePrefix = useSecureCookies ? '__Secure-' : '';
 const hostName = new URL(getNextAuthURL()).hostname;
 
+console.log({ hostName, useSecureCookies, cookiePrefix });
+
 export const authOptions: NextAuthOptions = {
   cookies: {
     sessionToken: {
@@ -197,6 +199,10 @@ export const authOptions: NextAuthOptions = {
         domain: hostName === 'localhost' ? hostName : '.' + hostName,
       },
     },
+  },
+  session: {
+    strategy: 'jwt',
+    maxAge: parseInt(process.env.TOKEN_LIFE_TIME as string) || 30 * 24 * 60 * 60, // 30 days
   },
   debug: !isProd(),
   // https://next-auth.js.org/configuration/providers/oauth
