@@ -1,21 +1,11 @@
-# ARG ALCHEMY_ARBITRUM_MAINNET_TOKEN
-# ARG ALCHEMY_ETHEREUM_MAINNET_TOKEN
-# ARG ALCHEMY_POLYGON_MAINNET_TOKEN
-# ARG NEST_HOST
-# ARG NEST_PORT
-# ARG PORT
-# ARG PRISMA_DATABASE_URL
-# ARG REDIS_URL
-
 FROM node:18-alpine as builder
 
 ENV NX_DAEMON=false
-
-# ENV PRISMA_DATABASE_URL=PRISMA_DATABASE_URL
-
 ENV NODE_ENV build
 ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 ENV PATH=$PATH:/home/node/.npm-global/bin
+ARG PRISMA_DATABASE_URL
+ENV PRISMA_DATABASE_URL ${PRISMA_DATABASE_URL}
 
 ## add openssl for prisma
 RUN apk add --no-cache openssl
@@ -27,7 +17,7 @@ COPY --chown=node package.json pnpm-lock.yaml nx.json workspace.json prisma ./
 RUN npm install -g pnpm && pnpm install --ignore-scripts
 
 COPY --chown=node . .
-RUN pnpm nx run nestjs-server:build --prod
+RUN pnpm prisma migrate deploy && pnpm nx run nestjs-server:build --prod
 
 FROM node:18-alpine
 
