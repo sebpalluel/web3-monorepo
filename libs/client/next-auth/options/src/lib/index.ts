@@ -202,8 +202,8 @@ export const authOptions: NextAuthOptions = {
     strategy: 'jwt',
     maxAge: parseInt(process.env.TOKEN_LIFE_TIME as string) || 30 * 24 * 60 * 60, // 30 days
   },
-  debug: !isProd(),
-  // https://next-auth.js.org/configuration/providers/oauth
+  // debug: !isProd(),
+  debug: true,
   providers,
   adapter: adapter(),
   pages: {
