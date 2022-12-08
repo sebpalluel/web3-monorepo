@@ -35,7 +35,7 @@ COPY --from=deps /home/node/.npm-global/ /home/node/.npm-global/
 COPY --from=deps /home/node/node_modules/ /home/node/node_modules/
 
 COPY --chown=node . .
-RUN pnpm prisma generate && pnpm prisma migrate deploy && pnpm nx run nestjs-server:build --prod
+RUN pnpm prisma generate && pnpm prisma migrate deploy && pnpm nx run nestjs-server:build --prod && pnpm install --ignore-script --production
 
 FROM node:18-alpine
 
