@@ -185,8 +185,6 @@ const useSecureCookies = getNextAuthURL().startsWith('https://');
 const cookiePrefix = useSecureCookies ? '__Secure-' : '';
 const hostName = new URL(getNextAuthURL()).hostname;
 
-console.log({ hostName, useSecureCookies, cookiePrefix });
-
 export const authOptions: NextAuthOptions = {
   cookies: {
     sessionToken: {
