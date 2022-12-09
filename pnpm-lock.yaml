@@ -56,6 +56,7 @@ specifiers:
   '@sentry/nextjs': ^7.24.2
   '@sentry/node': ^7.24.2
   '@sentry/tracing': ^7.24.2
+  '@sentry/utils': ^7.24.2
   '@storybook/addon-essentials': ~6.5.14
   '@storybook/addon-interactions': ^6.5.14
   '@storybook/builder-webpack5': ~6.5.14
@@ -198,6 +199,7 @@ dependencies:
   '@sentry/nextjs': 7.24.2_ivfizlltnf5oincobffrvntlsq
   '@sentry/node': 7.24.2
   '@sentry/tracing': 7.24.2
+  '@sentry/utils': 7.24.2
   '@swc/helpers': 0.4.14
   '@tanstack/react-query': 4.19.1_cjpnlypd7k7kw5dzj4uskqoohq
   '@types/cache-manager': 4.0.2
@@ -19695,7 +19697,7 @@ packages:
     resolution: {integrity: sha512-++eyZzwkXvijWRV3CkDbueaXXGlVzH9GA52QWqTgAOgSHYp5jWaDwLQ8qpsMkQzpwSyIF4LLK9aI3eA7Xa132A==}
     dependencies:
       metro-core: 0.72.3
-      rimraf: 2.6.3
+      rimraf: 2.7.1
 
   /metro-config/0.72.3:
     resolution: {integrity: sha512-VEsAIVDkrIhgCByq8HKTWMBjJG6RlYwWSu1Gnv3PpHa0IyTjKJtB7wC02rbTjSaemcr82scldf2R+h6ygMEvsw==}
@@ -19939,7 +19941,7 @@ packages:
       mime-types: 2.1.35
       node-fetch: 2.6.7
       nullthrows: 1.1.1
-      rimraf: 2.6.3
+      rimraf: 2.7.1
       serialize-error: 2.1.0
       source-map: 0.5.7
       strip-ansi: 6.0.1
@@ -23514,7 +23516,6 @@ packages:
     hasBin: true
     dependencies:
       glob: 7.2.3
-    dev: true
 
   /rimraf/3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
