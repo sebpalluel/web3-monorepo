@@ -5,9 +5,11 @@ import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import KeycloakProvider from 'next-auth/providers/keycloak';
+import { isAddress } from 'ethers/lib/utils';
 
 import { adapter } from '@client/hasura/adapter';
 import { DidProvider } from '@client/did/provider';
+import { SiweProvider } from '@client/siwe/provider';
 import { Roles } from '@client/hasura/utils';
 import { fetchJSON, isProd } from '@utils';
 import { logger } from '@logger';
@@ -20,7 +22,7 @@ import { getNextAuthURL } from '@client/next-auth/common';
 const refreshAccessToken = async (token: JWT) => {
   try {
     logger.debug('refreshing access token', { token });
-    if (token.type === 'credentials') {
+    if (token.type === 'credentials-password') {
       return token;
       // const url = `${getNextAuthURL()}/api/user/refresh-access-token`
       // const res = await fetch(url, {
@@ -99,9 +101,9 @@ const GOOGLE_AUTHORIZATION_URL =
   });
 
 const providers: Array<Provider> = [
+  SiweProvider(),
   CredentialsProvider({
-    // The name to display on the sign in form (e.g. 'Sign in with...')
-    id: 'credentials',
+    id: 'credentials-password',
     name: 'credentials',
     // The credentials is used to generate a suitable form on the sign in page.
     // You can specify whatever fields you are expecting to be submitted.
@@ -130,14 +132,13 @@ const providers: Array<Provider> = [
             .map((e) => e.join('='))
             .join('&'),
         });
-        logger.debug(user);
         if (user) {
           return user;
         } else {
           return null;
         }
       } catch (e) {
-        logger.error(e);
+        // logger.error(e);
         return null;
       }
     },
@@ -194,6 +195,7 @@ export const authOptions: NextAuthOptions = {
         sameSite: 'lax',
         path: '/',
         secure: useSecureCookies,
+        // authorize cookie for subdomain, inc. hasura app (strip www. from hostName)
         domain:
           hostName === 'localhost' ? hostName : '.' + hostName.replace(/^www\./, ''),
       },
@@ -266,10 +268,17 @@ export const authOptions: NextAuthOptions = {
       // Access token has expired, try to update it
       return refreshAccessToken(token);
     },
-    // Add user ID to the session
     async session({ session, token }) {
+      logger.debug('session: ', { session, token });
+      // needed for hasura claims_map
       session.user = token.user as User;
+      // used to detect if provider with same email exists
       session.error = token.error as string;
+      // handle when user is logged in with siwe
+      if (isAddress(token.sub as string)) {
+        session.address = token.sub as string;
+        session.user.name = token.sub;
+      }
       return session;
     },
   },

@@ -16,7 +16,21 @@ const extendedColors: DeepPartial<Record<string, Theme['colors']['blackAlpha']>>
 };
 
 /** override chakra colors here */
-const overridenChakraColors: DeepPartial<Theme['colors']> = {};
+//https://themera.vercel.app/
+const overridenChakraColors: DeepPartial<Theme['colors']> = {
+  blue: {
+    '50': '#E7EEFD',
+    '100': '#BCCFFA',
+    '200': '#91B0F7',
+    '300': '#6691F4',
+    '400': '#3B72F2',
+    '500': '#1053EF',
+    '600': '#0D43BF',
+    '700': '#0A328F',
+    '800': '#07215F',
+    '900': '#031130',
+  },
+};
 
 const colors = {
   ...overridenChakraColors,

@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'client-next-auth-common',
+  displayName: 'siwe-provider',
   preset: '../../../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -12,5 +12,5 @@ export default {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../../coverage/libs/client/next-auth/common',
+  coverageDirectory: '../../../../coverage/libs/client/siwe/provider',
 };

@@ -474,6 +474,12 @@ Follow [this tutorial from google](https://support.google.com/cloud/answer/61588
 
 Once you have retrieved your <mark>client id</mark> and <mark>client secret</mark> assign them in `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` located in the file `.env.local`
 
+### Github OAuth provider
+
+Follow [this tutorial from github](https://docs.github.com/en/developers/apps/building-oauth-apps/creating-an-oauth-app) to setup your own OAuth provider.
+
+Once you have retrieved your <mark>client id</mark> and <mark>client secret</mark> assign them in `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` located in the file `.env.local`
+
 ### JWT secret keys
 
 In order to secure your JWT authentication provided by [Next Auth](https://next-auth.js.org/) you are going to need to generate your own RSA-256 keys.
