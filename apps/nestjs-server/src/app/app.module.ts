@@ -27,13 +27,13 @@ import { TraceMiddleware } from '../trace/trace.middleware';
   imports: [
     SentryModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: async (cfg: ConfigService) => ({
-        dsn: cfg.get('SENTRY_DSN'),
+      useFactory: async (config: ConfigService) => ({
+        dsn: config.get('SENTRY_DSN'),
         debug: false,
         environment: process.env.NODE_ENV,
         release: null, // must create a release in sentry.io dashboard
         logLevels: ['error', 'warn', 'debug'],
-        enabled: !!cfg.get('SENTRY_DSN'),
+        enabled: !!config.get('SENTRY_DSN'),
         integrations: [new SentryIntegrations.Http({ tracing: true })],
         tracesSampleRate: 1.0,
       }),
