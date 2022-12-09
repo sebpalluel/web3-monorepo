@@ -72,3 +72,6 @@ Thumbs.db
 
 # msw
 mockServiceWorker.js
+
+# Sentry
+.sentryclirc

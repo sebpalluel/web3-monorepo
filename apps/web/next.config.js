@@ -1,23 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const withNx = require('@nrwl/next/plugins/with-nx');
 const path = require('path');
-
-/**
- * @type {import('next').NextConfig}
- * @type {import('@nrwl/next/plugins/with-nx').WithNxOptions}
- * */
-
-const withPWA = require('next-pwa')({
-  dest: 'public',
-  disable:
-    process.env.NODE_ENV === 'development' ||
-    process.env.NODE_ENV === 'preview' ||
-    process.env.NODE_ENV === 'production',
-  // delete two lines above to enable PWA in production deployment
-  // add your own icons to public/manifest.json
-  // to re-generate manifest.json, you can visit https://tomitm.github.io/appmanifest/
-  register: true,
-});
+const { withSentryConfig } = require('@sentry/nextjs');
 
 const nextConfig = {
   reactStrictMode: true,
@@ -42,24 +26,27 @@ const nextConfig = {
     outputFileTracingRoot: path.join(__dirname, '../../'),
   },
   //
+  sentry: {
+    // Use `hidden-source-map` rather than `source-map` as the Webpack `devtool`
+    // for client-side builds. (This will be the default starting in
+    // `@sentry/nextjs` version 8.0.0.) See
+    // https://webpack.js.org/configuration/devtool/ and
+    // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/#use-hidden-source-map
+    // for more information.
+    hideSourceMaps: true,
+  },
 };
 
-module.exports = (_phase, { defaultConfig }) => {
-  // Workaround https://github.com/cyrilwanner/next-compose-plugins/issues/59#issuecomment-1248439850
-  delete defaultConfig.webpackDevMiddleware;
-  delete defaultConfig.configOrigin;
-  delete defaultConfig.target;
-  delete defaultConfig.webpack5;
-  delete defaultConfig.amp.canonicalBase;
-  delete defaultConfig.experimental.outputFileTracingRoot;
-  delete defaultConfig.i18n;
+const sentryWebpackPluginOptions = {
+  // Additional config options for the Sentry Webpack plugin. Keep in mind that
+  // the following options are set automatically, and overriding them is not
+  // recommended:
+  //   release, url, org, project, authToken, configFile, stripPrefix,
+  //   urlPrefix, include, ignore
 
-  const plugins = [withPWA, withNx];
-  return plugins.reduce(
-    (acc, plugin) => (typeof plugin == 'function' ? plugin(acc) : acc),
-    {
-      ...defaultConfig,
-      ...nextConfig,
-    }
-  );
+  silent: true, // Suppresses all logs
+  // For all available options, see:
+  // https://github.com/getsentry/sentry-webpack-plugin#options.
 };
+
+module.exports = withSentryConfig(withNx(nextConfig), sentryWebpackPluginOptions);
