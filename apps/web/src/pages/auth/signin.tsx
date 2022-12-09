@@ -19,10 +19,9 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 
-import { Button as UIButton } from '@client/ui/components';
-
 import { useState, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { signIn, getProviders } from 'next-auth/react';
 import { logger } from '@logger';
@@ -42,6 +41,7 @@ export async function getServerSideProps() {
 export function ProvidersBtns({ providers, router, onToggleCollapse }) {
   return (
     <>
+      {providers.includes('siwe') ? <ConnectButton /> : null}
       {providers.includes('google') ? (
         <Button
           w="full"
@@ -92,7 +92,7 @@ export function ProvidersBtns({ providers, router, onToggleCollapse }) {
           Keycloak
         </Button>
       ) : null}
-      {providers.includes('credentials') ? (
+      {providers.includes('credentials-password') ? (
         <Button w="full" leftIcon={<BiLockAlt />} onClick={onToggleCollapse}>
           User & password
         </Button>
@@ -120,11 +120,12 @@ function CredentialsForm({ router, credentialsInvalid }) {
   async function onSubmit(values: any) {
     try {
       const body = { ...defaultBody, ...values };
-      const res = await signIn('credentials', {
+      const res = await signIn('credentials-password', {
         ...body,
         callbackUrl: router.query.callbackUrl,
         redirect: false,
       });
+      logger.debug({ res });
       if (res?.ok)
         router.push(res.url && !res.url.includes('auth/signin') ? res.url : '/');
       else router.push({ query: { error: 'credentialsInvalid' } });
@@ -169,7 +170,7 @@ function CredentialsForm({ router, credentialsInvalid }) {
             <Checkbox>Remember me</Checkbox>
             <Link color={'blue.400'}>Forgot password?</Link>
           </Stack>
-          <UIButton
+          <Button
             isLoading={isSubmitting}
             loadingText="Signing in..."
             bg={'blue.400'}
@@ -180,7 +181,7 @@ function CredentialsForm({ router, credentialsInvalid }) {
             }}
           >
             Sign in
-          </UIButton>
+          </Button>
         </Stack>
         <Stack pt={6}>
           <Text align={'center'}>

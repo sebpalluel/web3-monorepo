@@ -24,6 +24,7 @@
       "@client/hasura/utils": ["libs/client/hasura/utils/src/index.ts"],
       "@client/next-auth/common": ["libs/client/next-auth/common/src/index.ts"],
       "@client/next-auth/options": ["libs/client/next-auth/options/src/index.ts"],
+      "@client/siwe/provider": ["libs/client/siwe/provider/src/index.ts"],
       "@client/ui/components": ["libs/client/ui/components/src/index.ts"],
       "@client/ui/shared": ["libs/client/ui/shared/src/index.ts"],
       "@client/ui/theme": ["libs/client/ui/theme/src/index.ts"],

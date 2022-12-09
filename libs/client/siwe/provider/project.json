@@ -1,32 +1,32 @@
 {
-  "name": "client-next-auth-common",
+  "name": "siwe-provider",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/client/next-auth/common/src",
+  "sourceRoot": "libs/client/siwe/provider/src",
   "projectType": "library",
   "targets": {
     "build": {
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/libs/client/next-auth//common",
-        "tsConfig": "libs/client/next-auth/common/tsconfig.lib.json",
-        "packageJson": "libs/client/next-auth/common/package.json",
-        "main": "libs/client/next-auth/common/src/index.ts",
-        "assets": ["libs/client/next-auth/common/*.md"]
+        "outputPath": "dist/libs/client/siwe/provider",
+        "tsConfig": "libs/client/siwe/provider/tsconfig.lib.json",
+        "packageJson": "libs/client/siwe/provider/package.json",
+        "main": "libs/client/siwe/provider/src/index.ts",
+        "assets": ["libs/client/siwe/provider/*.md"]
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/client/next-auth/common/**/*.ts"]
+        "lintFilePatterns": ["libs/client/siwe/provider/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/client/next-auth/common/jest.config.ts",
+        "jestConfig": "libs/client/siwe/provider/jest.config.ts",
         "passWithNoTests": true
       }
     }
