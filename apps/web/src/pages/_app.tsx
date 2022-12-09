@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { DefaultSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
+import { Analytics } from '@vercel/analytics/react';
 import Head from 'next/head';
 import { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
@@ -43,6 +44,7 @@ const MyApp = ({
               <Component {...pageProps} />
             </Hydrate>
             <ReactQueryDevtools initialIsOpen={false} />
+            <Analytics />
           </QueryClientProvider>
         </Layout>
       </SessionProvider>
