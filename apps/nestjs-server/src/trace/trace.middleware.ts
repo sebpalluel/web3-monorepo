@@ -10,7 +10,7 @@ export class TraceMiddleware implements NestMiddleware {
     private config: ConfigService
   ) {}
   use(req: Request, res: Response, next: NextFunction): void {
-    if (isJestRunning() || !config.get('SENTRY_DSN')) next();
+    if (isJestRunning() || !this.config.get('SENTRY_DSN')) next();
     else {
       const transaction = this.sentry.instance().startTransaction({
         op: 'request',
