@@ -6,11 +6,18 @@
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import * as SentryTracing from '@sentry/tracing';
+import { isProd } from '@utils';
 
 import { AppModule } from './app/app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    cors: isProd()
+      ? {
+          origin: process.env.HASURA_PROJECT_ENDPOINT,
+        }
+      : false,
+  });
   SentryTracing.addExtensionMethods();
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
