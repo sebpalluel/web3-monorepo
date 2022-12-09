@@ -3,6 +3,8 @@ const withNx = require('@nrwl/next/plugins/with-nx');
 const path = require('path');
 const { withSentryConfig } = require('@sentry/nextjs');
 
+const SENTRY_DSN = process.env.SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN;
+
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
@@ -43,7 +45,7 @@ const sentryWebpackPluginOptions = {
   // recommended:
   //   release, url, org, project, authToken, configFile, stripPrefix,
   //   urlPrefix, include, ignore
-
+  dryRun: !SENTRY_DSN,
   silent: true, // Suppresses all logs
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options.
