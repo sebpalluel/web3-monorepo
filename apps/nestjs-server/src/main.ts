@@ -25,7 +25,8 @@ async function bootstrap() {
   const port = process.env.NEST_PORT || 3333;
   await app.listen(port, host);
   Logger.log(
-    `🚀 Nestjs Server Application is running on: http://${host}:${port}/${globalPrefix}`
+    `🚀 Nestjs Server Application is running on: http://${host}:${port}/${globalPrefix}`,
+    isProd() ? `Accepting requests from: ${process.env.HASURA_PROJECT_ENDPOINT}` : ''
   );
 }
 
