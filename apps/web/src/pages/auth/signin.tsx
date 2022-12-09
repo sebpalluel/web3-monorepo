@@ -46,12 +46,11 @@ export function ProvidersBtns({ providers, router, onToggleCollapse }) {
         <Button
           w="full"
           leftIcon={<AiFillGoogleCircle />}
-          onClick={() => {
-            throw new Error('Sentry Frontend Error');
+          onClick={() =>
             signIn('google', {
               callbackUrl: router.query.callbackUrl?.toString() || '',
-            });
-          }}
+            })
+          }
         >
           Google
         </Button>
