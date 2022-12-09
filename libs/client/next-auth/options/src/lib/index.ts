@@ -194,7 +194,8 @@ export const authOptions: NextAuthOptions = {
         sameSite: 'lax',
         path: '/',
         secure: useSecureCookies,
-        domain: hostName === 'localhost' ? hostName : '.' + hostName,
+        domain:
+          hostName === 'localhost' ? hostName : '.' + hostName.replace(/^www\./, ''),
       },
     },
   },
