@@ -34,7 +34,6 @@ services:
       - 'traefik.enable=true'
       - 'traefik.docker.network=web'
       - 'traefik.http.routers.hasura-engine.rule=Host(`hasura-engine.postgres.test`)'
-    # tty: true
     restart: unless-stopped
     extra_hosts:
       - 'host.docker.internal:host-gateway'
@@ -221,6 +220,7 @@ services:
       - ${REDIS_PORT}:${REDIS_PORT}
     volumes:
       - redis:/data
+    restart: unless-stopped
     extra_hosts:
       - 'host.docker.internal:host-gateway'
 

@@ -5,11 +5,13 @@
 
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import * as SentryTracing from '@sentry/tracing';
 
 import { AppModule } from './app/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  SentryTracing.addExtensionMethods();
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
   const host = process.env.NEST_HOST || '0.0.0.0';
