@@ -1,4 +1,5 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { NextFunction, Request, Response } from 'express';
 import { InjectSentry, SentryService } from '@ntegral/nestjs-sentry';
 import { isJestRunning } from '@utils';
