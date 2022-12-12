@@ -141,7 +141,7 @@ specifiers:
   loglevel-plugin-prefix: ^0.8.4
   msw: ^0.47.4
   next: ^13.0.6
-  next-auth: ^4.18.4
+  next-auth: ^4.18.6
   next-seo: ^5.15.0
   next-sitemap: ^3.1.32
   node-cache-manager: ^1.2.0
@@ -194,7 +194,7 @@ dependencies:
   '@nestjs/platform-express': 9.2.1_hjcqpoaebdr7gdo5hgc22hthbe
   '@nestjs/schedule': 2.1.0_dntc3uqqknzoduyjojusds5kla
   '@nestjs/terminus': 9.1.4_lt62z6trxr7jxbycidihnw6wge
-  '@ntegral/nestjs-sentry': 4.0.0_mlr5smnuuluuu77sos6bzpmone
+  '@ntegral/nestjs-sentry': 4.0.0_yntewhl4srjfuddcdifv3hxmbq
   '@prisma/client': 4.7.1_prisma@4.7.1
   '@sentry/nextjs': 7.24.2_ivfizlltnf5oincobffrvntlsq
   '@sentry/node': 7.24.2
@@ -225,7 +225,7 @@ dependencies:
   loglevel: 1.8.1
   loglevel-plugin-prefix: 0.8.4
   next: 13.0.6_672uxklweod7ene3nqtsh262ca
-  next-auth: 4.18.4_ph7ncimqkfipxkhrqa54rmxzeq
+  next-auth: 4.18.6_ph7ncimqkfipxkhrqa54rmxzeq
   next-seo: 5.15.0_6jx7hpii6hgsrmhxgqrmo3277u
   next-sitemap: 3.1.32_2x7vdsltqnntkvmayxgsj26u5i
   node-cache-manager: 1.2.0
@@ -351,7 +351,7 @@ devDependencies:
   prettier-plugin-prisma: 4.4.0_prettier@2.8.1
   react-test-renderer: 18.2.0_react@18.2.0
   start-server-and-test: 1.15.2
-  storybook-addon-next: 1.7.1_ptlb3ivnne35sbn6wdoqo3s4ja
+  storybook-addon-next: 1.7.1_sijtullbgavbz62aracnabsjue
   storybook-addon-swc: 1.1.9_webpack@5.75.0
   ts-jest: 28.0.5_flvspczwdyzmo53mwboyub4dui
   ts-node: 10.9.1_54wmgynrwszhluibwspffxvwoe
@@ -6688,7 +6688,7 @@ packages:
       - typescript
     dev: true
 
-  /@ntegral/nestjs-sentry/4.0.0_mlr5smnuuluuu77sos6bzpmone:
+  /@ntegral/nestjs-sentry/4.0.0_yntewhl4srjfuddcdifv3hxmbq:
     resolution: {integrity: sha512-6WHZcK7NLeg7ue1y3Z61msEBzCGZeXQ0hWhliH1ddQH0kPbZ6lXLxduGMWYb0N/fPjXAX1Astz8urqnoTOZBQw==}
     peerDependencies:
       '@nestjs/common': ^9.0.4
@@ -6701,7 +6701,7 @@ packages:
     dependencies:
       '@nestjs/common': 9.2.1_wyel25yieng7imesmr6z7vgkxa
       '@nestjs/core': 9.2.1_w3v5wphu2g7zh3k7h3bcu5sn74
-      '@sentry/hub': 7.24.2
+      '@sentry/hub': 7.25.0
       '@sentry/node': 7.24.2
       reflect-metadata: 0.1.13
       rimraf: 3.0.2
@@ -7290,13 +7290,22 @@ packages:
       tslib: 1.14.1
     dev: false
 
-  /@sentry/hub/7.24.2:
-    resolution: {integrity: sha512-i9uSIPex6TiyUR3csC/bpn/iys9ZullbamFD7a+sdqb0zwhen5mwz0yPcuLucdbqiM99WlxiN6SKqVbvm1nYmw==}
+  /@sentry/core/7.25.0:
+    resolution: {integrity: sha512-4PMuf+MsLxtbesXFBdXfRQhdxHVMi4e6z52DEdtSN9V41lT/R78qIfVopHs5gAr9j4lxCaiKSnNQDKziWLeQ8w==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/core': 7.24.2
-      '@sentry/types': 7.24.2
-      '@sentry/utils': 7.24.2
+      '@sentry/types': 7.25.0
+      '@sentry/utils': 7.25.0
+      tslib: 1.14.1
+    dev: false
+
+  /@sentry/hub/7.25.0:
+    resolution: {integrity: sha512-1W8ZGJKJh20LJozulE9EJNLRyAlMT0Endu0HiBe3DWu9NT7rTI/+YPEKqB2raidANKhXXJAOXLyZntY/JsgbAA==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/core': 7.25.0
+      '@sentry/types': 7.25.0
+      '@sentry/utils': 7.25.0
       tslib: 1.14.1
     dev: false
 
@@ -7386,11 +7395,24 @@ packages:
     engines: {node: '>=8'}
     dev: false
 
+  /@sentry/types/7.25.0:
+    resolution: {integrity: sha512-m/tVeuZpbYNQjp4BYOz7bBxZEWdTHdTgXg9YlztUOCf5JDDujpxYp2Pyp4+cDDulzFIixXzRH7FRiKsOJ0WF7w==}
+    engines: {node: '>=8'}
+    dev: false
+
   /@sentry/utils/7.24.2:
     resolution: {integrity: sha512-VuuYEF39v43Qk6YZMid8Em/N0HqCsS5ItuTSvunMtBai2dzDAIkJ2LqemF95wWFAXrzpLy4Nx3QyGVHayMn31A==}
     engines: {node: '>=8'}
     dependencies:
       '@sentry/types': 7.24.2
+      tslib: 1.14.1
+    dev: false
+
+  /@sentry/utils/7.25.0:
+    resolution: {integrity: sha512-1Wct+LvDySYgXBYHjoTzccASK4Rk/88cCifSZF7pLrix3Rzk+8QnPt4vZ/ce62nTNBDs/OeFXO1eFwiz9nCoEg==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/types': 7.25.0
       tslib: 1.14.1
     dev: false
 
@@ -20411,8 +20433,8 @@ packages:
     resolution: {integrity: sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==}
     dev: true
 
-  /next-auth/4.18.4_ph7ncimqkfipxkhrqa54rmxzeq:
-    resolution: {integrity: sha512-tvXOabxv5U/y6ib56XPkOnc/48tYc+xT6GNOLREIme8WVGYHDTc3CGEfe2+0bVCWAm0ax/GYXH0By5NFoaJDww==}
+  /next-auth/4.18.6_ph7ncimqkfipxkhrqa54rmxzeq:
+    resolution: {integrity: sha512-0TQwbq5X9Jyd1wUVYUoyvHJh4JWXeW9UOcMEl245Er/Y5vsSbyGJHt8M7xjRMzk9mORVMYehoMdERgyiq/jCgA==}
     engines: {node: ^12.19.0 || ^14.15.0 || ^16.13.0 || ^18.12.0}
     peerDependencies:
       next: ^12.2.5 || ^13
@@ -21881,7 +21903,7 @@ packages:
       webpack: 5.75.0_@swc+core@1.3.22
     dev: true
 
-  /postcss-loader/7.0.2_upg3rk2kpasnbk27hkqapxaxfq:
+  /postcss-loader/7.0.2_qxxfhhrl3yknjjmta266mo3u64:
     resolution: {integrity: sha512-fUJzV/QH7NXUAqV8dWJ9Lg4aTkDCezpTS5HgJ2DvqznexTbSTxgi/dTECvTZ15BwKTtk8G/bqI/QTu2HPd3ZCg==}
     engines: {node: '>= 14.15.0'}
     peerDependencies:
@@ -21890,7 +21912,7 @@ packages:
     dependencies:
       cosmiconfig: 7.1.0
       klona: 2.0.5
-      postcss: 8.4.19
+      postcss: 8.4.20
       semver: 7.3.8
       webpack: 5.75.0_@swc+core@1.3.22
     dev: true
@@ -22226,6 +22248,15 @@ packages:
 
   /postcss/8.4.19:
     resolution: {integrity: sha512-h+pbPsyhlYj6N2ozBmHhHrs9DzGmbaarbLvWipMRO7RLS+v4onj26MPFXA5OBYFxyqYhUJK456SwDcY9H2/zsA==}
+    engines: {node: ^10 || ^12 || >=14}
+    dependencies:
+      nanoid: 3.3.4
+      picocolors: 1.0.0
+      source-map-js: 1.0.2
+    dev: true
+
+  /postcss/8.4.20:
+    resolution: {integrity: sha512-6Q04AXR1212bXr5fh03u8aAwbLxAQNGQ/Q1LNa0VfOI06ZAlhPHtQvE4OIdpj4kLThXilalPnmDSOD65DcHt+g==}
     engines: {node: ^10 || ^12 || >=14}
     dependencies:
       nanoid: 3.3.4
@@ -24470,7 +24501,7 @@ packages:
     resolution: {integrity: sha512-siT1RiqlfQnGqgT/YzXVUNsom9S0H1OX+dpdGN1xkyYATo4I6sep5NmsRD/40s3IIOvlCq6akxkqG82urIZW1w==}
     dev: true
 
-  /storybook-addon-next/1.7.1_ptlb3ivnne35sbn6wdoqo3s4ja:
+  /storybook-addon-next/1.7.1_sijtullbgavbz62aracnabsjue:
     resolution: {integrity: sha512-SSbD91CUNSKiTMYfbqBGUkbRuSiC7+q7D4bRqDgHI2kSJn4wi99/ccFVGCegTRJoJqljwtEJ/vEqQ253L64hVQ==}
     peerDependencies:
       '@storybook/addon-actions': ^6.0.0
@@ -24484,7 +24515,7 @@ packages:
       image-size: 1.0.2
       loader-utils: 3.2.1
       next: 13.0.6_672uxklweod7ene3nqtsh262ca
-      postcss-loader: 7.0.2_upg3rk2kpasnbk27hkqapxaxfq
+      postcss-loader: 7.0.2_qxxfhhrl3yknjjmta266mo3u64
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       resolve-url-loader: 5.0.0

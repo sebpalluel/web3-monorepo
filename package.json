@@ -101,7 +101,7 @@
     "loglevel": "^1.8.1",
     "loglevel-plugin-prefix": "^0.8.4",
     "next": "^13.0.6",
-    "next-auth": "^4.18.4",
+    "next-auth": "^4.18.6",
     "next-seo": "^5.15.0",
     "next-sitemap": "^3.1.32",
     "node-cache-manager": "^1.2.0",
