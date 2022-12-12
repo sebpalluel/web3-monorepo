@@ -1,9 +1,61 @@
 import { Box, Flex, Heading } from '@chakra-ui/react';
 import { signIn, signOut, useSession } from 'next-auth/react';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 import Link from 'next/link';
 import styles from './header.module.css';
 
 import ThemeToggle from './ThemeToggle';
+
+export function HeaderContent({ session }) {
+  if (!session) {
+    return (
+      <>
+        <span className={styles.notSignedInText}>You are not signed in</span>
+        <a
+          href={`/api/auth/signin`}
+          className={styles.buttonPrimary}
+          onClick={(e) => {
+            e.preventDefault();
+            signIn();
+          }}
+        >
+          Sign in
+        </a>
+      </>
+    );
+  }
+  return (
+    <>
+      {session.user.chainId ? (
+        <ConnectButton />
+      ) : (
+        <>
+          {session.user.image && (
+            <span
+              style={{ backgroundImage: `url('${session.user.image}')` }}
+              className={styles.avatar}
+            />
+          )}
+          <span className={styles.signedInText}>
+            <small>Signed in as</small>
+            <br />
+            <strong>{session.user.email || session.user.name}</strong>
+          </span>
+          <a
+            href={`/api/auth/signout`}
+            className={styles.button}
+            onClick={(e) => {
+              e.preventDefault();
+              signOut();
+            }}
+          >
+            Sign out
+          </a>
+        </>
+      )}
+    </>
+  );
+}
 
 const Header = () => {
   const { data: session, status } = useSession();
@@ -12,52 +64,13 @@ const Header = () => {
     <Flex as="header" width="full" align="center">
       <Heading as="h1" size="md">
         <div className={styles.signedInStatus}>
-          <p
+          <div
             className={`nojs-show ${
               !session && loading ? styles.loading : styles.loaded
             }`}
           >
-            {!session && (
-              <>
-                <span className={styles.notSignedInText}>You are not signed in</span>
-                <a
-                  href={`/api/auth/signin`}
-                  className={styles.buttonPrimary}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    signIn();
-                  }}
-                >
-                  Sign in
-                </a>
-              </>
-            )}
-            {session?.user && (
-              <>
-                {session.user.image && (
-                  <span
-                    style={{ backgroundImage: `url('${session.user.image}')` }}
-                    className={styles.avatar}
-                  />
-                )}
-                <span className={styles.signedInText}>
-                  <small>Signed in as</small>
-                  <br />
-                  <strong>{session.user.email ?? session.user.name}</strong>
-                </span>
-                <a
-                  href={`/api/auth/signout`}
-                  className={styles.button}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    signOut();
-                  }}
-                >
-                  Sign out
-                </a>
-              </>
-            )}
-          </p>
+            <HeaderContent session={session} />
+          </div>
         </div>
         <nav>
           <ul className={styles.navItems}>
