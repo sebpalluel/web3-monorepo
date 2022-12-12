@@ -35,6 +35,7 @@ export const SiweProvider = () =>
           return {
             id: siwe.address,
             name: siwe.address,
+            address: siwe.address,
             chainId: siwe.chainId,
           };
         }
