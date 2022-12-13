@@ -22,6 +22,8 @@ jobs:
     secrets:
       ENV_FILE: ${{ secrets.ENV_FILE }}
     with:
+      artifacts-name: cypress
+      artifacts-path: dist/cypress
       environment-variables: |
         CYPRESS_CACHE_FOLDER=~/.cache/Cypress
       cypress_cache_path: ~/.cache/Cypress

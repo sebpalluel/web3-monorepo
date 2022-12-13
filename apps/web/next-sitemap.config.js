@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 const NextSitemapConfig = {
-  siteUrl: 'https://web3-monorepo.dev',
+  siteUrl: 'https://www.web3-monorepo.app/',
   generateRobotsTxt: true,
 };
 

@@ -5,9 +5,9 @@ const defaultSEOConfig = {
   defaultTitle: 'web3-monorepo',
   description:
     '⚡ Get started with your Web3 project,🔋 battery included: 🪪 DID + SSI from Walt.id, 🗂 monorepo with NX, 💻 Next.js + Next Auth + ChakraUI for the frontend, 💾 Hasura GraphQL server for the backend, 🔮 The Graph protocol to query live data from smart contracts.',
-  canonical: 'https://web3-monorepo.dev',
+  canonical: 'https://www.web3-monorepo.app/',
   openGraph: {
-    url: 'https://web3-monorepo.dev',
+    url: 'https://www.web3-monorepo.app/',
     title: 'web3-monorepo',
     description:
       '⚡ Get started with your Web3 project,🔋 battery included: 🪪 DID + SSI from Walt.id, 🗂 monorepo with NX, 💻 Next.js + Next Auth + ChakraUI for the frontend, 💾 Hasura GraphQL server for the backend, 🔮 The Graph protocol to query live data from smart contracts.',
