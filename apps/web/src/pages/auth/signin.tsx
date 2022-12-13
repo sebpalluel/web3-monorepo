@@ -125,10 +125,9 @@ function CredentialsForm({ router, credentialsInvalid }) {
         callbackUrl: router.query.callbackUrl,
         redirect: false,
       });
-      logger.debug({ res });
-      if (res?.ok)
+      if (res?.ok && !res?.error)
         router.push(res.url && !res.url.includes('auth/signin') ? res.url : '/');
-      else router.push({ query: { error: 'credentialsInvalid' } });
+      else router.push({ query: { error: 'CredentialsInvalid' } });
     } catch (error) {
       if (!error?.includes('Invalid credentials')) logger.error(error);
     }
@@ -207,7 +206,7 @@ export default function SignIn({ providers }) {
   const [credentialsInvalid, OAuthAccountNotLinked] = useMemo(() => {
     const error = router.query.error;
     return [
-      error === 'credentialsInvalid' ? 'Invalid email or password' : '',
+      error === 'CredentialsInvalid' ? 'Invalid email or password' : '',
       error === 'OAuthAccountNotLinked'
         ? 'You tried to sign in with a provider that is not linked to an existing account.\n\
                 Try with an other one or proceed with an email and password.'

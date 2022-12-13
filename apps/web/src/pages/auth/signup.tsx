@@ -41,16 +41,15 @@ export default function SignupCard() {
         method: 'POST',
         body: JSON.stringify(body),
       });
-      logger.debug(`res`, res);
       reset();
       router.push(
         `signin${
           router.query.callbackUrl ? `?callbackUrl=${router.query.callbackUrl}` : ''
         }`
       );
-    } catch (error: any) {
-      logger.error(`error`, error?.message);
+    } catch (error) {
       if (error?.message) setErrorMsg(error.message);
+      else logger.error({ error });
     }
   }
 
