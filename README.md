@@ -25,7 +25,7 @@
 
 **View in [NX Graph](https://sebpalluel.github.io/web3-monorepo/?groupByFolder=true&select=all)**
 
-[![name](https://user-images.githubusercontent.com/11297176/205083488-daffa5c9-88d5-40ac-8114-a0626df5e54b.png)](https://sebpalluel.github.io/web3-monorepo/?groupByFolder=true&select=all)
+[![name](https://user-images.githubusercontent.com/11297176/207392383-8f817b50-d646-4586-870e-d6bf53481577.png)](https://sebpalluel.github.io/web3-monorepo/?groupByFolder=true&select=all)
 
 ### Access to the services and app URLs locally
 
@@ -206,7 +206,7 @@ Hasura is used as an adapter to next-auth in order to persist in a database the 
 
 ### Rainbowkit
 
-<p align="center"><img src="https://user-images.githubusercontent.com/11297176/196224807-718c7649-b946-423e-9449-92ef244a6816.png" width="10%"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/11297176/207391905-d88c264c-38ac-48fe-8ac9-2052b729fad8.png" width="10%"></p>
 
 This project use [Rainbowkit](https://www.rainbowkit.com/) to offer a set of components and hooks to easily build a web3 application.
 Following the specs of SIWE (Sign In With Ethereum), it offers a way to authenticate in next-auth through the signature of a message with a given wallet.
