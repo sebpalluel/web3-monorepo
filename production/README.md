@@ -1,36 +1,53 @@
-# Deploy this project to production
+# Deploy this project to production 🚀
 
-This project is deployed to production using Vercel for the web app, Hasura cloud for the Hasura GraphQL Server and Google Cloud for the postgresql db and nest js server.
+This project is deployed to production using:
 
-## Nestjs Server + Redis
+- Vercel for the web app
+- [Hasura cloud](https://cloud.hasura.io/) for the Hasura GraphQL Server
+- [Railway.app](https://railway.app/new/template/7UlZ-K?referralCode=WYM_Zc) for the Nestjs server + Postgres & Redis
 
-### Deploy Nestjs-server app to Render.com
+Additionally, we use [Sentry](https://sentry.io/) for error tracking and monitoring.
 
-Here is a step-by-step guide to deploying a NestJS server app for free with render.com:
+## Sentry
 
-1. Sign up for a [free Render account](https://dashboard.render.com/). Render is a platform as a service (PaaS) that allows you to deploy and run your applications in the cloud.
+Sign up for a [free Sentry account](https://sentry.io/signup/) and create a new organization.
 
-2. Go to the dashboard and select the 'Web Services' option. Make sure to give access to your own repository by clicking on the option `Configure account` on the right. Select your repository and continue
+### Setup for Nestjs server
 
-3. Fill-up the form with the corresponding informations as such:
+1. Create a new project with the type `Express`.
 
-4. Provide a .env file with the following variables and your API keys
+2. Copy the `DSN` value from the `Client Keys (DSN)` section and set it as an environment variable called `SENTRY_DSN` in your `.env` file.
 
-```.env
+### Setup for Nextjs web app
+
+1. Create a new project with the type `Next.js`.
+
+2. Copy the `DSN` value from the `Client Keys (DSN)` section and set it as an environment variable called `NEXT_PUBLIC_SENTRY_DSN` in your `.env` file.
+
+## Deploy Nestjs server + Postgres & Redis to Railway.app
+
+Click the button below to deploy the Nestjs server app to Railway.app. This will create a new Railway.app project and deploy the app to it. You will need to provide the following environment variables:
+
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/7UlZ-K?referralCode=WYM_Zc)
+
+```bash
+# Set temporally to dummy and update with value of DATABASE_URL from PostgresSQL database deployed on Railway.app
+PRISMA_DATABASE_URL=dummy
+# Get those on the alchemy dashboard https://dashboard.alchemyapi.io/
+ALCHEMY_ETHEREUM_MAINNET_TOKEN=
 ALCHEMY_POLYGON_MAINNET_TOKEN=
 ALCHEMY_ARBITRUM_MAINNET_TOKEN=
-ALCHEMY_ETHEREUM_MAINNET_TOKEN=
+# Get this on the sentry dashboard from your Express project in https://sentry.io/settings/your-account/projects/
+SENTRY_DSN=
+NEST_PORT=3000
+PORT=3000
+# Set temporally to dummy. You will be able to get this on the hasura dashboard https://hasura.io/
+HASURA_PROJECT_ENDPOINT=dummy
+NEST_HOST=0.0.0.0
+RAILWAY_DOCKERFILE_PATH=./production/Dockerfile.nestjs-server
 ```
 
-5. After submitting the form, you should have a first build running. This should take a few minutes to finish.
-
-Your app should now be deployed and running on Render.com. You can access it by running the heroku open command or by going to the app's URL (which will be in the format https://my-app-name.herokuapp.com).
-
-### Deploy Redis database to Render.com
-
-1. Go to the dashboard
-
-## Hasura Cloud + databases
+## Hasura Cloud + main postgres db
 
 ### Hasura Cloud Setup with github
 

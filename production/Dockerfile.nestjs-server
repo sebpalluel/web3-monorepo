@@ -1,4 +1,4 @@
-FROM node:18-alpine as deps
+FROM node:16-alpine as deps
 
 ## set global npm path to node user to avoid permission error when installing global packages (pnpm)
 ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
@@ -13,7 +13,7 @@ WORKDIR /home/node
 COPY --chown=node package.json pnpm-lock.yaml ./
 RUN npm install -g pnpm && pnpm install --ignore-scripts
 
-FROM node:18-alpine as builder
+FROM node:16-alpine as builder
 
 ## avoid nx build error because don't detect it's a ci environment
 ENV NX_DAEMON=false
@@ -38,7 +38,7 @@ COPY --chown=node . .
 ## here we generate the prisma client + apply migrations + build the nestjs server. Finally we strip the dev dependencies.
 RUN pnpm prisma generate && pnpm prisma migrate deploy && pnpm nx run nestjs-server:build --prod && pnpm prune --prod
 
-FROM node:18-alpine as production
+FROM node:16-alpine as production
 
 ENV NODE_ENV production
 

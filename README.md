@@ -461,7 +461,7 @@ Visit [Nx Cloud](https://nx.app/) to learn more.
 
 ### Alchemy
 
-The Nestjs and Nextjs Apps uses [Alchemy](https://alchemyapi.io/) as an RPC provider for the Ethereum, Polygon and Arbitrum blockchains. You need to create an account and [get an API key for those on the alchemy dashboard](https://dashboard.alchemyapi.io/):
+The Nestjs and Nextjs Apps uses [Alchemy](https://alchemy.com/?r=ba8fc42476de40ad) as an RPC provider for the Ethereum, Polygon and Arbitrum blockchains. You need to create an account and [get an API key for those on the alchemy dashboard](https://dashboard.alchemyapi.io/?r=ba8fc42476de40ad):
 
 ```bash
 ALCHEMY_ETHEREUM_MAINNET_TOKEN=
