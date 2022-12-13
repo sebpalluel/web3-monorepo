@@ -40,22 +40,24 @@ import Layout from '../lib/layout';
 import '../lib/styles/globals.css';
 
 const web3_providers: ChainProviderFn[] = [publicProvider()];
-// if (process.env.NEXT_PUBLIC_ALCHEMY_ETHEREUM_MAINNET_TOKEN)
-//   web3_providers.push(
-//     alchemyProvider({
-//       apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ETHEREUM_MAINNET_TOKEN,
-//     })
-//   );
-// if (process.env.NEXT_PUBLIC_ALCHEMY_POLYGON_MAINNET_TOKEN)
-//   web3_providers.push(
-//     alchemyProvider({
-//       apiKey: process.env.NEXT_PUBLIC_ALCHEMY_POLYGON_MAINNET_TOKEN,
-//     })
-//   );
-// if (process.env.NEXT_PUBLIC_ALCHEMY_ARBITRUM_MAINNET_TOKEN)
-//   web3_providers.push(
-//     alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ARBITRUM_MAINNET_TOKEN })
-//   );
+/* Get error here on production build, need to check if it's a bug in wagmi or nextjs (maybe try wagmi 0.9 with InjectedConnector when rainbowkit is updated)
+if (process.env.NEXT_PUBLIC_ALCHEMY_ETHEREUM_MAINNET_TOKEN)
+  web3_providers.push(
+    alchemyProvider({
+      apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ETHEREUM_MAINNET_TOKEN,
+    })
+  );
+if (process.env.NEXT_PUBLIC_ALCHEMY_POLYGON_MAINNET_TOKEN)
+  web3_providers.push(
+    alchemyProvider({
+      apiKey: process.env.NEXT_PUBLIC_ALCHEMY_POLYGON_MAINNET_TOKEN,
+    })
+  );
+if (process.env.NEXT_PUBLIC_ALCHEMY_ARBITRUM_MAINNET_TOKEN)
+  web3_providers.push(
+    alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ARBITRUM_MAINNET_TOKEN })
+  );
+*/
 
 const { chains, provider, webSocketProvider } = configureChains(
   // , ...(isDev() ? [chain.goerli] : [])

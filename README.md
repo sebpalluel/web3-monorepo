@@ -5,7 +5,9 @@
 
 ---
 
-> All you need to start your web3 service, 🔋 included
+> All you need to start your web3 service, 🔋 included.
+
+> This project has been deployed using [Vercel](https://vercel.com/), [Hasura Cloud](https://hasura.io/cloud/) and [Railway.app](https://railway.app/). You can check it out [here](https://www.web3-monorepo.app/). For more information about the deployment process, check the [deployment section](./production/README.md) 🚀.
 
 ## Quick install
 
@@ -465,10 +467,10 @@ The Nestjs and Nextjs Apps uses [Alchemy](https://alchemyapi.io/) as an RPC prov
 ALCHEMY_ETHEREUM_MAINNET_TOKEN=
 ALCHEMY_POLYGON_MAINNET_TOKEN=
 ALCHEMY_ARBITRUM_MAINNET_TOKEN=
-# Warning ! Those api keys are going to get leaked in the client side code so it's advised to set ALLOWLIST DOMAIN in the alchemy dashboard to your apex domain (in our case www.web3-monorepo.app) in order to avoid someone hijacking your api keys
-NEXT_APP_ALCHEMY_ETHEREUM_MAINNET_TOKEN=
-NEXT_APP_ALCHEMY_POLYGON_MAINNET_TOKEN=
-NEXT_APP_ALCHEMY_ARBITRUM_MAINNET_TOKEN=
+# Warning ! Those api keys are going to get leaked in the client side code so it's advised to set ALLOWLIST DOMAIN in the alchemy dashboard to your apex domain (in our case www.web3-monorepo.app) in order to avoid someone hijacking your api keys. By default a public rpc network is used for the client side code so you don't need to set those api keys if you don't want to.
+# NEXT_APP_ALCHEMY_ETHEREUM_MAINNET_TOKEN=
+# NEXT_APP_ALCHEMY_POLYGON_MAINNET_TOKEN=
+# NEXT_APP_ALCHEMY_ARBITRUM_MAINNET_TOKEN=
 ```
 
 ### Provide the .env file to the github action CI job
