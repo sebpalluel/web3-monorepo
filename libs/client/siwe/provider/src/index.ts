@@ -25,7 +25,8 @@ export const SiweProvider = () =>
       try {
         const siwe = new SiweMessage(JSON.parse(credentials?.message || '{}'));
         const nextAuthUrl = new URL(getNextAuthURL());
-        const nonce = await getCsrfToken({ req: req as IncomingMessage });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const nonce = await getCsrfToken({ req: req as any });
         const result = await siwe.verify({
           signature: credentials?.signature || '',
           domain: nextAuthUrl.host,
