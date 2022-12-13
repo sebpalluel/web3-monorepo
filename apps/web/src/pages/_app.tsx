@@ -40,22 +40,22 @@ import Layout from '../lib/layout';
 import '../lib/styles/globals.css';
 
 const web3_providers: ChainProviderFn[] = [publicProvider()];
-if (process.env.NEXT_PUBLIC_ALCHEMY_ETHEREUM_MAINNET_TOKEN)
-  web3_providers.push(
-    alchemyProvider({
-      apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ETHEREUM_MAINNET_TOKEN,
-    })
-  );
-if (process.env.NEXT_PUBLIC_ALCHEMY_POLYGON_MAINNET_TOKEN)
-  web3_providers.push(
-    alchemyProvider({
-      apiKey: process.env.NEXT_PUBLIC_ALCHEMY_POLYGON_MAINNET_TOKEN,
-    })
-  );
-if (process.env.NEXT_PUBLIC_ALCHEMY_ARBITRUM_MAINNET_TOKEN)
-  web3_providers.push(
-    alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ARBITRUM_MAINNET_TOKEN })
-  );
+// if (process.env.NEXT_PUBLIC_ALCHEMY_ETHEREUM_MAINNET_TOKEN)
+//   web3_providers.push(
+//     alchemyProvider({
+//       apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ETHEREUM_MAINNET_TOKEN,
+//     })
+//   );
+// if (process.env.NEXT_PUBLIC_ALCHEMY_POLYGON_MAINNET_TOKEN)
+//   web3_providers.push(
+//     alchemyProvider({
+//       apiKey: process.env.NEXT_PUBLIC_ALCHEMY_POLYGON_MAINNET_TOKEN,
+//     })
+//   );
+// if (process.env.NEXT_PUBLIC_ALCHEMY_ARBITRUM_MAINNET_TOKEN)
+//   web3_providers.push(
+//     alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ARBITRUM_MAINNET_TOKEN })
+//   );
 
 const { chains, provider, webSocketProvider } = configureChains(
   // , ...(isDev() ? [chain.goerli] : [])
