@@ -29,6 +29,7 @@ import { useRouter } from 'next/router';
 
 import { AiFillGithub, AiFillGoogleCircle } from 'react-icons/ai';
 import { BiLockAlt } from 'react-icons/bi';
+import styles from './signin.module.css';
 
 // server side
 export async function getServerSideProps() {
@@ -41,7 +42,11 @@ export async function getServerSideProps() {
 export function ProvidersBtns({ providers, router, onToggleCollapse }) {
   return (
     <>
-      {providers.includes('siwe') ? <ConnectButton /> : null}
+      {providers.includes('siwe') ? (
+        <div className={styles.walletsButton}>
+          <ConnectButton />
+        </div>
+      ) : null}
       {providers.includes('google') ? (
         <Button
           w="full"
