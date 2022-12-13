@@ -1,0 +1,10 @@
+.walletsButton {
+  width: 100%;
+}
+.walletsButton button {
+  display: inline-flex;
+  width: 100%;
+  align-items: center;
+  -webkit-box-align: center;
+  justify-content: center;
+}
