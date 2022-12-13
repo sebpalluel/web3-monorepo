@@ -25,7 +25,7 @@
 
 [![name](https://user-images.githubusercontent.com/11297176/205083488-daffa5c9-88d5-40ac-8114-a0626df5e54b.png)](https://sebpalluel.github.io/web3-monorepo/?groupByFolder=true&select=all)
 
-### Access to the services and app URLs
+### Access to the services and app URLs locally
 
 - [**Hasura console**](http://localhost:9695/console)
 
@@ -75,6 +75,7 @@ The login to access the [**administration console**](http://localhost:8100/auth/
 - `libs/client/hasura/fetcher`: Fetcher functions to query the Hasura service.
 - `libs/client/hasura/utils`: Utilities to interact with Hasura.
 - `libs/client/did/provider`: Next-auth OpenID Client provider for the walt.id idpkit
+- `libs/client/siwe/provider`: Next-auth OpenID Client provider for the rainwbow kit.
 - `libs/client/next-auth/options`: Contain all the configs for [Next-Auth](https://next-auth.js.org/)
 - `libs/client/next-auth/common`: Common functions used in the context of Next-Auth
 - `libs/client/ui/components`: React reusable components library
@@ -189,11 +190,24 @@ This repo has some additional tools already setup for you:
 
 <p align="center"><img src="https://user-images.githubusercontent.com/11297176/196224807-718c7649-b946-423e-9449-92ef244a6816.png" width="10%"></p>
 
-This project use Next-Auth to offer different way of authentication.
+This project use [Next-Auth](https://next-auth.js.org) to offer different way of authentication.
 
-You can offer login with OAuth2 providers from Google and Github by providing the corresponding env variables.
+The user can sign in with a web3 wallet (Metamask, WalletConnect, etc) and the SIWE adapter will handle the request with Hasura.
 
-Additionally, the boilerplate offer a way to authenticate through email + password credentials with the adapter to handle the request with Hasura. You can find this adapter in `libs/hasura/adapter`
+You can offer login with OAuth2 providers from Google and Github by providing the corresponding env variables for users that want to connect with a web2 provider. As a fallback, it's also possible to connect with an email and password.
+
+Additionally, this project offer a way to authenticate through a [DID](https://www.w3.org/TR/did-core/) thanks to the [Walt.id IDP Kit](https://walt.id/idp-kit).
+
+You can find the different providers used by next-auth in `libs/client/next-auth/options`
+
+Hasura is used as an adapter to next-auth in order to persist in a database the user's provided information such as their `id`. The adapter is located in `libs/client/hasura/adapter`.
+
+### Rainbowkit
+
+<p align="center"><img src="https://user-images.githubusercontent.com/11297176/196224807-718c7649-b946-423e-9449-92ef244a6816.png" width="10%"></p>
+
+This project use [Rainbowkit](https://www.rainbowkit.com/) to offer a set of components and hooks to easily build a web3 application.
+Following the specs of SIWE (Sign In With Ethereum), it offers a way to authenticate in next-auth through the signature of a message with a given wallet.
 
 ### Waltid-idpkit
 
@@ -445,12 +459,16 @@ Visit [Nx Cloud](https://nx.app/) to learn more.
 
 ### Alchemy
 
-The Nestjs App uses [Alchemy](https://alchemyapi.io/) as an RPC provider for the Ethereum, Polygon and Arbitrum blockchains. You need to create an account and get an API key for thoses:
+The Nestjs and Nextjs Apps uses [Alchemy](https://alchemyapi.io/) as an RPC provider for the Ethereum, Polygon and Arbitrum blockchains. You need to create an account and [get an API key for those on the alchemy dashboard](https://dashboard.alchemyapi.io/):
 
-```.env
+```bash
 ALCHEMY_ETHEREUM_MAINNET_TOKEN=
 ALCHEMY_POLYGON_MAINNET_TOKEN=
 ALCHEMY_ARBITRUM_MAINNET_TOKEN=
+# Warning ! Those api keys are going to get leaked in the client side code so it's advised to set ALLOWLIST DOMAIN in the alchemy dashboard to your apex domain (in our case www.web3-monorepo.app) in order to avoid someone hijacking your api keys
+NEXT_APP_ALCHEMY_ETHEREUM_MAINNET_TOKEN=
+NEXT_APP_ALCHEMY_POLYGON_MAINNET_TOKEN=
+NEXT_APP_ALCHEMY_ARBITRUM_MAINNET_TOKEN=
 ```
 
 ### Provide the .env file to the github action CI job

@@ -19,7 +19,13 @@ import {
   lightTheme,
   darkTheme,
 } from '@rainbow-me/rainbowkit';
-import { chain, configureChains, createClient, WagmiConfig } from 'wagmi';
+import {
+  chain,
+  ChainProviderFn,
+  configureChains,
+  createClient,
+  WagmiConfig,
+} from 'wagmi';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
 // import { RainbowKitSiweNextAuthProvider } from '@rainbow-me/rainbowkit-siwe-next-auth';
@@ -33,15 +39,28 @@ import { Chakra } from '../lib/components/Chakra';
 import Layout from '../lib/layout';
 import '../lib/styles/globals.css';
 
+const web3_providers: ChainProviderFn[] = [publicProvider()];
+if (process.env.NEXT_PUBLIC_ALCHEMY_ETHEREUM_MAINNET_TOKEN)
+  web3_providers.push(
+    alchemyProvider({
+      apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ETHEREUM_MAINNET_TOKEN,
+    })
+  );
+if (process.env.NEXT_PUBLIC_ALCHEMY_POLYGON_MAINNET_TOKEN)
+  web3_providers.push(
+    alchemyProvider({
+      apiKey: process.env.NEXT_PUBLIC_ALCHEMY_POLYGON_MAINNET_TOKEN,
+    })
+  );
+if (process.env.NEXT_PUBLIC_ALCHEMY_ARBITRUM_MAINNET_TOKEN)
+  web3_providers.push(
+    alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ARBITRUM_MAINNET_TOKEN })
+  );
+
 const { chains, provider, webSocketProvider } = configureChains(
   // , ...(isDev() ? [chain.goerli] : [])
   [chain.mainnet, chain.polygon, chain.arbitrum],
-  [
-    alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ETHEREUM_MAINNET_TOKEN }),
-    alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_POLYGON_MAINNET_TOKEN }),
-    alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ARBITRUM_MAINNET_TOKEN }),
-    publicProvider(),
-  ]
+  web3_providers
 );
 
 const { connectors } = getDefaultWallets({
