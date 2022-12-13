@@ -269,7 +269,6 @@ export const authOptions: NextAuthOptions = {
       return refreshAccessToken(token);
     },
     async session({ session, token }) {
-      logger.debug('session: ', { session, token });
       // needed for hasura claims_map
       session.user = token.user as User;
       // used to detect if provider with same email exists
