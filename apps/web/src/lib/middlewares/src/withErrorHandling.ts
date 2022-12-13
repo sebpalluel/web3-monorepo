@@ -52,12 +52,18 @@ export function withErrorHandling(req: NextApiRequest, res: NextApiResponse) {
 
       // edit the message according to your preferences
       const exceptionMessage = `An unhandled exception occurred.`;
+      // report only if it's not an handled exception
+      if (
+        ![StatusCodes.BAD_REQUEST, StatusCodes.FORBIDDEN, StatusCodes.NOT_FOUND].includes(
+          statusCode
+        )
+      ) {
+        logger.error(requestContext, exceptionMessage);
 
-      logger.error(requestContext, exceptionMessage);
-
-      // if we are able to retrieve the stack, we add it to the debugging logs
-      if (stack) {
-        logger.debug(stack);
+        // if we are able to retrieve the stack, we add it to the debugging logs
+        if (stack) {
+          logger.debug(stack);
+        }
       }
 
       const timestamp = new Date().toISOString();
