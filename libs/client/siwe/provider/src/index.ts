@@ -1,6 +1,5 @@
 // https://docs.login.xyz/integrations/nextauth.js
 import { getNextAuthURL } from '@client/next-auth/common';
-import { IncomingMessage } from 'http';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { getCsrfToken } from 'next-auth/react';
 import { SiweMessage } from 'siwe';
