@@ -1,6 +1,7 @@
 import { HttpException, MiddlewareConsumer, Module } from '@nestjs/common';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { Logger } from '@nestjs/common';
 // https://blog.logrocket.com/add-redis-cache-nestjs-app/
 import { ScheduleModule } from '@nestjs/schedule';
 import { SentryInterceptor } from '@ntegral/nestjs-sentry';
@@ -59,7 +60,15 @@ import { SentryMiddleware } from '../commons/sentry/sentry.middleware';
           filters: [
             {
               type: HttpException,
-              filter: (exception: HttpException) => 500 > exception.getStatus(), // Only report 500 errors
+              filter: (exception: HttpException) => {
+                Logger.error(
+                  'SentryInterceptor',
+                  exception,
+                  'is filtered ? ',
+                  500 > exception.getStatus()
+                );
+                return 500 > exception.getStatus(); // Only report 500 errors
+              },
             },
           ],
         }),

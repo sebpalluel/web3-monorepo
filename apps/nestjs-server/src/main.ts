@@ -22,7 +22,7 @@ async function bootstrap() {
       app.enableCors({ origin: appConfig.hasuraProjectEndpoint });
     else Logger.error('HASURA_PROJECT_ENDPOINT is not set in your env');
     if (appConfig.sentryDsn) {
-      Logger.info('SENTRY_DSN is set in your env, all error will be reported to Sentry');
+      Logger.log('SENTRY_DSN is set in your env, all error will be reported to Sentry');
       // Sentry.init({
       //   dsn: appConfig.sentryDsn,
       //   tracesSampleRate: 1.0,
