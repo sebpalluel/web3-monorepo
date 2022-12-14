@@ -41,9 +41,10 @@ ALCHEMY_ARBITRUM_MAINNET_TOKEN=
 SENTRY_DSN=
 NEST_PORT=3000
 PORT=3000
-# Set temporally to dummy. You will be able to get this on the hasura dashboard https://hasura.io/
+# Used to set CORS and only accept requests from your hasura endpoint. Set temporally to dummy. You will be able to get this on the hasura dashboard https://hasura.io/
 HASURA_PROJECT_ENDPOINT=dummy
 NEST_HOST=0.0.0.0
+# Dockerfile used to deploy the Nestjs server app to Railway.app
 RAILWAY_DOCKERFILE_PATH=./production/Dockerfile.nestjs-server
 ```
 

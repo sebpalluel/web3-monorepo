@@ -15,13 +15,14 @@ import { CryptocurrenciesService } from '@server/cryptocurrencies';
 // import { WalletController, WalletService } from '@server/wallet';
 import { AlchemyService } from '@server/alchemy';
 
+import { AppConfigModule } from './app-config.module';
 import { TaskService } from '../task/task.service';
-import { HealthModule } from '../health/health.module';
+import { HealthModule } from '../commons/health/health.module';
 import { WalletService } from '../wallet/wallet.service';
 import { WalletProviders } from '../wallet/wallet.module';
 import { AppController } from './app.controller';
-import { RedisCacheModule } from '../redis-cache/redis-cache.module';
-import { TraceMiddleware } from '../trace/trace.middleware';
+import { RedisCacheModule } from '../commons/redis-cache/redis-cache.module';
+import { SentryMiddleware } from '../commons/sentry/sentry.middleware';
 
 @Module({
   imports: [
@@ -44,18 +45,13 @@ import { TraceMiddleware } from '../trace/trace.middleware';
       isGlobal: true,
     }),
     ScheduleModule.forRoot(),
+    AppConfigModule,
     PrismaModule,
     ApiModule,
     HealthModule,
   ],
   controllers: [BalancesController, AppController],
   providers: [
-    CryptocurrenciesService,
-    TaskService,
-    BalancesService,
-    WalletService,
-    ...WalletProviders,
-    AlchemyService,
     {
       provide: APP_INTERCEPTOR,
       useFactory: () =>
@@ -68,10 +64,16 @@ import { TraceMiddleware } from '../trace/trace.middleware';
           ],
         }),
     },
+    CryptocurrenciesService,
+    TaskService,
+    BalancesService,
+    WalletService,
+    ...WalletProviders,
+    AlchemyService,
   ],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer): void {
-    consumer.apply(TraceMiddleware).forRoutes('*');
+    consumer.apply(SentryMiddleware).forRoutes('*');
   }
 }

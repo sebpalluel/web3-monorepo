@@ -5,7 +5,7 @@ import { InjectSentry, SentryService } from '@ntegral/nestjs-sentry';
 import { isJestRunning } from '@utils';
 
 @Injectable()
-export class TraceMiddleware implements NestMiddleware {
+export class SentryMiddleware implements NestMiddleware {
   constructor(
     @InjectSentry() private readonly sentry: SentryService,
     private config: ConfigService
