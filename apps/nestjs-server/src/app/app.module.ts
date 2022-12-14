@@ -60,15 +60,7 @@ import { SentryMiddleware } from '../commons/sentry/sentry.middleware';
           filters: [
             {
               type: HttpException,
-              filter: (exception: HttpException) => {
-                Logger.error(
-                  'SentryInterceptor',
-                  exception,
-                  'is filtered ? ',
-                  500 > exception.getStatus()
-                );
-                return 500 > exception.getStatus(); // Only report 500 errors
-              },
+              filter: (exception: HttpException) => 500 > exception.getStatus(), // Only report 500 errors
             },
           ],
         }),

@@ -1,6 +1,5 @@
 import { Inject } from '@nestjs/common';
 import { SentryService } from '@ntegral/nestjs-sentry';
-import { Logger } from '@nestjs/common';
 
 export const SentryOverwatchAsync = () => {
   const injectSentry = Inject(SentryService);
@@ -13,10 +12,10 @@ export const SentryOverwatchAsync = () => {
       try {
         return await originalMethod.apply(this, args);
       } catch (error) {
-        Logger.error('Error in SentryOverwatchAsync', error);
         const sentry = this.sentry as SentryService;
         sentry.instance().captureException(error);
-        throw error;
+        // avoid throwing error here, otherwise the cron job will stop and app will crash
+        // throw error;
       }
     };
   };

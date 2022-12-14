@@ -67,7 +67,7 @@ export class TaskService {
       Logger.log('Cryptocurrencies data fetched and stored in cache');
     } catch (error) {
       // TODO send an email to the admin if it is a critical error and make sure to implement Sentry with the Logger.error
-      Logger.error('Error fetchCryptocurrenciesDataAndStoreInCache:', error);
+      Logger.error(error);
       throw error;
     }
   }
