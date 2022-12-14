@@ -46,6 +46,11 @@ HASURA_PROJECT_ENDPOINT=dummy
 NEST_HOST=0.0.0.0
 # Dockerfile used to deploy the Nestjs server app to Railway.app
 RAILWAY_DOCKERFILE_PATH=./production/Dockerfile.nestjs-server
+# Page number to get the crypto prices from the coingecko api for each platform (ethereum, polygon, arbitrum). If you want to get more tokens, you can increase this value but it's advised to set an API token for coingecko.
+ETHEREUM_COINGECKO_PAGE_THRESHOLD=2
+POLYGON_COINGECKO_PAGE_THRESHOLD=1
+ARBITRUM_COINGECKO_PAGE_THRESHOLD=1
+
 ```
 
 ## Hasura Cloud + main postgres db
