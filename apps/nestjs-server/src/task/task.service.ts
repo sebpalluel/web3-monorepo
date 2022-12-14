@@ -1,7 +1,6 @@
 import { Injectable, Inject, CACHE_MANAGER, Logger } from '@nestjs/common';
-import { Cron, CronExpression } from '@nestjs/schedule';
-// import { CronExpression } from '@nestjs/schedule';
-// import { Cron } from '../commons/cron/cron.decorator';
+import { Cron } from '../commons/cron/cron.decorator';
+import { CronExpression } from '@nestjs/schedule';
 import { CryptocurrenciesService } from '@server/cryptocurrencies';
 import {
   supportedChains,
