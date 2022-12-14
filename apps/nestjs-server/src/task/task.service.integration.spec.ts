@@ -8,6 +8,7 @@ import { ApiService } from '@server/api';
 import { ConfigService } from '@nestjs/config';
 import { coinMarketData } from '@test-utils/mocks';
 import { supportedChains } from '@dlt/types';
+import { SentryService } from '@ntegral/nestjs-sentry';
 
 const mockCacheManager = {
   set: jest.fn(),
@@ -27,6 +28,7 @@ describe('TaskService', () => {
         PrismaService,
         ApiService,
         ConfigService,
+        SentryService,
         {
           provide: CACHE_MANAGER,
           useValue: mockCacheManager,
