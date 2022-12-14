@@ -22,7 +22,7 @@ ENV NODE_ENV build
 ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 ENV PATH=$PATH:/home/node/.npm-global/bin
 
-## add openssl for prisma
+## add openssl and libssl1.1 for prisma (doesn't work yet on ARM, M1 etc), see https://github.com/prisma/prisma/issues/15598
 RUN apk upgrade --update-cache --available && \
 	apk add openssl=3.0.7-r0 libssl1.1 && \
 	rm -rf /var/cache/apk/*

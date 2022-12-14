@@ -1,5 +1,6 @@
 import { Injectable, Inject, CACHE_MANAGER, Logger } from '@nestjs/common';
-import { Cron, CronExpression } from '@nestjs/schedule';
+import { Cron } from '../commons/cron/cron.decorator';
+import { CronExpression } from '@nestjs/schedule';
 import { CryptocurrenciesService } from '@server/cryptocurrencies';
 import {
   supportedChains,
@@ -9,7 +10,6 @@ import {
 } from '@dlt/types';
 import { convertArrayOfObjtoObjWithKeys } from '@utils';
 import { Cache } from 'cache-manager';
-import { logger } from '@logger';
 
 @Injectable()
 export class TaskService {
