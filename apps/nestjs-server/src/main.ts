@@ -27,7 +27,7 @@ async function bootstrap() {
       // });
       // SentryTracing.addExtensionMethods();
       // app.useGlobalInterceptors(new SentryInterceptor());
-    } else Logger.error('SENTRY_DSN is not set in your env file');
+    } else Logger.error('SENTRY_DSN is not set in your env');
   }
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
