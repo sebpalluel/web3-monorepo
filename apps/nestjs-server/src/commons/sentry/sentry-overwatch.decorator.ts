@@ -1,5 +1,3 @@
-// decorators/sentry-overwatch.decorator.ts
-
 import { Inject } from '@nestjs/common';
 import { SentryService } from '@ntegral/nestjs-sentry';
 
