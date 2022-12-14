@@ -24,17 +24,17 @@ ENV PATH=$PATH:/home/node/.npm-global/bin
 
 ## add openssl for prisma
 RUN apk upgrade --update-cache --available && \
-	apk add openssl libssl1.1 && \
+	apk add openssl=3.0.7-r0 libssl1.1 && \
 	rm -rf /var/cache/apk/*
 
 USER node
 WORKDIR /home/node
 
-
 COPY --from=deps /home/node/.npm-global/ /home/node/.npm-global/
 COPY --chown=node --from=deps /home/node/node_modules/ /home/node/node_modules/
 
 COPY --chown=node . .
+
 ## here we generate the prisma client + apply migrations + build the nestjs server. Finally we strip the dev dependencies.
 RUN pnpm prisma generate && pnpm prisma migrate deploy && pnpm nx run nestjs-server:build --prod && pnpm prune --prod
 
