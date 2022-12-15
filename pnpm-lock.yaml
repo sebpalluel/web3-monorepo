@@ -46,7 +46,7 @@ specifiers:
   '@nrwl/nest': 15.2.4
   '@nrwl/next': 15.2.4
   '@nrwl/node': 15.2.4
-  '@nrwl/nx-cloud': 15.0.2
+  '@nrwl/nx-cloud': latest
   '@nrwl/nx-plugin': 15.2.4
   '@nrwl/react': 15.2.4
   '@nrwl/storybook': 15.2.4

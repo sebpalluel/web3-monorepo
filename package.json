@@ -1,5 +1,5 @@
 {
-  "name": "boilerplate",
+  "name": "web3-monorepo",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -160,7 +160,7 @@
     "@nrwl/nest": "15.2.4",
     "@nrwl/next": "15.2.4",
     "@nrwl/node": "15.2.4",
-    "@nrwl/nx-cloud": "15.0.2",
+    "@nrwl/nx-cloud": "latest",
     "@nrwl/nx-plugin": "15.2.4",
     "@nrwl/react": "15.2.4",
     "@nrwl/storybook": "15.2.4",
@@ -252,7 +252,7 @@
       "nx format:write --files"
     ]
   },
-  "_id": "boilerplate@0.0.0",
+  "_id": "web3-monorepo@0.0.0",
   "msw": {
     "workerDirectory": "apps/nestjs-server/src"
   }

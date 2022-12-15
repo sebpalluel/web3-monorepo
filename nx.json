@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "boilerplate",
+  "npmScope": "web3-monorepo",
   "affected": {
     "defaultBase": "main"
   },
@@ -22,31 +22,24 @@
       "options": {
         "cacheDirectory": "/tmp/nx-cache",
         "cacheableOperations": [
-          "dev",
-          "serve",
           "build",
           "affected:build",
-          "postbuild",
           "lint",
           "lint:fix",
           "affected:lint",
           "workspace-lint",
-          "type-check",
-          "up",
-          "up-latest",
-          "push-release",
-          "gql",
-          "prebuild",
           "format",
           "format:check",
           "format:write",
           "test",
+          "affected:test",
           "test-prisma",
+          "affected:test-prisma",
           "test-hasura",
+          "affected:test-hasura",
           "affected:test",
           "e2e",
           "affected:e2e",
-          "clean",
           "build-storybook"
         ],
         "parallel": true,
@@ -106,5 +99,6 @@
     "@nrwl/js": {
       "analyzeSourceFiles": true
     }
-  }
+  },
+  "defaultBase": "main"
 }
