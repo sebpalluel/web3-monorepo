@@ -1,5 +1,4 @@
 import { getNextAuthURL } from '@client/next-auth/common';
-import { logger } from '@logger';
 import type { Provider } from 'next-auth/providers';
 import { TokenSetParameters } from 'openid-client';
 
@@ -58,7 +57,6 @@ export const DidProvider = (params: DidProviderParams) => {
         }
 
         const finalFormBody = formBody.join('&');
-        logger.debug(finalFormBody);
         const response = await fetch(
           `${didProviderURL}/api/oidc/token?${finalFormBody}`,
           {
