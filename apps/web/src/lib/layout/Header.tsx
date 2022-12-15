@@ -1,4 +1,4 @@
-import { Box, Flex, Heading } from '@chakra-ui/react';
+import { Box, Flex, Heading, useBreakpointValue } from '@chakra-ui/react';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import Link from 'next/link';
@@ -46,7 +46,7 @@ export function HeaderContent({ session }) {
             className={styles.button}
             onClick={(e) => {
               e.preventDefault();
-              signOut();
+              signOut({ redirect: true, callbackUrl: '/' });
             }}
           >
             Sign out
@@ -57,12 +57,36 @@ export function HeaderContent({ session }) {
   );
 }
 
+export const HeaderRoutes = ({ session }) => {
+  type route = {
+    name: string;
+    href: string;
+  };
+  const routes: route[] = [
+    { name: 'Home', href: '/' },
+    { name: 'Client', href: '/client' },
+    { name: 'Server', href: '/server' },
+    { name: 'Admin', href: '/admin' },
+  ];
+  if (session)
+    routes.push({ name: 'Me', href: '/me' }, { name: 'Wallet', href: '/wallet' });
+  return routes.map((route) => (
+    <li className={styles.navItem} key={route.name}>
+      <Link href={route.href}>{route.name}</Link>
+    </li>
+  ));
+};
+
 const Header = () => {
   const { data: session, status } = useSession();
+  const headerWidth = useBreakpointValue(
+    { xs: 'auto', sm: 'auto', md: !session ? '50%' : 'auto' },
+    { ssr: true }
+  );
   const loading = status === 'loading';
   return (
     <Flex as="header" width="full" align="center">
-      <Heading as="h1" size="md">
+      <Heading style={{ width: headerWidth }} as="h1" size={{ sm: 'sm', md: 'md' }}>
         <div className={styles.signedInStatus}>
           <div
             className={`nojs-show ${
@@ -73,26 +97,7 @@ const Header = () => {
           </div>
         </div>
         <nav>
-          <ul className={styles.navItems}>
-            <li className={styles.navItem}>
-              <Link href="/">Home</Link>
-            </li>
-            <li className={styles.navItem}>
-              <Link href="/client">Client</Link>
-            </li>
-            <li className={styles.navItem}>
-              <Link href="/server">Server</Link>
-            </li>
-            <li className={styles.navItem}>
-              <Link href="/admin">Admin</Link>
-            </li>
-            <li className={styles.navItem}>
-              <Link href="/me">Me</Link>
-            </li>
-            <li className={styles.navItem}>
-              <Link href="/wallet">Wallet</Link>
-            </li>
-          </ul>
+          <ul className={styles.navItems}>{HeaderRoutes({ session })}</ul>
         </nav>
       </Heading>
 

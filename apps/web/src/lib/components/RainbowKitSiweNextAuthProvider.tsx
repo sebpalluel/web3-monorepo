@@ -73,7 +73,7 @@ export function RainbowKitSiweNextAuthProvider({
         },
 
         signOut: async () => {
-          await signOut({ redirect: false });
+          await signOut({ redirect: true, callbackUrl: '/' });
         },
 
         verify: async ({ message, signature }) => {
