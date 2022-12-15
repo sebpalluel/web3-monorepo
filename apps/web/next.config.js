@@ -3,7 +3,9 @@ const withNx = require('@nrwl/next/plugins/with-nx');
 const path = require('path');
 const { withSentryConfig } = require('@sentry/nextjs');
 
-const SENTRY_DSN = process.env.SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN;
+const SENTRY_DSN = process.env.SENTRY_AUTH_TOKEN
+  ? null
+  : process.env.SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN;
 
 const nextConfig = {
   reactStrictMode: true,
