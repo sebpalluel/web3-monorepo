@@ -45,6 +45,11 @@ ENV NODE_ENV production
 USER node
 WORKDIR /home/node
 
+## Copy openssl and libssl1.1 from builder stage
+COPY --from=builder /usr/bin/openssl /usr/bin/openssl
+COPY --from=builder /usr/lib/libssl.so.1.1 /usr/lib/libssl.so.1.1
+COPY --from=builder /usr/lib/libcrypto.so.1.1 /usr/lib/libcrypto.so.1.1
+#
 COPY --from=builder /home/node/package*.json /home/node/
 COPY --from=builder /home/node/node_modules/ /home/node/node_modules/
 COPY --from=builder /home/node/dist/ /home/node/dist/
