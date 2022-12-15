@@ -40,7 +40,6 @@ export function RainbowKitSiweNextAuthProvider({
     () =>
       createAuthenticationAdapter({
         createMessage: ({ address, chainId, nonce }) => {
-          logger.debug('createMessage', address, chainId, nonce);
           const defaultConfigurableOptions: ConfigurableMessageOptions = {
             domain: window.location.host,
             statement: 'Sign in with Ethereum to the app.',
@@ -84,7 +83,6 @@ export function RainbowKitSiweNextAuthProvider({
             callbackUrl: router.query.callbackUrl?.toString() || '',
             signature,
           });
-          logger.debug({ response, message, signature });
           return !response?.error;
         },
       }),

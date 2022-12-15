@@ -239,13 +239,6 @@ export const authOptions: NextAuthOptions = {
       } = args;
       // First time user sign in
       if (user && account) {
-        logger.debug('jwt user sign in: ', {
-          token,
-          user,
-          account,
-          profile,
-          isNewUser,
-        });
         return {
           accessToken: account.access_token,
           accessTokenExpires: Date.now() + (account?.expires_at as number) * 1000,
