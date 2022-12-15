@@ -10,10 +10,8 @@ import {
 import { useReactQuerySubscription } from '@client/hasura/fetcher';
 
 import {
-  Flex,
   Grid,
   GridItem,
-  Box,
   FormControl,
   FormLabel,
   Input,
@@ -22,23 +20,17 @@ import {
   Button,
   Text,
   InputGroup,
-  VStack,
   FormErrorMessage,
-  Divider,
-  Collapse,
 } from '@chakra-ui/react';
 
 export default function BlockchainPage() {
   const [balanceVariables, setBalanceVariables] = useState({ address: '', network: '' });
-  // const result = useQuery(['ExampleQuery'], () => sdk.ExampleQuery());
   const {
     data: balancesData,
     isFetching: balancesDataLoading,
     error: balancesDataError,
   } = useBalancesEip377Query(balanceVariables, {
     enabled: !!balanceVariables.address && !!balanceVariables.network,
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
   });
   useReactQuerySubscription(
     SubscribeWalletsByAddressDocument,

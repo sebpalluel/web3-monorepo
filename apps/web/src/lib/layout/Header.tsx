@@ -90,7 +90,7 @@ const Header = () => {
               <Link href="/me">Me</Link>
             </li>
             <li className={styles.navItem}>
-              <Link href="/blockchain">Blockchain</Link>
+              <Link href="/wallet">Wallet</Link>
             </li>
           </ul>
         </nav>
