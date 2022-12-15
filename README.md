@@ -288,7 +288,7 @@ As you are running both keycloak and idpkit from docker, the resulting address i
 
 <p align="center"><img src="https://user-images.githubusercontent.com/11297176/196225336-16072309-c798-4263-85ed-b5332509dc99.jpeg" width="15%"></p>
 
-The command `pnpm graphql-codegen` will launch the `graphql-codegen`script. All the codegen definitions are written in the file `codegen.yml`.
+The command `pnpm graphql-codegen` will launch the `graphql-codegen` script. All the codegen definitions are written in the file `codegen.yml`. You should run this command each time you modify a graphql query or update something on the hasura console to have the updated generated sdk and utilities functions.
 
 The generator is divided in two parts, corresponding to the role of `user` and `admin`, targeting the graphql hasura server for those respective roles.
 
