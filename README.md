@@ -5,9 +5,9 @@
 
 ---
 
-> All you need to start your web3 service, 🔋 included.
+> **All you need to start your web3 service, 🔋 included.**
 
-> This project has been deployed using [Vercel](https://vercel.com/), [Hasura Cloud](https://hasura.io/cloud/) and [Railway.app](https://railway.app/). You can check it out [here](https://www.web3-monorepo.app/). For more information about the deployment process, check the [deployment section](./production/README.md) 🚀.
+> **This project has been deployed using [Vercel](https://vercel.com/), [Hasura Cloud](https://hasura.io/cloud/) and [Railway.app](https://railway.app/). You can check it out [here](https://www.web3-monorepo.app/). For more information about the deployment process, check the [deployment section](./production/README.md) 🚀.**
 
 ## Quick install
 
