@@ -8,11 +8,13 @@ import { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
 import {
   Hydrate,
+  QueryCache,
   QueryClient,
   QueryClientProvider,
   type DehydratedState,
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import toast from 'react-hot-toast';
 import {
   RainbowKitProvider,
   getDefaultWallets,
@@ -38,6 +40,7 @@ import defaultSEOConfig from '../../next-seo.config';
 import { Chakra } from '../lib/components/Chakra';
 import Layout from '../lib/layout';
 import '../lib/styles/globals.css';
+import { logger } from '@logger';
 
 const web3_providers: ChainProviderFn[] = [publicProvider()];
 /* Get error here on production build, need to check if it's a bug in wagmi or nextjs (maybe try wagmi 0.9 with InjectedConnector when rainbowkit is updated)
@@ -105,7 +108,20 @@ const MyApp = ({
   dehydratedState: DehydratedState;
 }>) => {
   // https://tanstack.com/query/v4/docs/guides/ssr?from=reactQueryV3&original=https://react-query-v3.tanstack.com/guides/ssr#using-nextjs
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        queryCache: new QueryCache({
+          onError: (error: Error, query) => {
+            // 🎉 only show error toasts if we already have data in the cache
+            // which indicates a failed background update
+            if (query.state.data !== undefined) {
+              toast.error(error.message);
+            }
+          },
+        }),
+      })
+  );
   return (
     <WagmiConfig client={wagmiClient}>
       <SessionProvider session={pageProps.session}>
