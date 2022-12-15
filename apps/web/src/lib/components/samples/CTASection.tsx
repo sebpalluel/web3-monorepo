@@ -11,7 +11,7 @@ const CTASection = () => {
           aria-label="Deploy to Vercel"
           isExternal
           rel="noopener noreferrer"
-          href="https://vercel.com/import/git?s=https://github.com/sebpalluel/web3-monorepo"
+          href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsebpalluel%2Fweb3-monorepo&env=NEXT_PUBLIC_SENTRY_DSN,SENTRY_DSN,NEXTAUTH_URL,NEXTAUTH_SECRET,GOOGLE_CLIENT_SECRET,GOOGLE_CLIENT_ID,GITHUB_SECRET,GITHUB_ID,NX_CACHE_DIRECTORY,TOKEN_LIFE_TIME&build-command=pnpm%20nx%20build%20web%20--prod&output-directory=dist%2Fapps%web%2F.next"
         >
           <Image src="https://vercel.com/button" alt="Vercel deploy button" />
         </Link>
