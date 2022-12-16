@@ -31,7 +31,7 @@ jobs:
       environment: staging
       init-commands: |
         # Need to install those packages to avoid an error from prisma 
-        sudo apt-get install -y openssl=3.0.7-r0 libssl1.1
+        sudo apt-get install -y openssl libssl1.1
         pnpm exec nx-cloud record -- pnpm docker:test & pnpm docker:services
         # pnpm exec nx-cloud record -- pnpm docker:hasura-test-logs
         # pnpm exec nx-cloud record -- pnpm docker:hasura-engine-logs
