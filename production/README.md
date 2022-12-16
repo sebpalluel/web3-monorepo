@@ -102,6 +102,8 @@ TOKEN_LIFE_TIME=2592000
 
 8. Click on the `Deploy` button. It should deploy the web app to Vercel successfully and assign you a default domain. You can then go to the dashboard.
 
+<img width="1920" alt="dashboard after creation" src="https://user-images.githubusercontent.com/11297176/208073299-fd38cf26-7e89-47c0-896f-260c981b0048.png">
+
 You should now be able to access your web app at the default domain provided by Vercel, here the default production domain is `web3-monorepo-test.vercel.app`.
 
 ## Deploy Nestjs server + Postgres & Redis to Railway.app
@@ -134,6 +136,8 @@ ETHEREUM_COINGECKO_PAGE_THRESHOLD=2
 
 Your project should be deployed and look like this:
 
+<img width="963" alt="Your project should be deployed and look like this" src="https://user-images.githubusercontent.com/11297176/208073699-9e79a98e-5b2b-4d09-a4bb-deb92e1d8989.png">
+
 1. Head over to the settings and click on the cross to delete the `Source Repo` and confirm by clicking on the `Disconnect` button.
 2. You can delete the created repository on your Github account.
 3. Click on the `Connect Repo` button and select the repository created in the previous step.
@@ -155,11 +159,13 @@ This will avoid triggering a new deployment when you doesn't update code related
 ## Deploy your Hasura instance on Hasura Cloud and setup your databases
 
 1. [Create a new project in Hasura Cloud](https://cloud.hasura.io/projects)
-2. Connect it to your repository on the `Git Deploy` tab with the following settings
+2. Connect it to your repository on the `Git Deploy` tab with the following settings:
+<img width="908" alt="Connect it to your repository on the 'Git Deploy' tab with the following settings" src="https://user-images.githubusercontent.com/11297176/208073881-01e023f2-aeea-4002-91c6-07622ada4c9a.png">
 3. Click on the `Launch console` button to open the Hasura console. Go to the `Data` tab and `Create new Database` tab. Create a new database with the neon service by clicking on the button `Connect Neon Database`. This will create a new Neon database and connect it to your Hasura project.
 4. Click on the `Edit` button next to the newly created database, rename it to `default` and update the `Environment Variable` field with `HASURA_GRAPHQL_DATABASE_URL`. Finalize by clicking on the `Update connection` button.
 5. Create an other connection to the Postgres database hosted in Railway.app with the name `prisma_nestjs_server` and `PRISMA_DATABASE_URL_HASURA` as an `Environment Variable`. Finalize by clicking on the `Connect Database` button.
 6. You should now have 2 databases connected to your Hasura project. Don't worry about the 'Inconsistent state' warning. It's normal until you haven't fully setup the project. This should go away once all the migrations has been applied on both databases and you have correctly set the database URLs.
+<img width="1537" alt="You should have now have 2 databases connected to your Hasura project" src="https://user-images.githubusercontent.com/11297176/208074011-f19830cb-9098-4636-8be1-b903a3eca059.png">
 
 ## Finalize the setup
 
@@ -171,7 +177,7 @@ At this point, you should have your web app deployed on Vercel, your Nestjs serv
 
 2. Click on `Configure`, Select your hasura project and your vercel project
 
-- add image
+<img width="508" alt="Select your hasura project and your vercel project" src="https://user-images.githubusercontent.com/11297176/208074126-792d860c-684d-4ee6-a61c-38e4a42f65bd.png">
 
 This will add those env variables to your vercel project with the right values:
 
@@ -185,7 +191,7 @@ HASURA_ADMIN_SECRET
 
 4. Click on `Configure`, Select your sentry project and your vercel project
 
-- add image
+<img width="1918" alt=" Select your sentry project and your vercel project" src="https://user-images.githubusercontent.com/11297176/208074150-b39a9eb3-bfb9-4233-8a42-5398e733f7b4.png">
 
 This will add those env variables to your vercel project with the right values:
 
@@ -229,7 +235,7 @@ hasura CNAME web3-monorepo.hasura.app
 
 As a result, your Custom domain should be validated after a few minutes on the `Domains` tab of your Hasura Cloud project.
 
-- add image
+<img width="1203" alt="As a result, your Custom domain should be validated after a few minutes on the `Domains` tab of your Hasura Cloud project" src="https://user-images.githubusercontent.com/11297176/208074394-c8dfc48d-aa06-4b90-b185-678cea2635d1.png">
 
 5. [Go to the Railway dashboard](https://railway.app/dashboard), select your project, next your app and click on the `Settings` tab. Then click on the `Custom Domain` button. Type the subdomain you want to use for your Nestjs server app and click on the `Add` button. In our case we are using `nestjs-server.web3-monorepo.app`. Keep the tab open as you will need to copy the default domain value as `CNAME` and check if the custom domain worked.
 
@@ -242,7 +248,7 @@ nestjs-server CNAME web3-monorepo-nestjs-server-production.up.railway.app
 
 The result on Railway should look like this:
 
-- add image
+<img width="1918" alt="The result on Railway should look like this" src="https://user-images.githubusercontent.com/11297176/208073768-37372b56-18ff-4746-b802-5b2aae4ef5d1.png">
 
 Congrats ! You have now setup your DNS to point to your Hasura and Nestjs server instances as subdomains of your client app running in production.
 
@@ -327,8 +333,12 @@ Once done you should be able to access your app in production and login successf
 
 You can check if everything is working by going to the `Me` page to receive your profile information from Hasura if you have signed up with Google/Github or with an email + password.
 
+<img width="1800" alt="Screenshot 2022-12-16 at 11 08 44" src="https://user-images.githubusercontent.com/11297176/208075296-8268d199-954c-454b-83a5-8636cf0fdd90.png">
+
 The connection with a wallet should also work but no information is kept in the database.
 
 To be sure the Nestjs server is working correctly, you can go to the `Wallet` page and enter a blockchain wallet address to query the balance. This will also create a websocket subscription to showcase the subscription channel feature of Hasura.
+
+<img width="1920" alt="Screenshot 2022-12-16 at 11 07 46 (2)" src="https://user-images.githubusercontent.com/11297176/208075249-c1fd216a-e70d-4a5c-aa6f-fb834a5d09b1.png">
 
 Congrats 🎉🎉🎉 ! You have now setup your app in production with Hasura cloud, Railway and Vercel.
