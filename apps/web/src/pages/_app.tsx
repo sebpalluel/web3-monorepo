@@ -40,7 +40,6 @@ import defaultSEOConfig from '../../next-seo.config';
 import { Chakra } from '../lib/components/Chakra';
 import Layout from '../lib/layout';
 import '../lib/styles/globals.css';
-import { logger } from '@logger';
 
 const web3_providers: ChainProviderFn[] = [publicProvider()];
 /* Get error here on production build, need to check if it's a bug in wagmi or nextjs (maybe try wagmi 0.9 with InjectedConnector when rainbowkit is updated)
