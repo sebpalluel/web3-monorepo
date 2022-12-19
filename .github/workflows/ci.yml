@@ -22,7 +22,7 @@ jobs:
     secrets:
       ENV_FILE: ${{ secrets.ENV_FILE }}
     with:
-      runs-on: node:18-alpine
+      runs-on: ubuntu-22.04
       artifacts-path: |
         dist/cypress
       artifacts-name: cypress
@@ -31,9 +31,8 @@ jobs:
       cypress_cache_path: ~/.cache/Cypress
       environment: staging
       init-commands: |
-        # Need to install those packages to avoid an error from prisma 
-        # sudo apt-get install -y openssl1.1-compat libssl1.1
-        apk add --update --no-cache openssl1.1-compat
+        # Need to upgrade packages to avoid an error from prisma with openssl
+        sudo apt-get update && sudo apt-get upgrade
         pnpm exec nx-cloud record -- pnpm docker:test & pnpm docker:services
         # pnpm exec nx-cloud record -- pnpm docker:hasura-test-logs
         # pnpm exec nx-cloud record -- pnpm docker:hasura-engine-logs
@@ -57,7 +56,7 @@ jobs:
     secrets:
       ENV_FILE: ${{ secrets.ENV_FILE }}
     with:
-      runs-on: node:18-alpine
+      runs-on: ubuntu-22.04
       environment: staging
       number-of-agents: 3
       init-commands: |
