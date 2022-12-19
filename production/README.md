@@ -45,27 +45,29 @@ Click on the button below to deploy the web app to Vercel. This will create a ne
 3. It's advised to add the following in your `nx.json`:
 
 ```json
-"cacheableOperations": [
-          "build",
-          "affected:build",
-          "lint",
-          "lint:fix",
-          "affected:lint",
-          "workspace-lint",
-          "format",
-          "format:check",
-          "format:write",
-          "test",
-          "affected:test",
-          "test-prisma",
-          "affected:test-prisma",
-          "test-hasura",
-          "affected:test-hasura",
-          "affected:test",
-          "e2e",
-          "affected:e2e",
-          "build-storybook"
-        ],
+{
+  "cacheableOperations": [
+    "build",
+    "affected:build",
+    "lint",
+    "lint:fix",
+    "affected:lint",
+    "workspace-lint",
+    "format",
+    "format:check",
+    "format:write",
+    "test",
+    "affected:test",
+    "test-prisma",
+    "affected:test-prisma",
+    "test-hasura",
+    "affected:test-hasura",
+    "affected:test",
+    "e2e",
+    "affected:e2e",
+    "build-storybook"
+  ]
+}
 ```
 
 4. Make sure that the `defaultProject` is set to `web` in the `nx.json` file.
@@ -160,12 +162,12 @@ This will avoid triggering a new deployment when you doesn't update code related
 
 1. [Create a new project in Hasura Cloud](https://cloud.hasura.io/projects)
 2. Connect it to your repository on the `Git Deploy` tab with the following settings:
-<img width="908" alt="Connect it to your repository on the 'Git Deploy' tab with the following settings" src="https://user-images.githubusercontent.com/11297176/208073881-01e023f2-aeea-4002-91c6-07622ada4c9a.png">
+   <img width="908" alt="Connect it to your repository on the 'Git Deploy' tab with the following settings" src="https://user-images.githubusercontent.com/11297176/208073881-01e023f2-aeea-4002-91c6-07622ada4c9a.png">
 3. Click on the `Launch console` button to open the Hasura console. Go to the `Data` tab and `Create new Database` tab. Create a new database with the neon service by clicking on the button `Connect Neon Database`. This will create a new Neon database and connect it to your Hasura project.
 4. Click on the `Edit` button next to the newly created database, rename it to `default` and update the `Environment Variable` field with `HASURA_GRAPHQL_DATABASE_URL`. Finalize by clicking on the `Update connection` button.
 5. Create an other connection to the Postgres database hosted in Railway.app with the name `prisma_nestjs_server` and `PRISMA_DATABASE_URL_HASURA` as an `Environment Variable`. Finalize by clicking on the `Connect Database` button.
 6. You should now have 2 databases connected to your Hasura project. Don't worry about the 'Inconsistent state' warning. It's normal until you haven't fully setup the project. This should go away once all the migrations has been applied on both databases and you have correctly set the database URLs.
-<img width="1537" alt="You should have now have 2 databases connected to your Hasura project" src="https://user-images.githubusercontent.com/11297176/208074011-f19830cb-9098-4636-8be1-b903a3eca059.png">
+   <img width="1537" alt="You should have now have 2 databases connected to your Hasura project" src="https://user-images.githubusercontent.com/11297176/208074011-f19830cb-9098-4636-8be1-b903a3eca059.png">
 
 ## Finalize the setup
 
