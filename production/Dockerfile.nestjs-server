@@ -1,7 +1,5 @@
 FROM node:18-alpine as deps
 
-RUN apk add --no-cache git
-
 ## set global npm path to node user to avoid permission error when installing global packages (pnpm)
 ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 ENV PATH=$PATH:/home/node/.npm-global/bin

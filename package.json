@@ -51,7 +51,8 @@
     "nest:dev:start": "nx run nestjs-server:serve",
     "nest:e2e": "start-server-and-test e2e:server 'http://localhost:3333/api' e2e:test",
     "e2e:test": "nx run nestjs-server-e2e:e2e",
-    "e2e:server": "nx run nestjs-server:serve --skip-nx-cache"
+    "e2e:server": "nx run nestjs-server:serve --skip-nx-cache",
+    "prepublish": "echo ''"
   },
   "private": true,
   "dependencies": {
