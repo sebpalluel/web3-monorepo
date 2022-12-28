@@ -57,7 +57,7 @@
   "dependencies": {
     "@babel/core": "^7.20.7",
     "@chakra-ui/icons": "^2.0.15",
-    "@chakra-ui/react": "^2.4.2",
+    "@chakra-ui/react": "^2.4.5",
     "@chakra-ui/theme-tools": "^2.0.15",
     "@emotion/react": "11.10.5",
     "@emotion/server": "11.4.0",

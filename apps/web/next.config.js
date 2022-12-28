@@ -28,6 +28,8 @@ const nextConfig = {
   output: 'standalone',
   experimental: {
     outputFileTracingRoot: path.join(__dirname, '../../'),
+    // to fix chakra ui error with cancelSync esm import
+    esmExternals: false,
   },
   //
   sentry: {
