@@ -8,7 +8,7 @@ USER node
 WORKDIR /home/node
 
 COPY --chown=node package.json pnpm-lock.yaml ./
-RUN npm install -g pnpm && pnpm install --ignore-scripts --force
+RUN npm install -g pnpm && pnpm install --ignore-scripts
 
 FROM node:18-alpine as builder
 
