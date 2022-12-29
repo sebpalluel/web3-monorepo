@@ -246,7 +246,7 @@
       "ethereumjs-abi": "https://registry.npmjs.org/ethereumjs-abi/-/ethereumjs-abi-0.6.8.tgz"
     }
   },
-  "packageManager": "pnpm@7.6.0",
+  "packageManager": "pnpm@7.21.0",
   "engines": {
     "node": ">=16.0.0",
     "pnpm": ">=7"
