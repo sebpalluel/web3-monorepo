@@ -100,7 +100,7 @@ const GOOGLE_AUTHORIZATION_URL =
     response_type: 'code',
   });
 
-const providers: Array<Provider> = [
+export const providers: Array<Provider> = [
   SiweProvider(),
   CredentialsProvider({
     id: 'credentials-password',

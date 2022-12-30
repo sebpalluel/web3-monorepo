@@ -23,7 +23,8 @@ import { useState, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-import { signIn, getProviders } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
+import { providers } from '@client/next-auth/options';
 import { logger } from '@logger';
 import { useRouter } from 'next/router';
 
@@ -33,9 +34,10 @@ import styles from './signin.module.css';
 
 // server side
 export async function getServerSideProps() {
-  const providers = await getProviders();
   return {
-    props: { providers: Object.values(providers).map((provider) => provider.id) },
+    props: {
+      providers: providers.map((provider) => provider.options?.id || provider.id),
+    },
   };
 }
 
