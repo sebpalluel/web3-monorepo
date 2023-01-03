@@ -320,22 +320,72 @@ You can find an example of live query of smart contract on the [Blockchain page]
 
 <p align="center"><img src="https://user-images.githubusercontent.com/11297176/196227843-0616474f-f801-49ad-bf87-b0f27baac0f2.png" width="20%"></p>
 
-Jest is the test-runner used for unit and integration tests.
-
-To run all the jest test on affected code, you can use the command:
+Jest is the test runner used for unit and integration tests. To run all the Jest tests on affected code, you can use the command:
 
 ```shell
-curl --location --request GET 'http://localhost:3333/api/balances/arb/0x9a8eC29B75Bc10d68D97Dce73fD3Bbec43752870'
+pnpm affected:test
 ```
 
-```shell
-curl --location --request GET 'http://localhost:3333/api/balances/poly/0x3c89fC868803A2478C2E875A97299F240b0290C4'
+The global settings for Jest are located in tools/test. This directory contains a docker-compose file and an env file to launch specific services used for the integration tests:
+
+- `test-db`: a database for testing running in memory to speed up execution.
+- `hasura-engine`: used to interact with the test-db and services, it uses all the metadata and migrations from the one we used in dev.
+- `jest.preset.js` is referencing all the needed setup to launch the tests. It checks that the hasura-console is running and is healthy.
+
+Coverage for all the libraries is created in the root of the workspace. In order to maintain code quality, you can uncomment this section with the minimum coverage before the test reports a failure on CI:Coverage for all the libs is created in the root of the workspace. In order to maintain code quality, you can uncommit this section with the minimum coverage before the test report a failure on CI:
+
+```js
+{
+  // global: {
+  // branches: 80,
+  // functions: 80,
+  // lines: 80,
+  // statements: 80,
+  // },
+}
 ```
 
-You should receive an `Error 400` if the address is not valid or if you enter an invalid chain name.
+To facilitate integration testing, you have access to 3 clients with corresponding users: `Alpha Admin`, `Beta Admin`, and `Seb Google`. These clients, located in the `test-utils-gql` library, offer GraphQL instances with all the available queries for a user.
+
+You can check the tests in `users.spec.ts` and `adapter.spec.ts` for examples of these utilities in use.
+
+### Cypress
+
+Cypress is the test runner used for e2e and component tests. The tests for the web app are located in `apps/web-e2e`.
+
+Before running the tests, be sure that all the service containers are running with:
 
 ```shell
-curl --location --request GET 'http://localhost:3333/api/balances/poly/0xWasaWasaWasaWassup'
+pnpm docker:services
+```
+
+The test command will wait for all the necessary services to be reachable before launching Cypress.
+
+To run all the Cypress tests on affected code, you can use the command:
+
+```shell
+pnpm affected:e2e
+```
+
+In addition to Cypress's core functionality, we use the popular library [Cypress Testing Library](https://testing-library.com/docs/cypress-testing-library/intro/) to target elements of the page in a way that simulates how a user would interact with the UI.
+
+In order to speed up the e2e test, we provide the users: <u>Alpha Admin</u> / <u>Beta Admin</u> / <u>Seb Google</u> whose account can be accessed directly with the `login` command located in `apps/web-e2e/commands.ts`.
+
+We provide the session object used by `Next-Auth` and inject a correct authentication cookie for each one of them.
+
+With a new RSA private/public key, you will need to changes the values here:
+
+```js
+const sessions = {
+  alpha_admin:
+    'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NUb2tlbkV4cGlyZXMiOm51bGwsInVzZXIiOnsiZW1haWwiOiJhbHBoYV9hZG1pbkB0ZXN0LmlvIiwiZW1haWxWZXJpZmllZCI6bnVsbCwiaWQiOiI0YzJhYTAzYTdkY2IwNmFiN2FjMmJhMDc4M2QyZTQ2NmE1MjVlMWU1Nzk0YTQyYjJhMGZhOWY2MWZhN2EyOTY1IiwiaW1hZ2UiOm51bGwsIm5hbWUiOiJBbHBoYSBBZG1pbiJ9LCJwcm92aWRlciI6ImNyZWRlbnRpYWxzIiwicHJvdmlkZXJUeXBlIjoiY3JlZGVudGlhbHMiLCJyb2xlIjoidXNlciIsImlhdCI6MTY2MjA0NjMzMn0.AS0usjntlpL4RGeDQfAnDbv8YtFseQYo7TmlyeAFXcdeiB3vN6cIq-1o7Y0Qfp8qFKDdaFL-L1C76H4MQiI2tngxk2No7quCUkBPOSq9S6b_a5xUQ5LcpJyQ8QDTdnYJzfhqCXZ6pSuKyFa8B4YkSNC6HsIT3LmlwRl3TFrp6fG8iCUpWasTzhPrryJDh072PTBmfmw4qN6z0vcSId1ez1ihWRpRYAt0q_BkGdYM8d15534oKXxMRoY8Q-OGLGa515LZAefIoRxATF2_Huk6cq-15YGGsuSvcOzFw6Ef0P9v3U0SR4yge2z7jx_9t5QUgx9E1zOF627n4UptisE3Bg',
+
+  beta_admin:
+    'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NUb2tlbkV4cGlyZXMiOm51bGwsInVzZXIiOnsiZW1haWwiOiJiZXRhX2FkbWluQHRlc3QuaW8iLCJlbWFpbFZlcmlmaWVkIjpudWxsLCJpZCI6IjFkNmRlYWQ0ZTY5OGRkZmQ0YTkyY2QxOWFmZDA3NTYxMWZlYWVkZmQxNDllZGQ3NDYyYjgwZjcxOGUzYjIxODMiLCJpbWFnZSI6bnVsbCwibmFtZSI6IkJldGEgQWRtaW4ifSwicHJvdmlkZXIiOiJjcmVkZW50aWFscyIsInByb3ZpZGVyVHlwZSI6ImNyZWRlbnRpYWxzIiwicm9sZSI6InVzZXIiLCJpYXQiOjE2NjIwNDcwMTZ9.EW_NweTJPZtGYe1KTlWRwaPiPezdC7fp5qjyfe_V2Y9X2s_ZlbzRA1FVY29ckaiciATxqRb1kgn4xzBCncYhUhQ6P-m7pyewNcTeFEMpT2pvCC_8Mc6PS6A8Ef-9P9eRpBTSQuLTGVilf8DDOYC6bEeURplkMeLIvSjl5oRAvsO-AJaPDtZ146parjLS8b5esivgWrztU5sNIPQsw6gTe60PecXjZHqFNIa7z74IgYoB19BrIXR4IapKoGxzUpno2mJi8OzzRaYTXXW-xdnYgv5gwMYeKJJ0XsVKNhsV6NLJDrKH7IFlRwys1VS9mdyY7XnzOhklba43d2ftGfMOfg',
+
+  seb_google:
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NUb2tlbiI6InlhMjkuQTBBVkE5eTFzeHBuc1pMZHA2RUxUSlZiMnZkWUpUUzZIZnRTa1FhcXM3RlZGZHpYRG1nbnJqdFhnVEJwUFdybUZDVGgzd0NjWm5EcnJCbUQ1cVlpdGlrcFg0QWMzbWRLU1p1ZUxLY0FtS0R2bi14dnFaZl95bm52QzBaYXF6NG9WZklpU2lqVldZMEFPSHdxeXY1T0FXc3lwM3RwY1ZhQ2dZS0FUQVNBVEFTRlFFNjVkcjhHVERTLWhLN3V2N0h1NE9sd3JUWVVRMDE2MyIsImFjY2Vzc1Rva2VuRXhwaXJlcyI6MzMyMTg0NzM1NDA0NCwicmVmcmVzaFRva2VuIjoiMS8vMDNqb09Xc0ZXMkdMTUNnWUlBUkFBR0FNU053Ri1MOUlydXZwWjBTYjllU3Z5b1dBQUNrZUxBNFhYSW55TG5LbFAtMnNIYjN0TW9CM3pITnYtQ01TN25xd0g2U2xtT0x2QjJtbyIsInVzZXIiOnsiZW1haWwiOiJzZWJwYWxsdWVsQGdtYWlsLmNvbSIsImVtYWlsVmVyaWZpZWQiOm51bGwsImlkIjoiMjBjMGJjOTFlMTI1NDQ0NWQ0NTlmYzZhYzk3MjA2ZjZiYjkyMjNlNzFjNzY0YzQ5YTc3OGY4Yjg0ZDNmYzU3ZiIsImltYWdlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FGZFp1Y3B1VmlQeFYxQWhpSG1tMUNhbG1CeUduSEFKZW1SSDZNb0NhZVBNRWYwPXM5Ni1jIiwibmFtZSI6IlPDqWJhc3RpZW4gUGFsbHVlbCJ9LCJwcm92aWRlciI6Imdvb2dsZSIsInByb3ZpZGVyVHlwZSI6Im9hdXRoIiwicm9sZSI6InVzZXIiLCJpYXQiOjE2NjA5MjE4Nzh9.bQba06n_LYuMaVt2ZMyPx1CtoDQeozsuImZQD4V4elU',
+};
 ```
 
 **To proceed, simply copy the value of the cookie `next-auth.session-token` once you login and paste the value for each users**
@@ -346,7 +396,7 @@ The corresponding logins are:
 - beta_admin@test.io / Qwerty12345#
 - sebpalluel@gmail.com **(change it with your own google account globally in the workspace)**
 
-You can check the tests on <mark>auth.cy.ts</mark> for example usages of thoses utilities.
+You can check the tests on `auth.cy.ts` for example usages of thoses utilities.
 
 ## NX
 
@@ -521,7 +571,7 @@ For more informations to register your own client, [please check this documentat
 
 ### NX Cloud access tokens
 
-As refered in the [section about access token in the nx doc,](https://nx.dev/nx-cloud/account/access-tokens) you have different strategies to setup your access to [Nx Cloud](https://nx.app/). In order to beneficiate from local and remote cacheables operations, you can populate use this command to generate an access token allowing <mark>read-write</mark> access:
+As refered in the [section about access token in the nx doc,](https://nx.dev/nx-cloud/account/access-tokens) you have different strategies to setup your access to [Nx Cloud](https://nx.app/). In order to beneficiate from local and remote cacheables operations, you can use this command to generate an access token allowing <mark>read-write</mark> access:
 
 ```shell
 pnpx nx g @nrwl/nx-cloud:init
