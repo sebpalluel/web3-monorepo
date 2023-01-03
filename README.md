@@ -351,6 +351,8 @@ You can check the tests in `users.spec.ts` and `adapter.spec.ts` for examples of
 
 ### Cypress
 
+<p align="center"><img src="https://user-images.githubusercontent.com/11297176/196226285-40932c18-00e4-4bf4-b8cf-b2af9cda6d0e.png" width="40%"></p>
+
 Cypress is the test runner used for e2e and component tests. The tests for the web app are located in `apps/web-e2e`.
 
 Before running the tests, be sure that all the service containers are running with:
