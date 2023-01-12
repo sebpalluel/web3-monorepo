@@ -85,7 +85,7 @@ specifiers:
   '@types/cache-manager-redis-store': ^2.0.1
   '@types/cron': ^2.0.0
   '@types/jest': 28.1.1
-  '@types/jsonwebtoken': ^8.5.9
+  '@types/jsonwebtoken': ^9.0.0
   '@types/node': 18.7.18
   '@types/node-fetch': ^2.6.2
   '@types/pg': ^8.6.6
@@ -320,7 +320,7 @@ devDependencies:
   '@testing-library/user-event': 14.4.3_ua4wuun3fnehcjqtqj2e2ldgpe
   '@types/cron': 2.0.0
   '@types/jest': 28.1.1
-  '@types/jsonwebtoken': 8.5.9
+  '@types/jsonwebtoken': 9.0.0
   '@types/node': 18.7.18
   '@types/node-fetch': 2.6.2
   '@types/pg': 8.6.6
@@ -10281,6 +10281,12 @@ packages:
 
   /@types/jsonwebtoken/8.5.9:
     resolution: {integrity: sha512-272FMnFGzAVMGtu9tkr29hRL6bZj4Zs1KZNeHLnKqAvp06tAIcarTMwOh8/8bz4FmKRcMxZhZNeUAQsNLoiPhg==}
+    dependencies:
+      '@types/node': 18.7.18
+    dev: true
+
+  /@types/jsonwebtoken/9.0.0:
+    resolution: {integrity: sha512-mM4TkDpA9oixqg1Fv2vVpOFyIVLJjm5x4k0V+K/rEsizfjD7Tk7LKk3GTtbB7KCfP0FEHQtsZqFxYA0+sijNVg==}
     dependencies:
       '@types/node': 18.7.18
     dev: true
