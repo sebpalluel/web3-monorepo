@@ -88,7 +88,7 @@
     "cache-manager-redis-store": "^3.0.1",
     "chalk": "4.1.0",
     "class-transformer": "^0.5.1",
-    "class-validator": "^0.13.2",
+    "class-validator": "^0.14.0",
     "coingecko-api-v3": "0.0.13",
     "core-js": "^3.27.0",
     "crypto-js": "^4.1.1",
