@@ -73,7 +73,7 @@ const { connectors } = getDefaultWallets({
 });
 
 const wagmiClient = createClient({
-  autoConnect: true,
+  autoConnect: true, // TODO change depending of browser support (for ex: safari)
   connectors,
   // connectors: [new InjectedConnector({ chains })],
   provider,

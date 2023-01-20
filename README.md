@@ -19,7 +19,7 @@
 
 4. Then you can run the project `pnpm start`
 
-5. Make sure to apply the migrations to the prisma db and client once the container is running `pnpm prisma:migrate`
+5. Make sure to apply the migrations to the prisma db and client once the container is running `pnpm prisma-db:dev:start`
 
 ## Project structure
 
