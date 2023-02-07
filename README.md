@@ -51,11 +51,6 @@ This is the toolkit server stack to access all the [DID](https://www.w3.org/TR/d
 
 You can [check the doc here](https://docs.walt.id/v/idpkit/idpkit/readme) for more information regarding the API.
 
-- [**Keycloak IAM server**](http://localhost:8100/auth/)
-
-[Keycloak Identity and Access Management server](https://www.keycloak.org) is used as a provider for Next Auth. The IDP Kit from walt.id is used through the OpenID Connect protocol.
-The login to access the [**administration console**](http://localhost:8100/auth/admin/master/console/#/master) is `admin@web3-monorepo.com / password`
-
 ### Apps and Libs
 
 - `apps/web`: a [Next.js](https://nextjs.org) app
@@ -66,7 +61,6 @@ The login to access the [**administration console**](http://localhost:8100/auth/
 - `prisma`: Prisma database schema and migrations
 - `tools`: Set of tools to to be used for DX (Developer Experience) and testing purposes.
 - `waltid-idpkit`: Contain the config files, the encryption keys for the DID server and the registered OIDC client.
-- `keycloak`: Contain all the realm settings loaded by the keycloak container
 - `libs/logger`: Isomorphic logger (a small wrapper around console.log)
 - `libs/utils`: Common utils functions and types for the whole project
 - `libs/workspace`: Contain all the generators and tooling dedicated to maintaining the NX workspace.
@@ -246,43 +240,6 @@ The idpkit is configured to use the [Demo Issuer Portal](https://issuer.walt.id/
 This implementation of the IDP kit is by no mean production ready and is only here to show you how to use it. You will need to implement your own issuer portal and configure the IDP kit to use it.
 
 An other use case of the IDP kit is to use it with the [NFT Kit](https://docs.walt.id/v/idpkit/concepts/identity-provision-via-nfts) in order to sign in with an NFT. You can find the implementation of this use case in the tutorial [Login with NFTs | Next.js](https://docs.walt.id/v/idpkit/tutorials/login-with-nfts-or-next.js)
-
-### Keycloak
-
-<p align="center"><img src="https://user-images.githubusercontent.com/11297176/196224605-402a6adc-c25e-4ca9-a88c-42b3269e7273.png" width="20%"></p>
-
-We use Keycloak as the main provider to authenticate with credentials or federated sign in with google. The IDP kit server is linked through with OpenID Connect protocol. Keycloak is then used as a provider by Next Auth to handle all the authentication process on the web application.
-
-**For any operation you do regarding the settings of keycloak, don't forget to export, rename the file to `master-realm.json` and replace the existing file in the `keycloak` folder.** Otherwise your settings will not be persisted if you reset your containers or on the CI env.
-**Also, for each exports, your secret will be erased from the config file**
-`"secret": "**********"`, `"clientSecret": "**********"`.
-You will have to set the secrets with the one you saved but make sure to not do that on production environment.
-
-For convenience purpose everything is set correctly on `master-realm.json` in order to use Keycloak directly with your app.
-
-You will need to follow this steps to provide Keycloak with your own environment.
-
-1. Create a new Client with confidential Access Type
-
-- Go to the [Clients section](http://localhost:8100/auth/admin/master/console/#/master/clients) and add a new client.
-- Choose a client id, for instance `myApp`.
-- Select the Client Authentication option on the next page
-- On the settings page, set the Home URL, Valid redirect URIs, Web origins according to your app URL. In our case that would be `http://localhost:3000/*`
-- Click on the Credentials tab to reveal and copy the client secret.
-
-You now have the id and secret of the client to populate in `KEYCLOAK_ID` and `KEYCLOAK_SECRET`
-
-2. Add IDPKit to Keycloak as a OpenID Connect provider
-
-Check [this tutorial](https://docs.walt.id/v/idpkit/concepts/iam-keycloak-integration) for more information of how to register your own instance of IDP kit on the realm.
-To register your client as described in the tutorial you can use the following command:
-
-```shell
-curl --location --request GET 'http://localhost:3333/api/balances/eth/0xb21090C8f6bAC1ba614A3F529aAe728eA92B6487'
-```
-
-Be sure to copy the id and secret from the output in order to register it on keycloak.
-As you are running both keycloak and idpkit from docker, the resulting address in `Discovery endpoint` should be `http://idpkit:9080/api/oidc/.well-known/openid-configuration`
 
 ### GraphQL code generator
 

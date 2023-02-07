@@ -145,73 +145,6 @@ services:
     extra_hosts:
       - 'host.docker.internal:host-gateway'
 
-  keycloak-db:
-    container_name: keycloak-db
-    image: postgres:13
-    command: postgres -p $KEYCLOAK_DB_PORT
-    volumes:
-      - keycloak_db_data:/var/lib/postgresql/data
-    ports:
-      - '$KEYCLOAK_DB_PORT:$KEYCLOAK_DB_PORT'
-    networks:
-      - db
-    restart: unless-stopped
-    env_file:
-      - .env.local
-    healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -p $KEYCLOAK_DB_PORT -U postgres']
-      interval: 2s
-      timeout: 2s
-      retries: 10
-    extra_hosts:
-      - 'host.docker.internal:host-gateway'
-
-  # https://github.com/eabykov/keycloak-compose
-  keycloak:
-    container_name: keycloak
-    image: quay.io/keycloak/keycloak:${KEYCLOAK_VERSION}
-    env_file:
-      - .env.local
-    environment:
-      KC_FEATURES: authorization
-        token-exchange
-        docker
-        impersonation
-        scripts
-        upload-scripts
-        web-authn
-        client-policies
-        dynamic-scopes
-    volumes:
-      - ./keycloak/master-realm.json:/opt/keycloak/data/import/master-realm.json:ro
-    ports:
-      - ${KEYCLOAK_PORT}:${KEYCLOAK_PORT}
-      - '8443:8443'
-    depends_on:
-      keycloak-db:
-        condition: service_healthy
-    healthcheck:
-      test: ['CMD', 'curl', '--fail', 'http://localhost:8100/auth/health/ready']
-    networks:
-      - web
-      - db
-    restart: unless-stopped
-    # Force the import of master realm at startup to keep same config accross different env
-    # https://keepgrowing.in/tools/keycloak-in-docker-2-how-to-import-a-keycloak-realm/
-    command:
-      [
-        '-Djboss.socket.binding.port-offset=100',
-        '-Dkeycloak.migration.action=import',
-        '-Dkeycloak.migration.provider=singleFile',
-        '-Dkeycloak.migration.realmName=master',
-        '-Dkeycloak.migration.file=/opt/keycloak/data/import/master-realm.json',
-        'start-dev',
-        '--http-port=${KEYCLOAK_PORT}',
-      ]
-    # tty: true
-    extra_hosts:
-      - 'host.docker.internal:host-gateway'
-
   redis: # Name of container
     image: redis
     env_file:
@@ -240,7 +173,6 @@ services:
 volumes:
   db_data:
   prisma_db_data:
-  keycloak_db_data:
   redis:
     driver: local
 

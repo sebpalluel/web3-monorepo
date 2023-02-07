@@ -4,7 +4,6 @@ import type { JWT, JWTOptions } from 'next-auth/jwt';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import KeycloakProvider from 'next-auth/providers/keycloak';
 import { isAddress } from 'ethers/lib/utils';
 
 import { adapter } from '@client/hasura/adapter';
@@ -168,16 +167,6 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET)
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
       authorization: GOOGLE_AUTHORIZATION_URL,
-    })
-  );
-
-if (process.env.KEYCLOAK_ID && process.env.KEYCLOAK_SECRET)
-  // available options https://github.com/nextauthjs/next-auth/blob/main/packages/next-auth/src/providers/keycloak.ts
-  providers.push(
-    KeycloakProvider({
-      clientId: process.env.KEYCLOAK_ID,
-      clientSecret: process.env.KEYCLOAK_SECRET,
-      issuer: process.env.KEYCLOAK_ISSUER,
     })
   );
 
