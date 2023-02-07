@@ -45,12 +45,6 @@ The prisma studio is used to offer an admin interface to the database used by th
 
 This is the mail-catcher where all the mail are going in dev environment.
 
-- [**Walt.id IDP KIT**](http://localhost:9080/api/swagger)
-
-This is the toolkit server stack to access all the [DID](https://www.w3.org/TR/did-core/) functionalities from walt.id: SSI, Wallet and NFT.
-
-You can [check the doc here](https://docs.walt.id/v/idpkit/idpkit/readme) for more information regarding the API.
-
 ### Apps and Libs
 
 - `apps/web`: a [Next.js](https://nextjs.org) app
@@ -60,7 +54,6 @@ You can [check the doc here](https://docs.walt.id/v/idpkit/idpkit/readme) for mo
 - `hasura`: contain the config / metadata / migrations / seeds for the [Hasura](https://hasura.io/) service
 - `prisma`: Prisma database schema and migrations
 - `tools`: Set of tools to to be used for DX (Developer Experience) and testing purposes.
-- `waltid-idpkit`: Contain the config files, the encryption keys for the DID server and the registered OIDC client.
 - `libs/logger`: Isomorphic logger (a small wrapper around console.log)
 - `libs/utils`: Common utils functions and types for the whole project
 - `libs/workspace`: Contain all the generators and tooling dedicated to maintaining the NX workspace.
@@ -70,7 +63,6 @@ You can [check the doc here](https://docs.walt.id/v/idpkit/idpkit/readme) for mo
 - `libs/client/hasura/adapter`: Next-auth adapter for the Hasura service.
 - `libs/client/hasura/fetcher`: Fetcher functions to query the Hasura service.
 - `libs/client/hasura/utils`: Utilities to interact with Hasura.
-- `libs/client/did/provider`: Next-auth OpenID Client provider for the walt.id idpkit
 - `libs/client/siwe/provider`: Next-auth OpenID Client provider for the rainwbow kit.
 - `libs/client/next-auth/options`: Contain all the configs for [Next-Auth](https://next-auth.js.org/)
 - `libs/client/next-auth/common`: Common functions used in the context of Next-Auth
@@ -191,9 +183,6 @@ This project use [Next-Auth](https://next-auth.js.org) to offer different way of
 The user can sign in with a web3 wallet (Metamask, WalletConnect, etc) and the SIWE adapter will handle the request with Hasura.
 
 You can offer login with OAuth2 providers from Google and Github by providing the corresponding env variables for users that want to connect with a web2 provider. As a fallback, it's also possible to connect with an email and password.
-
-Additionally, this project offer a way to authenticate through a [DID](https://www.w3.org/TR/did-core/) thanks to the [Walt.id IDP Kit](https://walt.id/idp-kit).
-
 You can find the different providers used by next-auth in `libs/client/next-auth/options`
 
 Hasura is used as an adapter to next-auth in order to persist in a database the user's provided information such as their `id`. The adapter is located in `libs/client/hasura/adapter`.
@@ -204,42 +193,6 @@ Hasura is used as an adapter to next-auth in order to persist in a database the 
 
 This project use [Rainbowkit](https://www.rainbowkit.com/) to offer a set of components and hooks to easily build a web3 application.
 Following the specs of SIWE (Sign In With Ethereum), it offers a way to authenticate in next-auth through the signature of a message with a given wallet.
-
-### Waltid-idpkit
-
-<p align="center"><img src="https://user-images.githubusercontent.com/11297176/196224973-525515ff-73f4-4d9d-925d-ba3090ee8974.png" width="10%"></p>
-
-**This project use the IDP kit in order to offer web3 sign in with your DID.**
-
-<br/>
-
-<details>
-<summary> <b>In order to test it, you will need to follow this steps:</b> </summary>
-
-1. Access the [sign in page](http://localhost:3000/auth/signin) and click on the `Walt.id IDPKit` button
-2. Login a new account on the walt.id web wallet by entering any credentials or by connecting your wallet
-3. You will be presented with a page to ask you to get the needed crendentials to be able to connect to the service. Click on the 'Fetch credential from issuer' button.
-   <img width="100%" alt="Screenshot 2022-10-12 at 16 16 28" src="https://user-images.githubusercontent.com/11297176/195373255-f99bdf2b-58cc-4456-821e-4d19903bab13.png">
-4. Put any credentials to go through the fake login page of the 'Demo Issuer Portal'
-   <img width="100%" alt="Screenshot 20221004 at 19 00 19" src="https://user-images.githubusercontent.com/11297176/195373255-f99bdf2b-58cc-4456-821e-4d19903bab13.png">
-5. Confirm the claim of the Verifiable ID document.
-   <img width="100%" alt="Screenshot 2022-10-12 at 16 16 49" src="https://user-images.githubusercontent.com/11297176/195373642-450081d1-1c77-4123-84e6-d118ec023ef1.png">
-6. Accept the 'Received Credentials'
-   <img width="100%" alt="Screenshot 2022-10-04 at 19 01 53" src="https://user-images.githubusercontent.com/11297176/193881578-29980b8f-6718-4ebc-8697-bd437a7e2d13.png">
-7. Accept the 'Connection request' of 'Verifiable ID document'
-   <img width="100%" alt="Screenshot 2022-10-12 at 16 17 45" src="https://user-images.githubusercontent.com/11297176/195374612-026bc3ce-d9fd-4cf3-9bf4-e52d792989fc.png">
-8. The user is logged in effectively and created on the DB through Hasura (Next Auth do it automatically for a new account)
-   <img width="100%" alt="Screenshot 2022-10-12 at 16 35 23" src="https://user-images.githubusercontent.com/11297176/195374649-7b13bab2-bdb1-4a74-aec5-ff6a14061682.png">
-
-</details>
-
-<br/>
-
-The idpkit is configured to use the [Demo Issuer Portal](https://issuer.walt.id/login) in order to get the credentials. This is a fake portal that will give you the credentials you need to go through the process.
-
-This implementation of the IDP kit is by no mean production ready and is only here to show you how to use it. You will need to implement your own issuer portal and configure the IDP kit to use it.
-
-An other use case of the IDP kit is to use it with the [NFT Kit](https://docs.walt.id/v/idpkit/concepts/identity-provision-via-nfts) in order to sign in with an NFT. You can find the implementation of this use case in the tutorial [Login with NFTs | Next.js](https://docs.walt.id/v/idpkit/tutorials/login-with-nfts-or-next.js)
 
 ### GraphQL code generator
 
@@ -513,31 +466,6 @@ Once you have retrieved your <mark>client id</mark> and <mark>client secret</mar
 
 In order to secure your JWT authentication provided by [Next Auth](https://next-auth.js.org/) you are going to need to generate your own RSA-256 keys.
 
-<mark>Important !</mark> For testing purpose, public and private keys are provided on this folder `waltid-idpkit/data/OIDC/keystore/keys/c047f4e42cf54b66ad154d8ce51e03ef`. You are going to need to generate your own. For that, please refer to the section [Configure Hasura and Next Auth with same RSA key](#configure-hasura-and-next-auth-with-same-rsa-key). The keys provided to the idpkit container will need to be the same in order for the authentication process to work.
-
-### Configure the OIDC client on the IDPKIT server
-
-1. Register a client with the IDP Kits CLI or the API exposed:
-
-```shell
-make idpkit-register-client -n "MyApp" --all-redirect-uris
-```
-
-2. Update the `IDPKIT_CLIENT_ID` and `IDPKIT_CLIENT_SECRET` environment variables based on the response received from the client
-   registration
-
-For more informations to register your own client, [please check this documentation]([Client registration - Docs](https://docs.walt.id/v/idpkit/configuration-and-setup/oidc-manager-configuration/client-registration#register-new-client)).
-
-### NX Cloud access tokens
-
-As refered in the [section about access token in the nx doc,](https://nx.dev/nx-cloud/account/access-tokens) you have different strategies to setup your access to [Nx Cloud](https://nx.app/). In order to beneficiate from local and remote cacheables operations, you can use this command to generate an access token allowing <mark>read-write</mark> access:
-
-```shell
-pnpx nx g @nrwl/nx-cloud:init
-```
-
-After that, you are going to need to [setup your workspace on the nx cloud](https://cloud.nx.app/orgs/workspace-setup) after registering an account.
-
 ### Configure Hasura and Next Auth with same RSA key
 
 You need to configure hasura and next auth to have the same asymmetric key. One is provided by default but you can generate your own RSA 256 key using those commands:
@@ -571,6 +499,16 @@ awk -v ORS='\\n' '1' jwtRS256.key | pbcopy
 ```
 
 Don't forget to add double quotes "" arround so that `\n` are interpreted correctly
+
+### NX Cloud access tokens
+
+As refered in the [section about access token in the nx doc,](https://nx.dev/nx-cloud/account/access-tokens) you have different strategies to setup your access to [Nx Cloud](https://nx.app/). In order to beneficiate from local and remote cacheables operations, you can use this command to generate an access token allowing <mark>read-write</mark> access:
+
+```shell
+pnpx nx g @nrwl/nx-cloud:init
+```
+
+After that, you are going to need to [setup your workspace on the nx cloud](https://cloud.nx.app/orgs/workspace-setup) after registering an account.
 
 ## Troubleshoot
 

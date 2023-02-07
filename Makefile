@@ -32,12 +32,3 @@ db-clean:
 
 restart-hasura:
 	@docker-compose -f docker-compose.yaml --env-file .env.local restart hasura-engine
-
-idpkit:
-	@docker-compose -f docker-compose.yaml --env-file .env.local exec idpkit ./bin/waltid-idpkit
-
-idpkit-register-client:
-	@docker-compose -f docker-compose.yaml --env-file .env.local exec idpkit ./bin/waltid-idpkit config --oidc clients register
-
-idpkit-siop-config:
-	docker-compose -f docker-compose.yaml --env-file .env.local exec idpkit ./bin/waltid-idpkit config --siop

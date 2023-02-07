@@ -7,7 +7,6 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { isAddress } from 'ethers/lib/utils';
 
 import { adapter } from '@client/hasura/adapter';
-import { DidProvider } from '@client/did/provider';
 import { SiweProvider } from '@client/siwe/provider';
 import { Roles } from '@client/hasura/utils';
 import { fetchJSON, isProd } from '@utils';
@@ -143,16 +142,6 @@ export const providers: Array<Provider> = [
     },
   }),
 ];
-
-if (process.env.IDPKIT_CLIENT_ID && process.env.IDPKIT_CLIENT_SECRET) {
-  providers.push(
-    DidProvider({
-      didProviderURL: process.env.IDPKIT_PROVIDER_URL as string,
-      clientId: process.env.IDPKIT_CLIENT_ID as string,
-      clientSecret: process.env.IDPKIT_CLIENT_SECRET as string,
-    })
-  );
-}
 
 if (process.env.GITHUB_ID && process.env.GITHUB_SECRET)
   providers.push(
