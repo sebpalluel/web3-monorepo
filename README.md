@@ -190,9 +190,7 @@ This project use [Next-Auth](https://next-auth.js.org) to offer different way of
 
 The user can sign in with a web3 wallet (Metamask, WalletConnect, etc) and the SIWE adapter will handle the request with Hasura.
 
-You can offer login with OAuth2 providers from Google and Github by providing the corresponding env variables for users that want to connect with a web2 provider. As a fallback, it's also possible to connect with an email and password.
-
-Additionally, this project offer a way to authenticate through a [DID](https://www.w3.org/TR/did-core/) thanks to the [Walt.id IDP Kit](https://walt.id/idp-kit).
+This project offer a way to authenticate through a [DID](https://www.w3.org/TR/did-core/) thanks to the [Walt.id IDP Kit](https://walt.id/idp-kit).
 
 You can find the different providers used by next-auth in `libs/client/next-auth/options`
 
@@ -496,18 +494,6 @@ In order to do that, you need to:
 ## Configure the project with your own `.env` (optional)
 
 **The following variables are optional, they are already set for you in the `.env.local` but you need to set them in your private `.env` if you want to use any of the related feature with you own project:**
-
-### Google OAuth provider
-
-Follow [this tutorial from google](https://support.google.com/cloud/answer/6158849?hl=en) to setup your own OAuth provider
-
-Once you have retrieved your <mark>client id</mark> and <mark>client secret</mark> assign them in `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` located in the file `.env.local`
-
-### Github OAuth provider
-
-Follow [this tutorial from github](https://docs.github.com/en/developers/apps/building-oauth-apps/creating-an-oauth-app) to setup your own OAuth provider.
-
-Once you have retrieved your <mark>client id</mark> and <mark>client secret</mark> assign them in `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` located in the file `.env.local`
 
 ### JWT secret keys
 

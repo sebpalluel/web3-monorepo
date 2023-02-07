@@ -19,58 +19,8 @@ import { getNextAuthURL } from '@client/next-auth/common';
 // https://next-auth.js.org/configuration/options
 
 const refreshAccessToken = async (token: JWT) => {
-  try {
-    logger.debug('refreshing access token', { token });
-    if (token.type === 'credentials-password') {
-      return token;
-      // const url = `${getNextAuthURL()}/api/user/refresh-access-token`
-      // const res = await fetch(url, {
-      //     method: 'POST',
-      //     credentials: 'include',
-      //     headers: { 'x-refetch-token': String(token.refreshToken) }
-      // })
-
-      // const data = await res.json()
-      // if (!res.ok) throw data
-
-      // return {
-      //     ...token,
-      //     accessToken: data.accessToken?.token,
-      //     refreshToken: data.refreshToken?.token ?? token.refreshToken,
-      //     exp: (data.accessToken?.expirationDate || 0) / 1000
-      // }
-    } else {
-      if (token.provider === 'google') {
-        const url =
-          'https://oauth2.googleapis.com/token?' +
-          new URLSearchParams({
-            client_id: process.env.GOOGLE_CLIENT_ID as string,
-            client_secret: process.env.GOOGLE_CLIENT_SECRET as string,
-            grant_type: 'refresh_token',
-            refresh_token: token.refreshToken as string,
-          });
-        const response = await fetch(url, {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          method: 'POST',
-        });
-        const refreshedTokens = await response.json();
-        if (!response.ok) {
-          throw refreshedTokens;
-        }
-        return {
-          ...token,
-          accessToken: refreshedTokens.access_token,
-          accessTokenExpires: Date.now() + refreshedTokens.expires_in * 1000,
-          refreshToken: refreshedTokens.refresh_token ?? token.refreshToken, // Fall back to old refresh token
-        };
-      }
-      return token;
-    }
-  } catch (error) {
-    return { ...token, error: 'RefreshAccessTokenError' };
-  }
+  logger.debug('refreshing access token', { token });
+  return token;
 };
 
 export const jwtOptions: JWTOptions = {
@@ -91,58 +41,7 @@ export const jwtOptions: JWTOptions = {
   },
 };
 
-const GOOGLE_AUTHORIZATION_URL =
-  'https://accounts.google.com/o/oauth2/v2/auth?' +
-  new URLSearchParams({
-    prompt: 'consent',
-    access_type: 'offline',
-    response_type: 'code',
-  });
-
-export const providers: Array<Provider> = [
-  SiweProvider(),
-  CredentialsProvider({
-    id: 'credentials-password',
-    name: 'credentials',
-    // The credentials is used to generate a suitable form on the sign in page.
-    // You can specify whatever fields you are expecting to be submitted.
-    // e.g. domain, username, password, 2FA token, etc.
-    // You can pass any HTML attribute to the <input> tag through the object.
-    credentials: {
-      username: {
-        label: 'Username',
-        type: 'text',
-        placeholder: 'myemail@domain.com',
-      },
-      password: { label: 'Password', type: 'password' },
-    },
-    authorize: async (credentials) => {
-      try {
-        const user = await fetchJSON(`${getNextAuthURL()}/api/user/check-credentials`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            accept: 'application/json',
-          },
-          body: Object.entries({
-            username: credentials?.username,
-            password: credentials?.password,
-          })
-            .map((e) => e.join('='))
-            .join('&'),
-        });
-        if (user) {
-          return user;
-        } else {
-          return null;
-        }
-      } catch (e) {
-        // logger.error(e);
-        return null;
-      }
-    },
-  }),
-];
+export const providers: Array<Provider> = [SiweProvider()];
 
 if (process.env.IDPKIT_CLIENT_ID && process.env.IDPKIT_CLIENT_SECRET) {
   providers.push(
@@ -153,22 +52,6 @@ if (process.env.IDPKIT_CLIENT_ID && process.env.IDPKIT_CLIENT_SECRET) {
     })
   );
 }
-
-if (process.env.GITHUB_ID && process.env.GITHUB_SECRET)
-  providers.push(
-    GithubProvider({
-      clientId: process.env.GITHUB_ID as string,
-      clientSecret: process.env.GITHUB_SECRET as string,
-    })
-  );
-if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET)
-  providers.push(
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-      authorization: GOOGLE_AUTHORIZATION_URL,
-    })
-  );
 
 // Authorize cookie for hasura app https://github.com/nextauthjs/next-auth/issues/405#issuecomment-737593528
 const useSecureCookies = getNextAuthURL().startsWith('https://');
@@ -194,8 +77,7 @@ export const authOptions: NextAuthOptions = {
     strategy: 'jwt',
     maxAge: parseInt(process.env.TOKEN_LIFE_TIME as string) || 30 * 24 * 60 * 60, // 30 days
   },
-  // debug: !isProd(),
-  debug: true,
+  debug: !isProd(),
   providers,
   adapter: adapter(),
   pages: {
