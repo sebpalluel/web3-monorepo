@@ -87,18 +87,6 @@ export function ProvidersBtns({ providers, router, onToggleCollapse }) {
           Walt.id IDPKit
         </Button>
       ) : null}
-      {providers.includes('keycloak') ? (
-        <Button
-          w="full"
-          onClick={() =>
-            signIn('keycloak', {
-              callbackUrl: router.query.callbackUrl?.toString() || '',
-            })
-          }
-        >
-          Keycloak
-        </Button>
-      ) : null}
       {providers.includes('credentials-password') ? (
         <Button w="full" leftIcon={<BiLockAlt />} onClick={onToggleCollapse}>
           User & password
