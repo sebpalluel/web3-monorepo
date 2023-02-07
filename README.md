@@ -172,6 +172,13 @@ This repo has some additional tools already setup for you:
 - [Graphql Code Generator](https://www.the-guild.dev/graphql/codegen/) a generator for the graphql schemas and a client builders with provided queries.
 - [The Graph: Graph Client](https://github.com/graphprotocol/graph-client) a library to easily query the data from smart contract on supported blockchain such as Ethereum.
 
+## Flavors
+
+Looking for a specific feature ? We have a few flavors 🍦 to choose from:
+
+- [with_waltid_idpkit](/sebpalluel/web3-monorepo/tree/with_waltid_idpkit): a flavor that uses the [WaltID IDPKit](https://walt.id/idp-kit) to provide sign-in in with a DID.
+- [with_web2_signin](/sebpalluel/web3-monorepo/tree/with_web2_signin): a flavor that uses the common Web2 sign-in methods such as OAuth or Email/Password.
+
 ## Libraries
 
 ### Next Auth
