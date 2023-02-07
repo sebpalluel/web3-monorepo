@@ -9,15 +9,6 @@ array_relationships:
         table:
           name: accounts
           schema: public
-  - name: passwords
-    using:
-      manual_configuration:
-        column_mapping:
-          id: userId
-        insertion_order: null
-        remote_table:
-          name: passwords
-          schema: public
   - name: sessions
     using:
       foreign_key_constraint_on:
@@ -55,7 +46,6 @@ update_permissions:
 delete_permissions:
   - role: user
     permission:
-      backend_only: false
       filter:
         id:
           _eq: X-Hasura-User-Id
