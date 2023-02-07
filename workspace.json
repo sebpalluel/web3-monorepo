@@ -2,7 +2,6 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
-    "client-did-provider": "libs/client/did/provider",
     "client-gql-admin": "libs/client/gql/admin",
     "client-gql-thegraph": "libs/client/gql/thegraph",
     "client-gql-user": "libs/client/gql/user",

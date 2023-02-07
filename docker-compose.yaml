@@ -72,25 +72,7 @@ services:
     command: './start.sh'
     # tty: true
     restart: unless-stopped
-  idpkit:
-    container_name: idpkit
-    image: waltid/idpkit:latest # backend docker image
-    command:
-      - run
-    env_file:
-      - .env.local
-    networks:
-      - web
-    environment:
-      WALTID_WALLET_BACKEND_BIND_ADDRESS: 0.0.0.0
-      WALTID_WALLET_BACKEND_PORT: 9080
-    volumes:
-      - ./waltid-idpkit/config:/waltid-idpkit/data-root/config # import config files for idp, nft, verifier.
-      - ./waltid-idpkit/data/OIDC:/waltid-idpkit/data-root/data/OIDC # import pub/sec RSA-256 key for OIDC + registered OIDC client
-    ports:
-      - '9080:9080'
-    extra_hosts:
-      - 'host.docker.internal:host-gateway'
+
   mailhog:
     container_name: mailhog
     image: mailhog/mailhog

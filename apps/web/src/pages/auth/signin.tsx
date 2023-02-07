@@ -75,18 +75,6 @@ export function ProvidersBtns({ providers, router, onToggleCollapse }) {
           Github
         </Button>
       ) : null}
-      {providers.includes('did-provider') ? (
-        <Button
-          w="full"
-          onClick={() =>
-            signIn('did-provider', {
-              callbackUrl: router.query.callbackUrl?.toString() || '',
-            })
-          }
-        >
-          Walt.id IDPKit
-        </Button>
-      ) : null}
       {providers.includes('credentials-password') ? (
         <Button w="full" leftIcon={<BiLockAlt />} onClick={onToggleCollapse}>
           User & password

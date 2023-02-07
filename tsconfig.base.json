@@ -15,7 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@client/did/provider": ["libs/client/did/provider/src/index.ts"],
       "@client/gql/admin": ["libs/client/gql/admin/src/generated/index.ts"],
       "@client/gql/thegraph": ["libs/client/gql/thegraph/src/index.ts"],
       "@client/gql/user": ["libs/client/gql/user/src/generated/index.ts"],
