@@ -27,12 +27,14 @@ interface RainbowKitSiweNextAuthProviderProps {
   enabled?: boolean;
   getSiweMessageOptions?: GetSiweMessageOptions;
   children: ReactNode;
+  disconnectWeb3: () => void;
 }
 
 export function RainbowKitSiweNextAuthProvider({
   children,
   enabled,
   getSiweMessageOptions,
+  disconnectWeb3,
 }: RainbowKitSiweNextAuthProviderProps) {
   const { status } = useSession();
   const router = useRouter();
@@ -74,9 +76,11 @@ export function RainbowKitSiweNextAuthProvider({
 
         signOut: async () => {
           await signOut({ redirect: true, callbackUrl: '/' });
+          await disconnectWeb3();
         },
 
         verify: async ({ message, signature }) => {
+          logger.debug('verify', { message, signature });
           const response = await signIn('siwe', {
             message: JSON.stringify(message),
             // redirect: false,

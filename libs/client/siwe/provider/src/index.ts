@@ -1,5 +1,6 @@
 // https://docs.login.xyz/integrations/nextauth.js
 import { getNextAuthURL } from '@client/next-auth/common';
+import { logger } from '@logger';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { getCsrfToken } from 'next-auth/react';
 import { SiweMessage } from 'siwe';
@@ -7,7 +8,6 @@ import { SiweMessage } from 'siwe';
 export const SiweProvider = () =>
   CredentialsProvider({
     name: 'Ethereum',
-    id: 'siwe',
     credentials: {
       message: {
         label: 'Message',
@@ -22,6 +22,7 @@ export const SiweProvider = () =>
     },
     async authorize(credentials, req) {
       try {
+        console.log({ credentials, req });
         const siwe = new SiweMessage(JSON.parse(credentials?.message || '{}'));
         const nextAuthUrl = new URL(getNextAuthURL());
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -31,6 +32,7 @@ export const SiweProvider = () =>
           domain: nextAuthUrl.host,
           nonce,
         });
+        console.log({ result, siwe });
         if (result.success) {
           return {
             id: siwe.address,

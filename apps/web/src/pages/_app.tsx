@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
+import dynamic from 'next/dynamic';
 import { DefaultSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
 import { Analytics } from '@vercel/analytics/react';
@@ -15,14 +16,10 @@ import {
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import toast from 'react-hot-toast';
-import {
-  RainbowKitProvider,
-  getDefaultWallets,
-  lightTheme,
-  darkTheme,
-} from '@rainbow-me/rainbowkit';
+import { getDefaultWallets } from '@rainbow-me/rainbowkit';
 import {
   chain,
+  ChainDoesNotSupportMulticallError,
   ChainProviderFn,
   configureChains,
   createClient,
@@ -31,8 +28,6 @@ import {
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
 // import { RainbowKitSiweNextAuthProvider } from '@rainbow-me/rainbowkit-siwe-next-auth';
-import { RainbowKitSiweNextAuthProvider } from '../lib/components/RainbowKitSiweNextAuthProvider';
-import '@rainbow-me/rainbowkit/styles.css';
 // import { InjectedConnector } from 'wagmi/connectors/injected';
 // import { mainnet, polygon, arbitrum, goerli } from 'wagmi/chains';
 
@@ -61,9 +56,10 @@ if (process.env.NEXT_PUBLIC_ALCHEMY_ARBITRUM_MAINNET_TOKEN)
   );
 */
 
+const testnetChains = [chain.goerli, chain.polygonMumbai];
+
 const { chains, provider, webSocketProvider } = configureChains(
-  // , ...(isDev() ? [chain.goerli] : [])
-  [chain.mainnet, chain.polygon, chain.arbitrum],
+  [chain.mainnet, chain.polygon, ...testnetChains],
   web3_providers
 );
 
@@ -73,31 +69,12 @@ const { connectors } = getDefaultWallets({
 });
 
 const wagmiClient = createClient({
-  autoConnect: true, // TODO change depending of browser support (for ex: safari)
+  autoConnect: false, // TODO check if work properly with biconomy or unipass
   connectors,
   // connectors: [new InjectedConnector({ chains })],
   provider,
   webSocketProvider,
 });
-const rainbowKitProviderConfig = {
-  chains,
-  theme: {
-    lightMode: lightTheme({
-      accentColor: '#3B72F2',
-      accentColorForeground: 'white',
-      borderRadius: 'small',
-      fontStack: 'system',
-      overlayBlur: 'small',
-    }),
-    darkMode: darkTheme({
-      accentColor: '#3B92F2',
-      accentColorForeground: 'white',
-      borderRadius: 'small',
-      fontStack: 'system',
-      overlayBlur: 'small',
-    }),
-  },
-};
 
 const MyApp = ({
   Component,
@@ -121,33 +98,35 @@ const MyApp = ({
         }),
       })
   );
+  const Header = dynamic(() => import('../lib/layout/Header'), {
+    ssr: false,
+  });
   return (
-    <WagmiConfig client={wagmiClient}>
-      <SessionProvider session={pageProps.session}>
-        <RainbowKitSiweNextAuthProvider>
-          <RainbowKitProvider {...rainbowKitProviderConfig}>
-            <Chakra>
-              <Head>
-                <meta
-                  name="viewport"
-                  content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
-                />
-              </Head>
-              <DefaultSeo {...defaultSEOConfig} />
-              <Layout>
-                <QueryClientProvider client={queryClient}>
-                  <Hydrate state={pageProps.dehydratedState}>
-                    <Component {...pageProps} />
-                  </Hydrate>
-                  <ReactQueryDevtools initialIsOpen={false} />
-                  <Analytics />
-                </QueryClientProvider>
-              </Layout>
-            </Chakra>
-          </RainbowKitProvider>
-        </RainbowKitSiweNextAuthProvider>
-      </SessionProvider>
-    </WagmiConfig>
+    <Chakra>
+      <Head>
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
+        />
+      </Head>
+      <WagmiConfig client={wagmiClient}>
+        <SessionProvider session={pageProps.session}>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Header chains={chains} />
+          </Suspense>
+          <DefaultSeo {...defaultSEOConfig} />
+          <Layout>
+            <QueryClientProvider client={queryClient}>
+              <Hydrate state={pageProps.dehydratedState}>
+                <Component {...pageProps} />
+              </Hydrate>
+              <ReactQueryDevtools initialIsOpen={false} />
+              <Analytics />
+            </QueryClientProvider>
+          </Layout>
+        </SessionProvider>
+      </WagmiConfig>
+    </Chakra>
   );
 };
 

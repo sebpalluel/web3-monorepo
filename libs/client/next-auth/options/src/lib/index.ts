@@ -67,7 +67,7 @@ export const authOptions: NextAuthOptions = {
   providers,
   adapter: adapter(),
   pages: {
-    signIn: '/auth/signin',
+    signIn: undefined,
     // signOut: '/auth/signout',
     // error: '/auth/error', // Error code passed in query string as ?error=
     // verifyRequest: '/auth/verify-request', // (used for check email message)

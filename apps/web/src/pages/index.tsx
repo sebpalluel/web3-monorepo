@@ -17,6 +17,7 @@ export default function Home() {
 
   useEffect(() => {
     if (session?.error === 'RefreshAccessTokenError') {
+      // TODO: determine how this can work with SIWE.
       signIn(); // Force sign in to hopefully resolve error
     }
   }, [session]);
