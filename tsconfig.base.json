@@ -47,6 +47,7 @@
       "@workspace": ["libs/workspace/src/index.ts"]
     }
   },
+  "typeRoots": ["types", "node_modules/@types"],
   "include": [],
   "exclude": ["node_modules", "tmp"]
 }
