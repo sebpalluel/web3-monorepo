@@ -44,8 +44,8 @@ specifiers:
   '@nrwl/devkit': ^15.4.2
   '@nrwl/eslint-plugin-nx': ^15.4.2
   '@nrwl/jest': ^15.4.2
-  '@nrwl/js': ^15.4.2
-  '@nrwl/linter': ^15.6.1
+  '@nrwl/js': 15.6.1
+  '@nrwl/linter': ^15.4.2
   '@nrwl/nest': ^15.4.2
   '@nrwl/next': ^15.4.2
   '@nrwl/node': ^15.4.2
@@ -978,7 +978,7 @@ packages:
       '@babel/core': ^7.0.0-0
     dependencies:
       '@babel/core': 7.12.9
-      '@babel/helper-plugin-utils': 7.10.4
+      '@babel/helper-plugin-utils': 7.20.2
       '@babel/plugin-syntax-object-rest-spread': 7.8.3_@babel+core@7.12.9
       '@babel/plugin-transform-parameters': 7.20.7_@babel+core@7.12.9
     dev: true
@@ -19438,7 +19438,7 @@ packages:
       fs.realpath: 1.0.0
       inflight: 1.0.6
       inherits: 2.0.4
-      minimatch: 3.0.5
+      minimatch: 3.1.2
       once: 1.4.0
       path-is-absolute: 1.0.1
     dev: true
