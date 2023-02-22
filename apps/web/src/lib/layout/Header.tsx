@@ -37,7 +37,11 @@ export const HeaderRoutes = ({ session }) => {
     { name: 'Admin', href: '/admin' },
   ];
   if (session)
-    routes.push({ name: 'Me', href: '/me' }, { name: 'Wallet', href: '/wallet' });
+    routes.push(
+      { name: 'Me', href: '/me' },
+      { name: 'Biconomy', href: '/biconomy' },
+      { name: 'Wallet', href: '/wallet' }
+    );
   return routes.map((route) => (
     <li className={styles.navItem} key={route.name}>
       <Link href={route.href}>{route.name}</Link>

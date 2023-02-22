@@ -56,7 +56,7 @@ const Home = (req: any, res: any) => {
     window.biconomySocialLogin?.hideWallet();
     resetBiconomyStore();
     // signout from next auth
-    signOut({ callbackUrl: window.location.href, redirect: false });
+    signOut({ callbackUrl: '/', redirect: true });
   }, [resetBiconomyStore]);
 
   //
