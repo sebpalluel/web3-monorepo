@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { useState, Suspense } from 'react';
+import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { DefaultSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
@@ -16,7 +16,6 @@ import {
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import toast from 'react-hot-toast';
-import { getDefaultWallets } from '@rainbow-me/rainbowkit';
 import {
   chain,
   ChainDoesNotSupportMulticallError,
@@ -27,7 +26,6 @@ import {
 } from 'wagmi';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
-// import { RainbowKitSiweNextAuthProvider } from '@rainbow-me/rainbowkit-siwe-next-auth';
 // import { InjectedConnector } from 'wagmi/connectors/injected';
 // import { mainnet, polygon, arbitrum, goerli } from 'wagmi/chains';
 
@@ -37,7 +35,7 @@ import Layout from '../lib/layout';
 import '../lib/styles/globals.css';
 
 const web3_providers: ChainProviderFn[] = [publicProvider()];
-/* Get error here on production build, need to check if it's a bug in wagmi or nextjs (maybe try wagmi 0.9 with InjectedConnector when rainbowkit is updated)
+/* TODO Get error here on production build, need to check if it's a bug in wagmi or nextjs (maybe try wagmi 0.9 with InjectedConnector)
 if (process.env.NEXT_PUBLIC_ALCHEMY_ETHEREUM_MAINNET_TOKEN)
   web3_providers.push(
     alchemyProvider({
@@ -63,14 +61,8 @@ const { chains, provider, webSocketProvider } = configureChains(
   web3_providers
 );
 
-const { connectors } = getDefaultWallets({
-  appName: 'Web3 Monorepo',
-  chains,
-});
-
 const wagmiClient = createClient({
   autoConnect: false, // TODO check if work properly with biconomy or unipass
-  connectors,
   // connectors: [new InjectedConnector({ chains })],
   provider,
   webSocketProvider,
@@ -98,9 +90,6 @@ const MyApp = ({
         }),
       })
   );
-  const Header = dynamic(() => import('../lib/layout/Header'), {
-    ssr: false,
-  });
   return (
     <Chakra>
       <Head>
@@ -111,11 +100,8 @@ const MyApp = ({
       </Head>
       <WagmiConfig client={wagmiClient}>
         <SessionProvider session={pageProps.session}>
-          <Suspense fallback={<div>Loading...</div>}>
-            <Header chains={chains} />
-          </Suspense>
           <DefaultSeo {...defaultSEOConfig} />
-          <Layout>
+          <Layout chains={chains}>
             <QueryClientProvider client={queryClient}>
               <Hydrate state={pageProps.dehydratedState}>
                 <Component {...pageProps} />

@@ -68,6 +68,8 @@ export const authOptions: NextAuthOptions = {
   adapter: adapter(),
   pages: {
     signIn: undefined,
+    signOut: undefined,
+    newUser: undefined,
     // signOut: '/auth/signout',
     // error: '/auth/error', // Error code passed in query string as ?error=
     // verifyRequest: '/auth/verify-request', // (used for check email message)

@@ -193,12 +193,16 @@ You can find the different providers used by next-auth in `libs/client/next-auth
 
 Hasura is used as an adapter to next-auth in order to persist in a database the user's provided information such as their `id`. The adapter is located in `libs/client/hasura/adapter`.
 
+<!-- TODO replace with Biconomy + SIWE mention -->
+
 ### Rainbowkit
 
 <p align="center"><img src="https://user-images.githubusercontent.com/11297176/207391905-d88c264c-38ac-48fe-8ac9-2052b729fad8.png" width="10%"></p>
 
 This project use [Rainbowkit](https://www.rainbowkit.com/) to offer a set of components and hooks to easily build a web3 application.
 Following the specs of SIWE (Sign In With Ethereum), it offers a way to authenticate in next-auth through the signature of a message with a given wallet.
+
+<!--  -->
 
 ### GraphQL code generator
 
