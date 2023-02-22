@@ -1,12 +1,10 @@
 import { Box, Flex, Heading, useBreakpointValue, Button, Text } from '@chakra-ui/react';
-import { signOut, useSession, getCsrfToken } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import styles from './header.module.css';
 import '@biconomy/web3-auth/dist/src/style.css';
 
 import ThemeToggle from './ThemeToggle';
-
-import { useWeb3Connect } from '../hooks/useWeb3Connect';
 
 import { Chain } from 'wagmi';
 import dynamic from 'next/dynamic';
