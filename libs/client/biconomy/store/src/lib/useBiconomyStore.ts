@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import createSelectors from './selectors';
+import { createSelectors } from '@client/zustand';
 
 import { ethers } from 'ethers';
 import SmartAccount from '@biconomy/smart-account';
@@ -27,7 +27,7 @@ const initialState: BiconomyState = {
   smartAccountLoading: false,
 };
 
-const useBiconomyStore = create<BiconomyState & BiconomyActions>()(
+const store = create<BiconomyState & BiconomyActions>()(
   persist(
     (set, get) => ({
       ...initialState,
@@ -107,4 +107,4 @@ const useBiconomyStore = create<BiconomyState & BiconomyActions>()(
   )
 );
 
-export default createSelectors(useBiconomyStore);
+export const useBiconomyStore = createSelectors(store);

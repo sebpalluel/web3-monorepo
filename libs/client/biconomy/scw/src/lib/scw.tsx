@@ -6,10 +6,10 @@ import { Box, Flex, Heading, useBreakpointValue, Button, Text } from '@chakra-ui
 import { useSession, signIn, signOut, getCsrfToken } from 'next-auth/react';
 import { SiweMessage } from 'siwe';
 import { useNetwork } from 'wagmi';
-import useBiconomyStore from '../../store/useBiconomyStore';
-import styles from '../layout/header.module.css';
+import { useBiconomyStore } from '@client/biconomy/store';
+import styles from './scw.module.css';
 
-const Home = (req: any, res: any) => {
+const SCW = (req: any, res: any) => {
   const { chain } = useNetwork();
   const { data: session, status } = useSession();
 
@@ -133,7 +133,7 @@ const Home = (req: any, res: any) => {
   }
   return (
     <>
-      {session.user.image && (
+      {session?.user?.image && (
         <span
           style={{ backgroundImage: `url('${session.user.image}')` }}
           className={styles.avatar}
@@ -142,7 +142,9 @@ const Home = (req: any, res: any) => {
       <span className={styles.signedInText}>
         <small>Signed in as</small>
         <br />
-        <strong>{session.user.email || session.user.name || smartAccountAddress}</strong>
+        <strong>
+          {session?.user?.email || session?.user?.name || smartAccountAddress}
+        </strong>
       </span>
       <a className={styles.button} onClick={disconnectWeb3}>
         Sign out
@@ -151,4 +153,4 @@ const Home = (req: any, res: any) => {
   );
 };
 
-export default Home;
+export default SCW;

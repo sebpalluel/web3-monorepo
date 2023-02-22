@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import useBiconomyStore from '../../store/useBiconomyStore';
+import { useBiconomyStore } from '@client/biconomy/store';
 import { Box, Button, Text, useColorMode } from '@chakra-ui/react';
 
 const SignMessage = () => {

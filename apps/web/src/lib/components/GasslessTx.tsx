@@ -1,7 +1,7 @@
 // https://biconomy.gitbook.io/sdk/sdk-reference/sending-transactions/gasless-transactions/sending-erc-721-nft-tokens
 import { ethers } from 'ethers';
 import { useState } from 'react';
-import useBiconomyStore from '../../store/useBiconomyStore';
+import { useBiconomyStore } from '@client/biconomy/store';
 import { Box, Button, Text, useColorMode } from '@chakra-ui/react';
 import { LinkIcon } from '@chakra-ui/icons';
 

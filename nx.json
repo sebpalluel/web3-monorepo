@@ -1,21 +1,4 @@
 {
-  "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "web3-monorepo",
-  "affected": {
-    "defaultBase": "main"
-  },
-  "workspaceLayout": {
-    "appsDir": "apps",
-    "libsDir": "libs"
-  },
-  "implicitDependencies": {
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
-    ".eslintrc.json": "*"
-  },
-  "extends": "nx/presets/npm.json",
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/nx-cloud",
@@ -49,6 +32,28 @@
       }
     }
   },
+  "pluginsConfig": {
+    "@nrwl/js": {
+      "analyzeSourceFiles": true
+    }
+  },
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "npmScope": "web3-monorepo",
+  "affected": {
+    "defaultBase": "main"
+  },
+  "workspaceLayout": {
+    "appsDir": "apps",
+    "libsDir": "libs"
+  },
+  "implicitDependencies": {
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    ".eslintrc.json": "*"
+  },
+  "extends": "nx/presets/npm.json",
   "namedInputs": {
     "noMarkdown": ["!{projectRoot}/**/*.md"]
   },
@@ -74,6 +79,9 @@
     "@nrwl/react": {
       "application": {
         "babel": true
+      },
+      "library": {
+        "unitTestRunner": "jest"
       }
     },
     "@nrwl/next": {
@@ -95,10 +103,5 @@
     }
   },
   "defaultProject": "web",
-  "pluginsConfig": {
-    "@nrwl/js": {
-      "analyzeSourceFiles": true
-    }
-  },
   "defaultBase": "main"
 }
