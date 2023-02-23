@@ -55,7 +55,9 @@ export const authOptions: NextAuthOptions = {
         secure: useSecureCookies,
         // authorize cookie for subdomain, inc. hasura app (strip www. from hostName)
         domain:
-          hostName === 'localhost' ? hostName : '.' + hostName.replace(/^www\./, ''),
+          hostName === 'localhost' || !hostName
+            ? hostName
+            : '.' + hostName.replace(/^www\./, ''),
       },
     },
   },
