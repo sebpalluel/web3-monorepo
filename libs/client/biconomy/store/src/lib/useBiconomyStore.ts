@@ -33,7 +33,7 @@ const store = create<BiconomyState & BiconomyActions>()(
       ...initialState,
       setupBiconomy: async (chaindId) => {
         try {
-          // here would mean the user is already logged in to biconomy and smart account is already initialized
+          /// here would mean the user is already logged in to biconomy and smart account is already initialized
           if (window.biconomySmartAccount) return;
           set({ smartAccountLoading: true });
           if (!window.biconomySocialLogin)

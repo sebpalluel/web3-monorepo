@@ -7,7 +7,7 @@
     "strict": true
   },
   "files": [],
-  "include": [],
+  "include": ["../../../../apps/web/types/window.d.ts"],
   "references": [
     {
       "path": "./tsconfig.lib.json"
