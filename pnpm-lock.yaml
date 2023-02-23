@@ -179,7 +179,6 @@ specifiers:
   rxjs: ^7.8.0
   sharp: ^0.31.3
   siwe: ^2.1.3
-  source-map-loader: ^4.0.1
   start-server-and-test: ^1.15.4
   storybook-addon-next: ^1.7.2
   storybook-addon-swc: ^1.1.9
@@ -386,7 +385,6 @@ devDependencies:
   prettier: 2.8.4
   prettier-plugin-prisma: 4.10.0_prettier@2.8.4
   react-test-renderer: 18.2.0_react@18.2.0
-  source-map-loader: 4.0.1
   start-server-and-test: 1.15.4
   storybook-addon-next: 1.7.2_3vryta7zmbcsw4rrqf4axjqggm
   storybook-addon-swc: 1.1.9
@@ -28507,17 +28505,6 @@ packages:
       iconv-lite: 0.6.3
       source-map-js: 1.0.2
       webpack: 5.75.0_@swc+core@1.3.36
-    dev: true
-
-  /source-map-loader/4.0.1:
-    resolution: {integrity: sha512-oqXpzDIByKONVY8g1NUPOTQhe0UTU5bWUl32GSkqK2LjJj0HmwTMVKxcUip0RgAYhY1mqgOxjbQM48a0mmeNfA==}
-    engines: {node: '>= 14.15.0'}
-    peerDependencies:
-      webpack: ^5.72.1
-    dependencies:
-      abab: 2.0.6
-      iconv-lite: 0.6.3
-      source-map-js: 1.0.2
     dev: true
 
   /source-map-resolve/0.5.3:
