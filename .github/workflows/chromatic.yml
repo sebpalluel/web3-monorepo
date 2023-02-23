@@ -28,7 +28,7 @@ jobs:
           fetch-depth: 0
 
       - name: Install Libvips
-        run: sudo apt-get install -y libvips-tools=8.10.0-1build1 libvips=8.10.0-1build1 libvips-dev=8.10.0-1build1
+        run: sudo apt-get install -y libvips-dev
 
       - name: Install Node.js
         uses: actions/setup-node@v3
