@@ -48,6 +48,7 @@ export function isDev() {
   return process.env.NODE_ENV === 'development';
 }
 
+// This is used to detect if we are in a Vercel deployment (preview or production)
 export function isProd() {
-  return process.env.NODE_ENV === 'production';
+  return process.env.NODE_ENV === 'production' && !process.env.VERCEL_GITHUB_DEPLOYMENT;
 }

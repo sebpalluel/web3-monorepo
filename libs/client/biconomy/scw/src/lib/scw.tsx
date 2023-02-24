@@ -64,7 +64,6 @@ const SCW = (req: any, res: any) => {
   const handleBiconomy = useCallback(async () => {
     if (!window.biconomySocialLogin) {
       const appUrl = getNextAuthURL();
-      console.log('appUrl', appUrl);
       const signature1 = await sdk.whitelistUrl(appUrl);
       const whitelistUrls: { [P in string]: string } = { [appUrl]: signature1 };
       await sdk.init({
