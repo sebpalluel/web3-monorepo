@@ -60,21 +60,23 @@ const store = create<BiconomyState & BiconomyActions>()(
         const { account } = get();
         if (!provider || !account) throw new Error('Provider or account not set');
         if (!window.biconomySmartAccount) {
+          let networkConfig: any;
+          if (process.env.NEXT_APP_BICONOMY_API_KEY)
+            networkConfig = [
+              {
+                chainId,
+                //https://biconomy.gitbook.io/sdk/sdk-reference/sending-transactions/gasless-transactions
+                dappAPIKey: process.env.NEXT_APP_BICONOMY_API_KEY,
+                // check in the beginning of the page to play around with testnet common keys
+                // customPaymasterAPI: <IPaymaster Instance of your own Paymaster>
+              },
+            ];
+
           const smartAccountSdk = new SmartAccount(provider, {
             activeNetworkId: chainId,
             supportedNetworksIds: [chainId],
             // TODO provide this when on mainnet
-            networkConfig: [
-              {
-                chainId,
-                //https://biconomy.gitbook.io/sdk/sdk-reference/sending-transactions/gasless-transactions
-                dappAPIKey:
-                  process.env.NEXT_APP_BICONOMY_API_KEY ||
-                  'BDtxlmCXNAWQFGiiaiVY3Qb1aN-d7DQ82OhT6B-RBr5j_rGnrKAqbIkvLJlf-ofYlJRiNSHbnkeHlsh8j3ueuYY ',
-                // check in the beginning of the page to play around with testnet common keys
-                // customPaymasterAPI: <IPaymaster Instance of your own Paymaster>
-              },
-            ],
+            networkConfig,
           });
           window.biconomySmartAccount = smartAccountSdk;
           console.log({ smartAccountSdk });
