@@ -51,3 +51,16 @@ export function isDev() {
 export function isProd() {
   return process.env.NODE_ENV === 'production';
 }
+
+export function isPreviewDeployment(): boolean {
+  return !!process.env.VERCEL_GIT_COMMIT_SHA;
+}
+
+export function isPreviewOrPRDeployment(): boolean {
+  return (
+    !!process.env.VERCEL_GIT_COMMIT_SHA ||
+    !!process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA ||
+    process.env.VERCEL_GIT_COMMIT_REF?.startsWith('pull/') ||
+    process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF?.startsWith('pull/')
+  );
+}
