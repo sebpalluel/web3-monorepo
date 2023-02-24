@@ -62,25 +62,29 @@ const SCW = (req: any, res: any) => {
 
   //
   const handleBiconomy = useCallback(async () => {
-    if (!window.biconomySocialLogin) {
-      const appUrl = getNextAuthURL();
-      const signature1 = await sdk.whitelistUrl(appUrl);
-      const whitelistUrls: { [P in string]: string } = { [appUrl]: signature1 };
-      await sdk.init({
-        chainId: ethers.utils.hexValue(Mumbai),
-        whitelistUrls,
-        whteLableData: {
-          logo: 'https://user-images.githubusercontent.com/11297176/195363494-6cc53b41-958d-4493-88b3-2cbfc65a2594.png',
-          name: 'Web3 Monorepo',
-        },
-      });
-      // store the sdk on the window object
-      window.biconomySocialLogin = sdk;
-      console.log('initial setup of sdk', window.biconomySocialLogin);
-    }
-    if (!window.biconomySmartAccount && window.biconomySocialLogin.provider) {
-      await setupBiconomy(Mumbai as ChainId);
-      console.log('smartAccount', window.biconomySmartAccount);
+    try {
+      if (!window.biconomySocialLogin) {
+        const appUrl = getNextAuthURL();
+        const signature1 = await sdk.whitelistUrl(appUrl);
+        const whitelistUrls: { [P in string]: string } = { [appUrl]: signature1 };
+        await sdk.init({
+          chainId: ethers.utils.hexValue(Mumbai),
+          whitelistUrls,
+          whteLableData: {
+            logo: 'https://user-images.githubusercontent.com/11297176/195363494-6cc53b41-958d-4493-88b3-2cbfc65a2594.png',
+            name: 'Web3 Monorepo',
+          },
+        });
+        // store the sdk on the window object
+        window.biconomySocialLogin = sdk;
+        console.log('initial setup of sdk', window.biconomySocialLogin);
+      }
+      if (!window.biconomySmartAccount && window.biconomySocialLogin.provider) {
+        await setupBiconomy(Mumbai as ChainId);
+        console.log('smartAccount', window.biconomySmartAccount);
+      }
+    } catch (error) {
+      console.error(error);
     }
   }, [sdk, setupBiconomy]);
 
