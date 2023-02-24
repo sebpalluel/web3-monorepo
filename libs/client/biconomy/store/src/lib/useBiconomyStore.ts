@@ -64,15 +64,17 @@ const store = create<BiconomyState & BiconomyActions>()(
             activeNetworkId: chainId,
             supportedNetworksIds: [chainId],
             // TODO provide this when on mainnet
-            // networkConfig: [
-            //   {
-            //     chainId,
-            //     //https://biconomy.gitbook.io/sdk/sdk-reference/sending-transactions/gasless-transactions
-            //     dappAPIKey: process.env.NEXT_APP_MY_API_KEY,
-            //     // check in the beginning of the page to play around with testnet common keys
-            //     // customPaymasterAPI: <IPaymaster Instance of your own Paymaster>
-            //   },
-            // ],
+            networkConfig: [
+              {
+                chainId,
+                //https://biconomy.gitbook.io/sdk/sdk-reference/sending-transactions/gasless-transactions
+                dappAPIKey:
+                  process.env.NEXT_APP_BICONOMY_API_KEY ||
+                  'BDtxlmCXNAWQFGiiaiVY3Qb1aN-d7DQ82OhT6B-RBr5j_rGnrKAqbIkvLJlf-ofYlJRiNSHbnkeHlsh8j3ueuYY ',
+                // check in the beginning of the page to play around with testnet common keys
+                // customPaymasterAPI: <IPaymaster Instance of your own Paymaster>
+              },
+            ],
           });
           window.biconomySmartAccount = smartAccountSdk;
           console.log({ smartAccountSdk });
