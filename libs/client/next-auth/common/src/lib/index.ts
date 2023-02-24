@@ -1,10 +1,11 @@
-import { isProd } from '@utils';
+import { isProd, isServerSide } from '@utils';
 
 export function getNextAuthURL(): string {
+  const vercelURL = process.env.VERCEL_URL || `https://${NEXT_PUBLIC_VERCEL_URL}`;
   if (isProd()) {
-    if (process.env.VERCEL_GITHUB_DEPLOYMENT) return process.env.VERCEL_URL as string;
-    return process.env.NEXTAUTH_URL as string;
+    if (process.env.VERCEL_GITHUB_DEPLOYMENT) return vercelURL;
+    return isServerSide() ? (process.env.NEXTAUTH_URL as string) : vercelURL;
   } else {
-    return (process.env.VERCEL_URL as string) || 'http://localhost:3000';
+    return vercelURL || 'http://localhost:3000';
   }
 }
