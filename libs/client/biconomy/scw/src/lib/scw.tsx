@@ -7,6 +7,7 @@ import { useSession, signIn, signOut, getCsrfToken } from 'next-auth/react';
 import { SiweMessage } from 'siwe';
 import { useNetwork } from 'wagmi';
 import { useBiconomyStore } from '@client/biconomy/store';
+import { getNextAuthURL } from '@client/next-auth/common';
 import styles from './scw.module.css';
 
 const SCW = (req: any, res: any) => {
@@ -62,8 +63,16 @@ const SCW = (req: any, res: any) => {
   //
   const handleBiconomy = useCallback(async () => {
     if (!window.biconomySocialLogin) {
+      const appUrl = getNextAuthURL();
+      const signature1 = await sdk.whitelistUrl(appUrl);
+      const whitelistUrls: { [P in string]: string } = { [appUrl]: signature1 };
       await sdk.init({
         chainId: ethers.utils.hexValue(Mumbai),
+        whitelistUrls,
+        whteLableData: {
+          logo: 'https://user-images.githubusercontent.com/11297176/195363494-6cc53b41-958d-4493-88b3-2cbfc65a2594.png',
+          name: 'Web3 Monorepo',
+        },
       });
       // store the sdk on the window object
       window.biconomySocialLogin = sdk;
