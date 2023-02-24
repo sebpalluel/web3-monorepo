@@ -60,7 +60,7 @@ export function isPreviewOrPRDeployment(): boolean {
   return (
     !!process.env.VERCEL_GIT_COMMIT_SHA ||
     !!process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA ||
-    process.env.VERCEL_GIT_COMMIT_REF?.startsWith('pull/') ||
-    process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF?.startsWith('pull/')
+    !!process.env.VERCEL_GIT_COMMIT_REF?.startsWith('pull/') ||
+    !!process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF?.startsWith('pull/')
   );
 }
