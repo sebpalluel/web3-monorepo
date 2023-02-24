@@ -7,7 +7,7 @@ import { useSession, signIn, signOut, getCsrfToken } from 'next-auth/react';
 import { SiweMessage } from 'siwe';
 import { useNetwork } from 'wagmi';
 import { useBiconomyStore } from '@client/biconomy/store';
-import { getNextAuthURL } from '@client/next-auth/common';
+import { getNextAppURL } from '@client/next-auth/common';
 import styles from './scw.module.css';
 
 const SCW = (req: any, res: any) => {
@@ -64,7 +64,7 @@ const SCW = (req: any, res: any) => {
   const handleBiconomy = useCallback(async () => {
     try {
       if (!window.biconomySocialLogin) {
-        const appUrl = getNextAuthURL();
+        const appUrl = getNextAppURL();
         const signature1 = await sdk.whitelistUrl(appUrl);
         const whitelistUrls: { [P in string]: string } = { [appUrl]: signature1 };
         await sdk.init({

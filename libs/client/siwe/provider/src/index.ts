@@ -1,5 +1,5 @@
 // https://docs.login.xyz/integrations/nextauth.js
-import { getNextAuthURL } from '@client/next-auth/common';
+import { getNextAppURL } from '@client/next-auth/common';
 import { logger } from '@logger';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { getCsrfToken } from 'next-auth/react';
@@ -24,7 +24,7 @@ export const SiweProvider = () =>
       try {
         console.log({ credentials, req });
         const siwe = new SiweMessage(JSON.parse(credentials?.message || '{}'));
-        const nextAuthUrl = new URL(getNextAuthURL());
+        const nextAuthUrl = new URL(getNextAppURL());
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const nonce = await getCsrfToken({ req: req as any });
         const result = await siwe.verify({
