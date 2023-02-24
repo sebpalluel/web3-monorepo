@@ -53,7 +53,9 @@ export function isProd() {
 }
 
 export function isPreviewDeployment(): boolean {
-  return !!process.env.VERCEL_GIT_COMMIT_SHA;
+  return (
+    !!process.env.VERCEL_GIT_COMMIT_SHA || !!process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA
+  );
 }
 
 export function isPreviewOrPRDeployment(): boolean {

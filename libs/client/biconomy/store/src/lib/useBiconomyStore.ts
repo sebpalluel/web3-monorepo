@@ -63,15 +63,16 @@ const store = create<BiconomyState & BiconomyActions>()(
           const smartAccountSdk = new SmartAccount(provider, {
             activeNetworkId: chainId,
             supportedNetworksIds: [chainId],
-            networkConfig: [
-              {
-                chainId,
-                //https://biconomy.gitbook.io/sdk/sdk-reference/sending-transactions/gasless-transactions
-                dappAPIKey: '59fRCMXvk.8a1652f0-b522-4ea7-b296-98628499aee3',
-                // check in the beginning of the page to play around with testnet common keys
-                // customPaymasterAPI: <IPaymaster Instance of your own Paymaster>
-              },
-            ],
+            // TODO provide this when on mainnet
+            // networkConfig: [
+            //   {
+            //     chainId,
+            //     //https://biconomy.gitbook.io/sdk/sdk-reference/sending-transactions/gasless-transactions
+            //     dappAPIKey: process.env.NEXT_APP_MY_API_KEY,
+            //     // check in the beginning of the page to play around with testnet common keys
+            //     // customPaymasterAPI: <IPaymaster Instance of your own Paymaster>
+            //   },
+            // ],
           });
           window.biconomySmartAccount = smartAccountSdk;
           console.log({ smartAccountSdk });
