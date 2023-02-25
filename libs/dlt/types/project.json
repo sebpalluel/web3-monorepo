@@ -1,4 +1,5 @@
 {
+  "name": "dlt-types",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/dlt/types/src",
   "projectType": "library",

@@ -1,5 +1,5 @@
 {
-  "name": "prisma",
+  "name": "server-prisma",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/server/prisma/src",
   "projectType": "library",

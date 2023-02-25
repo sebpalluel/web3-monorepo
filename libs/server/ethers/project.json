@@ -1,5 +1,5 @@
 {
-  "name": "ethers",
+  "name": "server-ethers",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/server/ethers/src",
   "projectType": "library",
