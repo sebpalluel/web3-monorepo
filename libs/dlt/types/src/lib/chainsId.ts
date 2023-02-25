@@ -1,6 +1,44 @@
 // imported from https://chainid.network/chains.json
 // https://github.com/ethereum-lists/chains
-export default [
+
+export type Chain = {
+  name: string;
+  chain: string;
+  status?: string;
+  title?: string;
+  rpc: string[];
+  faucets: string[];
+  nativeCurrency: {
+    name: string;
+    symbol: string;
+    decimals: number;
+  };
+  infoURL: string;
+  shortName: string;
+  chainId: number;
+  networkId: number;
+  icon?: string;
+  explorers?: {
+    name: string;
+    url: string;
+    icon?: string;
+    standard?: string;
+  }[];
+  slip44?: number;
+  parent?: {
+    chain: string;
+    type: string;
+    bridges?: {
+      url: string;
+    }[];
+  };
+  ens?: {
+    registry: string;
+  };
+  redFlags?: string[];
+};
+
+export const chains: Chain[] = [
   {
     name: 'Ethereum Mainnet',
     chain: 'ETH',

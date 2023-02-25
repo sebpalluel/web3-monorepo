@@ -13,7 +13,7 @@ Sentry.init({
   environment: process.env.NODE_ENV,
   debug: false,
   enabled: !!SENTRY_DSN,
-  dsn: SENTRY_DSN,
+  dsn: SENTRY_DSN as string,
   // Adjust this value in production, or use tracesSampler for greater control
   tracesSampleRate: 1.0,
   // ...

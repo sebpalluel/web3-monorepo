@@ -13,9 +13,25 @@
     "isolatedModules": true,
     "incremental": true,
     "composite": true,
-    "types": ["jest", "node"]
+    "types": ["jest", "node"],
+    "strictNullChecks": true,
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules"
+      },
+      {
+        "name": "next"
+      }
+    ]
   },
-  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "types/*.d.ts"],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js",
+    "**/*.jsx",
+    "types/*.d.ts",
+    ".next/types/**/*.ts"
+  ],
   "exclude": [
     "node_modules",
     "jest.config.ts",

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { providers, Signer } from 'ethers';
 import { CoinListResponseItem } from 'coingecko-api-v3';
-import chains from './chainsId';
+import { chains } from './chainsId';
 import { CoinMarket } from 'coingecko-api-v3';
 import { TokenMetadataResponse, TokenBalance } from 'alchemy-sdk';
 // setup env variables

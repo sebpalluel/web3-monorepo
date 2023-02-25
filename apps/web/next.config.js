@@ -22,6 +22,18 @@ const nextConfig = {
         // crypto: require.resolve('crypto-browserify'),
       };
     }
+    // resolve ts issues with nextjs build (bug occured after upgrade to 13.2)
+    config.module.rules.push({
+      test: /\.tsx?$/,
+      exclude: /node_modules/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: ['next/babel'],
+        },
+      },
+    });
+
     return config;
   },
   images: {},
@@ -36,6 +48,7 @@ const nextConfig = {
     // to fix chakra ui error with cancelSync esm import
     esmExternals: false,
     typedRoutes: true,
+    appDir: true,
   },
   //
   sentry: {
