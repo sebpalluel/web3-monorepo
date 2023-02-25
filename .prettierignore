@@ -7,3 +7,4 @@ node_modules
 hasura/app/**
 *lock.json
 *lock.yaml
+.next
