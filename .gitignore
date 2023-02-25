@@ -13,6 +13,7 @@ coverage
 .vercel
 out/
 build
+public
 
 # debug
 npm-debug.log*
