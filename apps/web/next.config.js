@@ -35,6 +35,7 @@ const nextConfig = {
     outputFileTracingRoot: path.join(__dirname, '../../'),
     // to fix chakra ui error with cancelSync esm import
     esmExternals: false,
+    typedRoutes: true,
   },
   //
   sentry: {
