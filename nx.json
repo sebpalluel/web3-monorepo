@@ -30,6 +30,10 @@
         "canTrackAnalytics": true,
         "showUsageWarning": true
       }
+    },
+    "no-cloud": {
+      "runner": "@nrwl/workspace/src/tasks-runner/default-tasks-runner",
+      "options": {}
     }
   },
   "pluginsConfig": {
