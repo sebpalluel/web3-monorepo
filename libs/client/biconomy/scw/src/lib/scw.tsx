@@ -68,7 +68,8 @@ const SCW = (req: any, res: any) => {
       if (!window.biconomySocialLogin) {
         const appUrl = getNextAppURL();
         const signature1 = await sdk.whitelistUrl(appUrl);
-        const whitelistUrls: { [P in string]: string } = { [appUrl]: signature1 };
+        const whitelistUrls: { [P in string]: string } = {};
+        whitelistUrls[appUrl] = signature1;
         await sdk.init({
           chainId: ethers.utils.hexValue(Mumbai),
           whitelistUrls,
