@@ -1,5 +1,5 @@
 {
-  "name": "polygon",
+  "name": "server-polygon",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/server/polygon/src",
   "projectType": "library",

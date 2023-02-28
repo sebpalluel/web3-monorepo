@@ -1,5 +1,5 @@
 {
-  "name": "alchemy",
+  "name": "server-alchemy",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/server/alchemy/src",
   "projectType": "library",

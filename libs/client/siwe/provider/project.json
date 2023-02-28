@@ -1,5 +1,5 @@
 {
-  "name": "client-siwe-provider",
+  "name": "siwe-provider",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/client/siwe/provider/src",
   "projectType": "library",
