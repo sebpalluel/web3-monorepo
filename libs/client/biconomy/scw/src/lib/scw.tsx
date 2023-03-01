@@ -64,17 +64,13 @@ const SCW = (req: any, res: any) => {
   const handleBiconomy = useCallback(async () => {
     try {
       if (!window.biconomySocialLogin) {
-        const signature1 = await sdk.whitelistUrl('https://*.vercel.app');
-        // const appUrl = getNextAppURL();
-        // const signature1 = await sdk.whitelistUrl(appUrl);
-        // const whitelistUrls: { [P in string]: string } = {};
-        // whitelistUrls[appUrl] = signature1;
+        const appUrl = getNextAppURL();
+        const signature1 = await sdk.whitelistUrl(appUrl);
+        const whitelistUrls: { [P in string]: string } = {};
+        whitelistUrls[appUrl] = signature1;
         await sdk.init({
           chainId: ethers.utils.hexValue(Mumbai),
-          // whitelistUrls,
-          whitelistUrls: {
-            'https://*.vercel.app': signature1,
-          },
+          whitelistUrls,
           whteLableData: {
             logo: 'https://user-images.githubusercontent.com/11297176/195363494-6cc53b41-958d-4493-88b3-2cbfc65a2594.png',
             name: 'Web3 Monorepo',

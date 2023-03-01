@@ -13,22 +13,22 @@ import { Suspense } from 'react';
 export function HeaderContent({ session }) {
   // we need to instantiate this component dynamically to avoid SSR,
   // otherwise we get an issue with window and the generated code from biconomy
-  // const SocialLoginDynamic = dynamic(
-  //   () => import('@client/biconomy/scw').then((res) => res.default),
-  //   {
-  //     ssr: false,
-  //   }
-  // );
-  const NaderSocialLogin = dynamic(
-    () => import('@client/biconomy/scw').then((res) => res.Auth),
+  const SocialLoginDynamic = dynamic(
+    () => import('@client/biconomy/scw').then((res) => res.default),
     {
       ssr: false,
     }
   );
+  // const NaderSocialLogin = dynamic(
+  //   () => import('@client/biconomy/scw').then((res) => res.Auth),
+  //   {
+  //     ssr: false,
+  //   }
+  // );
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      {/* <SocialLoginDynamic /> */}
-      <NaderSocialLogin />
+      <SocialLoginDynamic />
+      {/* <NaderSocialLogin /> */}
     </Suspense>
   );
 }

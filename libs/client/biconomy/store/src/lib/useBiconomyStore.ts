@@ -78,8 +78,6 @@ const store = create<BiconomyState & BiconomyActions>()(
             supportedNetworksIds: [chainId],
             networkConfig,
           });
-          window.biconomySmartAccount = smartAccountSdk;
-          console.log({ smartAccountSdk });
           await smartAccountSdk.init();
           const context = smartAccountSdk.getSmartAccountContext();
           const smartAccountAddress = context.baseWallet.getAddress();
