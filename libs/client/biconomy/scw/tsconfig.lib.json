@@ -24,6 +24,7 @@
     "src/**/*.jsx",
     "src/**/*.ts",
     "src/**/*.tsx",
-    "../../../../apps/web/types/window.d.ts"
+    "../../../../apps/web/types/window.d.ts",
+    "../../../../apps/web/types/next-auth.d.ts"
   ]
 }

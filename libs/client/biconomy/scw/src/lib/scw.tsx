@@ -19,6 +19,8 @@ const SCW = (req: any, res: any) => {
   const setupBiconomy = useBiconomyStore.use.setupBiconomy();
   const account = useBiconomyStore.use.account();
   const resetBiconomyStore = useBiconomyStore.use.reset();
+  const [siweLoading, setSiweLoading] = useState(false);
+  const [signoutLoading, setSignoutLoading] = useState(false);
 
   // wrap the initialization of 'sdk' in its own useMemo() to avoid rerender
   const sdk = useMemo(() => new SocialLogin(), []);
@@ -29,6 +31,7 @@ const SCW = (req: any, res: any) => {
     try {
       // here mean waiting for smart account to be setup
       if (!account || !window.biconomySmartAccount) return;
+      setSiweLoading(true);
       const signer = window.biconomySmartAccount.getsigner();
       const message = new SiweMessage({
         domain: window.location.host,
@@ -40,7 +43,7 @@ const SCW = (req: any, res: any) => {
         nonce: await getCsrfToken(),
       });
       const signature = await signer?.signMessage(message.prepareMessage());
-      signIn('credentials', {
+      await signIn('credentials', {
         message: JSON.stringify(message),
         redirect: false,
         signature,
@@ -48,16 +51,25 @@ const SCW = (req: any, res: any) => {
       });
     } catch (error) {
       console.error(error);
+    } finally {
+      setSiweLoading(false);
     }
   }, [account]);
 
   // signout from biconomy and next auth
   const disconnectWeb3 = useCallback(async () => {
-    if (window.biconomySocialLogin?.provider) await window.biconomySocialLogin.logout();
-    window.biconomySocialLogin?.hideWallet();
-    resetBiconomyStore();
-    // signout from next auth
-    signOut({ callbackUrl: '/', redirect: true });
+    try {
+      setSignoutLoading(true);
+      if (window.biconomySocialLogin?.provider) await window.biconomySocialLogin.logout();
+      window.biconomySocialLogin?.hideWallet();
+      resetBiconomyStore();
+      // signout from next auth
+      await signOut({ callbackUrl: '/', redirect: true });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setSignoutLoading(false);
+    }
   }, [resetBiconomyStore]);
 
   //
@@ -126,12 +138,19 @@ const SCW = (req: any, res: any) => {
     };
   }, [account, handleBiconomy]);
 
+  //
+  useEffect(() => {
+    if (session?.error === 'RefreshAccessTokenError') {
+      handleSiwe(); // Force sign in to hopefully resolve error
+    }
+  }, [session]);
+
   if (!session) {
     return (
       <>
         <Text noOfLines={1}>You are not signed in</Text>
         <Button
-          isLoading={smartAccountLoading}
+          isLoading={smartAccountLoading || status === 'loading' || siweLoading}
           loadingText="Signing in..."
           bg={'blue.400'}
           color={'white'}

@@ -9,18 +9,7 @@ import CTASection from '../lib/components/samples/CTASection';
 import SomeImage from '../lib/components/samples/SomeImage';
 import SomeText from '../lib/components/samples/SomeText';
 
-import { signIn, useSession } from 'next-auth/react';
-import { useEffect } from 'react';
-
 export default function Home() {
-  const { data: session } = useSession();
-
-  useEffect(() => {
-    if (session?.error === 'RefreshAccessTokenError') {
-      // TODO: determine how this can work with SIWE.
-      signIn(); // Force sign in to hopefully resolve error
-    }
-  }, [session]);
   return (
     <Box
       display={{ md: 'flex' }}
