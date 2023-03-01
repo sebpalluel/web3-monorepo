@@ -22,8 +22,6 @@ const SCW = (req: any, res: any) => {
 
   // wrap the initialization of 'sdk' in its own useMemo() to avoid rerender
   const sdk = useMemo(() => new SocialLogin(), []);
-  const biconomyClientId = process.env.NEXT_PUBLIC_WEB3_AUTH_CLIENT_ID;
-  if (biconomyClientId) sdk.clientId = biconomyClientId;
   const Mumbai = 80001;
 
   // signin with siwe to provide a JWT through next-auth
