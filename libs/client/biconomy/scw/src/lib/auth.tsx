@@ -31,6 +31,7 @@ export default function Home() {
       const signature1 = await socialLoginSDK.whitelistUrl(appUrl);
       const whitelistUrls: { [P in string]: string } = {};
       whitelistUrls[appUrl] = signature1;
+      console.log('whitelistUrls', whitelistUrls);
 
       await socialLoginSDK.init({
         chainId: ethers.utils.hexValue(ChainId.POLYGON_MAINNET),
