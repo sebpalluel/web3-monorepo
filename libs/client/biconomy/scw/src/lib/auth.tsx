@@ -3,6 +3,7 @@ import SocialLogin from '@biconomy/web3-auth';
 import { ChainId } from '@biconomy/core-types';
 import { ethers } from 'ethers';
 import SmartAccount from '@biconomy/smart-account';
+import { getNextAppURL } from '@client/next-auth/common';
 
 export default function Home() {
   const [smartAccount, setSmartAccount] = useState<SmartAccount | null>(null);
@@ -25,12 +26,18 @@ export default function Home() {
   async function login() {
     if (!sdkRef.current) {
       const socialLoginSDK = new SocialLogin();
-      const signature1 = await socialLoginSDK.whitelistUrl('https://*.vercel.app');
+      const appUrl = getNextAppURL();
+      // const signature1 = await socialLoginSDK.whitelistUrl('https://*.vercel.app');
+      const signature1 = await socialLoginSDK.whitelistUrl(appUrl);
+      const whitelistUrls: { [P in string]: string } = {};
+      whitelistUrls[appUrl] = signature1;
+
       await socialLoginSDK.init({
         chainId: ethers.utils.hexValue(ChainId.POLYGON_MAINNET),
-        whitelistUrls: {
-          'https://*.vercel.app': signature1,
-        },
+        whitelistUrls,
+        // whitelistUrls: {
+        //   'https://*.vercel.app': signature1,
+        // },
       });
       sdkRef.current = socialLoginSDK;
     }
