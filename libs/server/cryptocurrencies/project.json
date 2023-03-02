@@ -1,5 +1,5 @@
 {
-  "name": "server-cryptocurrencies",
+  "name": "cryptocurrencies",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/server/cryptocurrencies/src",
   "projectType": "library",

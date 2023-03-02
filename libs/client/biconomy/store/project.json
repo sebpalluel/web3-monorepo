@@ -1,5 +1,5 @@
 {
-  "name": "client-biconomy-store",
+  "name": "biconomy-store",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/client/biconomy/store/src",
   "projectType": "library",

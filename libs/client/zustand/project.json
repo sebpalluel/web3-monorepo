@@ -1,5 +1,5 @@
 {
-  "name": "client-zustand",
+  "name": "zustand",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/client/zustand/src",
   "projectType": "library",

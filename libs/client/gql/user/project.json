@@ -1,5 +1,5 @@
 {
-  "name": "client-gql-user",
+  "name": "gql-user",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/client/gql/user/src",
   "projectType": "library",

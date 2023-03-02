@@ -1,5 +1,5 @@
 {
-  "name": "client-next-auth-common",
+  "name": "next-auth-common",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/client/next-auth/common/src",
   "projectType": "library",

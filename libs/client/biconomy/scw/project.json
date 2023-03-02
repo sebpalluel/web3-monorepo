@@ -1,5 +1,5 @@
 {
-  "name": "client-biconomy-scw",
+  "name": "biconomy-scw",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/client/biconomy/scw/src",
   "projectType": "library",
