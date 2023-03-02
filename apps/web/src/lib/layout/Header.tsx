@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, useBreakpointValue, Button, Text } from '@chakra-ui/react';
+import { Box, Flex, Heading, useBreakpointValue } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import styles from './header.module.css';
@@ -19,16 +19,9 @@ export function HeaderContent({ session }) {
       ssr: false,
     }
   );
-  // const NaderSocialLogin = dynamic(
-  //   () => import('@client/biconomy/scw').then((res) => res.Auth),
-  //   {
-  //     ssr: false,
-  //   }
-  // );
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <SocialLoginDynamic />
-      {/* <NaderSocialLogin /> */}
     </Suspense>
   );
 }
