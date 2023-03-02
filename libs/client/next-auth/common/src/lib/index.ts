@@ -1,4 +1,4 @@
-import { isProd, isServerSide, isPreviewOrPRDeployment } from '@utils';
+import { isProd, isServerSide } from '@utils';
 
 export function getNextAppURL(): string {
   let vercelURL = '';
@@ -7,7 +7,7 @@ export function getNextAppURL(): string {
       ? `https://${process.env.VERCEL_URL}`
       : `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
   if (isProd()) {
-    if (isPreviewOrPRDeployment()) return vercelURL;
+    if (vercelURL) return vercelURL;
     return isServerSide() ? (process.env.NEXTAUTH_URL as string) : window.location.origin;
   } else {
     return vercelURL || 'http://localhost:3000';
