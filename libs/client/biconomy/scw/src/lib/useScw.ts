@@ -2,15 +2,13 @@ import { useCallback, useEffect, useState, useMemo } from 'react';
 import { ethers } from 'ethers';
 import { ChainId } from '@biconomy/core-types';
 import SocialLogin from '@biconomy/web3-auth';
-import { Box, Flex, Heading, useBreakpointValue, Button, Text } from '@chakra-ui/react';
 import { useSession, signIn, signOut, getCsrfToken } from 'next-auth/react';
 import { SiweMessage } from 'siwe';
 import { useNetwork } from 'wagmi';
 import { useBiconomyStore } from '@client/biconomy/store';
 import { getNextAppURL } from '@client/next-auth/common';
-import styles from './scw.module.css';
 
-const SCW = (req: any, res: any) => {
+const useScw = () => {
   const { chain } = useNetwork();
   const { data: session, status } = useSession();
 
@@ -144,53 +142,14 @@ const SCW = (req: any, res: any) => {
       handleSiwe(); // Force sign in to hopefully resolve error
     }
   }, [session]);
-
-  if (!session) {
-    return (
-      <>
-        <Text noOfLines={1}>You are not signed in</Text>
-        <Button
-          isLoading={smartAccountLoading || status === 'loading' || siweLoading}
-          loadingText="Signing in..."
-          bg={'blue.400'}
-          color={'white'}
-          onClick={connectWeb3}
-          _hover={{
-            bg: 'blue.500',
-          }}
-        >
-          Sign in
-        </Button>
-      </>
-    );
-  }
-  return signoutLoading || !session?.user ? (
-    <>
-      <span className={styles.signedInText}>
-        <small>Signing out...</small>
-      </span>
-      <div style={{ padding: '1.2rem' }}></div>
-    </>
-  ) : (
-    <>
-      {session?.user?.image && (
-        <span
-          style={{ backgroundImage: `url('${session.user.image}')` }}
-          className={styles.avatar}
-        />
-      )}
-      <span className={styles.signedInText}>
-        <small>Signed in as</small>
-        <br />
-        <strong>
-          {session?.user?.email || session?.user?.name || smartAccountAddress}
-        </strong>
-      </span>
-      <a className={styles.button} onClick={disconnectWeb3}>
-        Sign out
-      </a>
-    </>
-  );
+  return {
+    connectWeb3,
+    disconnectWeb3,
+    smartAccountLoading,
+    smartAccountAddress,
+    siweLoading,
+    signoutLoading,
+  };
 };
 
-export default SCW;
+export default useScw;
