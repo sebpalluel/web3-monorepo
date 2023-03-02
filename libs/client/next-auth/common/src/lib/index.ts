@@ -8,7 +8,7 @@ export function getNextAppURL(): string {
       : `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
   if (isProd()) {
     if (isPreviewOrPRDeployment()) return vercelURL;
-    return isServerSide() ? (process.env.NEXTAUTH_URL as string) : vercelURL;
+    return isServerSide() ? (process.env.NEXTAUTH_URL as string) : window.location.origin;
   } else {
     return vercelURL || 'http://localhost:3000';
   }
