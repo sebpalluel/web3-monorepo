@@ -1,7 +1,6 @@
 import { isProd, isServerSide } from '@utils';
 
 export function getNextAppURL(): string {
-  return 'https://www.web3-monorepo.app';
   let vercelURL = '';
   if (process.env.VERCEL_URL || process.env.NEXT_PUBLIC_VERCEL_URL)
     vercelURL = process.env.VERCEL_URL
