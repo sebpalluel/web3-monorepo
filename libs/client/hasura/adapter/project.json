@@ -1,5 +1,5 @@
 {
-  "name": "client-hasura-adapter",
+  "name": "hasura-adapter",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/client/hasura/adapter/src",
   "projectType": "library",

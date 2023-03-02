@@ -1,9 +1,15 @@
-import { isProd } from '@utils';
+import { isProd, isServerSide, isPreviewOrPRDeployment } from '@utils';
 
-export function getNextAuthURL(): string {
+export function getNextAppURL(): string {
+  let vercelURL = '';
+  if (process.env.VERCEL_URL || process.env.NEXT_PUBLIC_VERCEL_URL)
+    vercelURL = process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
   if (isProd()) {
-    return process.env.NEXTAUTH_URL as string;
+    if (isPreviewOrPRDeployment()) return vercelURL;
+    return isServerSide() ? (process.env.NEXTAUTH_URL as string) : vercelURL;
   } else {
-    return process.env.VERCEL_URL || 'http://localhost:3000';
+    return vercelURL || 'http://localhost:3000';
   }
 }

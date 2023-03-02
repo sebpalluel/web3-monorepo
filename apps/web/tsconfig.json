@@ -15,14 +15,7 @@
     "composite": true,
     "types": ["jest", "node"]
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.js",
-    "**/*.jsx",
-    "types/next-env.d.ts",
-    "types/next-auth.d.ts"
-  ],
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "types/*.d.ts"],
   "exclude": [
     "node_modules",
     "jest.config.ts",

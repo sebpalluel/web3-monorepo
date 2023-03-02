@@ -1,5 +1,5 @@
 {
-  "name": "client-gql-thegraph",
+  "name": "gql-thegraph",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/client/gql/thegraph/src",
   "projectType": "library",

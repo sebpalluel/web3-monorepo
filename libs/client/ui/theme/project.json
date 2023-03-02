@@ -1,5 +1,5 @@
 {
-  "name": "client-ui-theme",
+  "name": "ui-theme",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/client/ui/theme/src",
   "projectType": "library",

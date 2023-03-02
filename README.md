@@ -19,13 +19,13 @@
 
 4. Then you can run the project `pnpm start`
 
-5. Make sure to apply the migrations to the prisma db and client once the container is running `pnpm prisma:migrate`
+5. Make sure to apply the migrations to the prisma db and client once the container is running `pnpm prisma-db:dev:start`
 
 ## Project structure
 
 **View in [NX Graph](https://sebpalluel.github.io/web3-monorepo/?groupByFolder=true&select=all)**
 
-[![name](https://user-images.githubusercontent.com/11297176/207392383-8f817b50-d646-4586-870e-d6bf53481577.png)](https://sebpalluel.github.io/web3-monorepo/?groupByFolder=true&select=all)
+[![name](https://user-images.githubusercontent.com/11297176/222414560-055411b5-6e4e-48d3-aa1a-d9f2f7107945.png)](https://sebpalluel.github.io/web3-monorepo/?groupByFolder=true&select=all)
 
 ### Access to the services and app URLs locally
 
@@ -45,43 +45,46 @@ The prisma studio is used to offer an admin interface to the database used by th
 
 This is the mail-catcher where all the mail are going in dev environment.
 
-### Apps and Libs
-
-- `apps/web`: a [Next.js](https://nextjs.org) app
-- `apps/web-e2e`: Cypress e2e test for the web app
-- `apps/storybook-main`: Main Storybook for the whole project (ui/web)
-- `apps/nestjs-server`: a [Nest.js](https://nestjs.com) server app used to extend Hasura functionalities
-- `hasura`: contain the config / metadata / migrations / seeds for the [Hasura](https://hasura.io/) service
-- `prisma`: Prisma database schema and migrations
-- `tools`: Set of tools to to be used for DX (Developer Experience) and testing purposes.
-- `libs/logger`: Isomorphic logger (a small wrapper around console.log)
-- `libs/utils`: Common utils functions and types for the whole project
-- `libs/workspace`: Contain all the generators and tooling dedicated to maintaining the NX workspace.
-- `libs/dlt/types`: contain the typescript types/interfaces related to the DLT (Blockchain) used in the project
-- `libs/client/gql/[user, admin]`: a library containing all the GraphQL queries and mutations and the generated schemas to be used on the web app. It is divided on 3 folders: `user`, `admin` and `anonymous` depending of the role of the user.
-- `libs/client/gql/thegraph`: a library that use [The Graph](https://thegraph.com/en/) protocol in order to query data directly from smart contract on the blockchain.
-- `libs/client/hasura/adapter`: Next-auth adapter for the Hasura service.
-- `libs/client/hasura/fetcher`: Fetcher functions to query the Hasura service.
-- `libs/client/hasura/utils`: Utilities to interact with Hasura.
-- `libs/client/siwe/provider`: Next-auth OpenID Client provider for the rainwbow kit.
-- `libs/client/next-auth/options`: Contain all the configs for [Next-Auth](https://next-auth.js.org/)
-- `libs/client/next-auth/common`: Common functions used in the context of Next-Auth
-- `libs/client/ui/components`: React reusable components library
-- `libs/client/ui/shared`: Functions and assets shared in the context of the UI library
-- `libs/client/ui/theme`: Contains all the specification for the global style and components style
-- `libs/test-utils/db`: All the utilities relating the handling of db operation on the context of testing, for ex: seeding/deleting.
-- `libs/test-utils/functions`: All the utilities functions common to every test runner.
-- `libs/test-utils/gql`: Offer an sdk and different test user clients to be used on test in order to interact with the hasura service.
-- `libs/server/api`: API service to query the external services (ex: CoinGecko api)
-- `libs/server/alchemy`: Low level service to interact with the Alchemy RPC provider
-- `libs/server/arbitrum`: Service to interact with the Arbitrum RPC provider
-- `libs/server/ethereum`: Service to interact with the Ethereum RPC provider
-- `libs/server/polygon`: Service to interact with the Polygon RPC provider
-- `libs/server/ethers`: High level service to interact with EVM compatible blockchains
-- `libs/server/common`: Common functions used in the context of the server
-- `libs/server/cryptocurrencies`: High level service to get data related to cryptocurrencies: price, market cap, etc.
-- `libs/server/prisma`: Low level service to interact with the prisma database
-- `libs/server/task`: High level service for task scheduling, cron jobs, etc.
+| **Apps and Libs**               | **Description**                                                                                                                                                                                                  |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `apps/web`                      | A Next.js app                                                                                                                                                                                                    |
+| `apps/web-e2e`                  | Cypress e2e test for the web app                                                                                                                                                                                 |
+| `apps/storybook-main`           | Main Storybook for the whole project (ui/web)                                                                                                                                                                    |
+| `apps/nestjs-server`            | A Nest.js server app used to extend Hasura functionalities                                                                                                                                                       |
+| `hasura`                        | Contains the config / metadata / migrations / seeds for the Hasura service                                                                                                                                       |
+| `prisma`                        | Prisma database schema and migrations                                                                                                                                                                            |
+| `tools`                         | Set of tools to be used for DX (Developer Experience) and testing purposes                                                                                                                                       |
+| `libs/logger`                   | Isomorphic logger (a small wrapper around console.log)                                                                                                                                                           |
+| `libs/utils`                    | Common utils functions and types for the whole project                                                                                                                                                           |
+| `libs/workspace`                | Contains all the generators and tooling dedicated to maintaining the NX workspace                                                                                                                                |
+| `libs/dlt/types`                | Contains the TypeScript types/interfaces related to the DLT (Blockchain) used in the project                                                                                                                     |
+| `libs/client/zustand`           | Middleware and util code for Zustand stores                                                                                                                                                                      |
+| `libs/client/biconomy/scw`      | Biconomy Smart Contract Wallet library. This contains the logic to set up the Biconomy Smart Contract Wallet with login and logout functions                                                                     |
+| `libs/client/biconomy/store`    | Biconomy Smart Contract Wallet store. A Zustand store to handle the state of the Biconomy Smart Contract Wallet                                                                                                  |
+| `libs/client/gql/[user, admin]` | A library containing all the GraphQL queries and mutations and the generated schemas to be used on the web app. It is divided into 3 folders: `user`, `admin` and `anonymous`, depending on the role of the user |
+| `libs/client/gql/thegraph`      | A library that uses [The Graph](https://thegraph.com/en/) protocol in order to query data directly from smart contracts on the blockchain                                                                        |
+| `libs/client/hasura/adapter`    | Next-auth adapter for the Hasura service                                                                                                                                                                         |
+| `libs/client/hasura/fetcher`    | Fetcher functions to query the Hasura service                                                                                                                                                                    |
+| `libs/client/hasura/utils`      | Utilities to interact with Hasura                                                                                                                                                                                |
+| `libs/client/siwe/provider`     | Next-auth credentials provider for SIWE                                                                                                                                                                          |
+| `libs/client/next-auth/options` | Contains all the configs for [Next-Auth](https://next-auth.js.org/)                                                                                                                                              |
+| `libs/client/next-auth/common`  | Common functions used in the context of Next-Auth                                                                                                                                                                |
+| `libs/client/ui/components`     | React reusable components library                                                                                                                                                                                |
+| `libs/client/ui/shared`         | Functions and assets shared in the context of the UI library                                                                                                                                                     |
+| `libs/client/ui/theme`          | Contains all the specifications for the global style and component style                                                                                                                                         |
+| `libs/test-utils/db`            | All the utilities relating to the handling of db operations in the context of testing, for example: seeding/deleting                                                                                             |
+| `libs/test-utils/functions`     | All the utility functions common to every test runner                                                                                                                                                            |
+| `libs/test-utils/gql`           | Offers an SDK and different test user clients to be used on tests in order to interact with the Hasura service                                                                                                   |
+| `libs/server/api`               | API service to query external services (for example: CoinGecko API)                                                                                                                                              |
+| `libs/server/alchemy`           | Low-level service to interact with the Alchemy RPC provider                                                                                                                                                      |
+| `libs/server/arbitrum`          | Service to interact with the Arbitrum RPC provider                                                                                                                                                               |
+| `libs/server/ethereum`          | Service to interact with the Ethereum RPC provider                                                                                                                                                               |
+| `libs/server/polygon`           | Service to interact with the Polygon RPC provider                                                                                                                                                                |
+| `libs/server/ethers`            | High-level service to interact with EVM compatible blockchains                                                                                                                                                   |
+| `libs/server/common`            | Common functions used in the context of the server                                                                                                                                                               |
+| `libs/server/cryptocurrencies`  | High-level service to get data related to cryptocurrencies: price, market cap, etc.                                                                                                                              |
+| `libs/server/prisma`            | Low-level service to interact with the Prisma database                                                                                                                                                           |
+| `libs/server/task`              | High-level service for task scheduling, cron jobs, etc.                                                                                                                                                          |
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
@@ -193,12 +196,19 @@ You can find the different providers used by next-auth in `libs/client/next-auth
 
 Hasura is used as an adapter to next-auth in order to persist in a database the user's provided information such as their `id`. The adapter is located in `libs/client/hasura/adapter`.
 
-### Rainbowkit
+<!-- TODO replace with Biconomy + SIWE mention -->
 
-<p align="center"><img src="https://user-images.githubusercontent.com/11297176/207391905-d88c264c-38ac-48fe-8ac9-2052b729fad8.png" width="10%"></p>
+### Biconomy
 
-This project use [Rainbowkit](https://www.rainbowkit.com/) to offer a set of components and hooks to easily build a web3 application.
-Following the specs of SIWE (Sign In With Ethereum), it offers a way to authenticate in next-auth through the signature of a message with a given wallet.
+<p align="center"><img src="https://user-images.githubusercontent.com/11297176/222410480-7d37d072-5a44-4bba-9a63-e997e8ada96c.png" width="18%"></p>
+
+This project leverages the capabilities of [Biconomy](https://www.biconomy.io/), a blockchain middleware platform that simplifies the user experience of your web3 service by offering features such as gasless transactions and smart contract wallets. With Biconomy, users can interact with dApps without worrying about the complexity of the underlying blockchain network.
+
+To streamline the authentication process, Biconomy integrates with the Web3Auth protocol, providing a standardized way for users to authenticate themselves to dApps using their Ethereum wallets. Additionally, Biconomy's middleware layer can be used to simplify the integration of Web3Auth into dApps, allowing for secure and reliable access to Web3 wallets.
+
+While Biconomy itself does not offer a Social Login feature, Web3Auth supports this functionality by allowing users to authenticate themselves using their preferred social media accounts, such as Google or Facebook, in addition to their Ethereum wallets. For more information about Web3Auth, please visit the [Web3Auth website](https://web3auth.io/).
+
+<!--  -->
 
 ### GraphQL code generator
 

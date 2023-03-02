@@ -1,4 +1,5 @@
 {
+  "name": "test-utils-gql",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/test-utils/gql/src",
   "projectType": "library",

@@ -9,7 +9,7 @@ import { Roles } from '@client/hasura/utils';
 import { isProd } from '@utils';
 import { logger } from '@logger';
 import { Provider } from 'next-auth/providers';
-import { getNextAuthURL } from '@client/next-auth/common';
+import { getNextAppURL } from '@client/next-auth/common';
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
@@ -40,9 +40,9 @@ export const jwtOptions: JWTOptions = {
 export const providers: Array<Provider> = [SiweProvider()];
 
 // Authorize cookie for hasura app https://github.com/nextauthjs/next-auth/issues/405#issuecomment-737593528
-const useSecureCookies = getNextAuthURL().startsWith('https://');
+const useSecureCookies = getNextAppURL().startsWith('https://');
 const cookiePrefix = useSecureCookies ? '__Secure-' : '';
-const hostName = new URL(getNextAuthURL()).hostname;
+const hostName = new URL(getNextAppURL()).hostname;
 
 export const authOptions: NextAuthOptions = {
   cookies: {
@@ -55,7 +55,9 @@ export const authOptions: NextAuthOptions = {
         secure: useSecureCookies,
         // authorize cookie for subdomain, inc. hasura app (strip www. from hostName)
         domain:
-          hostName === 'localhost' ? hostName : '.' + hostName.replace(/^www\./, ''),
+          hostName === 'localhost' || !hostName
+            ? hostName
+            : '.' + hostName.replace(/^www\./, ''),
       },
     },
   },
@@ -67,7 +69,9 @@ export const authOptions: NextAuthOptions = {
   providers,
   adapter: adapter(),
   pages: {
-    signIn: '/auth/signin',
+    signIn: undefined,
+    signOut: undefined,
+    newUser: undefined,
     // signOut: '/auth/signout',
     // error: '/auth/error', // Error code passed in query string as ?error=
     // verifyRequest: '/auth/verify-request', // (used for check email message)

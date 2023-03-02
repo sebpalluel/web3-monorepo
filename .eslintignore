@@ -7,3 +7,4 @@ generated
 *lock.yaml
 .babelrc
 hasura/app/**
+.next

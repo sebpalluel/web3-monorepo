@@ -1,0 +1,119 @@
+/* Set min-height to avoid page reflow while session loading */
+.signedInStatus {
+  display: block;
+  min-height: 4rem;
+  width: 100%;
+}
+
+.loading,
+.loaded {
+  position: relative;
+  top: 0;
+  opacity: 1;
+  overflow: hidden;
+  border-radius: 0 0 0.6rem 0.6rem;
+  padding: 0.6rem 1rem;
+  margin: 0;
+  background-color: rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease-in;
+}
+
+.loading {
+  top: -2rem;
+  opacity: 0;
+}
+
+.signedInText,
+.notSignedInText {
+  position: absolute;
+  padding-top: 0.8rem;
+  left: 1rem;
+  right: 6.5rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: inherit;
+  z-index: 1;
+  line-height: 1.3rem;
+}
+
+.signedInText {
+  padding-top: 0rem;
+  left: 4.6rem;
+}
+
+.avatar {
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0;
+}
+
+.emoji {
+  font-size: 1.5rem;
+  text-align: center;
+  line-height: 1;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.avatarContainer {
+  margin-right: 1rem;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.button,
+.buttonPrimary {
+  float: right;
+  margin-right: -0.4rem;
+  font-weight: 500;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1.4rem;
+  padding: 0.7rem 0.8rem;
+  position: relative;
+  z-index: 10;
+  background-color: transparent;
+  color: #555;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.avatarContainer {
+  margin-right: 1rem;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-grow: 1;
+}
+
+.signedInText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.displayName {
+  max-width: 200px; /* adjust as needed */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

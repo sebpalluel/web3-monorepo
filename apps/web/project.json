@@ -1,4 +1,5 @@
 {
+  "name": "web",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/web",
   "projectType": "application",
@@ -25,7 +26,9 @@
         "test": {
           "outputPath": "tmp/apps/web-test"
         },
-        "production": { "outputPath": "dist/apps/web" }
+        "production": {
+          "outputPath": "dist/apps/web"
+        }
       }
     },
     "serve": {
@@ -105,10 +108,8 @@
       "options": {
         "uiFramework": "@storybook/react",
         "port": 4401,
-        "config": {
-          "configFolder": "apps/web/.storybook"
-        },
-        "quiet": true
+        "quiet": true,
+        "configDir": "apps/web/.storybook"
       },
       "configurations": {
         "ci": {
@@ -118,13 +119,11 @@
     },
     "build-storybook": {
       "executor": "@nrwl/storybook:build",
-      "outputs": ["{options.outputPath}"],
+      "outputs": ["{options.outputDir}"],
       "options": {
         "uiFramework": "@storybook/react",
-        "outputPath": "dist/storybook/web",
-        "config": {
-          "configFolder": "apps/web/.storybook"
-        }
+        "configDir": "apps/web/.storybook",
+        "outputDir": "dist/storybook/web"
       },
       "configurations": {
         "ci": {
