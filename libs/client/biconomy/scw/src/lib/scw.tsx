@@ -164,7 +164,14 @@ const SCW = (req: any, res: any) => {
       </>
     );
   }
-  return (
+  return signoutLoading || !session?.user ? (
+    <>
+      <span className={styles.signedInText}>
+        <small>Signing out...</small>
+      </span>
+      <div style={{ padding: '1.2rem' }}></div>
+    </>
+  ) : (
     <>
       {session?.user?.image && (
         <span
