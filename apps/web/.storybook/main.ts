@@ -1,39 +1,20 @@
-import { rootMain } from '../../../.storybook/main';
-import type { StorybookConfig, Options } from '@storybook/core-common';
-import path from 'path';
+import type { StorybookConfig } from '@storybook/nextjs';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const path = require('path');
 
 const config: StorybookConfig = {
-  ...rootMain,
-
-  core: { ...rootMain.core, builder: 'webpack5' },
-
-  stories: [
-    ...rootMain.stories,
-    '../src/**/*.stories.mdx',
-    '../src/**/*.stories.@(js|jsx|ts|tsx)',
-  ],
+  stories: ['../src/**/*.stories.mdx'],
   addons: [
-    ...(rootMain.addons || []),
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
     '@nrwl/react/plugins/storybook',
-
-    'storybook-addon-swc',
-    {
-      name: 'storybook-addon-next',
-      options: {
-        nextConfigPath: path.resolve(__dirname, '../next.config.js'),
-      },
-    },
   ],
-  webpackFinal: async (config, { configType }: Options) => {
-    // apply any global webpack configs that might have been specified in .storybook/main.ts
-    if (rootMain.webpackFinal) {
-      config = await rootMain.webpackFinal(config, { configType } as Options);
-    }
-
-    // add your own webpack tweaks if needed
-
-    return config;
+  framework: {
+    name: '@storybook/nextjs',
+    options: {
+      nextConfigPath: path.resolve(__dirname, '../next.config.js'),
+    },
   },
 };
 
-module.exports = config;
+export default config;
