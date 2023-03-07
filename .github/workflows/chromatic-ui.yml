@@ -1,4 +1,4 @@
-name: 'Chromatic'
+name: 'Chromatic UI'
 
 on:
   pull_request:

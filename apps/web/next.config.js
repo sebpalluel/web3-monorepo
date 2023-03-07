@@ -11,7 +11,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   compiler: {
-    removeConsole: process.env.NODE_ENV !== 'development',
+    removeConsole: process.env.NODE_ENV === 'production',
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
