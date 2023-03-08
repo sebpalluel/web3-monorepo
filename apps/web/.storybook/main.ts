@@ -1,8 +1,11 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+import path from 'path';
 
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const tsconfig = require('../../../tsconfig.base.json');
-import path from 'path';
+
+const isCI = !!process.env.GITHUB_EVENT_NAME; // Check if running in CI
+
 module.exports = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
@@ -15,6 +18,9 @@ module.exports = {
     options: {
       nextConfigPath: path.resolve(__dirname, '../next.config.js'),
     },
+  },
+  features: {
+    storyStoreV7: !isCI,
   },
   docs: {
     autodocs: 'tag',
