@@ -55,7 +55,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - name: Install dependencies and build storybook
+      - name: Install dependencies
         run: pnpm install && pnpm build-storybook
 
       - name: Publish to Chromatic
@@ -63,6 +63,5 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           projectToken: ${{ secrets.CHROMATIC_WEB_PROJECT_TOKEN }}
-          storybookBuildDir: dist/storybook/web
           exitZeroOnChanges: true
           onlyChanged: true
