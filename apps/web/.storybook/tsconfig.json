@@ -21,6 +21,7 @@
     "../src/**/*.jsx",
     "../src/**/*.tsx",
     "../src/**/*.mdx",
-    "preview.tsx"
+    "*.ts",
+    "*.js"
   ]
 }

@@ -1,7 +1,7 @@
-// import theme from '@client/ui/theme';
+import theme from '@client/ui/theme';
 
 export const parameters = {
   chakra: {
-    // theme,
+    theme,
   },
 };
