@@ -56,7 +56,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm install && pnpm build-storybook
+        run: pnpm install
 
       - name: Publish to Chromatic
         uses: chromaui/action@v1
@@ -65,3 +65,4 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_WEB_PROJECT_TOKEN }}
           exitZeroOnChanges: true
           onlyChanged: true
+          buildScriptName: build-storybook:web
