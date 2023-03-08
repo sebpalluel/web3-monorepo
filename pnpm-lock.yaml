@@ -69,11 +69,13 @@ specifiers:
   '@storybook/addon-essentials': 7.0.0-beta.62
   '@storybook/addon-interactions': 7.0.0-beta.62
   '@storybook/addon-mdx-gfm': 7.0.0-beta.62
+  '@storybook/builder-webpack5': 7.0.0-beta.62
   '@storybook/core-common': 7.0.0-beta.62
   '@storybook/core-server': 7.0.0-beta.62
   '@storybook/jest': 0.0.11-next.0
   '@storybook/nextjs': 7.0.0-beta.62
   '@storybook/react': 7.0.0-beta.62
+  '@storybook/react-webpack5': ~7.0.0-beta.62
   '@storybook/test-runner': 0.10.0-next.10
   '@storybook/testing-library': 0.0.14-next.1
   '@storybook/testing-react': 2.0.0-next.0
@@ -320,11 +322,13 @@ devDependencies:
   '@storybook/addon-essentials': 7.0.0-beta.62_biqbaboplfbrettd7655fr4n2y
   '@storybook/addon-interactions': 7.0.0-beta.62_biqbaboplfbrettd7655fr4n2y
   '@storybook/addon-mdx-gfm': 7.0.0-beta.62
+  '@storybook/builder-webpack5': 7.0.0-beta.62_dvfovm5i4putpfx6rfdzmvcdry
   '@storybook/core-common': 7.0.0-beta.62
   '@storybook/core-server': 7.0.0-beta.62
   '@storybook/jest': 0.0.11-next.0
   '@storybook/nextjs': 7.0.0-beta.62_ad7bi2oh4744bqltukaksyhsqa
   '@storybook/react': 7.0.0-beta.62_ygqkwb4gg3aean7xjfdauovyqq
+  '@storybook/react-webpack5': 7.0.0-beta.62_sow4agc5jhuotavxt2lnhllji4
   '@storybook/test-runner': 0.10.0-next.10_odkjkoia5xunhxkdrka32ib6vi
   '@storybook/testing-library': 0.0.14-next.1
   '@storybook/testing-react': 2.0.0-next.0_pltypowtbtl5u2s52pvuywshia
@@ -9726,6 +9730,43 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     dev: true
 
+  /@storybook/react-webpack5/7.0.0-beta.62_sow4agc5jhuotavxt2lnhllji4:
+    resolution: {integrity: sha512-1jG7ipcbppK+kVaP9OL7qQxUE3BVHhG8VCogpxIYxCHYSeH4jyjT3PQliXfAiKyS50vHrZIXXQgCqmpio/ZbTA==}
+    engines: {node: '>=16.0.0'}
+    peerDependencies:
+      '@babel/core': ^7.11.5
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+      typescript: '*'
+    peerDependenciesMeta:
+      '@babel/core':
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      '@babel/core': 7.21.0
+      '@storybook/builder-webpack5': 7.0.0-beta.62_dvfovm5i4putpfx6rfdzmvcdry
+      '@storybook/preset-react-webpack': 7.0.0-beta.62_sow4agc5jhuotavxt2lnhllji4
+      '@storybook/react': 7.0.0-beta.62_ygqkwb4gg3aean7xjfdauovyqq
+      '@types/node': 16.18.14
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      typescript: 4.9.5
+    transitivePeerDependencies:
+      - '@swc/core'
+      - '@types/webpack'
+      - esbuild
+      - sockjs-client
+      - supports-color
+      - type-fest
+      - uglify-js
+      - vue-template-compiler
+      - webpack-cli
+      - webpack-dev-server
+      - webpack-hot-middleware
+      - webpack-plugin-serve
+    dev: true
+
   /@storybook/react/7.0.0-beta.62_ygqkwb4gg3aean7xjfdauovyqq:
     resolution: {integrity: sha512-JWRomk5ajaA9jhEeiYCM0lmDwWqrG9ctNmijaQTJ7o9USBchdqDqyAje9P8NBMyGybwi1ab1/Ql4GlMAam1Rog==}
     engines: {node: '>=16.0.0'}
@@ -10912,13 +10953,13 @@ packages:
     resolution: {integrity: sha512-9K4zoImiZc3HlIp6AVUDE4CWYx22a+lhSZMYNpbjW04+YF0KWj4pJXnEMjdnFTiQibFFmElcsasJXDbdI/EPhA==}
     dependencies:
       '@types/eslint': 8.21.1
-      '@types/estree': 0.0.51
+      '@types/estree': 1.0.0
     dev: true
 
   /@types/eslint/8.21.1:
     resolution: {integrity: sha512-rc9K8ZpVjNcLs8Fp0dkozd5Pt2Apk1glO4Vgz8ix1u6yFByxfqo5Yavpy65o+93TAe24jr7v+eSBtFLvOQtCRQ==}
     dependencies:
-      '@types/estree': 0.0.51
+      '@types/estree': 1.0.0
       '@types/json-schema': 7.0.11
     dev: true
 
@@ -12536,7 +12577,7 @@ packages:
       ajv:
         optional: true
     dependencies:
-      ajv: 8.11.0
+      ajv: 8.12.0
     dev: true
 
   /ajv-keywords/3.5.2_ajv@6.12.6:
@@ -21996,6 +22037,7 @@ packages:
   /make-dir/2.1.0:
     resolution: {integrity: sha512-LS9X+dc8KLxXCb8dni79fLIIUA5VyZoyjSMCwTluaXA0o27cCK0bhXkpgw+sTXVpPy/lSO57ilRixqk0vDmtRA==}
     engines: {node: '>=6'}
+    requiresBuild: true
     dependencies:
       pify: 4.0.1
       semver: 5.7.1
