@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const tsconfig = require('../../../tsconfig.base.json');
 import path from 'path';
-
 module.exports = {
-  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
@@ -27,7 +27,6 @@ module.exports = {
         configFile: path.resolve(__dirname, '../../../tsconfig.base.json'),
       }),
     ];
-
     // Add aliases from tsconfig.base.json to the resolve.alias object
     if (tsconfig.compilerOptions && tsconfig.compilerOptions.paths) {
       const aliases = tsconfig.compilerOptions.paths;
@@ -37,7 +36,6 @@ module.exports = {
           paths.length > 1 ? paths : paths[0];
       }
     }
-
     return config;
   },
 };
