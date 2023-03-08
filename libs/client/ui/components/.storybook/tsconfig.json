@@ -16,13 +16,11 @@
     "../**/*.spec.jsx"
   ],
   "include": [
-    "../src/**/*.stories.ts",
-    "../src/**/*.stories.js",
-    "../src/**/*.stories.jsx",
-    "../src/**/*.stories.tsx",
-    "../src/**/*.stories.mdx",
-    "*.ts",
-    "*.js",
+    "../components/**/*.ts",
+    "../components/**/*.js",
+    "../components/**/*.jsx",
+    "../components/**/*.tsx",
+    "../components/**/*.mdx",
     "preview.tsx"
   ]
 }

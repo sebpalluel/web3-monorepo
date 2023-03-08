@@ -49,7 +49,6 @@ This is the mail-catcher where all the mail are going in dev environment.
 | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `apps/web`                      | A Next.js app                                                                                                                                                                                                    |
 | `apps/web-e2e`                  | Cypress e2e test for the web app                                                                                                                                                                                 |
-| `apps/storybook-main`           | Main Storybook for the whole project (ui/web)                                                                                                                                                                    |
 | `apps/nestjs-server`            | A Nest.js server app used to extend Hasura functionalities                                                                                                                                                       |
 | `hasura`                        | Contains the config / metadata / migrations / seeds for the Hasura service                                                                                                                                       |
 | `prisma`                        | Prisma database schema and migrations                                                                                                                                                                            |
@@ -157,7 +156,7 @@ The [Nest.js](https://nestjs.com/) framework is used to extend the Hasura functi
 <p align="center"><img src="https://user-images.githubusercontent.com/11297176/198039106-fa335322-4416-4f3f-967c-f6c663963ab2.png" width="35%"></p>
 
 You can [**find the Storybook for this project here**](https://63511cd2e1271125e3654edf-szwfakvhbw.chromatic.com/)
-Stories are defined on the `libs/ui/components`. We use [interaction testing](https://storybook.js.org/docs/react/writing-tests/interaction-testing) with the storybook version of jest and testing library in order to provide dynamic demonstration of the usage of individual components along with testing.
+Stories are defined on the `libs/ui/components` and `apps/web`. We use [interaction testing](https://storybook.js.org/docs/react/writing-tests/interaction-testing) with the storybook version of jest and testing library in order to provide dynamic demonstration of the usage of individual components along with testing.
 Aditionnaly, the service [chromatic](https://www.chromatic.com) is launched on the CI in order to spot and approve/decline UI changes.
 
 To create a new component, you can use the custom nx generator provided on this project `@workspace - component` provided from the `libs/workspace`. It will create the boilerplate code for the react component, the stories file and the jest spec file.

@@ -1,17 +1,13 @@
-name: 'Chromatic'
+name: 'Chromatic UI'
 
 on:
   pull_request:
     paths:
       - libs/client/ui/**
-      - apps/web/**
-      - apps/storybook-main/**
   push:
     branches: ['main']
     paths:
       - libs/client/ui/**
-      - apps/web/**
-      - apps/storybook-main/**
   workflow_dispatch:
 
 concurrency:
@@ -57,11 +53,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - name: Install dependencies
-        run: pnpm install
+      - name: Install dependencies and build storybook
+        run: pnpm install && pnpm nx run ui-components:build-storybook
 
       - name: Publish to Chromatic
         uses: chromaui/action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          projectToken: ${{ secrets.CHROMATIC_UI_PROJECT_TOKEN }}
+          storybookBuildDir: dist/storybook/ui-components
+          exitZeroOnChanges: true
+          onlyChanged: true
