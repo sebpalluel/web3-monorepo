@@ -39,7 +39,8 @@
       "options": {
         "uiFramework": "@storybook/react",
         "configDir": "libs/client/ui/components/.storybook",
-        "outputDir": "dist/storybook/ui-components"
+        "outputDir": "dist/storybook/ui-components",
+        "webpackStatsJson": true
       },
       "configurations": {
         "ci": {
