@@ -26,8 +26,9 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Set up environment and cache dependencies
-        uses: ./.github/actions/setup-environment
+        uses: sebpalluel/ci/.github/actions/setup-environment@latest
       - name: generate nx graph
         run: pnpm nx-graph-static
       - name: Setup Nx Graph Page

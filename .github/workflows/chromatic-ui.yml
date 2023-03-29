@@ -15,12 +15,12 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  setup-environment:
-    needs: setup-environment
-    uses: sebpalluel/web3-monorepo/.github/workflows/setup-environment.yml@main
   chromatic-deployment:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+      - name: Set up environment and cache dependencies
+        uses: sebpalluel/ci/.github/actions/setup-environment@latest
       - name: Install Libvips
         run: sudo apt-get update && sudo apt-get install -y libvips-dev
       - name: Publish to Chromatic
