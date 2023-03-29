@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState, useMemo } from 'react';
 import { ethers } from 'ethers';
-import { ChainId } from '@biconomy/core-types';
-import SocialLogin from '@biconomy/web3-auth';
+import { ChainId } from '@biconomy-sdk-dev/core-types';
+import SocialLogin from '@biconomy-sdk-dev/web3-auth';
 import { useSession, signIn, signOut, getCsrfToken } from 'next-auth/react';
 import { SiweMessage } from 'siwe';
 import { useNetwork } from 'wagmi';

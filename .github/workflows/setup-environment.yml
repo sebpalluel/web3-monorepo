@@ -23,7 +23,7 @@ jobs:
         name: Install pnpm
         id: pnpm-install
         with:
-          version: 'latest'
+          version: 7
           run_install: false
 
       - name: Get pnpm cache directory path

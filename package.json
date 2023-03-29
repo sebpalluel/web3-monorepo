@@ -55,9 +55,9 @@
   "private": true,
   "dependencies": {
     "@babel/core": "^7.21.0",
-    "@biconomy/core-types": "^1.0.0",
-    "@biconomy/smart-account": "1.0.0",
-    "@biconomy/web3-auth": "^1.0.0",
+    "@biconomy-sdk-dev/core-types": "^1.0.0",
+    "@biconomy-sdk-dev/smart-account": "^1.0.0",
+    "@biconomy-sdk-dev/web3-auth": "^1.0.0",
     "@chakra-ui/icons": "^2.0.17",
     "@chakra-ui/react": "^2.5.1",
     "@chakra-ui/theme-tools": "^2.0.16",

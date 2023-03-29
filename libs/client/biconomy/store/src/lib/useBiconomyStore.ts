@@ -3,8 +3,8 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import { createSelectors } from '@client/zustand';
 
 import { ethers } from 'ethers';
-import SmartAccount from '@biconomy/smart-account';
-import { ChainId } from '@biconomy/core-types';
+import SmartAccount from '@biconomy-sdk-dev/smart-account';
+import { ChainId } from '@biconomy-sdk-dev/core-types';
 import { ExternalProvider } from '@ethersproject/providers';
 
 interface BiconomyState {

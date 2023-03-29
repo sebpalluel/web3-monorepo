@@ -2,7 +2,7 @@ import { Box, Flex, Heading, useBreakpointValue } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import styles from './header.module.css';
-import '@biconomy/web3-auth/dist/src/style.css';
+import '@biconomy-sdk-dev/web3-auth/dist/src/style.css';
 
 import ThemeToggle from './ThemeToggle';
 
