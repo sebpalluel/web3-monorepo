@@ -20,6 +20,7 @@ jobs:
   setup-environment:
     uses: sebpalluel/web3-monorepo/.github/workflows/setup-environment.yml@main
   chromatic-deployment:
+    needs: setup-environment
     runs-on: ubuntu-latest
     steps:
       - name: Install Libvips

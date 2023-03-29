@@ -16,6 +16,7 @@ concurrency:
 
 jobs:
   setup-environment:
+    needs: setup-environment
     uses: sebpalluel/web3-monorepo/.github/workflows/setup-environment.yml@main
   chromatic-deployment:
     runs-on: ubuntu-latest

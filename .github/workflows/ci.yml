@@ -17,6 +17,7 @@ jobs:
   setup-environment:
     uses: sebpalluel/web3-monorepo/.github/workflows/setup-environment.yml@main
   main:
+    needs: setup-environment
     name: Nx Cloud - Main Job
     uses: sebpalluel/ci/.github/workflows/nx-cloud-main.yml@latest
     secrets:
@@ -48,6 +49,7 @@ jobs:
         pnpm affected:build --parallel=3 &
         pnpm nx affected --target=test --parallel=3 --ci --code-coverage &
   agents:
+    needs: setup-environment
     name: Nx Cloud - Agents
     uses: sebpalluel/ci/.github/workflows/nx-cloud-agents.yml@latest
     secrets:
