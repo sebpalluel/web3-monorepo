@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up environment and cache dependencies
-        uses: ./.github/workflows/setup-environment.yml
+        uses: ./.github/actions/setup-environment
       - name: generate nx graph
         run: pnpm nx-graph-static
       - name: Setup Nx Graph Page

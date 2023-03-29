@@ -1,0 +1,53 @@
+name: 'Setup Environment'
+description: 'Sets up the environment for the project'
+
+inputs: {}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    - uses: pnpm/action-setup@v2
+      name: Install pnpm
+      id: pnpm-install
+      with:
+        version: 7
+        run_install: false
+
+    - name: Get pnpm store directory
+      id: pnpm-cache
+      shell: bash
+      run: |
+        echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+    - uses: actions/cache@v3
+      name: Setup pnpm cache
+      id: cache-node-modules
+      with:
+        path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-store-
+
+    - name: Cache Cypress binary
+      uses: actions/cache@v3
+      id: cache-cypress-binary
+      with:
+        path: ~/.cache/Cypress
+        key: cypress-${{ runner.os }}-cypress-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          cypress-${{ runner.os }}-cypress-
+
+    - name: Install dependencies
+      run: pnpm install
+
+    - name: Install Cypress binary if no cache hit
+      if: steps.cache-cypress-binary.outputs.cache-hit != 'true'
+      run: pnpm cypress install
