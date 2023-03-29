@@ -1,24 +1,11 @@
-# https://github.com/pnpm/action-setup#use-cache-to-reduce-installation-time
-
-name: Install and cache dependencies
+name: Setup Environment
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
-  cancel-in-progress: true
-
-env:
-  CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
+  workflow_call:
 
 jobs:
-  cache-and-install:
+  setup:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -26,14 +13,23 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
+
+      - name: Get Node.js version
+        id: node-version
+        run: echo "::set-output name=version::$(node --version)"
 
       - uses: pnpm/action-setup@v2
         name: Install pnpm
         id: pnpm-install
         with:
-          version: 7
+          version: 'latest'
           run_install: false
+
+      - name: Get pnpm cache directory path
+        if: steps.package_manager.outputs.name == 'pnpm'
+        id: pnpm-cache-dir-path
+        run: echo "dir=$(pnpm store path)" >> $GITHUB_OUTPUT
 
       - name: Get pnpm store directory
         id: pnpm-cache
@@ -41,14 +37,15 @@ jobs:
         run: |
           echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
-      - uses: actions/cache@v3
-        name: Setup pnpm cache
-        id: cache-node-modules
+      - name: Use the node_modules cache if available [pnpm]
+        id: cache-node-modules-pnpm
+        if: steps.package_manager.outputs.name == 'pnpm'
+        uses: actions/cache@v3
         with:
-          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: ${{ steps.pnpm-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ steps.versions.outputs.node_version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+            ${{ runner.os }}-node-${{ steps.versions.outputs.node_version }}-
 
       # we use the exact restore key to avoid Cypress binary snowballing
       # https://glebbahmutov.com/blog/do-not-let-cypress-cache-snowball/
@@ -58,9 +55,9 @@ jobs:
         id: cache-cypress-binary
         with:
           path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-cypress-${{ github.ref }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: cypress-${{ runner.os }}-cypress-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            cypress-${{ runner.os }}-cypress-${{ github.ref }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+            cypress-${{ runner.os }}-cypress-
 
       - name: Install dependencies
         run: pnpm install
