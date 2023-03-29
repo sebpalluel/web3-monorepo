@@ -20,15 +20,14 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  setup-environment:
-    uses: sebpalluel/web3-monorepo/.github/workflows/setup-environment.yml@main
   generate-static-site:
-    needs: setup-environment
     environment:
       name: NX Graph Page
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+      - name: Set up environment and cache dependencies
+        uses: ./.github/workflows/setup-environment.yml
       - name: generate nx graph
         run: pnpm nx-graph-static
       - name: Setup Nx Graph Page

@@ -14,22 +14,21 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  setup-environment:
-    uses: sebpalluel/web3-monorepo/.github/workflows/setup-environment.yml@main
   main:
-    needs: setup-environment
     name: Nx Cloud - Main Job
     uses: sebpalluel/ci/.github/workflows/nx-cloud-main.yml@latest
     secrets:
       ENV_FILE: ${{ secrets.ENV_FILE }}
     with:
-      runs-on: ubuntu-22.04
+      runs-on: ubuntu-latest
       artifacts-path: |
         dist/cypress
       artifacts-name: cypress
       environment-variables: |
         CYPRESS_CACHE_FOLDER=~/.cache/Cypress
       cypress_cache_path: ~/.cache/Cypress
+      node-version: 18
+      pnpm-version: 7
       environment: staging
       init-commands: |
         pnpm exec nx-cloud record -- pnpm docker:test & pnpm docker:services
@@ -49,14 +48,15 @@ jobs:
         pnpm affected:build --parallel=3 &
         pnpm nx affected --target=test --parallel=3 --ci --code-coverage &
   agents:
-    needs: setup-environment
     name: Nx Cloud - Agents
     uses: sebpalluel/ci/.github/workflows/nx-cloud-agents.yml@latest
     secrets:
       ENV_FILE: ${{ secrets.ENV_FILE }}
     with:
-      runs-on: ubuntu-22.04
+      runs-on: ubuntu-latest
       environment: staging
+      node-version: 18
+      pnpm-version: 7
       number-of-agents: 3
       init-commands: |
         pnpm prisma generate
